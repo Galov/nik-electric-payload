@@ -14,10 +14,10 @@ export default async function ForgotPasswordPage() {
 }
 
 export const metadata: Metadata = {
-  description: 'Enter your email address to recover your password.',
+  description: 'Въведете имейла си, за да възстановите паролата.',
   openGraph: mergeOpenGraph({
-    title: 'Forgot Password',
+    title: 'Забравена парола',
     url: '/forgot-password',
   }),
-  title: 'Forgot Password',
+  title: 'Забравена парола',
 }

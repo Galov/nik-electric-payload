@@ -2,8 +2,8 @@ import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
-import { publicAccess } from '@/access/publicAccess'
 import { adminOrSelf } from '@/access/adminOrSelf'
+import { publicAccess } from '@/access/publicAccess'
 import { checkRole } from '@/access/utilities'
 
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
@@ -19,9 +19,13 @@ export const Users: CollectionConfig = {
     update: adminOrSelf,
   },
   admin: {
-    group: 'Users',
+    group: 'Потребители',
     defaultColumns: ['name', 'email', 'roles'],
     useAsTitle: 'name',
+  },
+  labels: {
+    plural: 'Потребители',
+    singular: 'Потребител',
   },
   auth: {
     tokenExpiration: 1209600,
@@ -29,10 +33,12 @@ export const Users: CollectionConfig = {
   fields: [
     {
       name: 'name',
+      label: 'Име',
       type: 'text',
     },
     {
       name: 'roles',
+      label: 'Роли',
       type: 'select',
       access: {
         create: adminOnlyFieldAccess,
@@ -46,37 +52,40 @@ export const Users: CollectionConfig = {
       },
       options: [
         {
-          label: 'admin',
-          value: 'admin',
+          label: 'Клиент',
+          value: 'customer',
         },
         {
-          label: 'customer',
-          value: 'customer',
+          label: 'Администратор',
+          value: 'admin',
         },
       ],
     },
     {
       name: 'orders',
+      label: 'Поръчки',
       type: 'join',
       collection: 'orders',
       on: 'customer',
       admin: {
         allowCreate: false,
-        defaultColumns: ['id', 'createdAt', 'total', 'currency', 'items'],
+        defaultColumns: ['id', 'createdAt', 'amount', 'currency', 'items'],
       },
     },
     {
       name: 'cart',
+      label: 'Количка',
       type: 'join',
       collection: 'carts',
       on: 'customer',
       admin: {
         allowCreate: false,
-        defaultColumns: ['id', 'createdAt', 'total', 'currency', 'items'],
+        defaultColumns: ['id', 'createdAt', 'subtotal', 'currency', 'items'],
       },
     },
     {
       name: 'addresses',
+      label: 'Адреси',
       type: 'join',
       collection: 'addresses',
       on: 'customer',

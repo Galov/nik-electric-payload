@@ -8,7 +8,7 @@ export const AddressListing: React.FC = () => {
   const { addresses } = useAddresses()
 
   if (!addresses || addresses.length === 0) {
-    return <p>No addresses found.</p>
+    return <p>Няма намерени адреси.</p>
   }
 
   return (

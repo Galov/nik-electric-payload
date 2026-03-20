@@ -40,19 +40,19 @@ export async function sendOrderAccessEmail({
     const orderURL = `${serverURL}/orders/${order.id}?email=${encodeURIComponent(email)}&accessToken=${order.accessToken}`
 
     const emailBody = `
-        <h1>View Your Order</h1>
-        <p>Click the link below to view your order details:</p>
-        <p><a href="${orderURL}">View Order #${order.id}</a></p>
-        <p>Or copy and paste this URL into your browser:</p>
+        <h1>Преглед на поръчката</h1>
+        <p>Натиснете линка по-долу, за да видите детайлите за поръчката си:</p>
+        <p><a href="${orderURL}">Преглед на поръчка #${order.id}</a></p>
+        <p>Или копирайте и поставете този адрес в браузъра си:</p>
         <p>${orderURL}</p>
-        <p>This link will give you access to view your order details.</p>
+        <p>Този линк ще ви даде достъп до детайлите на поръчката.</p>
       `
 
     console.log('[sendOrderAccessEmail] Email body:', emailBody)
 
     await payload.sendEmail({
       to: email,
-      subject: `Access your order #${order.id}`,
+      subject: `Достъп до поръчка #${order.id}`,
       html: emailBody,
     })
 

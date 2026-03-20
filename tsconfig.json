@@ -37,6 +37,17 @@
     "next.config.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/blocks/**/*",
+    "src/collections/Pages/**/*",
+    "src/endpoints/seed/**/*",
+    "src/globals/**/*",
+    "src/heros/**/*",
+    "src/components/Footer/menu.tsx",
+    "src/components/Header/index.client.tsx",
+    "src/components/Header/MobileMenu.tsx",
+    "src/components/product/VariantSelector.tsx",
+    "src/utilities/generateMeta.ts",
+    "src/utilities/getGlobals.ts"
   ]
 }

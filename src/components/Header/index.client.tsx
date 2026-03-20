@@ -1,19 +1,25 @@
 'use client'
 import { CMSLink } from '@/components/Link'
+import { SiteLogo } from '@/components/Logo/SiteLogo'
 import { Cart } from '@/components/Cart'
 import { OpenCartButton } from '@/components/Cart/OpenCart'
 import Link from 'next/link'
 import React, { Suspense } from 'react'
 
 import { MobileMenu } from './MobileMenu'
-import type { Header } from 'src/payload-types'
 
-import { LogoIcon } from '@/components/icons/logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/utilities/cn'
 
+type HeaderNavItem = {
+  id?: null | string
+  link: Parameters<typeof CMSLink>[0]
+}
+
 type Props = {
-  header: Header
+  header: {
+    navItems?: null | HeaderNavItem[]
+  }
 }
 
 export function HeaderClient({ header }: Props) {
@@ -21,26 +27,26 @@ export function HeaderClient({ header }: Props) {
   const pathname = usePathname()
 
   return (
-    <div className="relative z-20 border-b">
-      <nav className="flex items-center md:items-end justify-between container pt-2">
+    <div className="relative z-20 border-b-2 border-[rgb(0,126,229)]">
+      <nav className="container flex items-center justify-between py-4 md:py-6">
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />
           </Suspense>
         </div>
-        <div className="flex w-full items-end justify-between">
-          <div className="flex w-full items-end gap-6 md:w-1/3">
-            <Link className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto" href="/">
-              <LogoIcon className="w-6 h-auto" />
+        <div className="flex w-full items-center justify-between">
+          <div className="flex w-full items-center gap-14 md:w-1/3">
+            <Link className="flex w-full items-center justify-center py-6 md:w-auto" href="/">
+              <SiteLogo className="h-auto w-44" priority />
             </Link>
             {menu.length ? (
-              <ul className="hidden gap-4 text-sm md:flex md:items-center">
+              <ul className="hidden gap-6 pl-6 text-sm md:flex md:items-center">
                 {menu.map((item) => (
                   <li key={item.id}>
                     <CMSLink
                       {...item.link}
                       size={'clear'}
-                      className={cn('relative navLink', {
+                      className={cn('relative navLink text-primary/80 transition-colors hover:text-primary', {
                         active:
                           item.link.url && item.link.url !== '/'
                             ? pathname.includes(item.link.url)

@@ -2,7 +2,6 @@
 
 import { FormError } from '@/components/forms/FormError'
 import { FormItem } from '@/components/forms/FormItem'
-import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -53,7 +52,7 @@ export const AccountForm: React.FC = () => {
         if (response.ok) {
           const json = await response.json()
           setUser(json.doc)
-          toast.success('Successfully updated account.')
+          toast.success('Профилът е обновен успешно.')
           setChangePassword(false)
           reset({
             name: json.doc.name,
@@ -62,7 +61,7 @@ export const AccountForm: React.FC = () => {
             passwordConfirm: '',
           })
         } else {
-          toast.error('There was a problem updating your account.')
+          toast.error('Възникна проблем при обновяването на профила.')
         }
       }
     },
@@ -73,7 +72,7 @@ export const AccountForm: React.FC = () => {
     if (user === null) {
       router.push(
         `/login?error=${encodeURIComponent(
-          'You must be logged in to view this page.',
+          'Трябва да сте влезли в профила си, за да видите тази страница.',
         )}&redirect=${encodeURIComponent('/account')}`,
       )
     }
@@ -95,27 +94,27 @@ export const AccountForm: React.FC = () => {
         <Fragment>
           <div className="prose dark:prose-invert mb-8">
             <p className="">
-              {'Change your account details below, or '}
+              {'Промени данните на профила си по-долу или '}
               <Button
                 className="px-0 text-inherit underline hover:cursor-pointer"
                 onClick={() => setChangePassword(!changePassword)}
                 type="button"
                 variant="link"
               >
-                click here
+                натисни тук
               </Button>
-              {' to change your password.'}
+              {' за смяна на паролата.'}
             </p>
           </div>
 
           <div className="flex flex-col gap-8 mb-8">
             <FormItem>
               <Label htmlFor="email" className="mb-2">
-                Email Address
+                Имейл адрес
               </Label>
               <Input
                 id="email"
-                {...register('email', { required: 'Please provide an email.' })}
+                {...register('email', { required: 'Моля, въведете имейл.' })}
                 type="email"
               />
               {errors.email && <FormError message={errors.email.message} />}
@@ -123,11 +122,11 @@ export const AccountForm: React.FC = () => {
 
             <FormItem>
               <Label htmlFor="name" className="mb-2">
-                Name
+                Име
               </Label>
               <Input
                 id="name"
-                {...register('name', { required: 'Please provide a name.' })}
+                {...register('name', { required: 'Моля, въведете име.' })}
                 type="text"
               />
               {errors.name && <FormError message={errors.name.message} />}
@@ -138,14 +137,14 @@ export const AccountForm: React.FC = () => {
         <Fragment>
           <div className="prose dark:prose-invert mb-8">
             <p>
-              {'Change your password below, or '}
+              {'Смени паролата си по-долу или '}
               <Button
                 className="px-0 text-inherit underline hover:cursor-pointer"
                 onClick={() => setChangePassword(!changePassword)}
                 type="button"
                 variant="link"
               >
-                cancel
+                откажи
               </Button>
               .
             </p>
@@ -154,11 +153,11 @@ export const AccountForm: React.FC = () => {
           <div className="flex flex-col gap-8 mb-8">
             <FormItem>
               <Label htmlFor="password" className="mb-2">
-                New password
+                Нова парола
               </Label>
               <Input
                 id="password"
-                {...register('password', { required: 'Please provide a new password.' })}
+                {...register('password', { required: 'Моля, въведете нова парола.' })}
                 type="password"
               />
               {errors.password && <FormError message={errors.password.message} />}
@@ -166,13 +165,13 @@ export const AccountForm: React.FC = () => {
 
             <FormItem>
               <Label htmlFor="passwordConfirm" className="mb-2">
-                Confirm password
+                Потвърди паролата
               </Label>
               <Input
                 id="passwordConfirm"
                 {...register('passwordConfirm', {
-                  required: 'Please confirm your new password.',
-                  validate: (value) => value === password.current || 'The passwords do not match',
+                  required: 'Моля, потвърдете новата парола.',
+                  validate: (value) => value === password.current || 'Паролите не съвпадат',
                 })}
                 type="password"
               />
@@ -183,10 +182,10 @@ export const AccountForm: React.FC = () => {
       )}
       <Button disabled={isLoading || isSubmitting || !isDirty} type="submit" variant="default">
         {isLoading || isSubmitting
-          ? 'Processing'
+          ? 'Обработва се'
           : changePassword
-            ? 'Change Password'
-            : 'Update Account'}
+            ? 'Смени паролата'
+            : 'Обнови профила'}
       </Button>
     </form>
   )

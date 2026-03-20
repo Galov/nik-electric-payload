@@ -2,9 +2,17 @@ import { cn } from '@/utilities/cn'
 import React from 'react'
 import { RichText } from '@/components/RichText'
 import type { DefaultDocumentIDType } from 'payload'
-import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
+
+type ContentBlockProps = {
+  columns?: Array<{
+    enableLink?: boolean | null
+    link?: Parameters<typeof CMSLink>[0]
+    richText?: any
+    size?: 'full' | 'half' | 'oneThird' | 'twoThirds' | null
+  }>
+}
 
 export const ContentBlock: React.FC<
   ContentBlockProps & {

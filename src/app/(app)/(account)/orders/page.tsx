@@ -17,7 +17,7 @@ export default async function Orders() {
   let orders: Order[] | null = null
 
   if (!user) {
-    redirect(`/login?warning=${encodeURIComponent('Please login to access your orders.')}`)
+    redirect(`/login?warning=${encodeURIComponent('Моля, влезте в профила си, за да достъпите поръчките си.')}`)
   }
 
   try {
@@ -35,19 +35,19 @@ export default async function Orders() {
     })
 
     orders = ordersResult?.docs || []
-  } catch (error) {}
+  } catch (_error) {}
 
   return (
     <>
       <div className="border p-8 rounded-lg bg-primary-foreground w-full">
-        <h1 className="text-3xl font-medium mb-8">Orders</h1>
+        <h1 className="text-3xl font-medium mb-8">Поръчки</h1>
         {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-          <p className="">You have no orders.</p>
+          <p className="">Нямате поръчки.</p>
         )}
 
         {orders && orders.length > 0 && (
           <ul className="flex flex-col gap-6">
-            {orders?.map((order, index) => (
+            {orders.map((order) => (
               <li key={order.id}>
                 <OrderItem order={order} />
               </li>
@@ -60,10 +60,10 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  description: 'Your orders.',
+  description: 'Вашите поръчки.',
   openGraph: mergeOpenGraph({
-    title: 'Orders',
+    title: 'Поръчки',
     url: '/orders',
   }),
-  title: 'Orders',
+  title: 'Поръчки',
 }

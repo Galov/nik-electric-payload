@@ -1,4 +1,4 @@
-import type { Page, Product } from '@/payload-types'
+import type { Product } from '@/payload-types'
 
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/cn'
@@ -12,8 +12,8 @@ type CMSLinkType = {
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'pages' | 'posts'
-    value: Page | Product | string | number
+    relationTo: 'pages' | 'posts' | 'products'
+    value: Product | { slug?: string | null } | string | number
   } | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null

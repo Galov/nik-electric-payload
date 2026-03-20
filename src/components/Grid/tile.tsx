@@ -3,6 +3,7 @@ import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { Label } from '@/components/Grid/Label'
 import clsx from 'clsx'
+import Image from 'next/image'
 import React from 'react'
 
 type Props = {
@@ -13,7 +14,8 @@ type Props = {
     position?: 'bottom' | 'center'
     title: string
   }
-  media: MediaType
+  media?: MediaType
+  src?: string
 }
 
 export const GridTileImage: React.FC<Props> = ({
@@ -43,6 +45,14 @@ export const GridTileImage: React.FC<Props> = ({
           resource={props.media}
           width={80}
         />
+      ) : props.src ? (
+        <div
+          className={clsx('relative h-full w-full object-cover', {
+            'transition duration-300 ease-in-out group-hover:scale-105': isInteractive,
+          })}
+        >
+          <Image alt={label?.title || ''} className="object-cover" fill sizes="400px" src={props.src} />
+        </div>
       ) : null}
       {label ? <Label amount={label.amount} position={label.position} title={label.title} /> : null}
     </div>

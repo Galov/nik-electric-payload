@@ -7,6 +7,7 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://loc
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
@@ -16,6 +17,14 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        hostname: 'nikelectric.com',
+        protocol: 'https',
+      },
+      {
+        hostname: 'nikelectric.com',
+        protocol: 'http',
+      },
     ],
   },
   reactStrictMode: true,

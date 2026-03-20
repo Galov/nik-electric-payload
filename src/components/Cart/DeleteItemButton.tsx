@@ -13,7 +13,7 @@ export function DeleteItemButton({ item }: { item: CartItem }) {
   return (
     <form>
       <button
-        aria-label="Remove cart item"
+        aria-label="Премахни продукт от количката"
         className={clsx(
           'ease hover:cursor-pointer flex h-[17px] w-[17px] items-center justify-center rounded-full bg-neutral-500 transition-all duration-200',
           {

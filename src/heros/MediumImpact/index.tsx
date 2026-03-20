@@ -1,12 +1,20 @@
 import React from 'react'
 
-import type { Page } from '@/payload-types'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import { RichText } from '@/components/RichText'
 
-export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+type HeroLink = {
+  link: Parameters<typeof CMSLink>[0]
+}
+
+type HeroProps = {
+  links?: HeroLink[] | null
+  media?: { caption?: any } | any
+  richText?: any
+}
+
+export const MediumImpactHero: React.FC<HeroProps> = ({ links, media, richText }) => {
   return (
     <div className="">
       <div className="container mb-8">

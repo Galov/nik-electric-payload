@@ -1,81 +1,92 @@
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
-import { seoPlugin } from '@payloadcms/plugin-seo'
-import { Plugin } from 'payload'
-import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
-import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import crypto from 'crypto'
+import type { Plugin } from 'payload'
 import { ecommercePlugin } from '@payloadcms/plugin-ecommerce'
 
-import { stripeAdapter } from '@payloadcms/plugin-ecommerce/payments/stripe'
-
-import { Page, Product } from '@/payload-types'
-import { getServerSideURL } from '@/utilities/getURL'
-import { ProductsCollection } from '@/collections/Products'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
 import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
+import { ProductsCollection } from '@/collections/Products'
+import { manualAdapter } from '@/ecommerce/manualAdapter'
 
-const generateTitle: GenerateTitle<Product | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Ecommerce Template` : 'Payload Ecommerce Template'
+const normalizeMoneyAdminFields = (fields: any[]): any[] => {
+  return fields.map((field) => {
+    const nextField = { ...field }
+
+    if (Array.isArray(nextField.fields)) {
+      nextField.fields = normalizeMoneyAdminFields(nextField.fields)
+    }
+
+    if (Array.isArray(nextField.tabs)) {
+      nextField.tabs = nextField.tabs.map((tab: any) => ({
+        ...tab,
+        fields: Array.isArray(tab.fields) ? normalizeMoneyAdminFields(tab.fields) : tab.fields,
+      }))
+    }
+
+    if (nextField.name === 'amount' || nextField.name === 'subtotal') {
+      nextField.admin = {
+        ...nextField.admin,
+      }
+
+      if (nextField.admin?.components) {
+        delete nextField.admin.components
+      }
+    }
+
+    return nextField
+  })
 }
 
-const generateURL: GenerateURL<Product | Page> = ({ doc }) => {
-  const url = getServerSideURL()
+const addOrderItemSKUField = (fields: any[]): any[] => {
+  return fields.map((field) => {
+    const nextField = { ...field }
 
-  return doc?.slug ? `${url}/${doc.slug}` : url
+    if (Array.isArray(nextField.fields)) {
+      nextField.fields = addOrderItemSKUField(nextField.fields)
+    }
+
+    if (Array.isArray(nextField.tabs)) {
+      nextField.tabs = nextField.tabs.map((tab: any) => ({
+        ...tab,
+        fields: Array.isArray(tab.fields) ? addOrderItemSKUField(tab.fields) : tab.fields,
+      }))
+    }
+
+    if (nextField.name === 'items' && Array.isArray(nextField.fields)) {
+      const hasProductSKUField = nextField.fields.some(
+        (itemField: any) => itemField?.name === 'productSKU',
+      )
+
+      if (!hasProductSKUField) {
+        const productFieldIndex = nextField.fields.findIndex(
+          (itemField: any) => itemField?.name === 'product',
+        )
+
+        const skuField = {
+          name: 'productSKU',
+          type: 'text',
+          label: 'Код',
+          admin: {
+            readOnly: true,
+          },
+        }
+
+        if (productFieldIndex >= 0) {
+          nextField.fields = [...nextField.fields]
+          nextField.fields.splice(productFieldIndex + 1, 0, skuField)
+        } else {
+          nextField.fields = [...nextField.fields, skuField]
+        }
+      }
+    }
+
+    return nextField
+  })
 }
 
 export const plugins: Plugin[] = [
-  seoPlugin({
-    generateTitle,
-    generateURL,
-  }),
-  formBuilderPlugin({
-    fields: {
-      payment: false,
-    },
-    formSubmissionOverrides: {
-      access: {
-        delete: isAdmin,
-        read: isAdmin,
-        update: isAdmin,
-      },
-      admin: {
-        group: 'Content',
-      },
-    },
-    formOverrides: {
-      access: {
-        delete: isAdmin,
-        read: isAdmin,
-        update: isAdmin,
-        create: isAdmin,
-      },
-      admin: {
-        group: 'Content',
-      },
-      fields: ({ defaultFields }) => {
-        return defaultFields.map((field) => {
-          if ('name' in field && field.name === 'confirmationMessage') {
-            return {
-              ...field,
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    FixedToolbarFeature(),
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                  ]
-                },
-              }),
-            }
-          }
-          return field
-        })
-      },
-    },
-  }),
   ecommercePlugin({
     access: {
       adminOnlyFieldAccess,
@@ -87,11 +98,36 @@ export const plugins: Plugin[] = [
     customers: {
       slug: 'users',
     },
+    payments: {
+      paymentMethods: [manualAdapter()],
+    },
+    products: {
+      productsCollectionOverride: ProductsCollection,
+      variants: false,
+    },
+    carts: {
+      cartsCollectionOverride: ({ defaultCollection }) => ({
+        ...defaultCollection,
+        admin: {
+          ...defaultCollection.admin,
+          group: 'Търговия',
+        },
+        fields: normalizeMoneyAdminFields(defaultCollection.fields),
+        labels: {
+          plural: 'Колички',
+          singular: 'Количка',
+        },
+      }),
+    },
     orders: {
       ordersCollectionOverride: ({ defaultCollection }) => ({
         ...defaultCollection,
+        admin: {
+          ...defaultCollection.admin,
+          group: 'Търговия',
+        },
         fields: [
-          ...defaultCollection.fields,
+          ...addOrderItemSKUField(normalizeMoneyAdminFields(defaultCollection.fields)),
           {
             name: 'accessToken',
             type: 'text',
@@ -103,29 +139,36 @@ export const plugins: Plugin[] = [
             },
             hooks: {
               beforeValidate: [
-                ({ value, operation }) => {
+                ({ operation, value }) => {
                   if (operation === 'create' || !value) {
                     return crypto.randomUUID()
                   }
+
                   return value
                 },
               ],
             },
           },
         ],
+        labels: {
+          plural: 'Поръчки',
+          singular: 'Поръчка',
+        },
       }),
     },
-    payments: {
-      paymentMethods: [
-        stripeAdapter({
-          secretKey: process.env.STRIPE_SECRET_KEY!,
-          publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-          webhookSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET!,
-        }),
-      ],
-    },
-    products: {
-      productsCollectionOverride: ProductsCollection,
+    transactions: {
+      transactionsCollectionOverride: ({ defaultCollection }) => ({
+        ...defaultCollection,
+        admin: {
+          ...defaultCollection.admin,
+          group: 'Търговия',
+        },
+        fields: normalizeMoneyAdminFields(defaultCollection.fields),
+        labels: {
+          plural: 'Транзакции',
+          singular: 'Транзакция',
+        },
+      }),
     },
   }),
 ]

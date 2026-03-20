@@ -7,6 +7,16 @@ type Props = {
 }
 
 export const OrderStatus: React.FC<Props> = ({ status, className }) => {
+  if (!status) {
+    return null
+  }
+
+  const labelByStatus: Record<string, string> = {
+    cancelled: 'Отказана',
+    completed: 'Завършена',
+    processing: 'Обработва се',
+  }
+
   return (
     <div
       className={cn(
@@ -18,7 +28,7 @@ export const OrderStatus: React.FC<Props> = ({ status, className }) => {
         },
       )}
     >
-      {status}
+      {labelByStatus[status] || status}
     </div>
   )
 }

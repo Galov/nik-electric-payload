@@ -65,8 +65,8 @@ export const AddressItem: React.FC<Props> = ({
                 <CreateAddressModal
                   addressID={address.id}
                   initialData={address}
-                  buttonText={'Edit'}
-                  modalTitle={'Edit address'}
+                  buttonText={'Редактирай'}
+                  modalTitle={'Редактиране на адрес'}
                 />
               )}
               {afterActions}

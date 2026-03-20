@@ -1,7 +1,5 @@
 'use client'
 
-import type { Header } from '@/payload-types'
-
 import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,7 +17,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
-  menu: Header['navItems']
+  menu?: null | Array<{ id?: null | string; link: Parameters<typeof CMSLink>[0] }>
 }
 
 export function MobileMenu({ menu }: Props) {
@@ -28,8 +26,6 @@ export function MobileMenu({ menu }: Props) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isOpen, setIsOpen] = useState(false)
-
-  const closeMobileMenu = () => setIsOpen(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,7 +49,7 @@ export function MobileMenu({ menu }: Props) {
 
       <SheetContent side="left" className="px-4">
         <SheetHeader className="px-0 pt-4 pb-0">
-          <SheetTitle>My Store</SheetTitle>
+          <SheetTitle>Меню</SheetTitle>
 
           <SheetDescription />
         </SheetHeader>
@@ -72,35 +68,35 @@ export function MobileMenu({ menu }: Props) {
 
         {user ? (
           <div className="mt-4">
-            <h2 className="text-xl mb-4">My account</h2>
+            <h2 className="text-xl mb-4">Моят профил</h2>
             <hr className="my-2" />
             <ul className="flex flex-col gap-2">
               <li>
-                <Link href="/orders">Orders</Link>
+                <Link href="/orders">Поръчки</Link>
               </li>
               <li>
-                <Link href="/account/addresses">Addresses</Link>
+                <Link href="/account/addresses">Адреси</Link>
               </li>
               <li>
-                <Link href="/account">Manage account</Link>
+                <Link href="/account">Настройки на профила</Link>
               </li>
               <li className="mt-6">
                 <Button asChild variant="outline">
-                  <Link href="/logout">Log out</Link>
+                  <Link href="/logout">Изход</Link>
                 </Button>
               </li>
             </ul>
           </div>
         ) : (
           <div>
-            <h2 className="text-xl mb-4">My account</h2>
+            <h2 className="text-xl mb-4">Моят профил</h2>
             <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
               <Button asChild className="w-full sm:flex-1" variant="outline">
-                <Link href="/login">Log in</Link>
+                <Link href="/login">Вход</Link>
               </Button>
-              <span className="text-center text-sm text-muted-foreground sm:text-base">or</span>
+              <span className="text-center text-sm text-muted-foreground sm:text-base">или</span>
               <Button asChild className="w-full sm:flex-1">
-                <Link href="/create-account">Create an account</Link>
+                <Link href="/create-account">Създай профил</Link>
               </Button>
             </div>
           </div>

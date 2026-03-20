@@ -9,8 +9,6 @@ import { ThreeItemGridBlock } from '@/blocks/ThreeItemGrid/Component'
 import { toKebabCase } from '@/utilities/toKebabCase'
 import React, { Fragment } from 'react'
 
-import type { Page } from '../payload-types'
-
 const blockComponents = {
   archive: ArchiveBlock,
   banner: BannerBlock,
@@ -23,7 +21,7 @@ const blockComponents = {
 }
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: Array<Record<string, any>>
 }> = (props) => {
   const { blocks } = props
 

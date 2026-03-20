@@ -1,81 +1,71 @@
 'use client'
-import type { Product, Variant } from '@/payload-types'
+import type { Product } from '@/payload-types'
 
-import { RichText } from '@/components/RichText'
 import { AddToCart } from '@/components/Cart/AddToCart'
 import { Price } from '@/components/Price'
 import React, { Suspense } from 'react'
-
-import { VariantSelector } from './VariantSelector'
-import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import { StockIndicator } from '@/components/product/StockIndicator'
+import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
 
 export function ProductDescription({ product }: { product: Product }) {
-  const { currency } = useCurrency()
-  let amount = 0,
-    lowestAmount = 0,
-    highestAmount = 0
-  const priceField = `priceIn${currency.code}` as keyof Product
-  const hasVariants = product.enableVariants && Boolean(product.variants?.docs?.length)
-
-  if (hasVariants) {
-    const priceField = `priceIn${currency.code}` as keyof Variant
-    const variantsOrderedByPrice = product.variants?.docs
-      ?.filter((variant) => variant && typeof variant === 'object')
-      .sort((a, b) => {
-        if (
-          typeof a === 'object' &&
-          typeof b === 'object' &&
-          priceField in a &&
-          priceField in b &&
-          typeof a[priceField] === 'number' &&
-          typeof b[priceField] === 'number'
-        ) {
-          return a[priceField] - b[priceField]
-        }
-
-        return 0
-      }) as Variant[]
-
-    const lowestVariant = variantsOrderedByPrice[0][priceField]
-    const highestVariant = variantsOrderedByPrice[variantsOrderedByPrice.length - 1][priceField]
-    if (
-      variantsOrderedByPrice &&
-      typeof lowestVariant === 'number' &&
-      typeof highestVariant === 'number'
-    ) {
-      lowestAmount = lowestVariant
-      highestAmount = highestVariant
-    }
-  } else if (product[priceField] && typeof product[priceField] === 'number') {
-    amount = product[priceField]
-  }
+  const description = formatLegacyProductDescription(product.description)
+  const categories = (product.categories || [])
+    .map((category) => {
+      if (!category || typeof category === 'string') return null
+      return category.title
+    })
+    .filter(Boolean)
+    .join(', ')
+  const brand = product.brand && typeof product.brand !== 'string' ? product.brand.title : null
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <h1 className="text-2xl font-medium">{product.title}</h1>
-        <div className="uppercase font-mono">
-          {hasVariants ? (
-            <Price highestAmount={highestAmount} lowestAmount={lowestAmount} />
-          ) : (
-            <Price amount={amount} />
-          )}
+        <h1 className="text-xl font-normal leading-tight text-primary/80 lg:text-2xl">
+          {product.title}
+        </h1>
+        <div className="text-base font-normal text-primary/60 lg:text-lg">
+          <Price amount={product.price} />
         </div>
       </div>
-      {product.description ? (
-        <RichText className="" data={product.description} enableGutter={false} />
+      <div className="grid gap-2 rounded-lg border bg-muted/20 p-4 text-sm">
+        {brand ? (
+          <p>
+            <span className="text-muted-foreground/70">Марка:</span>{' '}
+            <span className="font-normal text-primary/80">{brand}</span>
+          </p>
+        ) : null}
+        {product.sku ? (
+          <p>
+            <span className="text-muted-foreground/70">Код:</span>{' '}
+            <span className="font-normal text-primary/80">{product.sku}</span>
+          </p>
+        ) : null}
+        {categories ? (
+          <p>
+            <span className="text-muted-foreground/70">Категория:</span>{' '}
+            <span className="font-normal text-primary/80">{categories}</span>
+          </p>
+        ) : null}
+        {product.originalSku ? (
+          <p>
+            <span className="text-muted-foreground/70">Оригинален код:</span>{' '}
+            <span className="font-normal text-primary/80">{product.originalSku}</span>
+          </p>
+        ) : null}
+        {product.manufacturerCode ? (
+          <p>
+            <span className="text-muted-foreground/70">Производител:</span>{' '}
+            <span className="font-normal text-primary/80">{product.manufacturerCode}</span>
+          </p>
+        ) : null}
+      </div>
+      {description ? (
+        <div className="whitespace-pre-line text-sm leading-7 text-muted-foreground">
+          {description}
+        </div>
       ) : null}
       <hr />
-      {hasVariants && (
-        <>
-          <Suspense fallback={null}>
-            <VariantSelector product={product} />
-          </Suspense>
-
-          <hr />
-        </>
-      )}
       <div className="flex items-center justify-between">
         <Suspense fallback={null}>
           <StockIndicator product={product} />

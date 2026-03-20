@@ -1,0 +1,20 @@
+0 verbose cli /opt/homebrew/Cellar/node/25.3.0/bin/node /opt/homebrew/bin/npm
+1 info using npm@11.7.0
+2 info using node@v25.3.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/.npmrc
+5 warn Unknown project config "enable-pre-post-scripts". This will stop working in the next major version of npm.
+6 silly config load:file:/Users/ivogalov/.npmrc
+7 silly config load:file:/opt/homebrew/etc/npmrc
+8 verbose title npm run build
+9 verbose argv "run" "build"
+10 verbose logfile logs-max:10 dir:/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/.npm-cache/_logs/2026-03-13T15_05_40_555Z-
+11 verbose logfile /Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/.npm-cache/_logs/2026-03-13T15_05_40_555Z-debug-0.log
+12 silly logfile start cleaning logs, removing 1 files
+13 silly logfile done cleaning log files
+14 verbose cwd /Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload
+15 verbose os Darwin 25.3.0
+16 verbose node v25.3.0
+17 verbose npm  v11.7.0
+18 verbose exit 1
+19 verbose code 1

@@ -12,6 +12,18 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
+    ignores: [
+      'src/blocks/**',
+      'src/collections/Pages/**',
+      'src/endpoints/seed/**',
+      'src/globals/**',
+      'src/heros/**',
+      'src/utilities/generateMeta.ts',
+      'src/utilities/getGlobals.ts',
+      'src/utilities/getDocument.ts',
+    ],
+  },
+  {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',

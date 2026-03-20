@@ -12,8 +12,8 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
 
         <div className="flex flex-col md:flex-row items-start justify-between gap-16 md:gap-4">
           <div className="w-full flex-none flex flex-col gap-4 md:gap-8 basis-1/5">
+            <FilterList list={sorting} title="Сортиране" />
             <Categories />
-            <FilterList list={sorting} title="Sort by" />
           </div>
           <div className="min-h-screen w-full">{children}</div>
         </div>

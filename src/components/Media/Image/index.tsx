@@ -27,8 +27,6 @@ export const Image: React.FC<MediaProps> = (props) => {
     width: widthFromProps,
   } = props
 
-  const [isLoading, setIsLoading] = React.useState(true)
-
   let width: number | undefined | null
   let height: number | undefined | null
   let alt = altFromProps
@@ -37,7 +35,6 @@ export const Image: React.FC<MediaProps> = (props) => {
   if (!src && resource && typeof resource === 'object') {
     const {
       alt: altFromResource,
-      filename: fullFilename,
       height: fullHeight,
       url,
       width: fullWidth,
@@ -46,8 +43,6 @@ export const Image: React.FC<MediaProps> = (props) => {
     width = widthFromProps ?? fullWidth
     height = heightFromProps ?? fullHeight
     alt = altFromResource
-
-    const filename = fullFilename
 
     src = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`
   }
@@ -67,7 +62,6 @@ export const Image: React.FC<MediaProps> = (props) => {
       height={!fill ? height || heightFromProps : undefined}
       onClick={onClick}
       onLoad={() => {
-        setIsLoading(false)
         if (typeof onLoadFromProps === 'function') {
           onLoadFromProps()
         }

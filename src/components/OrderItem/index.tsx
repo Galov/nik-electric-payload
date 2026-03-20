@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const OrderItem: React.FC<Props> = ({ order }) => {
-  const itemsLabel = order.items?.length === 1 ? 'Item' : 'Items'
+  const itemsLabel = order.items?.length === 1 ? 'артикул' : 'артикула'
 
   return (
     <div className="bg-card border rounded-lg px-4 py-2 md:px-6 md:py-4 flex flex-col sm:flex-row gap-12 sm:items-center sm:justify-between">
@@ -20,7 +20,7 @@ export const OrderItem: React.FC<Props> = ({ order }) => {
         <div className="flex flex-col-reverse sm:flex-row sm:items-center gap-6">
           <p className="text-xl">
             <time dateTime={order.createdAt}>
-              {formatDateTime({ date: order.createdAt, format: 'MMMM dd, yyyy' })}
+              {formatDateTime({ date: order.createdAt })}
             </time>
           </p>
 
@@ -41,7 +41,7 @@ export const OrderItem: React.FC<Props> = ({ order }) => {
       </div>
 
       <Button variant="outline" asChild className="self-start sm:self-auto">
-        <Link href={`/orders/${order.id}`}>View Order</Link>
+        <Link href={`/orders/${order.id}`}>Преглед на поръчката</Link>
       </Button>
     </div>
   )

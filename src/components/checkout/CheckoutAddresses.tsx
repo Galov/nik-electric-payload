@@ -24,15 +24,15 @@ type Props = {
 
 export const CheckoutAddresses: React.FC<Props> = ({
   setAddress,
-  heading = 'Addresses',
-  description = 'Please select or add your shipping and billing addresses.',
+  heading = 'Адреси',
+  description = 'Моля, изберете или добавете адрес за доставка и фактуриране.',
 }) => {
   const { addresses } = useAddresses()
 
   if (!addresses || addresses.length === 0) {
     return (
       <div>
-        <p>No addresses found. Please add an address.</p>
+        <p>Няма намерени адреси. Моля, добавете адрес.</p>
 
         <CreateAddressModal />
       </div>
@@ -62,17 +62,17 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
   const { addresses } = useAddresses()
 
   if (!addresses || addresses.length === 0) {
-    return <p>No addresses found. Please add an address.</p>
+    return <p>Няма намерени адреси. Моля, добавете адрес.</p>
   }
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant={'outline'}>{'Select an address'}</Button>
+        <Button variant={'outline'}>{'Избери адрес'}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{'Select an address'}</DialogTitle>
+          <DialogTitle>{'Избери адрес'}</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-12">
@@ -83,13 +83,13 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
                   address={address}
                   beforeActions={
                     <Button
-                      onClick={(e) => {
-                        e.preventDefault()
-                        setAddress(address)
-                        closeModal()
-                      }}
-                    >
-                      Select
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setAddress(address)
+                      closeModal()
+                    }}
+                  >
+                      Избери
                     </Button>
                   }
                 />

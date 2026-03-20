@@ -1,4 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { bg as payloadBg } from '@payloadcms/translations/languages/bg'
+import { bg as ecommerceBg } from '@payloadcms/plugin-ecommerce/translations/languages/bg'
 
 import {
   BoldFeature,
@@ -15,12 +17,11 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { Brands } from '@/collections/Brands'
 import { Categories } from '@/collections/Categories'
 import { Media } from '@/collections/Media'
-import { Pages } from '@/collections/Pages'
 import { Users } from '@/collections/Users'
-import { Footer } from '@/globals/Footer'
-import { Header } from '@/globals/Header'
+import { microinvestWebhook } from '@/endpoints/microinvest-webhook'
 import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
@@ -29,16 +30,20 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
-      beforeLogin: ['@/components/BeforeLogin#BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
-      beforeDashboard: ['@/components/BeforeDashboard#BeforeDashboard'],
+      graphics: {
+        Icon: {
+          exportName: 'AdminIcon',
+          path: '@/components/Logo/AdminIcon',
+        },
+        Logo: {
+          exportName: 'AdminLogo',
+          path: '@/components/Logo/AdminLogo',
+        },
+      },
     },
     user: Users.slug,
   },
-  collections: [Users, Pages, Categories, Media],
+  collections: [Users, Brands, Categories, Media],
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
@@ -51,7 +56,7 @@ export default buildConfig({
         OrderedListFeature(),
         UnorderedListFeature(),
         LinkFeature({
-          enabledCollections: ['pages'],
+          enabledCollections: ['products', 'categories', 'brands'],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               if ('name' in field && field.name === 'url') return false
@@ -77,9 +82,31 @@ export default buildConfig({
       ]
     },
   }),
+  i18n: {
+    fallbackLanguage: 'bg',
+    supportedLanguages: {
+      bg: {
+        ...payloadBg,
+        translations: {
+          ...payloadBg.translations,
+          ...ecommerceBg.translations,
+          general: {
+            ...payloadBg.translations.general,
+            noResults: 'Няма намерени {{label}}. {{label}} не съществуват или не отговарят на зададените филтри.',
+          },
+        },
+      },
+    },
+  },
   //email: nodemailerAdapter(),
-  endpoints: [],
-  globals: [Header, Footer],
+  endpoints: [
+    {
+      handler: microinvestWebhook,
+      method: 'post',
+      path: '/integrations/microinvest/webhook',
+    },
+  ],
+  globals: [],
   plugins,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

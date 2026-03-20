@@ -120,7 +120,7 @@ export default async function Order({ params, searchParams }: PageProps) {
             <Button asChild variant="ghost">
               <Link href="/orders">
                 <ChevronLeftIcon />
-                All orders
+                Всички поръчки
               </Link>
             </Button>
           </div>
@@ -129,29 +129,29 @@ export default async function Order({ params, searchParams }: PageProps) {
         )}
 
         <h1 className="text-sm uppercase font-mono px-2 bg-primary/10 rounded tracking-[0.07em]">
-          <span className="">{`Order #${order.id}`}</span>
+          <span className="">{`Поръчка #${order.id}`}</span>
         </h1>
       </div>
 
       <div className="bg-card border rounded-lg px-6 py-4 flex flex-col gap-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
           <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Order Date</p>
+            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Дата</p>
             <p className="text-lg">
               <time dateTime={order.createdAt}>
-                {formatDateTime({ date: order.createdAt, format: 'MMMM dd, yyyy' })}
+                {formatDateTime({ date: order.createdAt })}
               </time>
             </p>
           </div>
 
           <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Total</p>
+            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Общо</p>
             {order.amount && <Price className="text-lg" amount={order.amount} />}
           </div>
 
           {order.status && (
             <div className="grow max-w-1/3">
-              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Status</p>
+              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Статус</p>
               <OrderStatus className="text-sm" status={order.status} />
             </div>
           )}
@@ -159,7 +159,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.items && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Items</h2>
+            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Артикули</h2>
             <ul className="flex flex-col gap-6">
               {order.items?.map((item, index) => {
                 if (typeof item.product === 'string') {
@@ -167,19 +167,12 @@ export default async function Order({ params, searchParams }: PageProps) {
                 }
 
                 if (!item.product || typeof item.product !== 'object') {
-                  return <div key={index}>This item is no longer available.</div>
+                  return <div key={index}>Този артикул вече не е наличен.</div>
                 }
-
-                const variant =
-                  item.variant && typeof item.variant === 'object' ? item.variant : undefined
 
                 return (
                   <li key={item.id}>
-                    <ProductItem
-                      product={item.product}
-                      quantity={item.quantity}
-                      variant={variant}
-                    />
+                    <ProductItem product={item.product} quantity={item.quantity} />
                   </li>
                 )
               })}
@@ -189,7 +182,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.shippingAddress && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Shipping Address</h2>
+            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Адрес за доставка</h2>
 
             {/* @ts-expect-error - some kind of type hell */}
             <AddressItem address={order.shippingAddress} hideActions />
@@ -204,11 +197,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = await params
 
   return {
-    description: `Order details for order ${id}.`,
+    description: `Детайли за поръчка ${id}.`,
     openGraph: mergeOpenGraph({
-      title: `Order ${id}`,
+      title: `Поръчка ${id}`,
       url: `/orders/${id}`,
     }),
-    title: `Order ${id}`,
+    title: `Поръчка ${id}`,
   }
 }

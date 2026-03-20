@@ -16,7 +16,7 @@ export default async function Login() {
   const { user } = await payload.auth({ headers })
 
   if (user) {
-    redirect(`/account?warning=${encodeURIComponent('You are already logged in.')}`)
+    redirect(`/account?warning=${encodeURIComponent('Вече сте влезли в профила си.')}`)
   }
 
   return (
@@ -24,10 +24,10 @@ export default async function Login() {
       <div className="max-w-xl mx-auto my-12">
         <RenderParams />
 
-        <h1 className="mb-4 text-[1.8rem]">Log in</h1>
+        <h1 className="mb-4 text-[1.8rem]">Вход</h1>
         <p className="mb-8">
-          {`This is where your customers will login to manage their account, review their order history, and more. To manage all users, `}
-          <Link href="/admin/collections/users">login to the admin dashboard</Link>.
+          {`Тук клиентите влизат в своя профил, за да преглеждат поръчките и настройките си. За управление на всички потребители `}
+          <Link href="/admin/collections/users">влез в админ панела</Link>.
         </p>
         <LoginForm />
       </div>
@@ -36,10 +36,10 @@ export default async function Login() {
 }
 
 export const metadata: Metadata = {
-  description: 'Login or create an account to get started.',
+  description: 'Влезте в профила си или създайте нов.',
   openGraph: {
-    title: 'Login',
+    title: 'Вход',
     url: '/login',
   },
-  title: 'Login',
+  title: 'Вход',
 }

@@ -1,5 +1,7 @@
-import PageTemplate, { generateMetadata } from './[slug]/page'
+import { redirect } from 'next/navigation'
 
-export default PageTemplate
+export default function HomePage() {
+  redirect('/shop')
+}
 
-export { generateMetadata }
+export const dynamic = 'force-dynamic'

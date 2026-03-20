@@ -4,7 +4,7 @@ import { useAuth } from '@/providers/Auth'
 import Link from 'next/link'
 import React, { Fragment, useEffect, useState } from 'react'
 
-export const LogoutPage: React.FC = (props) => {
+export const LogoutPage: React.FC = () => {
   const { logout } = useAuth()
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
@@ -13,9 +13,9 @@ export const LogoutPage: React.FC = (props) => {
     const performLogout = async () => {
       try {
         await logout()
-        setSuccess('Logged out successfully.')
+        setSuccess('Излязохте успешно.')
       } catch (_) {
-        setError('You are already logged out.')
+        setError('Вече сте излезли от профила си.')
       }
     }
 
@@ -28,14 +28,14 @@ export const LogoutPage: React.FC = (props) => {
         <div className="prose dark:prose-invert">
           <h1>{error || success}</h1>
           <p>
-            What would you like to do next?
+            Какво искате да направите сега?
             <Fragment>
               {' '}
-              <Link href="/search">Click here</Link>
-              {` to shop.`}
+              <Link href="/shop">Натиснете тук</Link>
+              {` за да разгледате каталога.`}
             </Fragment>
-            {` To log back in, `}
-            <Link href="/login">click here</Link>.
+            {` За нов вход `}
+            <Link href="/login">натиснете тук</Link>.
           </p>
         </div>
       )}

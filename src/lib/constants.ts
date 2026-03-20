@@ -6,13 +6,13 @@ export type SortFilterItem = {
 
 export const defaultSort: SortFilterItem = {
   slug: null,
-  reverse: false,
-  title: 'Alphabetic A-Z',
+  reverse: true,
+  title: 'Най-нови',
 }
 
 export const sorting: SortFilterItem[] = [
   defaultSort,
-  { slug: '-createdAt', reverse: true, title: 'Latest arrivals' },
-  { slug: 'priceInUSD', reverse: false, title: 'Price: Low to high' }, // asc
-  { slug: '-priceInUSD', reverse: true, title: 'Price: High to low' },
+  { slug: 'title', reverse: false, title: 'Азбучно А-Я' },
+  { slug: 'priceInUSD', reverse: false, title: 'Цена: от ниска към висока' }, // asc
+  { slug: '-priceInUSD', reverse: true, title: 'Цена: от висока към ниска' },
 ]

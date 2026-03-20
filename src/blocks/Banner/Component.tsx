@@ -1,7 +1,11 @@
-import type { BannerBlock as BannerBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/cn'
 import React from 'react'
 import { RichText } from '@/components/RichText'
+
+type BannerBlockProps = {
+  content?: any
+  style?: 'info' | 'error' | 'success' | 'warning'
+}
 
 export const BannerBlock: React.FC<
   BannerBlockProps & {

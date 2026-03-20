@@ -1,0 +1,145 @@
+[
+  {
+    "batchStart": 1000,
+    "brandSourceTaxonomyId": 527,
+    "categorySourceTaxonomyIds": [
+      529
+    ],
+    "descriptionPreview": "За модели: 6200402000 BEKO WA 1100 (FRA) YOC1 1000 K19 UK 6200702000 2418 BX 6205702000 2001BX ALI ÇAM.MAK. K1YOÇ EU1000ÇYFT TOP 7100170200 BEKO 2312 CX (TUR) YOC K19 BK 600 D_D 7100181100 BEKO WMB 6506 D (FRA) YOC K19 BK 600 RPM 7100181400 BEKO WMA 6506 D (ISP) YOC K19 BK 600 RPM 7100181500 BRU WMB",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "beko-21",
+    "sourceId": 3479,
+    "title": "BEKO"
+  },
+  {
+    "batchStart": 3250,
+    "brandSourceTaxonomyId": 542,
+    "categorySourceTaxonomyIds": [
+      682
+    ],
+    "descriptionPreview": "<div>Циркулационна помпа за съдомиялни WHIRLPOOL IGNIS PHILIPS</div> <div></div> <div> <div class=\"row\"> <div class=\"mob-txt col-md-3 col-sm-3\" data-name=\"Manufacturer\"><strong>BAUKNECHT</strong></div> <div class=\"modello mob-txt col-md-5 col-sm-5\" data-name=\"Model\">474NB, ADG8474WH, ADG85321AV, ADG",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "whirlpool-ignis-philips-152",
+    "sourceId": 10141,
+    "title": "WHIRLPOOL IGNIS PHILIPS"
+  },
+  {
+    "batchStart": 4250,
+    "brandSourceTaxonomyId": 542,
+    "categorySourceTaxonomyIds": [
+      660
+    ],
+    "descriptionPreview": "Амортисьор - 120N - WHIRLPOOL <div class=\"mob-txt col-md-3 col-sm-3\" data-name=\"Manufacturer\"><strong>WHIRLPOOL - INDESIT</strong></div> <div class=\"mob-txt col-md-4 col-sm-4\" data-name=\"Type\"></div> <div class=\"modello mob-txt col-md-5 col-sm-5\" data-name=\"Model\">859235520100 (Atlantis1400), 859235",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "whirlpool-ignis-philips-182",
+    "sourceId": 12977,
+    "title": "WHIRLPOOL IGNIS PHILIPS"
+  },
+  {
+    "batchStart": 4750,
+    "brandSourceTaxonomyId": 542,
+    "categorySourceTaxonomyIds": [
+      682
+    ],
+    "descriptionPreview": "Циркулационна помпа -49W, 220/240V, 50Hz, 0.4A. - HANYU <div class=\"row\"> <div class=\"mob-txt col-md-3 col-sm-3\" data-name=\"Manufacturer\"><strong>BAUKNECHT</strong></div> <div class=\"modello mob-txt col-md-5 col-sm-5\" data-name=\"Model\">474NB, ADG8474WH, ADG85321AV, ADG85321NB, ADG85321WH, ADP7410WH,",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "whirlpool-ignis-bauknecht-9",
+    "sourceId": 14521,
+    "title": "WHIRLPOOL IGNIS BAUKNECHT"
+  },
+  {
+    "batchStart": 5000,
+    "brandSourceTaxonomyId": 542,
+    "categorySourceTaxonomyIds": [
+      551,
+      792
+    ],
+    "descriptionPreview": "Долен уплътнител за врата на съдомиялни машини WHIRLPOOL <div class=\"row\"> <div class=\"mob-txt col-md-3 col-sm-3\" data-name=\"Manufacturer\"><strong>BAUKNECHT</strong></div> <div class=\"modello mob-txt col-md-5 col-sm-5\" data-name=\"Model\">ADG81981NB, ADG81981WH, ADG8474IX, ADG8474NB, ADG8474WH, ADG934",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "whirlpool-10",
+    "sourceId": 15769,
+    "title": "WHIRLPOOL"
+  },
+  {
+    "batchStart": 5750,
+    "brandSourceTaxonomyId": 542,
+    "categorySourceTaxonomyIds": [
+      814
+    ],
+    "descriptionPreview": "<div class=\"mob-txt col-md-3 col-sm-3\" data-name=\"Manufacturer\"><strong>WHIRLPOOL - INDESIT</strong></div> <div class=\"mob-txt col-md-4 col-sm-4\" data-name=\"Type\"></div> <div class=\"modello mob-txt col-md-5 col-sm-5\" data-name=\"Model\">ADG 6915 IX, ADG 6962 IX, ADG 7561-12, ADG 7660, ADG 76601, ADG 7",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "whirlpool-16",
+    "sourceId": 26386,
+    "title": "WHIRLPOOL"
+  },
+  {
+    "batchStart": 6750,
+    "brandSourceTaxonomyId": 535,
+    "categorySourceTaxonomyIds": [
+      660
+    ],
+    "descriptionPreview": "Комплект 3бр. амортисьор 90N – Ф8 BOSCH SIEMENS (MAXX) <div class=\"mob-txt col-md-3 col-sm-3\" data-name=\"Manufacturer\"><strong>BOSCH - SIEMENS - BALAY</strong></div> <div class=\"modello mob-txt col-md-5 col-sm-5\" data-name=\"Model\">3TS3106B-01, 3TS3106BD-01, 3TS390B-01, 3TS390BD-01, 3TS395B-01, 3TS39",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "bosch-siemens-balay-233",
+    "sourceId": 34452,
+    "title": "BOSCH SIEMENS BALAY"
+  },
+  {
+    "batchStart": 6750,
+    "brandSourceTaxonomyId": 542,
+    "categorySourceTaxonomyIds": [
+      572
+    ],
+    "descriptionPreview": "800 270 53, ADG 1900, ADG 2900, ADG 29001, ADG 332 IX, ADG 332 S WH, ADG 3340 AV, ADG 3440 WH, ADG 3552 WH, ADG 6340 AV, ADG 6340 IX, ADG 6340 WH, ADG 642 WH, ADG 642-1 WH, ADG 655-1 I1, ADG 655-1 I2, ADG 655-1 I3, ADG 655-1 IX, ADG 655-1 N1, ADG 655-1 N2, ADG 655-1 N3, ADG 655-1 NB, ADG 6552 WH, AD",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "whirlpool-14",
+    "sourceId": 37592,
+    "title": "WHIRLPOOL"
+  },
+  {
+    "batchStart": 7500,
+    "brandSourceTaxonomyId": 535,
+    "categorySourceTaxonomyIds": [
+      550
+    ],
+    "descriptionPreview": "W7460X2IR-01, W7460X2IR-20, W7460X2IR-34, W7460X2IR-40, W7460X2IR-41, W7460X2IR-48, W746IX0IR-01, W746IX0IR-34, W746IX0IR-37, W746IX0IR-40, WA14LPH0TR-01, WA14LPH0TR-03, WA14LPH0TR-05, WA14LPH0TR-06, WA14LPH0TR-07, WA14LPH0TR-08, WA14LPH0TR-09, WA14LPH0TR-10, WA14LPH0TR-11, WA14LPH0TR-12, WA14LPH0TR",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "bosch-siemens-balay-249",
+    "sourceId": 47327,
+    "title": "BOSCH SIEMENS BALAY"
+  },
+  {
+    "batchStart": 8250,
+    "brandSourceTaxonomyId": 530,
+    "categorySourceTaxonomyIds": [
+      692
+    ],
+    "descriptionPreview": "<div class=\"desc desc_max h-hidden-show\"> AEG FFB51400ZW, AEG FFB51400ZM, AEG FFB62400PW, AEG FFB62400PM, AEG FFB63400PW, AEG FFB63400PM, AEG FFB95140ZW, AEG FFB95140ZM, JOHN LEWIS JLDWW929, ELECTROLUX ESS42200SX, ELECTROLUX ESG62300SX, ELECTROLUX ESA22100SX, ELECTROLUX ESA22100SW, ELECTROLUX ESG623",
+    "error": "The following field is invalid: Catalog > Description",
+    "existingProductId": null,
+    "productSlug": "electrolux-zanussi-aeg-627",
+    "sourceId": 52449,
+    "title": "ELECTROLUX ZANUSSI AEG"
+  },
+  {
+    "batchStart": 9750,
+    "categorySourceTaxonomyIds": [
+      675
+    ],
+    "descriptionPreview": "",
+    "error": "The following field is invalid: slug",
+    "existingProductId": null,
+    "productSlug": "skyworth",
+    "sourceId": 65837,
+    "title": "SKYWORTH"
+  }
+]

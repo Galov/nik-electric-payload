@@ -41,21 +41,22 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const active = searchParams.get('sort') === item.slug
-  const q = searchParams.get('q')
-  const href = createUrl(
-    pathname,
-    new URLSearchParams({
-      ...(q && { q }),
-      ...(item.slug && item.slug.length && { sort: item.slug }),
-    }),
-  )
+  const newParams = new URLSearchParams(searchParams.toString())
+  newParams.delete('sort')
+
+  if (item.slug && item.slug.length) {
+    newParams.set('sort', item.slug)
+  }
+
+  const href = createUrl(pathname, newParams)
   const DynamicTag = active ? 'p' : Link
 
   return (
-    <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
+    <li className="py-1" key={item.title}>
       <DynamicTag
-        className={clsx('w-full hover:underline hover:underline-offset-4', {
-          'underline underline-offset-4': active,
+        className={clsx('block w-full pl-7 text-left text-sm', {
+          'font-medium underline text-primary/80': active,
+          'text-primary/80 hover:cursor-pointer': !active,
         })}
         href={href}
         prefetch={!active ? false : undefined}

@@ -41,7 +41,7 @@ export const ForgotPasswordForm: React.FC = () => {
       setError('')
     } else {
       setError(
-        'There was a problem while attempting to send you a password reset email. Please try again.',
+        'Възникна проблем при изпращането на имейл за смяна на паролата. Моля, опитайте отново.',
       )
     }
   }, [])
@@ -50,12 +50,11 @@ export const ForgotPasswordForm: React.FC = () => {
     <Fragment>
       {!success && (
         <React.Fragment>
-          <h1 className="text-xl mb-4">Forgot Password</h1>
+          <h1 className="text-xl mb-4">Забравена парола</h1>
           <div className="prose dark:prose-invert mb-8">
             <p>
-              {`Please enter your email below. You will receive an email message with instructions on
-              how to reset your password. To manage your all users, `}
-              <Link href="/admin/collections/users">login to the admin dashboard</Link>.
+              {`Въведете имейла си по-долу. Ще получите съобщение с инструкции как да смените паролата си. За управление на всички потребители `}
+              <Link href="/admin/collections/users">влезте в админ панела</Link>.
             </p>
           </div>
           <form className="max-w-lg" onSubmit={handleSubmit(onSubmit)}>
@@ -63,27 +62,27 @@ export const ForgotPasswordForm: React.FC = () => {
 
             <FormItem className="mb-8">
               <Label htmlFor="email" className="mb-2">
-                Email address
+                Имейл адрес
               </Label>
               <Input
                 id="email"
-                {...register('email', { required: 'Please provide your email.' })}
+                {...register('email', { required: 'Моля, въведете имейла си.' })}
                 type="email"
               />
               {errors.email && <FormError message={errors.email.message} />}
             </FormItem>
 
             <Button type="submit" variant="default">
-              Forgot Password
+              Изпрати линк
             </Button>
           </form>
         </React.Fragment>
       )}
       {success && (
         <React.Fragment>
-          <h1 className="text-xl mb-4">Request submitted</h1>
+          <h1 className="text-xl mb-4">Заявката е изпратена</h1>
           <div className="prose dark:prose-invert">
-            <p>Check your email for a link that will allow you to securely reset your password.</p>
+            <p>Провери имейла си за линк, чрез който сигурно да смениш паролата си.</p>
           </div>
         </React.Fragment>
       )}

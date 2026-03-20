@@ -14,10 +14,10 @@ export default async function Logout() {
 }
 
 export const metadata: Metadata = {
-  description: 'You have been logged out.',
+  description: 'Излязохте от профила си.',
   openGraph: mergeOpenGraph({
-    title: 'Logout',
+    title: 'Изход',
     url: '/logout',
   }),
-  title: 'Logout',
+  title: 'Изход',
 }
