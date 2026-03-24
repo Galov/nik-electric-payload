@@ -1,6 +1,7 @@
 'use client'
 
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
+import { useAuth } from '@/providers/Auth'
 import clsx from 'clsx'
 import { ShoppingCart } from 'lucide-react'
 import React, { useMemo } from 'react'
@@ -21,6 +22,7 @@ export const GridAddToCartButton: React.FC<Props> = ({
   published,
   stockQty,
 }) => {
+  const { user } = useAuth()
   const { addItem, cart, isLoading } = useCart()
   const normalizedProductID = String(productID)
 
@@ -42,6 +44,10 @@ export const GridAddToCartButton: React.FC<Props> = ({
 
     return availableQty <= 0
   }, [availableQty, cart?.items, normalizedProductID, price, published])
+
+  if (!user) {
+    return null
+  }
 
   const onClick = async () => {
     if (disabled || isLoading) return

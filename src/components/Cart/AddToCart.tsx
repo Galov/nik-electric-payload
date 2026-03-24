@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import type { Product } from '@/payload-types'
+import { useAuth } from '@/providers/Auth'
 
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
@@ -12,6 +13,7 @@ type Props = {
 }
 
 export function AddToCart({ product }: Props) {
+  const { user } = useAuth()
   const { addItem, cart, isLoading } = useCart()
   const normalizedProductID = String(product.id)
 
@@ -47,6 +49,10 @@ export function AddToCart({ product }: Props) {
 
     return false
   }, [cart?.items, normalizedProductID, product])
+
+  if (!user) {
+    return null
+  }
 
   return (
     <Button
