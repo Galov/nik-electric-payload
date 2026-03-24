@@ -8,6 +8,7 @@ import { CategoriesPanel } from './Categories.client'
 type CategoryNode = {
   id: string
   productCount?: number | null
+  productIDs: Set<string>
   title: string
   children: CategoryNode[]
 }
@@ -36,6 +37,7 @@ async function CategoryList() {
       children: [],
       id: category.id,
       productCount: category.productCount,
+      productIDs: new Set<string>(),
       title: category.title,
     })
   }
@@ -69,7 +71,64 @@ async function CategoryList() {
     }
   }
 
+  const attachProductCounts = async (treeNodes: CategoryNode[]) => {
+    const allNodes = [...nodes.values()]
+
+    const directProducts = await payload.find({
+      collection: 'products',
+      depth: 0,
+      draft: false,
+      limit: 12000,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        categories: true,
+      },
+      where: {
+        published: {
+          equals: true,
+        },
+      },
+    })
+
+    for (const product of directProducts.docs) {
+      if (!Array.isArray(product.categories)) continue
+
+      for (const categoryRef of product.categories) {
+        const categoryID = typeof categoryRef === 'string' ? categoryRef : categoryRef?.id
+        if (!categoryID) continue
+
+        const node = nodes.get(String(categoryID))
+        if (!node) continue
+
+        node.productIDs.add(String(product.id))
+      }
+    }
+
+    const accumulateCounts = (node: CategoryNode): Set<string> => {
+      const aggregateIDs = new Set(node.productIDs)
+
+      for (const child of node.children) {
+        for (const productID of accumulateCounts(child)) {
+          aggregateIDs.add(productID)
+        }
+      }
+
+      node.productCount = aggregateIDs.size
+      return aggregateIDs
+    }
+
+    for (const rootNode of treeNodes) {
+      accumulateCounts(rootNode)
+    }
+
+    for (const node of allNodes) {
+      node.productIDs.clear()
+    }
+  }
+
   sortTree(rootNodes)
+  await attachProductCounts(rootNodes)
 
   return <CategoriesPanel categories={rootNodes} />
 }

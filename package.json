@@ -11,6 +11,7 @@
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && npm run build && npm run start",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "images:migrate:r2": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/migrateProductImagesToR2.ts",
     "import:partners": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importPartnersFromLegacySQL.ts",
     "import:woocommerce": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/woocommerce/import.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
@@ -23,7 +24,9 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1015.0",
     "@payloadcms/admin-bar": "3.79.0",
+    "@payloadcms/db-mongodb": "3.79.0",
     "@payloadcms/email-nodemailer": "3.79.0",
     "@payloadcms/live-preview-react": "3.79.0",
     "@payloadcms/next": "3.79.0",
@@ -31,6 +34,7 @@
     "@payloadcms/plugin-form-builder": "3.79.0",
     "@payloadcms/plugin-seo": "3.79.0",
     "@payloadcms/richtext-lexical": "3.79.0",
+    "@payloadcms/storage-s3": "3.79.0",
     "@payloadcms/translations": "3.79.0",
     "@payloadcms/ui": "3.79.0",
     "@radix-ui/react-accordion": "1.2.11",
@@ -63,8 +67,7 @@
     "sharp": "0.34.2",
     "sonner": "^1.7.2",
     "stripe": "18.5.0",
-    "tailwind-merge": "^3.4.0",
-    "@payloadcms/db-mongodb": "3.79.0"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

@@ -31,6 +31,7 @@ import { SubscriptFeatureClient as SubscriptFeatureClient_e70f5e05f09f93e00b997e
 import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { AdminIcon as AdminIcon_048abc6671a4fc1f451175ea3afb1836 } from '@/components/Logo/AdminIcon'
 import { AdminLogo as AdminLogo_d0335e7a62aec198e4416a8134eda638 } from '@/components/Logo/AdminLogo'
+import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
@@ -67,5 +68,6 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#StrikethroughFeatureClient": StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/Logo/AdminIcon#AdminIcon": AdminIcon_048abc6671a4fc1f451175ea3afb1836,
   "@/components/Logo/AdminLogo#AdminLogo": AdminLogo_d0335e7a62aec198e4416a8134eda638,
+  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
