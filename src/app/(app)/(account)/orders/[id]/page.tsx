@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Price } from '@/components/Price'
 import { Button } from '@/components/ui/button'
 import { formatDateTime } from '@/utilities/formatDateTime'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ChevronLeftIcon } from 'lucide-react'
@@ -113,11 +113,15 @@ export default async function Order({ params, searchParams }: PageProps) {
   }
 
   return (
-    <div className="">
-      <div className="flex gap-8 justify-between items-center mb-6">
+    <div>
+      <div className="mb-6 flex items-center justify-between gap-8">
         {user ? (
           <div className="flex gap-4">
-            <Button asChild variant="ghost">
+            <Button
+              asChild
+              className="px-0 text-sm font-normal text-primary/65 hover:bg-transparent hover:text-primary"
+              variant="ghost"
+            >
               <Link href="/orders">
                 <ChevronLeftIcon />
                 Всички поръчки
@@ -128,30 +132,30 @@ export default async function Order({ params, searchParams }: PageProps) {
           <div></div>
         )}
 
-        <h1 className="text-sm uppercase font-mono px-2 bg-primary/10 rounded tracking-[0.07em]">
+        <h1 className="bg-[rgb(0,126,229)]/10 px-2.5 py-1 text-sm font-medium uppercase tracking-[0.07em] text-[rgb(0,126,229)]">
           <span className="">{`Поръчка #${order.id}`}</span>
         </h1>
       </div>
 
-      <div className="bg-card border rounded-lg px-6 py-4 flex flex-col gap-12">
+      <div className="flex flex-col gap-10 bg-muted/20 px-5 py-6 md:px-7 md:py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
-          <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Дата</p>
-            <p className="text-lg">
+          <div>
+            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Дата</p>
+            <p className="text-lg text-primary/80">
               <time dateTime={order.createdAt}>
                 {formatDateTime({ date: order.createdAt })}
               </time>
             </p>
           </div>
 
-          <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Общо</p>
-            {order.amount && <Price className="text-lg" amount={order.amount} />}
+          <div>
+            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Общо</p>
+            {order.amount && <Price className="text-lg text-primary/80" amount={order.amount} currencyCode="EUR" />}
           </div>
 
           {order.status && (
             <div className="grow max-w-1/3">
-              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Статус</p>
+              <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Статус</p>
               <OrderStatus className="text-sm" status={order.status} />
             </div>
           )}
@@ -159,7 +163,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.items && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Артикули</h2>
+            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Артикули</h2>
             <ul className="flex flex-col gap-6">
               {order.items?.map((item, index) => {
                 if (typeof item.product === 'string') {
@@ -182,7 +186,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.shippingAddress && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Адрес за доставка</h2>
+            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Адрес за доставка</h2>
 
             {/* @ts-expect-error - some kind of type hell */}
             <AddressItem address={order.shippingAddress} hideActions />
@@ -196,12 +200,9 @@ export default async function Order({ params, searchParams }: PageProps) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params
 
-  return {
+  return getNoIndexMetadata({
     description: `Детайли за поръчка ${id}.`,
-    openGraph: mergeOpenGraph({
-      title: `Поръчка ${id}`,
-      url: `/orders/${id}`,
-    }),
+    path: `/orders/${id}`,
     title: `Поръчка ${id}`,
-  }
+  })
 }

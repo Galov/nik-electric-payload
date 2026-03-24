@@ -1,5 +1,11 @@
 'use client'
+import { useAuth } from '@/providers/Auth'
+import { createUrl } from '@/utilities/createUrl'
+import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
 import React from 'react'
+
+const EUR_TO_BGN_RATE = 1.95583
 
 type BaseProps = {
   className?: string
@@ -32,18 +38,41 @@ export const Price = ({
   as = 'p',
 }: Props & React.ComponentProps<'p'>) => {
   const Element = as
-  const formatCurrency = (value: number) =>
+  const { user } = useAuth()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const formatCurrency = (value: number, code = currencyCode) =>
     new Intl.NumberFormat('bg-BG', {
-      currency: currencyCode,
+      currency: code,
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
       style: 'currency',
     }).format(value)
 
+  const formatDualCurrency = (value: number) => {
+    const eurValue = currencyCode === 'EUR' ? value : value / EUR_TO_BGN_RATE
+    const bgnValue = eurValue * EUR_TO_BGN_RATE
+
+    return `${formatCurrency(eurValue, 'EUR')} / ${formatCurrency(bgnValue, 'BGN')}`
+  }
+
+  if (!user) {
+    const currentURL = createUrl(pathname, new URLSearchParams(searchParams.toString()))
+    const loginURL = createUrl('/login', new URLSearchParams({ redirect: currentURL }))
+
+    return (
+      <Element className={className} suppressHydrationWarning>
+        <Link className="transition hover:opacity-75 underline underline-offset-4" href={loginURL}>
+          Виж цената
+        </Link>
+      </Element>
+    )
+  }
+
   if (typeof amount === 'number') {
     return (
       <Element className={className} suppressHydrationWarning>
-        {formatCurrency(amount)}
+        {currencyCode === 'EUR' ? formatDualCurrency(amount) : formatCurrency(amount)}
       </Element>
     )
   }
@@ -51,7 +80,9 @@ export const Price = ({
   if (highestAmount && highestAmount !== lowestAmount) {
     return (
       <Element className={className} suppressHydrationWarning>
-        {`${formatCurrency(lowestAmount)} - ${formatCurrency(highestAmount)}`}
+        {currencyCode === 'EUR'
+          ? `${formatDualCurrency(lowestAmount)} - ${formatDualCurrency(highestAmount)}`
+          : `${formatCurrency(lowestAmount)} - ${formatCurrency(highestAmount)}`}
       </Element>
     )
   }
@@ -59,7 +90,7 @@ export const Price = ({
   if (lowestAmount) {
     return (
       <Element className={className} suppressHydrationWarning>
-        {`${formatCurrency(lowestAmount)}`}
+        {currencyCode === 'EUR' ? formatDualCurrency(lowestAmount) : `${formatCurrency(lowestAmount)}`}
       </Element>
     )
   }

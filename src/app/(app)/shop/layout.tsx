@@ -1,18 +1,24 @@
 import { Categories } from '@/components/layout/search/Categories'
-import { FilterList } from '@/components/layout/search/filter'
-import { sorting } from '@/lib/constants'
-import { Search } from '@/components/Search'
+import { ShopBannerCarousel } from '@/components/shop/ShopBannerCarousel.client'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 import React, { Suspense } from 'react'
 
-export default function ShopLayout({ children }: { children: React.ReactNode }) {
+export default async function ShopLayout({ children }: { children: React.ReactNode }) {
+  const payload = await getPayload({ config: configPromise })
+  const shopPage = await payload.findGlobal({
+    slug: 'shopPage',
+    depth: 1,
+  })
+  const topBannerSlides = Array.isArray(shopPage?.topBanners) ? shopPage.topBanners : []
+
   return (
     <Suspense fallback={null}>
       <div className="container flex flex-col gap-8 my-16 pb-4 ">
-        <Search className="mb-8" />
+        <ShopBannerCarousel slides={topBannerSlides} />
 
-        <div className="flex flex-col md:flex-row items-start justify-between gap-16 md:gap-4">
-          <div className="w-full flex-none flex flex-col gap-4 md:gap-8 basis-1/5">
-            <FilterList list={sorting} title="Сортиране" />
+        <div className="flex flex-col md:flex-row items-start justify-between gap-10 md:gap-4">
+          <div className="w-full flex-none flex flex-col gap-4 basis-1/5">
             <Categories />
           </div>
           <div className="min-h-screen w-full">{children}</div>

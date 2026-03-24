@@ -1,38 +1,104 @@
 import type { Metadata } from 'next'
 
-import type { Product } from '../payload-types'
-
 import { mergeOpenGraph } from './mergeOpenGraph'
+import { getSocialImageURL } from './getSocialImageURL'
+
+type MetaImageLike =
+  | {
+      alt?: null | string
+      url?: null | string
+    }
+  | null
+  | string
+
+type MetaLike = {
+  description?: null | string
+  image?: MetaImageLike
+  title?: null | string
+}
+
+type DocLike = {
+  meta?: MetaLike | null
+  slug?: null | string | string[]
+  title?: null | string
+}
+
+const normalizeString = (value?: null | string) => {
+  const normalized = value?.trim()
+
+  return normalized ? normalized : undefined
+}
+
+const buildAbsoluteUrl = (path?: null | string) => {
+  if (!path) return undefined
+  if (/^https?:\/\//i.test(path)) return path
+
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || ''
+  return `${serverUrl}${path.startsWith('/') ? path : `/${path}`}`
+}
+
+const normalizePath = (value?: null | string | string[]) => {
+  if (!value) return undefined
+  if (Array.isArray(value)) return `/${value.join('/')}`
+  if (/^https?:\/\//i.test(value)) return value
+  return value.startsWith('/') ? value : `/${value}`
+}
+
+const getMetaImage = (image?: MetaImageLike) => {
+  if (!image || typeof image === 'string') return buildAbsoluteUrl(typeof image === 'string' ? image : undefined)
+  return buildAbsoluteUrl(image.url)
+}
 
 export const generateMeta = async (args: {
-  doc: Product | null | { title?: string | null; slug?: string | null; meta?: any }
+  doc?: DocLike | null
+  fallbackDescription?: string
+  fallbackTitle?: string
+  path?: string
 }): Promise<Metadata> => {
-  const { doc } = args || {}
+  const { doc, fallbackDescription, fallbackTitle, path } = args || {}
 
-  const ogImage =
-    typeof doc?.meta?.image === 'object' &&
-    doc.meta.image !== null &&
-    'url' in doc.meta.image &&
-    `${process.env.NEXT_PUBLIC_SERVER_URL}${doc.meta.image.url}`
+  const title =
+    normalizeString(doc?.meta?.title) ||
+    normalizeString(doc?.title) ||
+    normalizeString(fallbackTitle) ||
+    'Ник Електрик'
+  const description =
+    normalizeString(doc?.meta?.description) || normalizeString(fallbackDescription)
+  const resolvedPath = path || normalizePath(doc?.slug) || '/'
+  const canonical = buildAbsoluteUrl(resolvedPath)
+  const ogImage = getMetaImage(doc?.meta?.image)
+  const socialImage = ogImage || getSocialImageURL('/logo.png')
 
   return {
-    description: doc?.meta?.description,
+    ...(canonical
+      ? {
+          alternates: {
+            canonical,
+          },
+        }
+      : {}),
+    ...(description ? { description } : {}),
+    metadataBase: canonical ? new URL(canonical) : undefined,
     openGraph: mergeOpenGraph({
-      ...(doc?.meta?.description
+      ...(description ? { description } : {}),
+      ...(socialImage
         ? {
-            description: doc?.meta?.description,
+            images: [
+              {
+                url: socialImage,
+              },
+            ],
           }
         : {}),
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
-      title: doc?.meta?.title || doc?.title || 'Payload Ecommerce Template',
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      title,
+      url: resolvedPath,
     }),
-    title: doc?.meta?.title || doc?.title || 'Payload Ecommerce Template',
+    twitter: {
+      card: 'summary_large_image',
+      ...(description ? { description } : {}),
+      images: socialImage ? [socialImage] : undefined,
+      title,
+    },
+    title,
   }
 }

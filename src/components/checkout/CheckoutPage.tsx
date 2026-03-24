@@ -2,6 +2,7 @@
 
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { Price } from '@/components/Price'
+import { EditItemQuantityButton } from '@/components/Cart/EditItemQuantityButton'
 import { AddressItem } from '@/components/addresses/AddressItem'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
 import { CheckoutAddresses } from '@/components/checkout/CheckoutAddresses'
@@ -66,9 +67,11 @@ export const CheckoutPage: React.FC = () => {
 
   if (cartIsEmpty) {
     return (
-      <div className="prose w-full items-center py-12 dark:prose-invert">
-        <p>Количката е празна.</p>
-        <Link href="/shop">Продължи с пазаруването</Link>
+      <div className="w-full py-12 text-primary/70">
+        <p className="mb-3 text-lg">Количката е празна.</p>
+        <Link className="text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]" href="/shop">
+          Продължи с пазаруването
+        </Link>
       </div>
     )
   }
@@ -80,35 +83,35 @@ export const CheckoutPage: React.FC = () => {
   return (
     <div className="my-8 flex grow flex-col items-stretch justify-stretch gap-10 md:flex-row md:gap-6 lg:gap-8">
       <div className="flex basis-full flex-col justify-stretch gap-8 lg:basis-2/3">
-        <h2 className="text-3xl font-medium">Контакт</h2>
+        <h2 className="text-2xl font-normal text-primary/85">Контакт</h2>
 
         {!user && (
-          <div className="flex w-full items-center rounded-lg bg-accent p-4 dark:bg-black">
-            <div className="prose dark:prose-invert">
+          <div className="flex w-full items-center bg-muted/20 px-5 py-4">
+            <div className="text-sm leading-7 text-primary/65">
               <Button asChild className="text-inherit no-underline" variant="outline">
-                <Link href="/login">Вход</Link>
+                <Link href="/login?redirect=/checkout">Вход</Link>
               </Button>
               <p className="mt-0">
                 <span className="mx-2">или</span>
-                <Link href="/create-account">създай профил</Link>
+                <Link href="/create-account?redirect=/checkout">създай профил</Link>
               </p>
             </div>
           </div>
         )}
 
         {user ? (
-          <div className="rounded-lg bg-accent p-4 dark:bg-card">
-            <p>{user.email}</p>
-            <p>
+          <div className="bg-muted/20 px-5 py-4">
+            <p className="text-sm text-primary/75">{user.email}</p>
+            <p className="text-sm text-primary/65">
               Не сте вие?{' '}
-              <Link className="underline" href="/logout">
+              <Link className="text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]" href="/logout">
                 Изход
               </Link>
             </p>
           </div>
         ) : (
-          <div className="rounded-lg bg-accent p-4 dark:bg-black">
-            <p className="mb-4">Въведи имейл, за да продължиш като гост.</p>
+          <div className="bg-muted/20 px-5 py-4">
+            <p className="mb-4 text-primary/65">Въведи имейл, за да продължиш като гост.</p>
 
             <FormItem className="mb-6">
               <Label htmlFor="email">Имейл адрес</Label>
@@ -123,6 +126,7 @@ export const CheckoutPage: React.FC = () => {
             </FormItem>
 
             <Button
+              className="rounded-md bg-[rgb(0,126,229)] px-9 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
               disabled={!email || !emailEditable}
               onClick={(e) => {
                 e.preventDefault()
@@ -135,7 +139,7 @@ export const CheckoutPage: React.FC = () => {
           </div>
         )}
 
-        <h2 className="text-3xl font-medium">Адрес</h2>
+        <h2 className="text-2xl font-normal text-primary/85">Адрес</h2>
 
         {billingAddress ? (
           <AddressItem
@@ -173,7 +177,12 @@ export const CheckoutPage: React.FC = () => {
               setBillingAddressSameAsShipping(state as boolean)
             }}
           />
-          <Label htmlFor="shippingTheSameAsBilling">Адресът за доставка е същият</Label>
+          <Label
+            className="font-sans font-normal tracking-normal text-primary/65"
+            htmlFor="shippingTheSameAsBilling"
+          >
+            Адресът за доставка е същият
+          </Label>
         </div>
 
         {!billingAddressSameAsShipping &&
@@ -208,7 +217,7 @@ export const CheckoutPage: React.FC = () => {
             />
           ))}
 
-        <div className="rounded-lg bg-primary/5 p-4 text-sm text-muted-foreground">
+        <div className="bg-muted/20 px-5 py-4 text-sm text-primary/60">
           Не се събира онлайн плащане. Изпращането на формата създава заявка за поръчка за
           ръчна обработка.
         </div>
@@ -223,8 +232,8 @@ export const CheckoutPage: React.FC = () => {
         )}
       </div>
 
-      <div className="flex basis-full flex-col gap-8 rounded-lg bg-primary/5 p-8 lg:basis-1/3 lg:pl-8">
-        <h2 className="text-3xl font-medium">Твоята количка</h2>
+      <div className="flex basis-full flex-col gap-6 bg-muted/20 px-5 pb-6 pt-1 md:px-7 md:pb-8 md:pt-1 lg:basis-1/3">
+        <h2 className="text-2xl font-normal text-primary/85">Твоята количка</h2>
 
         {cart?.items?.map((item, index) => {
           if (typeof item.product !== 'object' || !item.quantity) {
@@ -234,15 +243,15 @@ export const CheckoutPage: React.FC = () => {
           const image = getProductPrimaryImage(item.product)
 
           return (
-            <div className="flex items-start gap-4" key={index}>
-              <div className="flex h-20 w-20 items-stretch justify-stretch rounded-lg border p-2">
+            <div className="flex items-start gap-3 border-b border-black/5 pb-4 last:border-b-0 last:pb-0" key={index}>
+              <div className="flex h-16 w-16 items-stretch justify-stretch rounded-md border border-black/8 bg-white p-2">
                 <div className="relative h-full w-full">
                   {image?.url ? (
                     <Image
                       alt={image.alt}
-                      className="rounded-lg object-cover"
+                      className="rounded-md object-contain"
                       fill
-                      sizes="80px"
+                      sizes="64px"
                       src={image.url}
                     />
                   ) : null}
@@ -250,21 +259,27 @@ export const CheckoutPage: React.FC = () => {
               </div>
               <div className="flex grow items-center justify-between">
                 <div className="flex flex-col gap-1">
-                  <p className="text-lg font-medium">{item.product.title}</p>
-                  <div>x{item.quantity}</div>
+                  <p className="text-sm font-medium leading-5 text-primary/85">{item.product.title}</p>
+                  <div className="flex h-8 w-fit flex-row items-center rounded-md border border-black/10 bg-white">
+                    <EditItemQuantityButton item={item} type="minus" />
+                    <p className="w-8 text-center text-sm text-primary/70">{item.quantity}</p>
+                    <EditItemQuantityButton item={item} type="plus" />
+                  </div>
                 </div>
 
-                {typeof item.product.price === 'number' && <Price amount={item.product.price} />}
+                {typeof item.product.price === 'number' && (
+                  <Price amount={item.product.price} className="text-sm text-primary/75" currencyCode="EUR" />
+                )}
               </div>
             </div>
           )
         })}
 
-        <hr />
-
-        <div className="flex items-center justify-between gap-2">
-          <span className="uppercase">Общо</span>
-          <Price amount={cart?.subtotal || 0} className="text-3xl font-medium" />
+        <div className="border-t border-black/5 pt-6">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Общо</span>
+            <Price amount={cart?.subtotal || 0} className="text-2xl font-medium text-primary/80" currencyCode="EUR" />
+          </div>
         </div>
       </div>
     </div>

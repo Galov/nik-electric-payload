@@ -1,8 +1,9 @@
 'use client'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import clsx from 'clsx'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 
 type CategoryNode = {
   id: string
@@ -20,6 +21,51 @@ type ItemProps = {
 
 type TreeProps = {
   categories: CategoryNode[]
+}
+
+type PanelProps = {
+  categories: CategoryNode[]
+}
+
+const CategoryChildren: React.FC<{
+  childrenNodes: CategoryNode[]
+  expandedCategoryIDs: Set<string>
+  isExpanded: boolean
+  level: number
+  onToggleCategory: (id: string) => void
+}> = ({ childrenNodes, expandedCategoryIDs, isExpanded, level, onToggleCategory }) => {
+  const contentRef = useRef<HTMLUListElement | null>(null)
+  const [maxHeight, setMaxHeight] = useState('0px')
+
+  useEffect(() => {
+    if (!contentRef.current) return
+
+    setMaxHeight(isExpanded ? `${contentRef.current.scrollHeight}px` : '0px')
+  }, [childrenNodes, expandedCategoryIDs, isExpanded])
+
+  return (
+    <div
+      className={clsx(
+        'overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out',
+        isExpanded ? 'opacity-100' : 'opacity-0',
+      )}
+      style={{ maxHeight }}
+    >
+      <ul className="mt-1" ref={contentRef}>
+        {childrenNodes.map((child) => {
+          return (
+            <CategoryItem
+              key={child.id}
+              category={child}
+              expandedCategoryIDs={expandedCategoryIDs}
+              level={level}
+              onToggleCategory={onToggleCategory}
+            />
+          )
+        })}
+      </ul>
+    </div>
+  )
 }
 
 export const CategoryItem: React.FC<ItemProps> = ({
@@ -61,13 +107,13 @@ export const CategoryItem: React.FC<ItemProps> = ({
           <button
             type="button"
             aria-label={isExpanded ? 'Свий категорията' : 'Разгърни категорията'}
-            className="mt-0.5 w-5 shrink-0 text-xs text-muted-foreground hover:text-primary"
+            className="-mt-px flex h-6 w-6 shrink-0 items-center justify-center text-[rgb(0,126,229)]/85 transition-colors hover:text-[rgb(0,113,206)]"
             onClick={() => onToggleCategory(category.id)}
           >
-            {isExpanded ? '−' : '+'}
+            {isExpanded ? <ChevronDown className="h-[18px] w-[18px]" /> : <ChevronRight className="h-[18px] w-[18px]" />}
           </button>
         ) : (
-          <span className="w-5 shrink-0" />
+          <span className="w-6 shrink-0" />
         )}
 
         <button
@@ -84,20 +130,14 @@ export const CategoryItem: React.FC<ItemProps> = ({
         </button>
       </div>
 
-      {category.children.length > 0 && isExpanded ? (
-        <ul className="mt-1">
-          {category.children.map((child) => {
-            return (
-              <CategoryItem
-                key={child.id}
-                category={child}
-                expandedCategoryIDs={expandedCategoryIDs}
-                level={level + 1}
-                onToggleCategory={onToggleCategory}
-              />
-            )
-          })}
-        </ul>
+      {category.children.length > 0 ? (
+        <CategoryChildren
+          childrenNodes={category.children}
+          expandedCategoryIDs={expandedCategoryIDs}
+          isExpanded={isExpanded}
+          level={level + 1}
+          onToggleCategory={onToggleCategory}
+        />
       ) : null}
     </li>
   )
@@ -133,5 +173,83 @@ export const CategoryTree: React.FC<TreeProps> = ({ categories }) => {
         )
       })}
     </ul>
+  )
+}
+
+export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
+  const contentRef = useRef<HTMLDivElement | null>(null)
+  const [isOpen, setIsOpen] = useState(true)
+  const [maxHeight, setMaxHeight] = useState('none')
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)')
+
+    const syncOpenState = () => {
+      setIsOpen(mediaQuery.matches)
+    }
+
+    syncOpenState()
+    mediaQuery.addEventListener('change', syncOpenState)
+
+    return () => mediaQuery.removeEventListener('change', syncOpenState)
+  }, [])
+
+  useEffect(() => {
+    if (!contentRef.current) return
+
+    const updateHeight = () => {
+      setMaxHeight(isOpen ? `${contentRef.current?.scrollHeight || 0}px` : '0px')
+    }
+
+    updateHeight()
+
+    const observer = new ResizeObserver(() => {
+      updateHeight()
+    })
+
+    observer.observe(contentRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [categories, isOpen])
+
+  return (
+    <section className="rounded-[6px] bg-[rgb(250,251,253)] px-5 py-5 md:px-6">
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        className="flex w-full items-center justify-between gap-4 text-left"
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        <div className="flex items-center gap-3">
+          <span className="h-px w-8 bg-[rgb(0,126,229)]/55" />
+          <h3 className="text-sm font-normal tracking-[0.04em] text-[rgb(0,126,229)]">
+            Категории
+          </h3>
+        </div>
+
+        <ChevronDown
+          className={clsx(
+            'h-4 w-4 text-[rgb(0,126,229)] transition-transform duration-500 ease-in-out',
+            {
+              'rotate-180': isOpen,
+            },
+          )}
+        />
+      </button>
+
+      <div
+        className={clsx(
+          'overflow-hidden transition-[max-height,opacity,margin-top] duration-500 ease-in-out',
+          isOpen ? 'mt-4 opacity-100' : 'mt-0 opacity-0',
+        )}
+        style={{ maxHeight }}
+      >
+        <div ref={contentRef}>
+          <CategoryTree categories={categories} />
+        </div>
+      </div>
+    </section>
   )
 }

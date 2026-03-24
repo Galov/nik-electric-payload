@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import React from 'react'
 import { FindOrderForm } from '@/components/forms/FindOrderForm'
 import { getPayload } from 'payload'
@@ -19,11 +19,8 @@ export default async function FindOrderPage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Promise<Metadata> = getNoIndexMetadata({
   description: 'Намерете поръчката си чрез имейл и номер на поръчка.',
-  openGraph: mergeOpenGraph({
-    title: 'Намери поръчка',
-    url: '/find-order',
-  }),
+  path: '/find-order',
   title: 'Намери поръчка',
-}
+})

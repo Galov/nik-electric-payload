@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import React from 'react'
 
 import { CheckoutPage } from '@/components/checkout/CheckoutPage'
@@ -15,11 +15,8 @@ export default function Checkout() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Promise<Metadata> = getNoIndexMetadata({
   description: 'Поръчка.',
-  openGraph: mergeOpenGraph({
-    title: 'Поръчка',
-    url: '/checkout',
-  }),
+  path: '/checkout',
   title: 'Поръчка',
-}
+})

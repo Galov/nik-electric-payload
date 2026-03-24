@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import React, { useCallback, FormEvent } from 'react'
 import { useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
 import { Address } from '@/payload-types'
+import { getOrderAccessParams } from './getOrderAccessParams'
 
 type Props = {
   customerEmail?: string
@@ -47,12 +48,20 @@ export const CheckoutForm: React.FC<Props> = ({
           'orderID' in confirmResult &&
           confirmResult.orderID
         ) {
-          const accessToken =
-            'accessToken' in confirmResult ? (confirmResult.accessToken as string) : ''
+          let accessToken = 'accessToken' in confirmResult ? (confirmResult.accessToken as string) : ''
           const queryParams = new URLSearchParams()
 
           if (customerEmail) {
             queryParams.set('email', customerEmail)
+
+            if (!accessToken) {
+              const orderAccessParams = await getOrderAccessParams({
+                email: customerEmail,
+                orderID: String(confirmResult.orderID),
+              })
+
+              accessToken = orderAccessParams.accessToken
+            }
           }
           if (accessToken) {
             queryParams.set('accessToken', accessToken)
@@ -87,7 +96,12 @@ export const CheckoutForm: React.FC<Props> = ({
     <form onSubmit={handleSubmit}>
       {error && <Message error={error} />}
       <div className="mt-8 flex gap-4">
-        <Button disabled={isLoading} type="submit" variant="default">
+        <Button
+          className="h-12 rounded-md bg-[rgb(0,126,229)] px-9 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
+          disabled={isLoading}
+          type="submit"
+          variant="default"
+        >
           {isLoading ? 'Изпраща се...' : 'Изпрати поръчката'}
         </Button>
       </div>

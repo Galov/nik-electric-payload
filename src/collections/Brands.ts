@@ -11,6 +11,7 @@ export const Brands: CollectionConfig = {
     update: adminOnly,
   },
   admin: {
+    defaultColumns: ['title', 'productCount'],
     useAsTitle: 'title',
     group: 'Каталог',
   },
@@ -23,6 +24,9 @@ export const Brands: CollectionConfig = {
       name: 'sourceTermId',
       label: 'ID на изходния термин',
       type: 'number',
+      admin: {
+        hidden: true,
+      },
       index: true,
       unique: true,
     },
@@ -30,6 +34,9 @@ export const Brands: CollectionConfig = {
       name: 'sourceTaxonomyId',
       label: 'ID на изходната таксономия',
       type: 'number',
+      admin: {
+        hidden: true,
+      },
       index: true,
       unique: true,
     },
@@ -44,6 +51,9 @@ export const Brands: CollectionConfig = {
       label: 'Брой продукти',
       type: 'number',
       defaultValue: 0,
+      admin: {
+        readOnly: true,
+      },
     },
     slugField({
       position: undefined,

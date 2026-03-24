@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import { headers as getHeaders } from 'next/headers.js'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -20,25 +20,20 @@ export default async function AddressesPage() {
   }
 
   return (
-    <>
-      <div className="border p-8 rounded-lg bg-primary-foreground">
-        <h1 className="text-3xl font-medium mb-8">Адреси</h1>
+    <div className="bg-muted/20 px-5 py-6 md:px-7 md:py-8">
+      <h1 className="mb-8 text-3xl font-normal text-primary/85">Адреси</h1>
 
-        <div className="mb-8">
-          <AddressListing />
-        </div>
-
-        <CreateAddressModal />
+      <div className="mb-8">
+        <AddressListing />
       </div>
-    </>
+
+      <CreateAddressModal />
+    </div>
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Promise<Metadata> = getNoIndexMetadata({
   description: 'Управление на адресите.',
-  openGraph: mergeOpenGraph({
-    title: 'Адреси',
-    url: '/account/addresses',
-  }),
+  path: '/account/addresses',
   title: 'Адреси',
-}
+})

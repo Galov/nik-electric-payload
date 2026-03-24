@@ -20,11 +20,12 @@ export const OrderStatus: React.FC<Props> = ({ status, className }) => {
   return (
     <div
       className={cn(
-        'text-xs tracking-widest font-mono uppercase py-0 px-2 rounded w-fit',
+        'w-fit rounded-md px-2.5 py-1 text-xs font-medium uppercase tracking-[0.08em]',
         className,
         {
-          'bg-primary/10': status === 'processing',
-          'bg-success': status === 'completed',
+          'bg-amber-100 text-amber-800': status === 'processing',
+          'bg-emerald-100 text-emerald-800': status === 'completed',
+          'bg-red-100 text-red-800': status === 'cancelled',
         },
       )}
     >

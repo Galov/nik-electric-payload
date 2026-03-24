@@ -16,6 +16,7 @@ const dirname = path.dirname(filename)
 export const Media: CollectionConfig = {
   admin: {
     group: 'Съдържание',
+    defaultColumns: ['filename', 'alt', 'updatedAt'],
   },
   labels: {
     plural: 'Медия',
@@ -31,11 +32,13 @@ export const Media: CollectionConfig = {
   fields: [
     {
       name: 'alt',
+      label: 'Alt текст',
       type: 'text',
       required: true,
     },
     {
       name: 'caption',
+      label: 'Надпис',
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {

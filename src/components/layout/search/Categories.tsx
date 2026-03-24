@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import clsx from 'clsx'
 import React, { Suspense } from 'react'
 
-import { CategoryTree } from './Categories.client'
+import { CategoriesPanel } from './Categories.client'
 
 type CategoryNode = {
   id: string
@@ -71,13 +71,7 @@ async function CategoryList() {
 
   sortTree(rootNodes)
 
-  return (
-    <div>
-      <h3 className="text-xs mb-2 text-neutral-500 dark:text-neutral-400">Категории</h3>
-
-      <CategoryTree categories={rootNodes} />
-    </div>
-  )
+  return <CategoriesPanel categories={rootNodes} />
 }
 
 const skeleton = 'mb-3 h-4 w-5/6 animate-pulse rounded'

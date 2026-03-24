@@ -1,15 +1,17 @@
 import type { Metadata } from 'next'
 
+import { getSocialImageURL } from '@/utilities/getSocialImageURL'
+
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description: 'Каталог с продукти, партньори и информация за Ник Електрик.',
   images: [
     {
-      url: 'https://payloadcms.com/images/og-image.jpg',
+      url: getSocialImageURL('/logo.png'),
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'Ник Електрик',
+  title: 'Ник Електрик',
 }
 
 export const mergeOpenGraph = (og?: Partial<Metadata['openGraph']>): Metadata['openGraph'] => {

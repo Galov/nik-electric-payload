@@ -44,6 +44,19 @@ type Props = {
   skipSubmission?: boolean
 }
 
+const countryDisplayNames =
+  typeof Intl !== 'undefined'
+    ? new Intl.DisplayNames(['bg'], {
+        type: 'region',
+      })
+    : null
+
+const getCountryLabel = (country: (typeof supportedCountries)[number]) => {
+  const value = typeof country === 'string' ? country : country.value
+
+  return countryDisplayNames?.of(value) || (typeof country === 'string' ? country : country.label) || value
+}
+
 export const AddressForm: React.FC<Props> = ({
   addressID,
   initialData,
@@ -82,8 +95,8 @@ export const AddressForm: React.FC<Props> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-4 mb-8">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="mb-8 flex flex-col gap-5">
+        <div className="flex flex-col gap-5 md:flex-row">
           <FormItem className="shrink">
             <Label htmlFor="title">Обръщение</Label>
 
@@ -99,8 +112,8 @@ export const AddressForm: React.FC<Props> = ({
               </SelectTrigger>
               <SelectContent>
                 {titles.map((title) => (
-                  <SelectItem key={title} value={title}>
-                    {title}
+                  <SelectItem key={title.value} value={title.value}>
+                    {title.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -201,12 +214,7 @@ export const AddressForm: React.FC<Props> = ({
             <SelectContent>
               {supportedCountries.map((country) => {
                 const value = typeof country === 'string' ? country : country.value
-                const label =
-                  typeof country === 'string'
-                    ? country
-                    : typeof country.label === 'string'
-                      ? country.label
-                      : value
+                const label = getCountryLabel(country)
 
                 return (
                   <SelectItem key={value} value={value}>
@@ -220,7 +228,12 @@ export const AddressForm: React.FC<Props> = ({
         </FormItem>
       </div>
 
-      <Button type="submit">Запази</Button>
+      <Button
+        className="rounded-md bg-[rgb(0,126,229)] px-6 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
+        type="submit"
+      >
+        Запази
+      </Button>
     </form>
   )
 }

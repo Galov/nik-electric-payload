@@ -47,19 +47,21 @@ export function CartModal() {
 
       <SheetContent className="flex flex-col">
         <SheetHeader>
-          <SheetTitle>Моята количка</SheetTitle>
+          <SheetTitle className="text-xl font-normal text-primary/85">Моята количка</SheetTitle>
 
-          <SheetDescription>Прегледай продуктите и общата сума на поръчката.</SheetDescription>
+          <SheetDescription className="text-primary/55">
+            Прегледай продуктите и общата сума на поръчката.
+          </SheetDescription>
         </SheetHeader>
 
         {!cart || cart?.items?.length === 0 ? (
-          <div className="text-center flex flex-col items-center gap-2">
-            <ShoppingCart className="h-16" />
-            <p className="text-center text-2xl font-bold">Количката е празна.</p>
+          <div className="flex flex-col items-center gap-3 pt-8 text-center">
+            <ShoppingCart className="h-16 text-primary/35" />
+            <p className="text-center text-2xl font-medium text-primary/75">Количката е празна.</p>
           </div>
         ) : (
-          <div className="grow flex px-4">
-            <div className="flex flex-col justify-between w-full">
+          <div className="flex grow px-2">
+            <div className="flex w-full flex-col justify-between">
               <ul className="grow overflow-auto py-4">
                 {cart?.items?.map((item, i) => {
                   const product = item.product
@@ -71,20 +73,20 @@ export function CartModal() {
                   const price = product.price
 
                   return (
-                    <li className="flex w-full flex-col" key={i}>
-                      <div className="relative flex w-full flex-row justify-between px-1 py-4">
-                        <div className="absolute z-40 -mt-2 ml-[55px]">
+                    <li className="flex w-full flex-col border-b border-black/5 py-4 last:border-b-0" key={i}>
+                      <div className="relative flex w-full flex-row justify-between gap-3">
+                        <div className="absolute left-12 top-0 z-40">
                           <DeleteItemButton item={item} />
                         </div>
                         <Link
-                          className="z-30 flex flex-row space-x-4"
-                          href={`/products/${(item.product as Product)?.slug}`}
+                          className="z-30 flex flex-1 flex-row gap-3"
+                          href={`/product/${(item.product as Product)?.slug}`}
                         >
-                          <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                          <div className="relative h-16 w-16 overflow-hidden rounded-md border border-black/8 bg-white">
                             {image?.url ? (
                               <Image
                                 alt={image.alt}
-                                className="h-full w-full object-cover"
+                                className="h-full w-full rounded-md object-contain"
                                 fill
                                 sizes="64px"
                                 src={image.url}
@@ -93,20 +95,21 @@ export function CartModal() {
                           </div>
 
                           <div className="flex flex-1 flex-col text-base">
-                            <span className="leading-tight">{product?.title}</span>
+                            <span className="text-sm leading-5 text-primary/80">{product?.title}</span>
                           </div>
                         </Link>
                         <div className="flex h-16 flex-col justify-between">
                           {typeof price === 'number' && (
                             <Price
                               amount={price}
-                              className="flex justify-end space-y-2 text-right text-sm"
+                              className="flex justify-end text-right text-sm text-primary/70"
+                              currencyCode="EUR"
                             />
                           )}
-                          <div className="ml-auto flex h-9 flex-row items-center rounded-lg border">
+                          <div className="ml-auto flex h-8 flex-row items-center rounded-md border border-black/10 bg-white">
                             <EditItemQuantityButton item={item} type="minus" />
                             <p className="w-6 text-center">
-                              <span className="w-full text-sm">{item.quantity}</span>
+                              <span className="w-full text-sm text-primary/70">{item.quantity}</span>
                             </p>
                             <EditItemQuantityButton item={item} type="plus" />
                           </div>
@@ -117,19 +120,23 @@ export function CartModal() {
                 })}
               </ul>
 
-              <div className="px-4">
-                <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+              <div className="border-t border-black/5 px-2 pb-4 pt-5">
+                <div className="text-sm text-primary/55">
                   {typeof cart?.subtotal === 'number' && (
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                    <div className="mb-4 flex items-center justify-between">
                       <p>Общо</p>
                       <Price
                         amount={cart?.subtotal}
-                        className="text-right text-base text-black dark:text-white"
+                        className="text-right text-base text-primary/80"
+                        currencyCode="EUR"
                       />
                     </div>
                   )}
 
-                  <Button asChild>
+                  <Button
+                    asChild
+                    className="h-12 w-full rounded-md bg-[rgb(0,126,229)] px-9 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
+                  >
                     <Link className="w-full" href="/checkout">
                       Към поръчката
                     </Link>

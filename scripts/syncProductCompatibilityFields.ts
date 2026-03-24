@@ -24,7 +24,10 @@ const syncProducts = async () => {
         id: true,
         inventory: true,
         price: true,
+        priceInEUR: true,
+        priceInEUREnabled: true,
         priceInUSD: true,
+        priceInUSDEnabled: true,
         stockQty: true,
       },
       sort: 'id',
@@ -35,10 +38,20 @@ const syncProducts = async () => {
 
       const price = typeof product.price === 'number' ? product.price : 0
       const stockQty = typeof product.stockQty === 'number' ? product.stockQty : 0
+      const shouldEnablePrice = price > 0
+      const needsPriceEURSync = (product.priceInEUR || 0) !== price
       const needsPriceSync = (product.priceInUSD || 0) !== price
+      const needsPriceEUREnabledSync = Boolean(product.priceInEUREnabled) !== shouldEnablePrice
+      const needsPriceUSDEnabledSync = Boolean(product.priceInUSDEnabled) !== shouldEnablePrice
       const needsInventorySync = (product.inventory || 0) !== stockQty
 
-      if (!needsPriceSync && !needsInventorySync) {
+      if (
+        !needsPriceEURSync &&
+        !needsPriceSync &&
+        !needsPriceEUREnabledSync &&
+        !needsPriceUSDEnabledSync &&
+        !needsInventorySync
+      ) {
         continue
       }
 

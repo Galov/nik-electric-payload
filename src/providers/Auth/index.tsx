@@ -38,6 +38,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // used to track the single event of logging in or logging out
   // useful for `useEffect` hooks that should only run once
   const [status, setStatus] = useState<'loggedIn' | 'loggedOut' | undefined>()
+  const getErrorMessage = async (response: Response, fallbackMessage: string) => {
+    try {
+      const data = (await response.json()) as {
+        errors?: Array<{ message?: string }>
+        message?: string
+      }
+
+      return data?.errors?.[0]?.message || data?.message || response.statusText || fallbackMessage
+    } catch {
+      return response.statusText || fallbackMessage
+    }
+  }
+
   const create = useCallback<Create>(async (args) => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/create`, {
@@ -88,9 +101,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return user
       }
 
-      throw new Error('Invalid login')
+      throw new Error(await getErrorMessage(res, 'Възникна проблем при входа.'))
     } catch (e) {
-      throw new Error('An error occurred while attempting to login.')
+      throw e instanceof Error ? e : new Error('Възникна проблем при входа.')
     }
   }, [])
 

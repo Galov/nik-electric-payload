@@ -4,7 +4,7 @@
 
 .headerNavIndicator {
   position: absolute;
-  top: 0;
+  top: 0.2rem;
   left: 0;
   height: 2px;
   border-radius: 999px;
@@ -19,4 +19,9 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+}
+
+.navLink.active,
+.headerNavLink.active {
+  color: rgb(0 113 206 / 0.96);
 }

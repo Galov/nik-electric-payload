@@ -92,11 +92,11 @@ export const AccountForm: React.FC = () => {
     <form className="max-w-xl" onSubmit={handleSubmit(onSubmit)}>
       {!changePassword ? (
         <Fragment>
-          <div className="prose dark:prose-invert mb-8">
-            <p className="">
+          <div className="mb-8 text-sm leading-7 text-primary/65">
+            <p>
               {'Промени данните на профила си по-долу или '}
               <Button
-                className="px-0 text-inherit underline hover:cursor-pointer"
+                className="px-0 text-[rgb(0,126,229)] hover:cursor-pointer hover:text-[rgb(0,113,206)]"
                 onClick={() => setChangePassword(!changePassword)}
                 type="button"
                 variant="link"
@@ -107,7 +107,7 @@ export const AccountForm: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 mb-8">
+          <div className="mb-8 flex flex-col gap-6">
             <FormItem>
               <Label htmlFor="email" className="mb-2">
                 Имейл адрес
@@ -135,11 +135,11 @@ export const AccountForm: React.FC = () => {
         </Fragment>
       ) : (
         <Fragment>
-          <div className="prose dark:prose-invert mb-8">
+          <div className="mb-8 text-sm leading-7 text-primary/65">
             <p>
               {'Смени паролата си по-долу или '}
               <Button
-                className="px-0 text-inherit underline hover:cursor-pointer"
+                className="px-0 text-[rgb(0,126,229)] hover:cursor-pointer hover:text-[rgb(0,113,206)]"
                 onClick={() => setChangePassword(!changePassword)}
                 type="button"
                 variant="link"
@@ -150,7 +150,7 @@ export const AccountForm: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 mb-8">
+          <div className="mb-8 flex flex-col gap-6">
             <FormItem>
               <Label htmlFor="password" className="mb-2">
                 Нова парола
@@ -180,7 +180,12 @@ export const AccountForm: React.FC = () => {
           </div>
         </Fragment>
       )}
-      <Button disabled={isLoading || isSubmitting || !isDirty} type="submit" variant="default">
+      <Button
+        className="rounded-md bg-[rgb(0,126,229)] px-6 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
+        disabled={isLoading || isSubmitting || !isDirty}
+        type="submit"
+        variant="default"
+      >
         {isLoading || isSubmitting
           ? 'Обработва се'
           : changePassword

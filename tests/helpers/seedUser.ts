@@ -2,8 +2,17 @@ import { getPayload } from 'payload'
 import config from '../../src/payload.config.js'
 
 export const testUser = {
+  approved: true,
+  companyAddress: 'бул. България 1',
+  companyCity: 'София',
+  companyEIK: '123456789',
+  companyName: 'Payload Test Ltd.',
   email: 'dev@payloadcms.com',
+  firstName: 'Dev',
+  lastName: 'User',
   password: 'test',
+  phone: '0888123456',
+  roles: ['admin'] as ('admin' | 'customer')[],
 }
 
 /**
@@ -26,6 +35,7 @@ export async function seedTestUser(): Promise<void> {
   await payload.create({
     collection: 'users',
     data: testUser,
+    overrideAccess: true,
   })
 }
 

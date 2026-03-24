@@ -75,6 +75,8 @@ export interface Config {
     users: User;
     brands: Brand;
     categories: Category;
+    partners: Partner;
+    'contact-inquiries': ContactInquiry;
     media: Media;
     addresses: Address;
     products: Product;
@@ -97,6 +99,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     brands: BrandsSelect<false> | BrandsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    'contact-inquiries': ContactInquiriesSelect<false> | ContactInquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
@@ -112,8 +116,22 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    header: Header;
+    footer: Footer;
+    'terms-page': TermsPage;
+    'privacy-page': PrivacyPage;
+    'contact-page': ContactPage;
+    shopPage: ShopPage;
+  };
+  globalsSelect: {
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+    'terms-page': TermsPageSelect<false> | TermsPageSelect<true>;
+    'privacy-page': PrivacyPageSelect<false> | PrivacyPageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+    shopPage: ShopPageSelect<false> | ShopPageSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -162,7 +180,15 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   name?: string | null;
+  companyName: string;
+  companyEIK: string;
+  companyCity: string;
+  phone: string;
+  companyAddress: string;
+  firstName: string;
+  lastName: string;
   roles?: ('customer' | 'admin')[] | null;
+  approved?: boolean | null;
   orders?: {
     docs?: (string | Order)[];
     hasNextPage?: boolean;
@@ -229,7 +255,7 @@ export interface Order {
   transactions?: (string | Transaction)[] | null;
   status?: OrderStatus;
   amount?: number | null;
-  currency?: 'USD' | null;
+  currency?: 'EUR' | null;
   accessToken?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -241,7 +267,13 @@ export interface Order {
 export interface Product {
   id: string;
   title: string;
+  /**
+   * Основното описание, което се вижда на продуктовата страница.
+   */
   description?: string | null;
+  /**
+   * Използвайте го, ако искате по-кратък текст за SEO или кратко резюме.
+   */
   shortDescription?: string | null;
   images?:
     | {
@@ -258,14 +290,11 @@ export interface Product {
   brand?: (string | null) | Brand;
   categories?: (string | Category)[] | null;
   price: number;
-  /**
-   * Служебно поле за съвместимост с логиката на количката.
-   */
+  priceInEUR?: number | null;
+  priceInEUREnabled?: boolean | null;
   priceInUSD?: number | null;
+  priceInUSDEnabled?: boolean | null;
   stockQty?: number | null;
-  /**
-   * Служебно поле за съвместимост с логиката за наличност.
-   */
   inventory?: number | null;
   stockStatus?: ('instock' | 'outofstock' | 'onbackorder' | 'unknown') | null;
   manageStock?: boolean | null;
@@ -283,6 +312,14 @@ export interface Product {
   legacyProductUrl?: string | null;
   legacyModifiedAt?: string | null;
   published?: boolean | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -322,13 +359,51 @@ export interface Category {
   title: string;
   parent?: (string | null) | Category;
   productCount?: number | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt: string;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -364,7 +439,7 @@ export interface Transaction {
   order?: (string | null) | Order;
   cart?: (string | null) | Cart;
   amount?: number | null;
-  currency?: 'USD' | null;
+  currency?: 'EUR' | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -386,7 +461,7 @@ export interface Cart {
   purchasedAt?: string | null;
   status?: ('active' | 'purchased' | 'abandoned') | null;
   subtotal?: number | null;
-  currency?: 'USD' | null;
+  currency?: 'EUR' | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -453,37 +528,44 @@ export interface Address {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "partners".
  */
-export interface Media {
+export interface Partner {
   id: string;
-  alt: string;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  title: string;
+  address: string;
+  city: string;
+  phone: string;
+  workingHours: string;
+  /**
+   * Незадължително. Например: https://example.com
+   */
+  website?: string | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-inquiries".
+ */
+export interface ContactInquiry {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  message: string;
+  privacyAccepted: boolean;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -520,6 +602,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: string | Partner;
+      } | null)
+    | ({
+        relationTo: 'contact-inquiries';
+        value: string | ContactInquiry;
       } | null)
     | ({
         relationTo: 'media';
@@ -593,7 +683,15 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  companyName?: T;
+  companyEIK?: T;
+  companyCity?: T;
+  phone?: T;
+  companyAddress?: T;
+  firstName?: T;
+  lastName?: T;
   roles?: T;
+  approved?: T;
   orders?: T;
   cart?: T;
   addresses?: T;
@@ -638,8 +736,49 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   parent?: T;
   productCount?: T;
-  generateSlug?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  title?: T;
+  address?: T;
+  city?: T;
+  phone?: T;
+  workingHours?: T;
+  website?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-inquiries_select".
+ */
+export interface ContactInquiriesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  privacyAccepted?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -705,7 +844,10 @@ export interface ProductsSelect<T extends boolean = true> {
   brand?: T;
   categories?: T;
   price?: T;
+  priceInEUR?: T;
+  priceInEUREnabled?: T;
   priceInUSD?: T;
+  priceInUSDEnabled?: T;
   stockQty?: T;
   inventory?: T;
   stockStatus?: T;
@@ -716,6 +858,13 @@ export interface ProductsSelect<T extends boolean = true> {
   legacyProductUrl?: T;
   legacyModifiedAt?: T;
   published?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
@@ -860,6 +1009,316 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: string;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'products';
+            value: string | Product;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'products';
+            value: string | Product;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-page".
+ */
+export interface TermsPage {
+  id: string;
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-page".
+ */
+export interface PrivacyPage {
+  id: string;
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: string;
+  title: string;
+  store: {
+    address: string;
+    phone: string;
+    workingHours: string;
+  };
+  warehouse: {
+    address: string;
+    phone: string;
+    workingHours: string;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shopPage".
+ */
+export interface ShopPage {
+  id: string;
+  /**
+   * Добави едно или повече изображения за горния слайдър на каталога.
+   */
+  topBanners?:
+    | {
+        image?: (string | null) | Media;
+        /**
+         * Незадължително. Ако е попълнен, банерът ще води към този адрес.
+         */
+        url?: string | null;
+        openInNewTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  bottomBanner?: {
+    image?: (string | null) | Media;
+    /**
+     * Незадължително. Ако е попълнен, банерът ще води към този адрес.
+     */
+    url?: string | null;
+    openInNewTab?: boolean | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-page_select".
+ */
+export interface TermsPageSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-page_select".
+ */
+export interface PrivacyPageSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  title?: T;
+  store?:
+    | T
+    | {
+        address?: T;
+        phone?: T;
+        workingHours?: T;
+      };
+  warehouse?:
+    | T
+    | {
+        address?: T;
+        phone?: T;
+        workingHours?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shopPage_select".
+ */
+export interface ShopPageSelect<T extends boolean = true> {
+  topBanners?:
+    | T
+    | {
+        image?: T;
+        url?: T;
+        openInNewTab?: T;
+        id?: T;
+      };
+  bottomBanner?:
+    | T
+    | {
+        image?: T;
+        url?: T;
+        openInNewTab?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

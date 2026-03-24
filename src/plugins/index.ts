@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import type { Plugin } from 'payload'
-import { ecommercePlugin } from '@payloadcms/plugin-ecommerce'
+import { ecommercePlugin, EUR } from '@payloadcms/plugin-ecommerce'
 
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
@@ -97,6 +97,10 @@ export const plugins: Plugin[] = [
     },
     customers: {
       slug: 'users',
+    },
+    currencies: {
+      defaultCurrency: 'EUR',
+      supportedCurrencies: [EUR],
     },
     payments: {
       paymentMethods: [manualAdapter()],

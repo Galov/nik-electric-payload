@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/providers/Auth'
+import { useEcommerce } from '@payloadcms/plugin-ecommerce/client/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useCallback, useRef } from 'react'
@@ -17,11 +18,14 @@ type FormData = {
   password: string
 }
 
+const GUEST_CART_KEY = 'cart-eur'
+
 export const LoginForm: React.FC = () => {
   const searchParams = useSearchParams()
   const allParams = searchParams.toString() ? `?${searchParams.toString()}` : ''
   const redirect = useRef(searchParams.get('redirect'))
   const { login } = useAuth()
+  const { onLogin } = useEcommerce()
   const router = useRouter()
   const [error, setError] = React.useState<null | string>(null)
 
@@ -34,20 +38,30 @@ export const LoginForm: React.FC = () => {
   const onSubmit = useCallback(
     async (data: FormData) => {
       try {
-        await login(data)
+        const loggedInUser = await login(data)
+        try {
+          await syncGuestCartAfterLogin(loggedInUser.id)
+          await onLogin()
+        } catch {
+          setError(
+            'Влязохте успешно, но количката не можа да се синхронизира. Обновете страницата и проверете количката си.',
+          )
+        }
         if (redirect?.current) router.push(redirect.current)
-        else router.push('/account')
+        else router.push('/shop')
       } catch (_) {
-        setError('Въведените данни за вход са невалидни. Опитайте отново.')
+        setError(
+          _ instanceof Error ? _.message : 'Въведените данни за вход са невалидни. Опитайте отново.',
+        )
       }
     },
-    [login, router],
+    [login, onLogin, router],
   )
 
   return (
     <form className="" onSubmit={handleSubmit(onSubmit)}>
-      <Message className="classes.message" error={error} />
-      <div className="flex flex-col gap-8">
+      <Message error={error} />
+      <div className="flex flex-col gap-6">
         <FormItem>
           <Label htmlFor="email">Имейл</Label>
           <Input
@@ -68,24 +82,107 @@ export const LoginForm: React.FC = () => {
           {errors.password && <FormError message={errors.password.message} />}
         </FormItem>
 
-        <div className="text-primary/70 mb-6 prose prose-a:hover:text-primary dark:prose-invert">
+        <div className="mb-6 text-sm text-primary/65">
           <p>
             Забравена парола?{' '}
-            <Link href={`/recover-password${allParams}`}>Натисни тук, за да я смениш</Link>
+            <Link
+              className="text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]"
+              href={`/forgot-password${allParams}`}
+            >
+              Натисни тук, за да я смениш
+            </Link>
           </p>
         </div>
       </div>
 
-      <div className="flex gap-4 justify-between">
-        <Button asChild variant="outline" size="lg">
-          <Link href={`/create-account${allParams}`} className="grow max-w-[50%]">
+      <div className="flex justify-between gap-4">
+        <Button
+          asChild
+          className="h-12 max-w-[50%] rounded-md border-black/10 px-5 text-sm font-normal text-primary/70 hover:border-black/15 hover:bg-black/[0.02] hover:text-primary"
+          variant="outline"
+        >
+          <Link href={`/create-account${allParams}`} className="grow">
             Създай профил
           </Link>
         </Button>
-        <Button className="grow" disabled={isLoading} size="lg" type="submit" variant="default">
+        <Button
+          className="h-12 grow rounded-md bg-[rgb(0,126,229)] px-9 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
+          disabled={isLoading}
+          type="submit"
+          variant="default"
+        >
           {isLoading ? 'Обработва се' : 'Продължи'}
         </Button>
       </div>
     </form>
   )
+}
+
+const syncGuestCartAfterLogin = async (userID: number | string) => {
+  const guestCartID = window.localStorage.getItem(GUEST_CART_KEY)
+  const guestSecret = window.localStorage.getItem(`${GUEST_CART_KEY}_secret`)
+
+  if (!guestCartID || !guestSecret) {
+    return
+  }
+
+  const meResponse = await fetch('/api/users/me?depth=0&select[id]=true&select[cart]=true', {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'GET',
+  })
+
+  if (!meResponse.ok) {
+    throw new Error('Failed to fetch authenticated cart state.')
+  }
+
+  const meData = (await meResponse.json()) as {
+    user?: {
+      cart?: {
+        docs?: Array<string | { id: string }>
+      }
+    }
+  }
+
+  const userCartDoc = meData.user?.cart?.docs?.[0]
+  const userCartID =
+    typeof userCartDoc === 'object' && userCartDoc ? userCartDoc.id : (userCartDoc ?? null)
+
+  if (userCartID && userCartID !== guestCartID) {
+    const mergeResponse = await fetch(`/api/carts/${userCartID}/merge`, {
+      body: JSON.stringify({
+        sourceCartID: guestCartID,
+        sourceSecret: guestSecret,
+      }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+
+    if (!mergeResponse.ok) {
+      throw new Error('Failed to merge guest cart.')
+    }
+  } else {
+    const transferResponse = await fetch(`/api/carts/${guestCartID}?secret=${guestSecret}`, {
+      body: JSON.stringify({
+        customer: userID,
+        secret: null,
+      }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+    })
+
+    if (!transferResponse.ok) {
+      throw new Error('Failed to transfer guest cart.')
+    }
+  }
+
+  window.localStorage.removeItem(`${GUEST_CART_KEY}_secret`)
 }

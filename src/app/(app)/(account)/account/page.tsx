@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Button } from '@/components/ui/button'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import Link from 'next/link'
 import { headers as getHeaders } from 'next/headers.js'
 import configPromise from '@payload-config'
@@ -48,15 +48,15 @@ export default async function AccountPage() {
 
   return (
     <>
-      <div className="border p-8 rounded-lg bg-primary-foreground">
-        <h1 className="text-3xl font-medium mb-8">Настройки на профила</h1>
+      <div className="bg-muted/20 px-5 py-6 md:px-7 md:py-8">
+        <h1 className="mb-8 text-3xl font-normal text-primary/85">Настройки на профила</h1>
         <AccountForm />
       </div>
 
-      <div className=" border p-8 rounded-lg bg-primary-foreground">
-        <h2 className="text-3xl font-medium mb-8">Последни поръчки</h2>
+      <div className="bg-muted/20 px-5 py-6 md:px-7 md:py-8">
+        <h2 className="mb-8 text-3xl font-normal text-primary/85">Последни поръчки</h2>
 
-        <div className="prose dark:prose-invert mb-8">
+        <div className="mb-8 max-w-none text-primary/65">
           <p>
             Това са последните поръчки, които сте направили. С добавянето на нови поръчки те ще
             се появяват в този списък.
@@ -68,7 +68,7 @@ export default async function AccountPage() {
         )}
 
         {orders && orders.length > 0 && (
-          <ul className="flex flex-col gap-6 mb-8">
+          <ul className="mb-8 flex flex-col gap-4">
             {orders.map((order) => (
               <li key={order.id}>
                 <OrderItem order={order} />
@@ -85,11 +85,8 @@ export default async function AccountPage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Promise<Metadata> = getNoIndexMetadata({
   description: 'Управление на профила и последните поръчки.',
-  openGraph: mergeOpenGraph({
-    title: 'Профил',
-    url: '/account',
-  }),
+  path: '/account',
   title: 'Профил',
-}
+})

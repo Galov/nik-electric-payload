@@ -25,17 +25,22 @@ export const LogoutPage: React.FC = () => {
   return (
     <Fragment>
       {(error || success) && (
-        <div className="prose dark:prose-invert">
-          <h1>{error || success}</h1>
-          <p>
+        <div>
+          <h1 className="mb-4 text-3xl font-normal text-primary/85">{error || success}</h1>
+          <p className="text-sm leading-7 text-primary/65">
             Какво искате да направите сега?
             <Fragment>
               {' '}
-              <Link href="/shop">Натиснете тук</Link>
+              <Link className="text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]" href="/shop">
+                Натиснете тук
+              </Link>
               {` за да разгледате каталога.`}
             </Fragment>
             {` За нов вход `}
-            <Link href="/login">натиснете тук</Link>.
+            <Link className="text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]" href="/login">
+              натиснете тук
+            </Link>
+            .
           </p>
         </div>
       )}

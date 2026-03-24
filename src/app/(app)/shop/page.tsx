@@ -1,13 +1,14 @@
 import { Grid } from '@/components/Grid'
 import { ProductGridItem } from '@/components/ProductGridItem'
+import { CatalogPagination } from '@/components/layout/search/CatalogPagination'
+import { Search } from '@/components/Search'
+import { SortToolbar } from '@/components/layout/search/SortToolbar'
+import { ShopBanner } from '@/components/shop/ShopBanner'
+import { generateMeta } from '@/utilities/generateMeta'
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, type Where } from 'payload'
 import React from 'react'
-
-export const metadata = {
-  description: 'Разгледайте продуктите в каталога.',
-  title: 'Каталог',
-}
 
 type SearchParams = { [key: string]: string | string[] | undefined }
 
@@ -15,21 +16,58 @@ type Props = {
   searchParams: Promise<SearchParams>
 }
 
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { brand, category, limit, page, q, sort } = await searchParams
+  const hasFilters = Boolean(brand || category || limit || page || q || sort)
+
+  const metadata = await generateMeta({
+    fallbackDescription: 'Разгледайте продуктите в каталога.',
+    fallbackTitle: 'Каталог',
+    path: '/shop',
+  })
+
+  return {
+    ...metadata,
+    robots: {
+      follow: true,
+      googleBot: {
+        follow: true,
+        index: !hasFilters,
+      },
+      index: !hasFilters,
+    },
+  }
+}
+
 export default async function ShopPage({ searchParams }: Props) {
-  const { brand, category, q: rawSearchValue, sort } = await searchParams
+  const resolvedSearchParams = await searchParams
+  const { brand, category, limit: rawLimit, page: rawPage, q: rawSearchValue, sort } =
+    resolvedSearchParams
   const searchValue = String(rawSearchValue || '').trim()
+  const searchTerms = tokenizeSearchTerms(searchValue)
+  const pageSize = normalizePageSize(rawLimit)
+  const currentPage = normalizeCurrentPage(rawPage)
   const payload = await getPayload({ config: configPromise })
+  const shopPage = await payload.findGlobal({
+    slug: 'shopPage',
+    depth: 1,
+  })
+  const selectedBrandID = brand ? await getBrandIDForFilter(payload, String(brand)) : null
   const categoryIDs = category ? await getCategoryIDsForFilter(payload, String(category)) : null
-  const brandIDs = searchValue ? await getMatchingBrandIDs(payload, searchValue) : []
-  const searchCategoryIDs =
-    searchValue && !category ? await getMatchingCategoryIDs(payload, searchValue) : []
+  const searchClauses = searchTerms.length > 0 ? await getSearchClauses(payload, searchTerms) : []
 
   const products = await payload.find({
     collection: 'products',
     draft: false,
-    limit: 20,
+    limit: pageSize,
     overrideAccess: false,
+    page: currentPage,
+    pagination: true,
     select: {
+      inventory: true,
+      manufacturerCode: true,
+      published: true,
+      stockQty: true,
       images: true,
       price: true,
       title: true,
@@ -46,57 +84,7 @@ export default async function ShopPage({ searchParams }: Props) {
             equals: true,
           },
         },
-        ...(searchValue
-          ? [
-              {
-                or: [
-                  {
-                    title: {
-                      like: searchValue,
-                    },
-                  },
-                  {
-                    description: {
-                      like: searchValue,
-                    },
-                  },
-                  {
-                    sku: {
-                      like: searchValue,
-                    },
-                  },
-                  {
-                    originalSku: {
-                      like: searchValue,
-                    },
-                  },
-                  {
-                    manufacturerCode: {
-                      like: searchValue,
-                    },
-                  },
-                  ...(brandIDs.length > 0
-                    ? [
-                        {
-                          brand: {
-                            in: brandIDs,
-                          },
-                        },
-                      ]
-                    : []),
-                  ...(searchCategoryIDs.length > 0
-                    ? [
-                        {
-                          categories: {
-                            in: searchCategoryIDs,
-                          },
-                        },
-                      ]
-                    : []),
-                ],
-              },
-            ]
-          : []),
+        ...searchClauses,
         ...(category
           ? [
               {
@@ -110,7 +98,7 @@ export default async function ShopPage({ searchParams }: Props) {
           ? [
               {
                 brand: {
-                  equals: String(brand),
+                  equals: selectedBrandID || String(brand),
                 },
               },
             ]
@@ -119,36 +107,126 @@ export default async function ShopPage({ searchParams }: Props) {
     },
   })
 
-  const resultsText = products.docs.length > 1 ? 'резултата' : 'резултат'
+  const resultsText = products.totalDocs > 1 ? 'резултата' : 'резултат'
   const hasActiveFilters = Boolean(searchValue || category || brand)
+  const paginationSearchParams = new URLSearchParams()
+
+  for (const [key, value] of Object.entries(resolvedSearchParams)) {
+    if (value === undefined) continue
+
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        paginationSearchParams.append(key, item)
+      }
+
+      continue
+    }
+
+    paginationSearchParams.set(key, value)
+  }
+
+  const availableBrands = Array.from(
+    new Map(
+      products.docs
+        .flatMap((product) => {
+          if (!product.brand || typeof product.brand === 'string') return []
+
+          return [
+            {
+              id: product.brand.id,
+              slug: product.brand.slug || String(product.brand.id),
+              title: product.brand.title,
+            },
+          ]
+        })
+        .map((availableBrand) => [availableBrand.slug, availableBrand]),
+    ).values(),
+  )
 
   return (
     <div>
-      {searchValue ? (
-        <p className="mb-4">
-          {products.docs?.length === 0
-            ? 'Няма продукти, които съвпадат с избраните критерии.'
-            : `Показваме ${products.docs.length} ${resultsText} за избраните критерии.`}
-        </p>
-      ) : null}
+      <section className="mb-6 rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 md:px-5 md:py-6">
+        <Search
+          availableBrands={availableBrands}
+          showBrandFilter={Boolean(searchValue) && products.docs.length > 0}
+        />
 
-      {!hasActiveFilters && products.docs?.length === 0 && (
-        <p className="mb-4">Няма намерени продукти. Опитай с други филтри.</p>
-      )}
+        {searchValue ? (
+          <div className="pt-5">
+            <p className="text-sm leading-7 text-[rgb(0,126,229)]">
+              {products.docs?.length === 0
+                ? 'Няма продукти, които съвпадат с избраните критерии.'
+                : `Намерихме ${products.totalDocs} ${resultsText} за избраните критерии.`}
+            </p>
+          </div>
+        ) : null}
 
-      {hasActiveFilters && products.docs?.length === 0 && (
-        <p className="mb-4">Няма намерени продукти по избраната комбинация от филтри.</p>
-      )}
+        {!hasActiveFilters && products.docs?.length === 0 ? (
+          <div className="pt-5">
+            <p className="text-sm leading-7 text-primary/62">
+              Няма намерени продукти. Опитай с други филтри.
+            </p>
+          </div>
+        ) : null}
+
+        {hasActiveFilters && products.docs?.length === 0 ? (
+          <div className="pt-5">
+            <p className="text-sm leading-7 text-primary/62">
+              Няма намерени продукти по избраната комбинация от филтри.
+            </p>
+          </div>
+        ) : null}
+
+        {products?.docs.length > 0 ? <SortToolbar pageSize={pageSize} /> : null}
+      </section>
 
       {products?.docs.length > 0 ? (
-        <Grid className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {products.docs.map((product) => {
-            return <ProductGridItem key={product.id} product={product} />
-          })}
-        </Grid>
+        <>
+          <Grid className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {products.docs.map((product) => {
+              return <ProductGridItem key={product.id} product={product} />
+            })}
+          </Grid>
+          <CatalogPagination
+            currentPage={products.page ?? currentPage}
+            searchParams={paginationSearchParams}
+            totalPages={products.totalPages}
+          />
+          <ShopBanner banner={shopPage?.bottomBanner} className="mt-8" />
+        </>
       ) : null}
     </div>
   )
+}
+
+const tokenizeSearchTerms = (value: string) =>
+  value
+    .split(/\s+/)
+    .map((term) => term.trim())
+    .filter(Boolean)
+
+const normalizePageSize = (value: string | string[] | undefined): number => {
+  const rawValue = Array.isArray(value) ? value[0] : value
+
+  const allowedValues = new Set([8, 16, 24, 48, 96])
+  const numericValue = Number(rawValue)
+
+  if (allowedValues.has(numericValue)) {
+    return numericValue
+  }
+
+  return 16
+}
+
+const normalizeCurrentPage = (value: string | string[] | undefined) => {
+  const rawValue = Array.isArray(value) ? value[0] : value
+  const numericValue = Number(rawValue)
+
+  if (Number.isInteger(numericValue) && numericValue > 0) {
+    return numericValue
+  }
+
+  return 1
 }
 
 const getCategoryIDsForFilter = async (
@@ -213,6 +291,35 @@ const getMatchingBrandIDs = async (
   return brands.docs.map((brand) => brand.id)
 }
 
+const getBrandIDForFilter = async (
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  brandValue: string,
+) => {
+  const brands = await payload.find({
+    collection: 'brands',
+    depth: 0,
+    limit: 1,
+    overrideAccess: false,
+    pagination: false,
+    where: {
+      or: [
+        {
+          slug: {
+            equals: brandValue,
+          },
+        },
+        {
+          id: {
+            equals: brandValue,
+          },
+        },
+      ],
+    },
+  })
+
+  return brands.docs[0]?.id || null
+}
+
 const getMatchingCategoryIDs = async (
   payload: Awaited<ReturnType<typeof getPayload>>,
   searchValue: string,
@@ -231,4 +338,66 @@ const getMatchingCategoryIDs = async (
   })
 
   return categories.docs.map((category) => category.id)
+}
+
+const getSearchClauses = async (
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  searchTerms: string[],
+) => {
+  return Promise.all(
+    searchTerms.map(async (term) => {
+      const [brandIDs, searchCategoryIDs] = await Promise.all([
+        getMatchingBrandIDs(payload, term),
+        getMatchingCategoryIDs(payload, term),
+      ])
+
+      const orClauses: Where[] = [
+        {
+          title: {
+            like: term,
+          },
+        },
+        {
+          description: {
+            like: term,
+          },
+        },
+        {
+          sku: {
+            like: term,
+          },
+        },
+        {
+          originalSku: {
+            like: term,
+          },
+        },
+        {
+          manufacturerCode: {
+            like: term,
+          },
+        },
+      ]
+
+      if (brandIDs.length > 0) {
+        orClauses.push({
+          brand: {
+            in: brandIDs,
+          },
+        })
+      }
+
+      if (searchCategoryIDs.length > 0) {
+        orClauses.push({
+          categories: {
+            in: searchCategoryIDs,
+          },
+        })
+      }
+
+      return {
+        or: orClauses,
+      }
+    }),
+  )
 }

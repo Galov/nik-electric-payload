@@ -42,8 +42,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h3 className="text-xl font-medium mb-2">{heading}</h3>
-        <p className="text-muted-foreground">{description}</p>
+        <h3 className="mb-2 text-lg font-normal text-primary/80">{heading}</h3>
+        <p className="text-sm text-primary/60">{description}</p>
       </div>
       <AddressesModal setAddress={setAddress} />
     </div>

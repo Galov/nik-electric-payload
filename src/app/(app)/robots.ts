@@ -1,12 +1,13 @@
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000'
+import { getBaseURL } from '@/utilities/getBaseURL'
 
 export default function robots() {
+  const baseUrl = getBaseURL()
+
   return {
     host: baseUrl,
     rules: [
       {
+        disallow: ['/admin', '/api'],
         userAgent: '*',
       },
     ],

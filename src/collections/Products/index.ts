@@ -2,6 +2,7 @@ import type { CollectionOverride } from '@payloadcms/plugin-ecommerce/types'
 import type { Access } from 'payload'
 import { slugField } from 'payload'
 import { checkRole } from '@/access/utilities'
+import { buildSEOFields } from '@/fields/seo'
 
 const normalizeCatalogCompatibilityFields = ({
   data,
@@ -29,9 +30,47 @@ const normalizeCatalogCompatibilityFields = ({
         : 0
 
   data.priceInUSD = price
+  data.priceInEUR = price
+  data.priceInUSDEnabled = price > 0
+  data.priceInEUREnabled = price > 0
   data.inventory = stockQty
 
   return data
+}
+
+const ensureCatalogCompatibilityFields = ({
+  doc,
+}: {
+  doc?: Record<string, unknown> | null
+}) => {
+  if (!doc) {
+    return doc
+  }
+
+  const price = typeof doc.price === 'number' ? doc.price : 0
+  const stockQty = typeof doc.stockQty === 'number' ? doc.stockQty : 0
+
+  if (typeof doc.priceInEUR !== 'number') {
+    doc.priceInEUR = price
+  }
+
+  if (typeof doc.priceInUSD !== 'number') {
+    doc.priceInUSD = price
+  }
+
+  if (typeof doc.priceInEUREnabled !== 'boolean') {
+    doc.priceInEUREnabled = price > 0
+  }
+
+  if (typeof doc.priceInUSDEnabled !== 'boolean') {
+    doc.priceInUSDEnabled = price > 0
+  }
+
+  if (typeof doc.inventory !== 'number') {
+    doc.inventory = stockQty
+  }
+
+  return doc
 }
 
 const syncCatalogFields = ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: number | null }) => {
@@ -64,6 +103,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   },
   hooks: {
     ...defaultCollection.hooks,
+    afterRead: [...(defaultCollection.hooks?.afterRead || []), ensureCatalogCompatibilityFields],
     beforeChange: [
       ...(defaultCollection.hooks?.beforeChange || []),
       normalizeCatalogCompatibilityFields,
@@ -71,7 +111,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   },
   admin: {
     ...defaultCollection.admin,
-    defaultColumns: ['title', 'sku', 'price', 'stockStatus', 'published'],
+    defaultColumns: ['title', 'sku', 'brand', 'price', 'stockQty', 'published'],
     group: 'Каталог',
     useAsTitle: 'title',
   },
@@ -84,8 +124,13 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     title: true,
     slug: true,
     sku: true,
+    description: true,
+    shortDescription: true,
     price: true,
+    priceInEUR: true,
+    priceInEUREnabled: true,
     priceInUSD: true,
+    priceInUSDEnabled: true,
     stockQty: true,
     stockStatus: true,
     inventory: true,
@@ -95,7 +140,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     published: true,
   },
   fields: [
-    { name: 'title', type: 'text', required: true },
+    { name: 'title', label: 'Име', type: 'text', required: true },
     {
       type: 'tabs',
       tabs: [
@@ -104,27 +149,46 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           fields: [
             {
               name: 'description',
+              label: 'Описание',
+              admin: {
+                description: 'Основното описание, което се вижда на продуктовата страница.',
+              },
               type: 'textarea',
             },
             {
               name: 'shortDescription',
+              label: 'Кратко описание',
+              admin: {
+                description: 'Използвайте го, ако искате по-кратък текст за SEO или кратко резюме.',
+              },
               type: 'textarea',
             },
             {
               name: 'images',
+              label: 'Снимки',
               type: 'array',
+              labels: {
+                plural: 'Снимки',
+                singular: 'Снимка',
+              },
               fields: [
                 {
                   name: 'legacyUrl',
+                  label: 'Изходен URL',
                   type: 'text',
                   required: true,
                 },
                 {
                   name: 'storageKey',
+                  label: 'Ключ в хранилището',
                   type: 'text',
+                  admin: {
+                    hidden: true,
+                  },
                 },
                 {
                   name: 'alt',
+                  label: 'Alt текст',
                   type: 'text',
                 },
               ],
@@ -136,49 +200,56 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           fields: [
             {
               name: 'sourceId',
+              label: 'Изходен ID',
               type: 'number',
               admin: {
-                position: 'sidebar',
+                hidden: true,
               },
               index: true,
               unique: true,
             },
             {
               name: 'sku',
+              label: 'Код',
               type: 'text',
               index: true,
             },
             {
               name: 'originalSku',
+              label: 'Оригинален код',
               type: 'text',
             },
             {
               name: 'manufacturerCode',
+              label: 'Производител / тип',
               type: 'text',
             },
             {
               name: 'brand',
+              label: 'Марка',
               type: 'relationship',
               relationTo: 'brands',
             },
             {
               name: 'categories',
+              label: 'Категории',
               type: 'relationship',
               relationTo: 'categories',
               hasMany: true,
             },
             {
               name: 'price',
+              label: 'Цена (EUR)',
               type: 'number',
               defaultValue: 0,
               required: true,
             },
             {
-              name: 'priceInUSD',
+              name: 'priceInEUR',
+              label: 'Служебна цена EUR',
               type: 'number',
               admin: {
-                description: 'Служебно поле за съвместимост с логиката на количката.',
-                readOnly: true,
+                hidden: true,
               },
               defaultValue: 0,
               hooks: {
@@ -186,16 +257,73 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               },
             },
             {
+              name: 'priceInEUREnabled',
+              label: 'Служебна цена EUR е активна',
+              type: 'checkbox',
+              admin: {
+                hidden: true,
+              },
+              defaultValue: false,
+              hooks: {
+                beforeChange: [
+                  ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: boolean | null }) => {
+                    const price =
+                      siblingData?.priceInEUR ??
+                      siblingData?.price ??
+                      data?.priceInEUR ??
+                      data?.price
+
+                    return typeof price === 'number' ? price > 0 : Boolean(value)
+                  },
+                ],
+              },
+            },
+            {
+              name: 'priceInUSD',
+              label: 'Служебна цена',
+              type: 'number',
+              admin: {
+                hidden: true,
+              },
+              defaultValue: 0,
+              hooks: {
+                beforeChange: [syncCatalogFields],
+              },
+            },
+            {
+              name: 'priceInUSDEnabled',
+              label: 'Служебна цена USD е активна',
+              type: 'checkbox',
+              admin: {
+                hidden: true,
+              },
+              defaultValue: false,
+              hooks: {
+                beforeChange: [
+                  ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: boolean | null }) => {
+                    const price =
+                      siblingData?.priceInUSD ??
+                      siblingData?.price ??
+                      data?.priceInUSD ??
+                      data?.price
+
+                    return typeof price === 'number' ? price > 0 : Boolean(value)
+                  },
+                ],
+              },
+            },
+            {
               name: 'stockQty',
+              label: 'Наличност (бр.)',
               type: 'number',
               defaultValue: 0,
             },
             {
               name: 'inventory',
+              label: 'Служебна наличност',
               type: 'number',
               admin: {
-                description: 'Служебно поле за съвместимост с логиката за наличност.',
-                readOnly: true,
+                hidden: true,
               },
               defaultValue: 0,
               hooks: {
@@ -204,6 +332,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
             {
               name: 'stockStatus',
+              label: 'Статус наличност',
               type: 'select',
               defaultValue: 'unknown',
               options: [
@@ -227,37 +356,67 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
             {
               name: 'manageStock',
+              label: 'Управление на наличност',
               type: 'checkbox',
               defaultValue: false,
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'backordersAllowed',
+              label: 'Позволени заявки без наличност',
               type: 'checkbox',
               defaultValue: false,
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'imagesMigrated',
+              label: 'Снимките са мигрирани',
               type: 'checkbox',
               defaultValue: false,
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'legacyAttachmentIDs',
+              label: 'Служебни attachment ID',
               type: 'json',
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'legacyProductUrl',
+              label: 'Изходен URL на продукта',
               type: 'text',
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'legacyModifiedAt',
+              label: 'Последна промяна в изходния сайт',
               type: 'date',
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'published',
+              label: 'Публикуван',
               type: 'checkbox',
               defaultValue: true,
             },
           ],
+        },
+        {
+          name: 'meta',
+          label: 'SEO',
+          fields: buildSEOFields(),
         },
       ],
     },

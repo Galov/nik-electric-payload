@@ -8,14 +8,14 @@ export const AddressListing: React.FC = () => {
   const { addresses } = useAddresses()
 
   if (!addresses || addresses.length === 0) {
-    return <p>Няма намерени адреси.</p>
+    return <p className="text-primary/65">Няма намерени адреси.</p>
   }
 
   return (
     <div>
-      <ul className="flex flex-col gap-8">
+      <ul className="flex flex-col gap-4">
         {addresses.map((address) => (
-          <li key={address.id} className="border-b pb-8 last:border-none">
+          <li key={address.id}>
             <AddressItem address={address} />
           </li>
         ))}

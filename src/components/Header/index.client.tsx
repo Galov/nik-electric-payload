@@ -27,7 +27,7 @@ export function HeaderClient({ header }: Props) {
   const pathname = usePathname()
 
   return (
-    <div className="relative z-20 border-b-2 border-[rgb(0,126,229)]">
+    <div className="relative z-20 border-b border-[rgb(0,126,229)]/35 bg-[rgb(248,252,255)] shadow-[0_10px_24px_rgba(0,126,229,0.03)]">
       <nav className="container flex items-center justify-between py-4 md:py-6">
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
@@ -40,13 +40,13 @@ export function HeaderClient({ header }: Props) {
               <SiteLogo className="h-auto w-44" priority />
             </Link>
             {menu.length ? (
-              <ul className="hidden gap-6 pl-6 text-sm md:flex md:items-center">
+              <ul className="hidden gap-4 pl-6 text-sm md:flex md:items-center">
                 {menu.map((item) => (
                   <li key={item.id}>
                     <CMSLink
                       {...item.link}
                       size={'clear'}
-                      className={cn('relative navLink text-primary/80 transition-colors hover:text-primary', {
+                      className={cn('relative navLink rounded-[2px] px-3 py-2 text-xs uppercase tracking-[0.14em] text-primary/65 transition-colors hover:bg-[rgb(0,126,229)]/6 hover:text-primary', {
                         active:
                           item.link.url && item.link.url !== '/'
                             ? pathname.includes(item.link.url)

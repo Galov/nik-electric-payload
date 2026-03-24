@@ -5,6 +5,7 @@ import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
 import { adminOrSelf } from '@/access/adminOrSelf'
 import { publicAccess } from '@/access/publicAccess'
 import { checkRole } from '@/access/utilities'
+import { APIError } from 'payload'
 
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 
@@ -20,7 +21,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     group: 'Потребители',
-    defaultColumns: ['name', 'email', 'roles'],
+    defaultColumns: ['name', 'email', 'approved', 'roles'],
     useAsTitle: 'name',
   },
   labels: {
@@ -30,11 +31,140 @@ export const Users: CollectionConfig = {
   auth: {
     tokenExpiration: 1209600,
   },
+  hooks: {
+    beforeChange: [
+      ({ data }) => {
+        if (!data) {
+          return data
+        }
+
+        const personalName = [data.firstName, data.lastName]
+          .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
+          .join(' ')
+          .trim()
+
+        const companyName =
+          typeof data.companyName === 'string' && data.companyName.trim().length > 0
+            ? data.companyName.trim()
+            : ''
+
+        data.name = [personalName, companyName].filter(Boolean).join(' • ') || data.email || data.name
+
+        return data
+      },
+    ],
+    beforeLogin: [
+      ({ user }) => {
+        if (checkRole(['admin'], user)) {
+          return user
+        }
+
+        if (user?.approved === false) {
+          throw new APIError('Профилът ви все още не е одобрен от администратор.', 403)
+        }
+
+        return user
+      },
+    ],
+  },
   fields: [
     {
       name: 'name',
       label: 'Име',
       type: 'text',
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Фирмени данни',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'companyName',
+                  label: 'Име на фирма',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'companyEIK',
+                  label: 'ЕИК',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'companyCity',
+                  label: 'Град',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'phone',
+                  label: 'Телефон',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'companyAddress',
+              label: 'Адрес',
+              type: 'textarea',
+              required: true,
+            },
+          ],
+        },
+        {
+          label: 'Лице за контакт',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'firstName',
+                  label: 'Име',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'lastName',
+                  label: 'Фамилия',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'roles',
@@ -60,6 +190,17 @@ export const Users: CollectionConfig = {
           value: 'admin',
         },
       ],
+    },
+    {
+      name: 'approved',
+      label: 'Одобрен',
+      type: 'checkbox',
+      defaultValue: false,
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
     },
     {
       name: 'orders',

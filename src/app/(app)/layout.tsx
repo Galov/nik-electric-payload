@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { Metadata } from 'next'
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/components/Footer'
@@ -6,51 +7,59 @@ import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
+import configPromise from '@payload-config'
 import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { getPayload } from 'payload'
 import React from 'react'
+import { getBaseURL } from '@/utilities/getBaseURL'
+import { getSocialImageURL } from '@/utilities/getSocialImageURL'
+import { buildOrganizationSchema } from '@/utilities/schema'
 import './globals.css'
 
 export const dynamic = 'force-dynamic'
 
-/* const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000'
-const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined
-const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined
- */
-/* export const metadata = {
-  metadataBase: new URL(baseUrl),
-  robots: {
-    follow: true,
-    index: true,
+export const metadata: Metadata = {
+  metadataBase: new URL(getBaseURL()),
+  openGraph: {
+    images: [
+      {
+        url: getSocialImageURL('/logo.png'),
+      },
+    ],
+    locale: 'bg_BG',
+    siteName: 'Ник Електрик',
+    type: 'website',
   },
   title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
+    default: 'Ник Електрик',
+    template: '%s | Ник Електрик',
   },
-  ...(twitterCreator &&
-    twitterSite && {
-      twitter: {
-        card: 'summary_large_image',
-        creator: twitterCreator,
-        site: twitterSite,
-      },
-    }),
-} */
+  twitter: {
+    card: 'summary_large_image',
+    images: [getSocialImageURL('/logo.png')],
+  },
+}
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
+  const payload = await getPayload({ config: configPromise })
+  const contactPage = await payload.findGlobal({
+    slug: 'contact-page' as never,
+    depth: 0,
+  })
+  const organizationJsonLd = buildOrganizationSchema(contactPage as never)
+
   return (
-    <html
-      className={[GeistSans.variable, GeistMono.variable].filter(Boolean).join(' ')}
-      lang="bg"
-      suppressHydrationWarning
-    >
+    <html className={[GeistSans.variable].filter(Boolean).join(' ')} lang="bg" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/logo-sign.png" rel="icon" sizes="32x32" type="image/png" />
+        <link href="/logo-sign.png" rel="apple-touch-icon" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+          type="application/ld+json"
+        />
       </head>
       <body className="min-h-screen">
         <Providers>

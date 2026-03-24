@@ -50,17 +50,10 @@ export const ForgotPasswordForm: React.FC = () => {
     <Fragment>
       {!success && (
         <React.Fragment>
-          <h1 className="text-xl mb-4">Забравена парола</h1>
-          <div className="prose dark:prose-invert mb-8">
-            <p>
-              {`Въведете имейла си по-долу. Ще получите съобщение с инструкции как да смените паролата си. За управление на всички потребители `}
-              <Link href="/admin/collections/users">влезте в админ панела</Link>.
-            </p>
-          </div>
-          <form className="max-w-lg" onSubmit={handleSubmit(onSubmit)}>
-            <Message className="mb-8" error={error} />
+          <form className="max-w-xl" onSubmit={handleSubmit(onSubmit)}>
+            <Message className="mb-6" error={error} />
 
-            <FormItem className="mb-8">
+            <FormItem className="mb-6">
               <Label htmlFor="email" className="mb-2">
                 Имейл адрес
               </Label>
@@ -72,17 +65,41 @@ export const ForgotPasswordForm: React.FC = () => {
               {errors.email && <FormError message={errors.email.message} />}
             </FormItem>
 
-            <Button type="submit" variant="default">
+            <div className="flex items-center justify-between gap-4">
+              <Button
+                asChild
+                className="h-12 rounded-md border-black/10 px-5 text-sm font-normal text-primary/70 hover:border-black/15 hover:bg-black/[0.02] hover:text-primary"
+                variant="outline"
+              >
+                <Link href="/login">Обратно към вход</Link>
+              </Button>
+              <Button
+                className="h-12 rounded-md bg-[rgb(0,126,229)] px-9 text-sm font-normal text-white hover:bg-[rgb(0,113,206)]"
+                type="submit"
+                variant="default"
+              >
               Изпрати линк
-            </Button>
+              </Button>
+            </div>
           </form>
         </React.Fragment>
       )}
       {success && (
         <React.Fragment>
-          <h1 className="text-xl mb-4">Заявката е изпратена</h1>
-          <div className="prose dark:prose-invert">
-            <p>Провери имейла си за линк, чрез който сигурно да смениш паролата си.</p>
+          <div className="space-y-4">
+            <h2 className="text-2xl font-normal tracking-[-0.02em] text-primary">
+              Заявката е изпратена
+            </h2>
+            <p className="max-w-xl text-base leading-7 text-primary/68">
+              Провери имейла си за линк, чрез който сигурно да смениш паролата си.
+            </p>
+            <Button
+              asChild
+              className="h-12 rounded-md border-black/10 px-5 text-sm font-normal text-primary/70 hover:border-black/15 hover:bg-black/[0.02] hover:text-primary"
+              variant="outline"
+            >
+              <Link href="/login">Обратно към вход</Link>
+            </Button>
           </div>
         </React.Fragment>
       )}

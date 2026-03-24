@@ -3,7 +3,11 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "target": "es2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,18 +27,27 @@
       }
     ],
     "paths": {
-      "@payload-config": ["./src/payload.config.ts"],
-      "react": ["./node_modules/@types/react"],
-      "@/*": ["./src/*"],
-      "@/payload-types": ["./src/payload-types.ts"],
+      "@payload-config": [
+        "./src/payload.config.ts"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/payload-types": [
+        "./src/payload-types.ts"
+      ]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+    "next.config.js",
     "redirects.js",
-    "next.config.js"
+    ".next-check/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

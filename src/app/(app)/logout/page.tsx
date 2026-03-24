@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import React from 'react'
 
 import { LogoutPage } from './LogoutPage'
@@ -13,11 +13,8 @@ export default async function Logout() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Promise<Metadata> = getNoIndexMetadata({
   description: 'Излязохте от профила си.',
-  openGraph: mergeOpenGraph({
-    title: 'Изход',
-    url: '/logout',
-  }),
+  path: '/logout',
   title: 'Изход',
-}
+})

@@ -19,9 +19,17 @@ import { fileURLToPath } from 'url'
 
 import { Brands } from '@/collections/Brands'
 import { Categories } from '@/collections/Categories'
+import { ContactInquiries } from '@/collections/ContactInquiries'
 import { Media } from '@/collections/Media'
+import { Partners } from '@/collections/Partners'
 import { Users } from '@/collections/Users'
 import { microinvestWebhook } from '@/endpoints/microinvest-webhook'
+import { ContactPage } from '@/globals/ContactPage'
+import { Footer } from '@/globals/Footer'
+import { Header } from '@/globals/Header'
+import { PrivacyPage } from '@/globals/PrivacyPage'
+import { ShopPage } from '@/globals/ShopPage'
+import { TermsPage } from '@/globals/TermsPage'
 import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
@@ -43,7 +51,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Brands, Categories, Media],
+  collections: [Users, Brands, Categories, Partners, ContactInquiries, Media],
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
@@ -106,7 +114,7 @@ export default buildConfig({
       path: '/integrations/microinvest/webhook',
     },
   ],
-  globals: [],
+  globals: [Header, Footer, TermsPage, PrivacyPage, ContactPage, ShopPage],
   plugins,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

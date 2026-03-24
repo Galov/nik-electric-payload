@@ -22,29 +22,23 @@ export const ProductItem: React.FC<Props> = ({
   const { title } = product
   const image = getProductPrimaryImage(product)
   const itemPrice = product.price
-  const itemURL = `/products/${product.slug}`
+  const itemURL = `/product/${product.slug}`
 
   return (
     <div className="flex items-center gap-4">
-        <div className="flex items-stretch justify-stretch h-20 w-20 p-2 rounded-lg border">
-          <div className="relative w-full h-full">
-            {image?.url && (
-              <Image
-                alt={image.alt}
-                className="rounded-lg object-cover"
-                fill
-                sizes="80px"
-                src={image.url}
-              />
-            )}
-          </div>
+      <div className="flex h-20 w-20 items-stretch justify-stretch border border-black/8 bg-white p-2">
+        <div className="relative h-full w-full">
+          {image?.url && (
+            <Image alt={image.alt} className="object-contain" fill sizes="80px" src={image.url} />
+          )}
         </div>
+      </div>
       <div className="flex grow justify-between items-center">
         <div className="flex flex-col gap-1">
-          <p className="font-medium text-lg">
+          <p className="text-lg font-medium text-primary/85">
             <Link href={itemURL}>{title}</Link>
           </p>
-          <div>
+          <div className="text-sm text-primary/55">
             {'x'}
             {quantity}
           </div>
@@ -52,11 +46,11 @@ export const ProductItem: React.FC<Props> = ({
 
         {itemPrice && quantity && (
           <div className="text-right">
-            <p className="font-medium text-lg">Междинна сума</p>
+            <p className="text-base font-medium text-primary/75">Междинна сума</p>
             <Price
-              className="font-mono text-primary/50 text-sm"
+              className="text-sm text-primary/55"
               amount={itemPrice * quantity}
-              currencyCode={currencyCode}
+              currencyCode={currencyCode || 'EUR'}
             />
           </div>
         )}

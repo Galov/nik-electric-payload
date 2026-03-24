@@ -13,27 +13,26 @@ type Props = {
 
 export function AddToCart({ product }: Props) {
   const { addItem, cart, isLoading } = useCart()
+  const normalizedProductID = String(product.id)
 
   const addToCart = useCallback(
     (e: React.FormEvent<HTMLButtonElement>) => {
       e.preventDefault()
 
       addItem({
-        product: product.id,
+        product: normalizedProductID,
       }).then(() => {
         toast.success('Продуктът е добавен в количката.')
       })
     },
-    [addItem, product],
+    [addItem, normalizedProductID],
   )
 
   const disabled = useMemo<boolean>(() => {
     const existingItem = cart?.items?.find((item) => {
       const productID = typeof item.product === 'object' ? item.product?.id : item.product
 
-      if (productID === product.id) {
-        return true
-      }
+      return String(productID) === normalizedProductID
     })
 
     if (existingItem) {
@@ -47,16 +46,17 @@ export function AddToCart({ product }: Props) {
     }
 
     return false
-  }, [cart?.items, product])
+  }, [cart?.items, normalizedProductID, product])
 
   return (
     <Button
       aria-label="Добави в количката"
       variant={'outline'}
       className={clsx('font-sans', {
-        'border-[rgb(0,126,229)] bg-[rgb(0,126,229)] text-white hover:bg-[rgb(0,113,206)] hover:text-white':
+        'h-12 rounded-md border-[rgb(0,126,229)] bg-[rgb(0,126,229)] px-9 text-sm font-normal text-white hover:bg-[rgb(0,113,206)] hover:text-white':
           !disabled,
         'hover:opacity-90': true,
+        'h-12 rounded-md px-9 text-sm font-normal': true,
       })}
       disabled={disabled || isLoading}
       onClick={addToCart}

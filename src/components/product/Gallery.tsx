@@ -6,13 +6,14 @@ import React from 'react'
 import Image from 'next/image'
 
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { resolveProductImageURL } from '@/utilities/product'
+import { getProductImageAlt, resolveProductImageURL } from '@/utilities/product'
 
 type Props = {
   gallery: NonNullable<Product['images']>
+  productTitle?: null | string
 }
 
-export const Gallery: React.FC<Props> = ({ gallery }) => {
+export const Gallery: React.FC<Props> = ({ gallery, productTitle }) => {
   const [current, setCurrent] = React.useState(0)
   const [, setApi] = React.useState<CarouselApi>()
   const currentImage = gallery[current]
@@ -20,11 +21,15 @@ export const Gallery: React.FC<Props> = ({ gallery }) => {
 
   return (
     <div>
-      <div className="relative mb-8 aspect-square w-full overflow-hidden rounded-lg border bg-primary-foreground">
+      <div className="relative mb-8 aspect-square w-full overflow-hidden rounded-md border border-black/8 bg-white">
         {currentUrl ? (
           <Image
-            alt={currentImage?.alt || ''}
-            className="object-cover"
+            alt={getProductImageAlt({
+              imageAlt: currentImage?.alt,
+              index: current,
+              productTitle,
+            })}
+            className="object-contain"
             fill
             sizes="(min-width: 1024px) 40rem, 100vw"
             src={currentUrl}
@@ -46,13 +51,19 @@ export const Gallery: React.FC<Props> = ({ gallery }) => {
                 onClick={() => setCurrent(i)}
               >
                 <div
-                  className={`relative aspect-square overflow-hidden rounded-lg border ${
-                    i === current ? 'border-blue-600' : 'border-neutral-200 dark:border-neutral-800'
+                  className={`relative aspect-square overflow-hidden rounded-md border transition ${
+                    i === current
+                      ? 'border-[rgb(0,126,229)]'
+                      : 'border-black/8 hover:border-black/15 dark:border-neutral-800'
                   }`}
                 >
                   <Image
-                    alt={item.alt || ''}
-                    className="object-cover"
+                    alt={getProductImageAlt({
+                      imageAlt: item.alt,
+                      index: i,
+                      productTitle,
+                    })}
+                    className="object-contain"
                     fill
                     sizes="120px"
                     src={imageUrl}

@@ -15,6 +15,9 @@ playwright-report/index.html
 /.next/
 /out/
 
+#next-check
+/next-check
+
 # production
 /build
 
@@ -41,3 +44,6 @@ next-env.d.ts
 
 public/media
 
+
+.next/
+.next-check/

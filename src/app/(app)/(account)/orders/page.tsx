@@ -1,7 +1,7 @@
 import type { Order } from '@/payload-types'
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 
 import { OrderItem } from '@/components/OrderItem'
 import { headers as getHeaders } from 'next/headers'
@@ -38,15 +38,18 @@ export default async function Orders() {
   } catch (_error) {}
 
   return (
-    <>
-      <div className="border p-8 rounded-lg bg-primary-foreground w-full">
-        <h1 className="text-3xl font-medium mb-8">Поръчки</h1>
+    <div className="w-full">
+      <div className="mb-8">
+        <h1 className="text-3xl font-normal text-primary/85">Поръчки</h1>
+      </div>
+
+      <div className="bg-muted/20 px-5 py-6 md:px-7 md:py-8">
         {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-          <p className="">Нямате поръчки.</p>
+          <p className="text-primary/65">Нямате поръчки.</p>
         )}
 
         {orders && orders.length > 0 && (
-          <ul className="flex flex-col gap-6">
+          <ul className="flex flex-col gap-4">
             {orders.map((order) => (
               <li key={order.id}>
                 <OrderItem order={order} />
@@ -55,15 +58,12 @@ export default async function Orders() {
           </ul>
         )}
       </div>
-    </>
+    </div>
   )
 }
 
-export const metadata: Metadata = {
+export const metadata: Promise<Metadata> = getNoIndexMetadata({
   description: 'Вашите поръчки.',
-  openGraph: mergeOpenGraph({
-    title: 'Поръчки',
-    url: '/orders',
-  }),
+  path: '/orders',
   title: 'Поръчки',
-}
+})

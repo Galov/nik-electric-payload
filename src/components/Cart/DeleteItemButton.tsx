@@ -15,7 +15,7 @@ export function DeleteItemButton({ item }: { item: CartItem }) {
       <button
         aria-label="Премахни продукт от количката"
         className={clsx(
-          'ease hover:cursor-pointer flex h-[17px] w-[17px] items-center justify-center rounded-full bg-neutral-500 transition-all duration-200',
+          'flex h-5 w-5 items-center justify-center rounded-full bg-black/45 transition-all duration-200 ease-out hover:cursor-pointer hover:bg-black/60',
           {
             'cursor-not-allowed px-0': !itemId || isLoading,
           },
@@ -27,7 +27,7 @@ export function DeleteItemButton({ item }: { item: CartItem }) {
         }}
         type="button"
       >
-        <XIcon className="hover:text-accent-3 mx-px h-4 w-4 text-white dark:text-black" />
+        <XIcon className="mx-px h-3.5 w-3.5 text-white" />
       </button>
     </form>
   )
