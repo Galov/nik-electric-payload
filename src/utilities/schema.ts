@@ -13,6 +13,8 @@ type CategoryLike = {
 
 type ContactLocation = {
   address: string
+  latitude?: number
+  longitude?: number
   phone: string
   workingHours: string
 }
@@ -80,6 +82,15 @@ export const buildLocalBusinessSchemas = (contactPage?: ContactPageLike | null) 
     '@type': 'Store',
     address: buildPostalAddress(location.address),
     areaServed: 'BG',
+    ...(typeof location.latitude === 'number' && typeof location.longitude === 'number'
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: location.latitude,
+            longitude: location.longitude,
+          },
+        }
+      : {}),
     name: `Ник Електрик - ${location.label}`,
     openingHours: location.workingHours,
     telephone: normalizePhone(location.phone),

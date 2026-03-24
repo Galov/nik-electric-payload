@@ -6,7 +6,9 @@ import React, { useMemo, useState } from 'react'
 
 type Location = {
   address: string
+  latitude?: number
   label: string
+  longitude?: number
   phone: string
   workingHours: string
 }
@@ -17,6 +19,10 @@ type ContactLocationsProps = {
 
 const mapUrlForLocation = (location?: Location) => {
   if (!location) return 'https://www.google.com/maps?output=embed&q=Bulgaria'
+
+  if (typeof location.latitude === 'number' && typeof location.longitude === 'number') {
+    return `https://www.google.com/maps?output=embed&q=${location.latitude},${location.longitude}`
+  }
 
   const query = [location.label, location.address, 'България'].filter(Boolean).join(', ')
   return `https://www.google.com/maps?output=embed&q=${encodeURIComponent(query)}`

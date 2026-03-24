@@ -2,7 +2,7 @@
 
 import type { Partner } from '@/payload-types'
 import clsx from 'clsx'
-import { ExternalLink, Globe, MapPin, Phone, Search, X } from 'lucide-react'
+import { ChevronDown, ExternalLink, Globe, MapPin, Phone, Search, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
@@ -21,6 +21,10 @@ const normalizeWebsite = (website?: string | null) => {
 const mapUrlForPartner = (partner?: Partner) => {
   if (!partner) return 'https://www.google.com/maps?output=embed&q=Bulgaria'
 
+  if (typeof partner.latitude === 'number' && typeof partner.longitude === 'number') {
+    return `https://www.google.com/maps?output=embed&q=${partner.latitude},${partner.longitude}`
+  }
+
   const query = [partner.title, partner.city, partner.address, 'България'].filter(Boolean).join(', ')
   return `https://www.google.com/maps?output=embed&q=${encodeURIComponent(query)}`
 }
@@ -29,7 +33,7 @@ const infoRows = (partner: Partner) => [
   {
     icon: MapPin,
     label: 'Адрес',
-    value: partner.address,
+    value: [partner.address, partner.postalCode, partner.city].filter(Boolean).join(', '),
   },
   {
     icon: Phone,
@@ -43,20 +47,28 @@ export const PartnersDirectory: React.FC<PartnersDirectoryProps> = ({
   initialPartnerSlug,
   partners,
 }) => {
+  const sortedPartners = useMemo(
+    () =>
+      [...partners].sort((left, right) =>
+        (left.city || '').localeCompare(right.city || '', 'bg', { sensitivity: 'base' }),
+      ),
+    [partners],
+  )
+
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
   const [query, setQuery] = useState('')
-  const [selectedSlug, setSelectedSlug] = useState(initialPartnerSlug ?? partners[0]?.slug ?? '')
+  const [selectedSlug, setSelectedSlug] = useState(initialPartnerSlug ?? '')
   const mapContainerRef = useRef<HTMLDivElement | null>(null)
   const [listPanelHeight, setListPanelHeight] = useState<number | null>(null)
 
   const filteredPartners = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase()
 
-    if (!normalizedQuery) return partners
+    if (!normalizedQuery) return sortedPartners
 
-    return partners.filter((partner) => {
+    return sortedPartners.filter((partner) => {
       const haystack = [partner.city, partner.address]
         .filter(Boolean)
         .join(' ')
@@ -64,7 +76,7 @@ export const PartnersDirectory: React.FC<PartnersDirectoryProps> = ({
 
       return haystack.includes(normalizedQuery)
     })
-  }, [partners, query])
+  }, [query, sortedPartners])
 
   useEffect(() => {
     const updateHeight = () => {
@@ -93,22 +105,26 @@ export const PartnersDirectory: React.FC<PartnersDirectoryProps> = ({
   }, [])
 
   const selectedPartner = useMemo(
-    () =>
-      partners.find((partner) => partner.slug === selectedSlug) ??
-      partners.find((partner) => partner.slug === initialPartnerSlug) ??
-      partners[0],
-    [initialPartnerSlug, partners, selectedSlug],
+    () => sortedPartners.find((partner) => partner.slug === selectedSlug),
+    [selectedSlug, sortedPartners],
   )
 
   const selectPartner = (slug?: string | null) => {
     if (!slug) return
 
-    setSelectedSlug(slug)
-
     const nextParams = new URLSearchParams(searchParams.toString())
-    nextParams.set('partner', slug)
+    const isClosingCurrent = slug === selectedSlug
 
-    router.replace(`${pathname}?${nextParams.toString()}`, { scroll: false })
+    if (isClosingCurrent) {
+      setSelectedSlug('')
+      nextParams.delete('partner')
+    } else {
+      setSelectedSlug(slug)
+      nextParams.set('partner', slug)
+    }
+
+    const nextQuery = nextParams.toString()
+    router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, { scroll: false })
   }
 
   return (
@@ -123,7 +139,7 @@ export const PartnersDirectory: React.FC<PartnersDirectoryProps> = ({
             <input
               className="h-12 w-full rounded-md border border-black/10 bg-white pl-11 pr-12 text-sm text-primary outline-none transition focus:border-[rgb(0,126,229)]/40"
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Търси по град или адрес..."
+              placeholder="Търси по град..."
               type="text"
               value={query}
             />
@@ -145,60 +161,89 @@ export const PartnersDirectory: React.FC<PartnersDirectoryProps> = ({
             const isActive = partner.id === selectedPartner?.id
 
             return (
-              <button
+              <div
                 key={partner.id}
                 className={clsx(
                   'w-full cursor-pointer rounded-lg bg-white p-3 text-left transition duration-200 ease-in-out',
                   'hover:border-black/10 hover:shadow-[0_14px_34px_rgba(17,24,39,0.06)]',
                   isActive && 'border border-[rgb(0,126,229)]/15 shadow-[0_14px_34px_rgba(17,24,39,0.06)]',
                 )}
-                onClick={() => selectPartner(partner.slug)}
-                type="button"
               >
-                <div className="space-y-2">
-                  <div className="space-y-1">
-                    <p className="text-xl font-normal tracking-[-0.02em] text-primary">
-                      {partner.city}
-                    </p>
-                    <p className="text-sm font-normal text-[rgb(0,126,229)]">{partner.title}</p>
-                    <p className="text-sm leading-5 text-primary/58">{partner.workingHours}</p>
-                  </div>
+                <button
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 text-left"
+                  onClick={() => selectPartner(partner.slug)}
+                  type="button"
+                >
+                  <p className="text-base font-light tracking-[-0.01em] text-primary/88">
+                    {partner.city}
+                  </p>
+                  <ChevronDown
+                    className={clsx(
+                      'h-5 w-5 shrink-0 text-[rgb(0,126,229)] transition-transform duration-200 ease-in-out',
+                      isActive && 'rotate-180',
+                    )}
+                  />
+                </button>
 
-                  <div className="space-y-1 text-sm leading-5 text-primary/66">
-                    {infoRows(partner).map((row) => {
-                      const Icon = row.icon
-
-                      return (
-                        <div key={row.label} className="flex items-start gap-3">
-                          <Icon className="mt-1 h-4 w-4 shrink-0 text-[rgb(0,126,229)]/75" />
-                          {row.href ? (
-                            <a className="hover:text-primary" href={row.href}>
-                              {row.value}
-                            </a>
-                          ) : (
-                            <span>{row.value}</span>
-                          )}
-                        </div>
-                      )
-                    })}
-
-                    {partner.website ? (
-                      <div className="flex items-start gap-3">
-                        <Globe className="mt-1 h-4 w-4 shrink-0 text-[rgb(0,126,229)]/75" />
-                        <Link
-                          className="inline-flex items-center gap-1.5 text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]"
-                          href={normalizeWebsite(partner.website) || '#'}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          Посети уебсайта
-                          <ExternalLink className="h-3.5 w-3.5" />
-                        </Link>
+                <div
+                  className={clsx(
+                    'grid overflow-hidden transition-all duration-300 ease-in-out',
+                    isActive ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
+                  )}
+                >
+                  <div className="min-h-0">
+                    <div className="space-y-2 border-t border-black/6 pt-3">
+                      <div className="space-y-1">
+                        <p className="text-sm font-normal text-[rgb(0,126,229)]">{partner.title}</p>
+                        <p className="text-sm leading-5 text-primary/58">{partner.workingHours}</p>
                       </div>
-                    ) : null}
+
+                      <div className="space-y-1 text-sm leading-5 text-primary/66">
+                        {infoRows(partner).map((row) => {
+                          const Icon = row.icon
+
+                          return (
+                            <div key={row.label} className="flex items-start gap-3">
+                              <Icon className="mt-1 h-4 w-4 shrink-0 text-[rgb(0,126,229)]/75" />
+                              {row.href ? (
+                                <a className="hover:text-primary" href={row.href}>
+                                  {row.value}
+                                </a>
+                              ) : (
+                                <span>{row.value}</span>
+                              )}
+                            </div>
+                          )
+                        })}
+
+                        {partner.website ? (
+                          <div className="flex items-start gap-3">
+                            <Globe className="mt-1 h-4 w-4 shrink-0 text-[rgb(0,126,229)]/75" />
+                            <Link
+                              className="inline-flex items-center gap-1.5 text-[rgb(0,126,229)] hover:text-[rgb(0,113,206)]"
+                              href={normalizeWebsite(partner.website) || '#'}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              Посети уебсайта
+                              <ExternalLink className="h-3.5 w-3.5" />
+                            </Link>
+                          </div>
+                        ) : null}
+
+                        {partner.email ? (
+                          <div className="flex items-start gap-3">
+                            <Globe className="mt-1 h-4 w-4 shrink-0 text-[rgb(0,126,229)]/75" />
+                            <a className="hover:text-primary" href={`mailto:${partner.email}`}>
+                              {partner.email}
+                            </a>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </button>
+              </div>
             )
           })}
 

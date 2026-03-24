@@ -128,10 +128,20 @@ export const Partners: CollectionConfig = {
               required: true,
             },
             {
+              name: 'postalCode',
+              label: 'Пощенски код',
+              type: 'text',
+            },
+            {
               name: 'phone',
               label: 'Телефон',
               type: 'text',
               required: true,
+            },
+            {
+              name: 'email',
+              label: 'Имейл',
+              type: 'email',
             },
             {
               name: 'workingHours',
@@ -146,6 +156,27 @@ export const Partners: CollectionConfig = {
               admin: {
                 description: 'Незадължително. Например: https://example.com',
               },
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'latitude',
+                  label: 'Ширина (latitude)',
+                  type: 'number',
+                  admin: {
+                    step: 0.000001,
+                  },
+                },
+                {
+                  name: 'longitude',
+                  label: 'Дължина (longitude)',
+                  type: 'number',
+                  admin: {
+                    step: 0.000001,
+                  },
+                },
+              ],
             },
           ],
         },

@@ -26,6 +26,27 @@ const locationFields = (label: string) => ({
       type: 'textarea' as const,
       required: true,
     },
+    {
+      type: 'row' as const,
+      fields: [
+        {
+          name: 'latitude',
+          label: 'Ширина (latitude)',
+          type: 'number' as const,
+          admin: {
+            step: 0.000001,
+          },
+        },
+        {
+          name: 'longitude',
+          label: 'Дължина (longitude)',
+          type: 'number' as const,
+          admin: {
+            step: 0.000001,
+          },
+        },
+      ],
+    },
   ],
 })
 

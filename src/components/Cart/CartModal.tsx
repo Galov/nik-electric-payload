@@ -21,6 +21,7 @@ import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
 import { Button } from '@/components/ui/button'
 import { Product } from '@/payload-types'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { getProductPrimaryImage } from '@/utilities/product'
 
 export function CartModal() {
@@ -96,6 +97,9 @@ export function CartModal() {
 
                           <div className="flex flex-1 flex-col text-base">
                             <span className="text-sm leading-5 text-primary/80">{product?.title}</span>
+                            {product.isRefurbished ? (
+                              <RefurbishedBadge compact className="mt-1 self-start" />
+                            ) : null}
                           </div>
                         </Link>
                         <div className="flex h-16 flex-col justify-between">

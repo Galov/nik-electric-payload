@@ -2,6 +2,7 @@ import type { Product } from '@/payload-types'
 
 import { GridAddToCartButton } from '@/components/Cart/GridAddToCartButton'
 import { Price } from '@/components/Price'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { getProductPrimaryImage } from '@/utilities/product'
 import Link from 'next/link'
 import React from 'react'
@@ -25,12 +26,13 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
 
   return (
     <article className="group flex h-full flex-col rounded-[10px] border border-transparent bg-white p-4 transition duration-300 ease-out hover:border-black/5 hover:shadow-[0_8px_18px_rgba(15,23,42,0.05)]">
-      <div className="min-h-7">
+      <div className="flex min-h-7 flex-wrap gap-2">
         {manufacturerCode ? (
-          <div className="inline-flex self-start bg-[rgb(0,126,229)]/14 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.04em] text-[rgb(0,126,229)]">
+          <div className="inline-flex h-8 items-center self-start rounded-md border border-[rgb(0,126,229)]/20 bg-[rgb(0,126,229)]/12 px-2.5 text-[11px] font-medium leading-none uppercase tracking-[0.04em] text-[rgb(0,126,229)]">
             {manufacturerCode}
           </div>
         ) : null}
+        {product.isRefurbished ? <RefurbishedBadge /> : null}
       </div>
 
       <Link className="flex flex-1 flex-col" href={`/product/${product.slug}`}>
@@ -49,13 +51,13 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
         </div>
 
         <div className="flex flex-1 flex-col">
-          <div className="min-h-[2.5rem] font-medium leading-[1.2] tracking-[-0.01em] text-black">
+          <div className="min-h-[2.5rem] font-medium leading-[1.2] tracking-[-0.01em] text-[rgb(0,126,229)]">
             {title}
           </div>
 
           <div className="mt-1 min-h-[3.75rem] space-y-0 text-sm leading-5 text-primary/35">
             {primaryCategory ? <p>{primaryCategory}</p> : null}
-            {product.sku ? <p>Код: {product.sku}</p> : null}
+            {product.sku ? <p className="text-primary/55">Код: {product.sku}</p> : null}
           </div>
         </div>
       </Link>

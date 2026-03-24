@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 
 import { AdminBar } from '@/components/AdminBar'
+import { CookieConsent } from '@/components/CookieConsent'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -70,6 +71,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
+            <CookieConsent />
           </div>
         </Providers>
       </body>

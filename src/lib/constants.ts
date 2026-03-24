@@ -13,6 +13,7 @@ export const defaultSort: SortFilterItem = {
 export const sorting: SortFilterItem[] = [
   defaultSort,
   { slug: 'title', reverse: false, title: 'Азбучно А-Я' },
-  { slug: 'priceInUSD', reverse: false, title: 'Цена: от ниска към висока' }, // asc
-  { slug: '-priceInUSD', reverse: true, title: 'Цена: от висока към ниска' },
+  { slug: '-title', reverse: true, title: 'Азбучно Я-А' },
+  { slug: 'sku', reverse: false, title: 'Код: А-Я' },
+  { slug: '-sku', reverse: true, title: 'Код: Я-А' },
 ]

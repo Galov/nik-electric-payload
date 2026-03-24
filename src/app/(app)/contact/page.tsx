@@ -1,5 +1,6 @@
 import configPromise from '@payload-config'
 import { ContactLocations } from '@/components/contact/ContactLocations'
+import { ContactForm } from '@/components/forms/ContactForm'
 import { generateMeta } from '@/utilities/generateMeta'
 import { buildLocalBusinessSchemas } from '@/utilities/schema'
 import { getPayload } from 'payload'
@@ -13,12 +14,16 @@ type ContactPageData = {
   } | null
   store: {
     address: string
+    latitude?: number
+    longitude?: number
     phone: string
     workingHours: string
   }
   title?: string
   warehouse: {
     address: string
+    latitude?: number
+    longitude?: number
     phone: string
     workingHours: string
   }
@@ -72,7 +77,21 @@ export default async function ContactPage() {
         <h1 className="text-3xl font-normal text-primary/85">{contactPage.title || 'Контакт'}</h1>
       </div>
 
-      <ContactLocations locations={[locations[0], locations[1]]} />
+      <div className="space-y-12">
+        <ContactLocations locations={[locations[0], locations[1]]} />
+
+        <section className="rounded-[10px] bg-muted/20 px-5 py-6 md:px-7 md:py-8">
+          <div className="mb-8 max-w-3xl">
+            <h2 className="text-3xl font-normal text-primary/85">Изпрати запитване</h2>
+            <p className="mt-3 text-sm leading-7 text-primary/62">
+              Ако не намирате търсената част или имате конкретен въпрос, изпратете ни съобщение и
+              ще се свържем с вас възможно най-скоро.
+            </p>
+          </div>
+
+          <ContactForm />
+        </section>
+      </div>
     </div>
   )
 }

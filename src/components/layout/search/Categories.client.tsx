@@ -97,6 +97,14 @@ export const CategoryItem: React.FC<ItemProps> = ({
     router.push(pathname + '?' + newParams)
   }, [category.id, isActive, pathname, router, searchParams])
 
+  const handleCategoryClick = useCallback(() => {
+    if (category.children.length > 0) {
+      onToggleCategory(category.id)
+    }
+
+    setQuery()
+  }, [category.children.length, category.id, onToggleCategory, setQuery])
+
   return (
     <li>
       <div
@@ -117,7 +125,7 @@ export const CategoryItem: React.FC<ItemProps> = ({
         )}
 
         <button
-          onClick={() => setQuery()}
+          onClick={handleCategoryClick}
           className={clsx('block text-left hover:cursor-pointer text-sm', {
             'font-medium underline': isActive,
             'text-primary/80': !isActive,

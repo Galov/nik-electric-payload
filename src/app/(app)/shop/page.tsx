@@ -65,6 +65,7 @@ export default async function ShopPage({ searchParams }: Props) {
     pagination: true,
     select: {
       inventory: true,
+      isRefurbished: true,
       manufacturerCode: true,
       published: true,
       stockQty: true,
@@ -144,11 +145,11 @@ export default async function ShopPage({ searchParams }: Props) {
   )
 
   return (
-    <div>
+    <div id="catalog">
       <section className="mb-6 rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 md:px-5 md:py-6">
         <Search
           availableBrands={availableBrands}
-          showBrandFilter={Boolean(searchValue) && products.docs.length > 0}
+          showBrandFilter={Boolean(searchValue || category) && products.docs.length > 0}
         />
 
         {searchValue ? (

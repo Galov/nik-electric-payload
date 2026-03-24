@@ -12,7 +12,6 @@ export const ContactInquiries: CollectionConfig = {
   admin: {
     defaultColumns: ['createdAt', 'name', 'email', 'phone'],
     group: 'Комуникация',
-    hidden: true,
     useAsTitle: 'name',
   },
   labels: {

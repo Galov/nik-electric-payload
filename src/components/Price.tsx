@@ -63,7 +63,7 @@ export const Price = ({
     return (
       <Element className={className} suppressHydrationWarning>
         <Link className="transition hover:opacity-75 underline underline-offset-4" href={loginURL}>
-          Виж цената
+          Поръчай
         </Link>
       </Element>
     )

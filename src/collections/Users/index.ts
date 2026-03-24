@@ -43,12 +43,7 @@ export const Users: CollectionConfig = {
           .join(' ')
           .trim()
 
-        const companyName =
-          typeof data.companyName === 'string' && data.companyName.trim().length > 0
-            ? data.companyName.trim()
-            : ''
-
-        data.name = [personalName, companyName].filter(Boolean).join(' • ') || data.email || data.name
+        data.name = personalName || data.email || data.name
 
         return data
       },

@@ -1,4 +1,5 @@
 import { Price } from '@/components/Price'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { Product } from '@/payload-types'
 import { getProductPrimaryImage } from '@/utilities/product'
 import Image from 'next/image'
@@ -38,6 +39,7 @@ export const ProductItem: React.FC<Props> = ({
           <p className="text-lg font-medium text-primary/85">
             <Link href={itemURL}>{title}</Link>
           </p>
+          {product.isRefurbished ? <RefurbishedBadge compact className="self-start" /> : null}
           <div className="text-sm text-primary/55">
             {'x'}
             {quantity}

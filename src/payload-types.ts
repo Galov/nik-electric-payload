@@ -287,6 +287,7 @@ export interface Product {
   sku?: string | null;
   originalSku?: string | null;
   manufacturerCode?: string | null;
+  isRefurbished?: boolean | null;
   brand?: (string | null) | Brand;
   categories?: (string | Category)[] | null;
   price: number;
@@ -535,12 +536,16 @@ export interface Partner {
   title: string;
   address: string;
   city: string;
+  postalCode?: string | null;
   phone: string;
+  email?: string | null;
   workingHours: string;
   /**
    * Незадължително. Например: https://example.com
    */
   website?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   meta?: {
     title?: string | null;
     /**
@@ -755,9 +760,13 @@ export interface PartnersSelect<T extends boolean = true> {
   title?: T;
   address?: T;
   city?: T;
+  postalCode?: T;
   phone?: T;
+  email?: T;
   workingHours?: T;
   website?: T;
+  latitude?: T;
+  longitude?: T;
   meta?:
     | T
     | {
@@ -841,6 +850,7 @@ export interface ProductsSelect<T extends boolean = true> {
   sku?: T;
   originalSku?: T;
   manufacturerCode?: T;
+  isRefurbished?: T;
   brand?: T;
   categories?: T;
   price?: T;
@@ -1135,11 +1145,15 @@ export interface ContactPage {
     address: string;
     phone: string;
     workingHours: string;
+    latitude?: number | null;
+    longitude?: number | null;
   };
   warehouse: {
     address: string;
     phone: string;
     workingHours: string;
+    latitude?: number | null;
+    longitude?: number | null;
   };
   meta?: {
     title?: string | null;
@@ -1277,6 +1291,8 @@ export interface ContactPageSelect<T extends boolean = true> {
         address?: T;
         phone?: T;
         workingHours?: T;
+        latitude?: T;
+        longitude?: T;
       };
   warehouse?:
     | T
@@ -1284,6 +1300,8 @@ export interface ContactPageSelect<T extends boolean = true> {
         address?: T;
         phone?: T;
         workingHours?: T;
+        latitude?: T;
+        longitude?: T;
       };
   meta?:
     | T

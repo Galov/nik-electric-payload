@@ -101,10 +101,10 @@ export const CreateAccountForm: React.FC = () => {
   return (
     <form className="max-w-lg" onSubmit={handleSubmit(onSubmit)}>
       <Message error={error} />
-      <Message
-        className="mb-8"
-        message="Регистрацията е предназначена за фирми и сервизни партньори. След изпращане профилът ще бъде активиран след проверка от администратор."
-      />
+      <div className="mb-8 rounded-md bg-[rgb(0,126,229)]/10 px-4 py-3 text-sm leading-6 text-[rgb(0,126,229)]">
+        Регистрацията е предназначена за фирми и сервизни партньори. След изпращане профилът ще
+        бъде активиран след проверка от администратор.
+      </div>
 
       <div className="mb-8 flex flex-col gap-6">
         <section className="space-y-5">

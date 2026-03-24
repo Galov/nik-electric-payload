@@ -137,6 +137,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     images: true,
     categories: true,
     brand: true,
+    isRefurbished: true,
     published: true,
   },
   fields: [
@@ -223,6 +224,12 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               name: 'manufacturerCode',
               label: 'Производител / тип',
               type: 'text',
+            },
+            {
+              name: 'isRefurbished',
+              label: 'Refurbished продукт',
+              type: 'checkbox',
+              defaultValue: false,
             },
             {
               name: 'brand',

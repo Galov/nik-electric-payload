@@ -5,6 +5,7 @@ import { FormItem } from '@/components/forms/FormItem'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { User } from '@/payload-types'
 import { useAuth } from '@/providers/Auth'
 import { useRouter } from 'next/navigation'
@@ -13,10 +14,17 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 type FormData = {
+  companyAddress: string
+  companyCity: string
+  companyEIK: string
+  companyName: string
   email: string
+  firstName: string
+  lastName: string
   name: User['name']
   password: string
   passwordConfirm: string
+  phone: string
 }
 
 export const AccountForm: React.FC = () => {
@@ -55,10 +63,17 @@ export const AccountForm: React.FC = () => {
           toast.success('Профилът е обновен успешно.')
           setChangePassword(false)
           reset({
+            companyAddress: json.doc.companyAddress || '',
+            companyCity: json.doc.companyCity || '',
+            companyEIK: json.doc.companyEIK || '',
+            companyName: json.doc.companyName || '',
             name: json.doc.name,
             email: json.doc.email,
+            firstName: json.doc.firstName || '',
+            lastName: json.doc.lastName || '',
             password: '',
             passwordConfirm: '',
+            phone: json.doc.phone || '',
           })
         } else {
           toast.error('Възникна проблем при обновяването на профила.')
@@ -80,10 +95,17 @@ export const AccountForm: React.FC = () => {
     // Once user is loaded, reset form to have default values
     if (user) {
       reset({
+        companyAddress: user.companyAddress || '',
+        companyCity: user.companyCity || '',
+        companyEIK: user.companyEIK || '',
+        companyName: user.companyName || '',
         name: user.name,
         email: user.email,
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
         password: '',
         passwordConfirm: '',
+        phone: user.phone || '',
       })
     }
   }, [user, router, reset, changePassword])
@@ -108,6 +130,36 @@ export const AccountForm: React.FC = () => {
           </div>
 
           <div className="mb-8 flex flex-col gap-6">
+            <div>
+              <h2 className="text-lg font-medium text-primary">Лице за контакт</h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <FormItem>
+                <Label htmlFor="firstName" className="mb-2">
+                  Име
+                </Label>
+                <Input
+                  id="firstName"
+                  {...register('firstName', { required: 'Моля, въведете име.' })}
+                  type="text"
+                />
+                {errors.firstName && <FormError message={errors.firstName.message} />}
+              </FormItem>
+
+              <FormItem>
+                <Label htmlFor="lastName" className="mb-2">
+                  Фамилия
+                </Label>
+                <Input
+                  id="lastName"
+                  {...register('lastName', { required: 'Моля, въведете фамилия.' })}
+                  type="text"
+                />
+                {errors.lastName && <FormError message={errors.lastName.message} />}
+              </FormItem>
+            </div>
+
             <FormItem>
               <Label htmlFor="email" className="mb-2">
                 Имейл адрес
@@ -121,15 +173,69 @@ export const AccountForm: React.FC = () => {
             </FormItem>
 
             <FormItem>
-              <Label htmlFor="name" className="mb-2">
-                Име
+              <Label htmlFor="phone" className="mb-2">
+                Телефон
               </Label>
               <Input
-                id="name"
-                {...register('name', { required: 'Моля, въведете име.' })}
+                id="phone"
+                {...register('phone', { required: 'Моля, въведете телефон.' })}
+                type="tel"
+              />
+              {errors.phone && <FormError message={errors.phone.message} />}
+            </FormItem>
+
+            <div className="border-t border-primary/10 pt-6">
+              <h2 className="text-lg font-medium text-primary">Фирмени данни</h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <FormItem>
+                <Label htmlFor="companyName" className="mb-2">
+                  Име на фирма
+                </Label>
+                <Input
+                  id="companyName"
+                  {...register('companyName', { required: 'Моля, въведете име на фирма.' })}
+                  type="text"
+                />
+                {errors.companyName && <FormError message={errors.companyName.message} />}
+              </FormItem>
+
+              <FormItem>
+                <Label htmlFor="companyEIK" className="mb-2">
+                  ЕИК
+                </Label>
+                <Input
+                  id="companyEIK"
+                  {...register('companyEIK', { required: 'Моля, въведете ЕИК.' })}
+                  type="text"
+                />
+                {errors.companyEIK && <FormError message={errors.companyEIK.message} />}
+              </FormItem>
+            </div>
+
+            <FormItem>
+              <Label htmlFor="companyCity" className="mb-2">
+                Град
+              </Label>
+              <Input
+                id="companyCity"
+                {...register('companyCity', { required: 'Моля, въведете град.' })}
                 type="text"
               />
-              {errors.name && <FormError message={errors.name.message} />}
+              {errors.companyCity && <FormError message={errors.companyCity.message} />}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="companyAddress" className="mb-2">
+                Адрес
+              </Label>
+              <Textarea
+                id="companyAddress"
+                {...register('companyAddress', { required: 'Моля, въведете адрес.' })}
+                rows={3}
+              />
+              {errors.companyAddress && <FormError message={errors.companyAddress.message} />}
             </FormItem>
           </div>
         </Fragment>

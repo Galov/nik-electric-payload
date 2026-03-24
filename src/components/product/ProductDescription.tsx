@@ -3,6 +3,7 @@ import type { Product } from '@/payload-types'
 
 import { AddToCart } from '@/components/Cart/AddToCart'
 import { Price } from '@/components/Price'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import Link from 'next/link'
 import React, { Suspense } from 'react'
 import { StockIndicator } from '@/components/product/StockIndicator'
@@ -29,9 +30,12 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <h1 className="text-xl font-normal leading-tight text-primary/85 lg:text-2xl">
-          {product.title}
-        </h1>
+        <div className="flex flex-col gap-4">
+          {product.isRefurbished ? <RefurbishedBadge className="self-start" /> : null}
+          <h1 className="text-xl font-normal leading-tight text-[rgb(0,126,229)] lg:text-2xl">
+            {product.title}
+          </h1>
+        </div>
         <div className="text-base font-normal text-primary/60 lg:text-lg">
           <Price amount={product.price} />
         </div>
@@ -83,13 +87,21 @@ export function ProductDescription({ product }: { product: Product }) {
             <span className="font-normal text-primary/80">{product.manufacturerCode}</span>
           </p>
         ) : null}
+        {product.isRefurbished ? (
+          <p>
+            <span className="text-muted-foreground/70">Състояние:</span>{' '}
+            <span className="font-normal text-emerald-700">
+              Оригинална неизползвана част, демонтирана от нов уред.
+            </span>
+          </p>
+        ) : null}
       </div>
       {description ? (
-        <div className="whitespace-pre-line text-sm leading-7 text-primary/65">
+        <div className="border-y border-black/5 py-5 whitespace-pre-line text-sm leading-7 text-primary/65">
           {description}
         </div>
       ) : null}
-      <div className="space-y-4 border-t border-black/5 pt-5">
+      <div className="space-y-4 pt-5">
         <Suspense fallback={null}>
           <StockIndicator product={product} />
         </Suspense>
