@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/providers/Auth'
 import { getProductPrimaryImage } from '@/utilities/product'
+import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
 import { useAddresses, useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -31,6 +32,10 @@ export const CheckoutPage: React.FC = () => {
   const [billingAddress, setBillingAddress] = useState<Partial<Address>>()
   const [billingAddressSameAsShipping, setBillingAddressSameAsShipping] = useState(true)
   const [isProcessingPayment, setProcessingPayment] = useState(false)
+  const activeSubtotal = resolveSubtotalForTier(
+    (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+    cart?.items,
+  )
 
   const cartIsEmpty = !cart || !cart.items || !cart.items.length
 
@@ -267,8 +272,21 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
 
-                {typeof item.product.price === 'number' && (
-                  <Price amount={item.product.price} className="text-sm text-primary/75" currencyCode="EUR" />
+                {(typeof (item.product as typeof item.product & { priceWholesale?: number | null }).priceWholesale === 'number' ||
+                  typeof (item.product as typeof item.product & { priceGroup1?: number | null }).priceGroup1 === 'number') && (
+                  <Price
+                    amount={resolvePriceForTier(
+                      (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+                      {
+                        priceGroup1: (item.product as typeof item.product & { priceGroup1?: number | null })
+                          .priceGroup1,
+                        priceWholesale: (item.product as typeof item.product & { priceWholesale?: number | null })
+                          .priceWholesale,
+                      },
+                    )}
+                    className="text-sm text-primary/75"
+                    currencyCode="EUR"
+                  />
                 )}
               </div>
             </div>
@@ -278,7 +296,7 @@ export const CheckoutPage: React.FC = () => {
         <div className="border-t border-black/5 pt-6">
           <div className="flex items-center justify-between gap-2">
             <span className="text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Общо</span>
-            <Price amount={cart?.subtotal || 0} className="text-2xl font-medium text-primary/80" currencyCode="EUR" />
+            <Price amount={activeSubtotal} className="text-2xl font-medium text-primary/80" currencyCode="EUR" />
           </div>
         </div>
       </div>

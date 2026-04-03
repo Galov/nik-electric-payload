@@ -1,7 +1,11 @@
+'use client'
+
 import { Price } from '@/components/Price'
 import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
+import { useAuth } from '@/providers/Auth'
 import { Product } from '@/payload-types'
 import { getProductPrimaryImage } from '@/utilities/product'
+import { resolvePriceForTier } from '@/utilities/pricing'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -20,9 +24,16 @@ export const ProductItem: React.FC<Props> = ({
   quantity,
   currencyCode,
 }) => {
+  const { user } = useAuth()
   const { title } = product
   const image = getProductPrimaryImage(product)
-  const itemPrice = product.price
+  const itemPrice = resolvePriceForTier(
+    (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+    {
+      priceGroup1: (product as Product & { priceGroup1?: number | null }).priceGroup1,
+      priceWholesale: (product as Product & { priceWholesale?: number | null }).priceWholesale,
+    },
+  )
   const itemURL = `/product/${product.slug}`
 
   return (

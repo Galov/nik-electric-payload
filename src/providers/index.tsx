@@ -35,6 +35,8 @@ const CommerceProviders: React.FC<{ children: React.ReactNode }> = ({ children }
               inventory: true,
               isRefurbished: true,
               price: true,
+              priceGroup1: true,
+              priceWholesale: true,
               priceInEUR: true,
               priceInUSD: true,
               published: true,

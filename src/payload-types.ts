@@ -189,6 +189,8 @@ export interface User {
   lastName: string;
   roles?: ('customer' | 'admin')[] | null;
   approved?: boolean | null;
+  partnerCode?: string | null;
+  priceTier?: ('general' | 'group1') | null;
   orders?: {
     docs?: (string | Order)[];
     hasNextPage?: boolean;
@@ -290,6 +292,9 @@ export interface Product {
   isRefurbished?: boolean | null;
   brand?: (string | null) | Brand;
   categories?: (string | Category)[] | null;
+  priceRetail: number;
+  priceWholesale: number;
+  priceGroup1: number;
   price: number;
   priceInEUR?: number | null;
   priceInEUREnabled?: boolean | null;
@@ -697,6 +702,8 @@ export interface UsersSelect<T extends boolean = true> {
   lastName?: T;
   roles?: T;
   approved?: T;
+  partnerCode?: T;
+  priceTier?: T;
   orders?: T;
   cart?: T;
   addresses?: T;
@@ -853,6 +860,9 @@ export interface ProductsSelect<T extends boolean = true> {
   isRefurbished?: T;
   brand?: T;
   categories?: T;
+  priceRetail?: T;
+  priceWholesale?: T;
+  priceGroup1?: T;
   price?: T;
   priceInEUR?: T;
   priceInEUREnabled?: T;

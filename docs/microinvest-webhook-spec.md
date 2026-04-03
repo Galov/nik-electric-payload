@@ -1,8 +1,8 @@
-# Microinvest Webhook Spec
+# Спецификация на webhook-а от Microinvest v2
 
-Първа inbound версия за синхронизация `Microinvest -> сайт`.
+Този документ описва само полетата и сценариите, които вече са имплементирани и могат да бъдат тествани веднага.
 
-## Endpoint
+## Адрес
 
 `POST /api/integrations/microinvest/webhook`
 
@@ -10,118 +10,50 @@
 
 `http://65.21.176.78:3000/api/integrations/microinvest/webhook`
 
-## Authentication
+## Достъп
 
 Задължителен header:
 
-`x-microinvest-secret: <shared-secret>`
+`x-microinvest-secret: test-microinvest-secret`
 
-Стойността трябва да съвпада с `MICROINVEST_WEBHOOK_SECRET` в средата на сайта.
+## Ключ за разпознаване на продукта
 
-## Match Key
-
-Продуктите се match-ват по `sku`.
+Продуктите се разпознават по `sku`.
 
 Ако подаденото `sku` не съществува в сайта, endpoint-ът връща `404`.
 
-## Supported Events
+## Поддържани събития
 
-- `product.updated`
 - `stock.updated`
 - `price.updated`
+- `product.updated`
 - `product.deactivated`
 
-## JSON Payload
+## Текущ обхват на теста
 
-```json
-{
-  "event": "product.updated",
-  "timestamp": "2026-03-19T12:00:00Z",
-  "sku": "110BH01",
-  "data": {
-    "title": "Нагревател Bosch Siemens",
-    "price": 12.39,
-    "stockQty": 7,
-    "published": true,
-    "originalSku": "00438301",
-    "manufacturerCode": "ORIGINAL",
-    "description": "Дълго описание",
-    "shortDescription": "Кратко описание"
-  }
-}
-```
+В текущия етап моля да се тестват само следните полета:
 
-## Example Payloads
+- `sku`
+- `data.stockQty`
+- `data.priceRetail`
+- `data.priceWholesale`
+- `data.priceGroup1`
+- `data.catalog3`
+- `data.state`
 
-### `stock.updated`
-
-```json
-{
-  "event": "stock.updated",
-  "timestamp": "2026-03-19T12:00:00Z",
-  "sku": "110BH01",
-  "data": {
-    "stockQty": 11
-  }
-}
-```
-
-### `price.updated`
-
-```json
-{
-  "event": "price.updated",
-  "timestamp": "2026-03-19T12:05:00Z",
-  "sku": "110BH01",
-  "data": {
-    "price": 19.99
-  }
-}
-```
-
-### `product.updated`
-
-```json
-{
-  "event": "product.updated",
-  "timestamp": "2026-03-19T12:10:00Z",
-  "sku": "110BH01",
-  "data": {
-    "title": "Нагревател Bosch Siemens",
-    "price": 19.99,
-    "stockQty": 11,
-    "published": true,
-    "originalSku": "00438301",
-    "manufacturerCode": "ORIGINAL",
-    "description": "Дълго описание",
-    "shortDescription": "Кратко описание"
-  }
-}
-```
-
-### `product.deactivated`
-
-```json
-{
-  "event": "product.deactivated",
-  "timestamp": "2026-03-19T12:15:00Z",
-  "sku": "110BH01"
-}
-```
-
-## Field Mapping
+## Съпоставка на полетата
 
 - `sku` -> `products.sku`
-- `data.title` -> `products.title`
-- `data.price` -> `products.price`
 - `data.stockQty` -> `products.stockQty`
 - `data.stockQty > 0` -> `stockStatus = instock`
 - `data.stockQty <= 0` -> `stockStatus = outofstock`
-- `data.published` -> `products.published`
-- `data.originalSku` -> `products.originalSku`
-- `data.manufacturerCode` -> `products.manufacturerCode`
-- `data.description` -> `products.description`
-- `data.shortDescription` -> `products.shortDescription`
+- `data.priceRetail` -> `products.priceRetail`
+- `data.priceWholesale` -> `products.priceWholesale`
+- `data.priceGroup1` -> `products.priceGroup1`
+- `data.catalog3` -> `products.manufacturerCode`
+- `data.state = "Стоката не се използва"` -> `products.published = false`
+- `data.state = "Стоката се използва"` -> `products.published = true`
+- `data.state = "Стоката се използва често"` -> `products.published = true`
 
 При `product.deactivated`:
 
@@ -129,20 +61,141 @@
 - `stockQty = 0`
 - `stockStatus = outofstock`
 
-## Success Response
+## Значение на цените
+
+Цените се подават така:
+
+- `priceRetail` = Цена на дребно
+- `priceWholesale` = Цена на едро
+- `priceGroup1` = Цена за Ценова група 1
+
+## Примерни заявки
+
+### 1. Update само на наличност
 
 ```json
 {
   "event": "stock.updated",
-  "message": "Webhook processed successfully.",
-  "productId": "67d9a6...",
-  "sku": "110BH01",
-  "timestamp": "2026-03-19T12:00:00Z",
-  "updatedFields": ["stockQty", "stockStatus"]
+  "timestamp": "2026-04-03T09:00:00Z",
+  "sku": "162AR81",
+  "data": {
+    "stockQty": 11
+  }
 }
 ```
 
-## Error Responses
+### 2. Update само на трите цени
+
+```json
+{
+  "event": "price.updated",
+  "timestamp": "2026-04-03T09:05:00Z",
+  "sku": "162AR81",
+  "data": {
+    "priceRetail": 10.0,
+    "priceWholesale": 9.0,
+    "priceGroup1": 7.5
+  }
+}
+```
+
+### 3. Product update с цени, производител и активен продукт
+
+```json
+{
+  "event": "product.updated",
+  "timestamp": "2026-04-03T09:10:00Z",
+  "sku": "162AR81",
+  "data": {
+    "stockQty": 4,
+    "priceRetail": 10.0,
+    "priceWholesale": 9.0,
+    "priceGroup1": 7.5,
+    "catalog3": "ORIGINAL",
+    "state": "Стоката се използва"
+  }
+}
+```
+
+### 4. Product update със статус „Стоката се използва често“
+
+```json
+{
+  "event": "product.updated",
+  "timestamp": "2026-04-03T09:15:00Z",
+  "sku": "162AR81",
+  "data": {
+    "stockQty": 6,
+    "priceRetail": 10.0,
+    "priceWholesale": 9.0,
+    "priceGroup1": 7.5,
+    "catalog3": "OEM",
+    "state": "Стоката се използва често"
+  }
+}
+```
+
+### 5. Product update със статус „Стоката не се използва“
+
+```json
+{
+  "event": "product.updated",
+  "timestamp": "2026-04-03T09:20:00Z",
+  "sku": "162AR81",
+  "data": {
+    "stockQty": 0,
+    "priceRetail": 10.0,
+    "priceWholesale": 9.0,
+    "priceGroup1": 7.5,
+    "catalog3": "ORIGINAL",
+    "state": "Стоката не се използва"
+  }
+}
+```
+
+### 6. Деактивиране на продукт
+
+```json
+{
+  "event": "product.deactivated",
+  "timestamp": "2026-04-03T09:25:00Z",
+  "sku": "162AR81"
+}
+```
+
+## Препоръчителен ред на тестовете
+
+Препоръчителен ред на тестовете:
+
+1. `stock.updated`
+2. `price.updated`
+3. `product.updated` с `catalog3` и `state = "Стоката се използва"`
+4. `product.updated` с `state = "Стоката се използва често"`
+5. `product.updated` с `state = "Стоката не се използва"`
+6. `product.deactivated`
+
+## Успешен отговор
+
+```json
+{
+  "event": "product.updated",
+  "message": "Webhook processed successfully.",
+  "productId": "67d9a6...",
+  "sku": "162AR81",
+  "timestamp": "2026-04-03T09:10:00Z",
+  "updatedFields": [
+    "priceRetail",
+    "priceWholesale",
+    "priceGroup1",
+    "stockQty",
+    "stockStatus",
+    "manufacturerCode",
+    "published"
+  ]
+}
+```
+
+## Грешки
 
 ### 401 Unauthorized
 
@@ -181,15 +234,6 @@
 ```json
 {
   "error": "Product not found.",
-  "sku": "110BH01"
+  "sku": "162AR81"
 }
 ```
-
-## Notes
-
-- Това е първа версия за inbound sync.
-- Endpoint-ът е тестван успешно върху staging среда.
-- По-късно може да се добавят batch payload-и.
-- По-късно може да се добави HMAC подпис вместо shared secret.
-- Поръчките `сайт -> Microinvest` са отделен поток и не са част от този endpoint.
-- За production по-късно тестовият IP адрес ще бъде заменен с домейн.

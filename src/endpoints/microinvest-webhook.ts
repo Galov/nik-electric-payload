@@ -8,12 +8,16 @@ type MicroinvestEvent =
 
 type MicroinvestWebhookPayload = {
   data?: {
+    catalog3?: string
     description?: string
     manufacturerCode?: string
     originalSku?: string
-    price?: number
+    priceGroup1?: number
+    priceRetail?: number
+    priceWholesale?: number
     published?: boolean
     shortDescription?: string
+    state?: string
     stockQty?: number
     title?: string
   }
@@ -164,13 +168,35 @@ export const microinvestWebhook: PayloadHandler = async (req) => {
     nextData.manufacturerCode = data.manufacturerCode
   }
 
-  if (typeof data?.price === 'number' && Number.isFinite(data.price)) {
-    nextData.price = data.price
+  if (typeof data?.catalog3 === 'string') {
+    nextData.manufacturerCode = data.catalog3
+  }
+
+  if (typeof data?.priceRetail === 'number' && Number.isFinite(data.priceRetail)) {
+    nextData.priceRetail = data.priceRetail
+  }
+
+  if (typeof data?.priceWholesale === 'number' && Number.isFinite(data.priceWholesale)) {
+    nextData.priceWholesale = data.priceWholesale
+  }
+
+  if (typeof data?.priceGroup1 === 'number' && Number.isFinite(data.priceGroup1)) {
+    nextData.priceGroup1 = data.priceGroup1
   }
 
   if (typeof data?.stockQty === 'number' && Number.isFinite(data.stockQty)) {
     nextData.stockQty = data.stockQty
     nextData.stockStatus = normalizeStockStatus(data.stockQty)
+  }
+
+  if (typeof data?.state === 'string') {
+    if (data.state === 'Стоката не се използва') {
+      nextData.published = false
+    }
+
+    if (data.state === 'Стоката се използва' || data.state === 'Стоката се използва често') {
+      nextData.published = true
+    }
   }
 
   if (typeof data?.published === 'boolean') {

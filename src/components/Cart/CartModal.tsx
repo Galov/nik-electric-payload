@@ -23,8 +23,11 @@ import { Button } from '@/components/ui/button'
 import { Product } from '@/payload-types'
 import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { getProductPrimaryImage } from '@/utilities/product'
+import { useAuth } from '@/providers/Auth'
+import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
 
 export function CartModal() {
+  const { user } = useAuth()
   const { cart } = useCart()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -39,6 +42,15 @@ export function CartModal() {
     if (!cart || !cart.items || !cart.items.length) return undefined
     return cart.items.reduce((quantity, item) => (item.quantity || 0) + quantity, 0)
   }, [cart])
+
+  const activeSubtotal = useMemo(
+    () =>
+      resolveSubtotalForTier(
+        (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+        cart?.items,
+      ),
+    [cart?.items, user],
+  )
 
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
@@ -71,7 +83,13 @@ export function CartModal() {
                     return <React.Fragment key={i} />
 
                   const image = getProductPrimaryImage(product)
-                  const price = product.price
+                  const price = resolvePriceForTier(
+                    (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+                    {
+                      priceGroup1: (product as Product & { priceGroup1?: number | null }).priceGroup1,
+                      priceWholesale: (product as Product & { priceWholesale?: number | null }).priceWholesale,
+                    },
+                  )
 
                   return (
                     <li className="flex w-full flex-col border-b border-black/5 py-4 last:border-b-0" key={i}>
@@ -126,11 +144,11 @@ export function CartModal() {
 
               <div className="border-t border-black/5 px-2 pb-4 pt-5">
                 <div className="text-sm text-primary/55">
-                  {typeof cart?.subtotal === 'number' && (
+                  {typeof activeSubtotal === 'number' && (
                     <div className="mb-4 flex items-center justify-between">
                       <p>Общо</p>
                       <Price
-                        amount={cart?.subtotal}
+                        amount={activeSubtotal}
                         className="text-right text-base text-primary/80"
                         currencyCode="EUR"
                       />

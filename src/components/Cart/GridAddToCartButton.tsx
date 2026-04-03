@@ -6,10 +6,12 @@ import clsx from 'clsx'
 import { ShoppingCart } from 'lucide-react'
 import React, { useMemo } from 'react'
 import { toast } from 'sonner'
+import { resolvePriceForTier } from '@/utilities/pricing'
 
 type Props = {
   inventory?: null | number
-  price?: null | number
+  priceGroup1?: null | number
+  priceWholesale?: null | number
   productID: number | string
   published?: boolean | null
   stockQty?: null | number
@@ -17,7 +19,8 @@ type Props = {
 
 export const GridAddToCartButton: React.FC<Props> = ({
   inventory,
-  price,
+  priceGroup1,
+  priceWholesale,
   productID,
   published,
   stockQty,
@@ -27,6 +30,13 @@ export const GridAddToCartButton: React.FC<Props> = ({
   const normalizedProductID = String(productID)
 
   const availableQty = typeof inventory === 'number' ? inventory : (stockQty ?? 0)
+  const activePrice = resolvePriceForTier(
+    (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+    {
+      priceGroup1,
+      priceWholesale,
+    },
+  )
 
   const disabled = useMemo(() => {
     const existingItem = cart?.items?.find((item) => {
@@ -38,12 +48,12 @@ export const GridAddToCartButton: React.FC<Props> = ({
       return existingItem.quantity >= availableQty
     }
 
-    if (!published || !price || price <= 0) {
+    if (!published || activePrice <= 0) {
       return true
     }
 
     return availableQty <= 0
-  }, [availableQty, cart?.items, normalizedProductID, price, published])
+  }, [activePrice, availableQty, cart?.items, normalizedProductID, published])
 
   if (!user) {
     return null

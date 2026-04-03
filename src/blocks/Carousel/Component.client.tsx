@@ -43,6 +43,8 @@ export const CarouselClient: React.FC<{ products: Product[] }> = async ({ produc
               <GridTileImage
                 label={{
                   amount: product.price,
+                  priceGroup1: (product as Product & { priceGroup1?: number | null }).priceGroup1,
+                  priceWholesale: (product as Product & { priceWholesale?: number | null }).priceWholesale,
                   title: product.title,
                 }}
                 src={image.url}

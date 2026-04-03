@@ -8,6 +8,7 @@ import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import React, { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
+import { resolvePriceForTier } from '@/utilities/pricing'
 type Props = {
   product: Product
 }
@@ -16,6 +17,13 @@ export function AddToCart({ product }: Props) {
   const { user } = useAuth()
   const { addItem, cart, isLoading } = useCart()
   const normalizedProductID = String(product.id)
+  const activePrice = resolvePriceForTier(
+    (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+    {
+      priceGroup1: (product as Product & { priceGroup1?: number | null }).priceGroup1,
+      priceWholesale: (product as Product & { priceWholesale?: number | null }).priceWholesale,
+    },
+  )
 
   const addToCart = useCallback(
     (e: React.FormEvent<HTMLButtonElement>) => {
@@ -43,12 +51,12 @@ export function AddToCart({ product }: Props) {
       return existingQuantity >= (product.inventory || 0)
     }
 
-    if (product.inventory === 0 || product.price <= 0 || !product.published) {
+    if (product.inventory === 0 || activePrice <= 0 || !product.published) {
       return true
     }
 
     return false
-  }, [cart?.items, normalizedProductID, product])
+  }, [activePrice, cart?.items, normalizedProductID, product])
 
   if (!user) {
     return null

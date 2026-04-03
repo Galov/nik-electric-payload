@@ -255,6 +255,9 @@ async function upsertProducts(
         manufacturerCode: product.manufacturerCode,
         originalSku: product.originalSku,
         price: product.price,
+        priceGroup1: product.price,
+        priceRetail: product.price,
+        priceWholesale: product.price,
         priceInUSD: product.price,
         published: product.published,
         shortDescription: product.shortDescription,
@@ -272,6 +275,7 @@ async function upsertProducts(
             id: existingProduct.id,
             collection: 'products',
             data,
+            draft: false,
             overrideAccess: true,
           })
           continue
@@ -280,6 +284,7 @@ async function upsertProducts(
         const created = await payload.create({
           collection: 'products',
           data,
+          draft: false,
           overrideAccess: true,
         })
 

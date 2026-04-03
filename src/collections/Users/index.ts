@@ -21,7 +21,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     group: 'Потребители',
-    defaultColumns: ['name', 'email', 'approved', 'roles'],
+    defaultColumns: ['name', 'email', 'priceTier', 'approved', 'roles'],
     useAsTitle: 'name',
   },
   labels: {
@@ -196,6 +196,37 @@ export const Users: CollectionConfig = {
         read: adminOnlyFieldAccess,
         update: adminOnlyFieldAccess,
       },
+    },
+    {
+      name: 'partnerCode',
+      label: 'Код на партньор',
+      type: 'text',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOrSelf,
+        update: adminOnlyFieldAccess,
+      },
+    },
+    {
+      name: 'priceTier',
+      label: 'Ценова група',
+      type: 'select',
+      defaultValue: 'general',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOrSelf,
+        update: adminOnlyFieldAccess,
+      },
+      options: [
+        {
+          label: 'Обща',
+          value: 'general',
+        },
+        {
+          label: 'Ценова група 1',
+          value: 'group1',
+        },
+      ],
     },
     {
       name: 'orders',

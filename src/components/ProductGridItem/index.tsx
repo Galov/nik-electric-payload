@@ -19,7 +19,7 @@ const hasCategoryTitle = (
   Boolean(category && typeof category !== 'string' && 'title' in category && category.title)
 
 export const ProductGridItem: React.FC<Props> = ({ product }) => {
-  const { price, title } = product
+  const { title } = product
   const image = getProductPrimaryImage(product)
   const manufacturerCode = product.manufacturerCode || null
   const primaryCategory = product.categories?.find(hasCategoryTitle)?.title || null
@@ -63,16 +63,22 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
       </Link>
 
       <div className="mt-2 flex items-center justify-between gap-4">
-        {typeof price === 'number' && (
+        {(typeof (product as Partial<Product> & { priceWholesale?: number | null }).priceWholesale === 'number' ||
+          typeof (product as Partial<Product> & { priceGroup1?: number | null }).priceGroup1 === 'number') && (
           <div className="font-semibold leading-none text-primary/75">
-            <Price amount={price} />
+            <Price
+              amount={0}
+              priceGroup1={(product as Partial<Product> & { priceGroup1?: number | null }).priceGroup1}
+              priceWholesale={(product as Partial<Product> & { priceWholesale?: number | null }).priceWholesale}
+            />
           </div>
         )}
 
         {product.id ? (
           <GridAddToCartButton
             inventory={product.inventory}
-            price={typeof price === 'number' ? price : null}
+            priceGroup1={(product as Partial<Product> & { priceGroup1?: number | null }).priceGroup1}
+            priceWholesale={(product as Partial<Product> & { priceWholesale?: number | null }).priceWholesale}
             productID={product.id}
             published={product.published}
             stockQty={product.stockQty}

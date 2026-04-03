@@ -6,10 +6,18 @@ import { Price } from '@/components/Price'
 type Props = {
   amount: number
   position?: 'bottom' | 'center'
+  priceGroup1?: null | number
+  priceWholesale?: null | number
   title: string
 }
 
-export const Label: React.FC<Props> = ({ amount, position = 'bottom', title }) => {
+export const Label: React.FC<Props> = ({
+  amount,
+  position = 'bottom',
+  priceGroup1,
+  priceWholesale,
+  title,
+}) => {
   return (
     <div
       className={clsx('absolute bottom-0 left-0 flex w-full px-4 pb-4 @container/label', {
@@ -25,6 +33,8 @@ export const Label: React.FC<Props> = ({ amount, position = 'bottom', title }) =
           amount={amount}
           className="flex-none rounded-full bg-blue-600 p-2 text-white"
           currencyCodeClassName="hidden @[275px]/label:inline"
+          priceGroup1={priceGroup1}
+          priceWholesale={priceWholesale}
         />
       </div>
     </div>

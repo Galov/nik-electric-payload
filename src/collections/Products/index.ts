@@ -16,10 +16,10 @@ const normalizeCatalogCompatibilityFields = ({
   }
 
   const price =
-    typeof data.price === 'number'
-      ? data.price
-      : typeof originalDoc?.price === 'number'
-        ? originalDoc.price
+    typeof data.priceWholesale === 'number'
+      ? data.priceWholesale
+      : typeof originalDoc?.priceWholesale === 'number'
+        ? originalDoc.priceWholesale
         : 0
 
   const stockQty =
@@ -47,23 +47,23 @@ const ensureCatalogCompatibilityFields = ({
     return doc
   }
 
-  const price = typeof doc.price === 'number' ? doc.price : 0
+  const wholesalePrice = typeof doc.priceWholesale === 'number' ? doc.priceWholesale : 0
   const stockQty = typeof doc.stockQty === 'number' ? doc.stockQty : 0
 
   if (typeof doc.priceInEUR !== 'number') {
-    doc.priceInEUR = price
+    doc.priceInEUR = wholesalePrice
   }
 
   if (typeof doc.priceInUSD !== 'number') {
-    doc.priceInUSD = price
+    doc.priceInUSD = wholesalePrice
   }
 
   if (typeof doc.priceInEUREnabled !== 'boolean') {
-    doc.priceInEUREnabled = price > 0
+    doc.priceInEUREnabled = wholesalePrice > 0
   }
 
   if (typeof doc.priceInUSDEnabled !== 'boolean') {
-    doc.priceInUSDEnabled = price > 0
+    doc.priceInUSDEnabled = wholesalePrice > 0
   }
 
   if (typeof doc.inventory !== 'number') {
@@ -74,7 +74,7 @@ const ensureCatalogCompatibilityFields = ({
 }
 
 const syncCatalogFields = ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: number | null }) => {
-  const price = value ?? siblingData?.price ?? data?.price
+  const price = value ?? siblingData?.priceWholesale ?? data?.priceWholesale
   return typeof price === 'number' ? price : 0
 }
 
@@ -111,7 +111,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   },
   admin: {
     ...defaultCollection.admin,
-    defaultColumns: ['title', 'sku', 'brand', 'price', 'stockQty', 'published'],
+    defaultColumns: ['title', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
     group: 'Каталог',
     useAsTitle: 'title',
   },
@@ -126,7 +126,9 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     sku: true,
     description: true,
     shortDescription: true,
-    price: true,
+    priceRetail: true,
+    priceWholesale: true,
+    priceGroup1: true,
     priceInEUR: true,
     priceInEUREnabled: true,
     priceInUSD: true,
@@ -245,11 +247,35 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               hasMany: true,
             },
             {
-              name: 'price',
-              label: 'Цена (EUR)',
+              name: 'priceRetail',
+              label: 'Цена на дребно',
               type: 'number',
               defaultValue: 0,
               required: true,
+            },
+            {
+              name: 'priceWholesale',
+              label: 'Цена на едро',
+              type: 'number',
+              defaultValue: 0,
+              required: true,
+            },
+            {
+              name: 'priceGroup1',
+              label: 'Цена за ценова група 1',
+              type: 'number',
+              defaultValue: 0,
+              required: true,
+            },
+            {
+              name: 'price',
+              label: 'Служебна цена',
+              type: 'number',
+              defaultValue: 0,
+              required: true,
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'priceInEUR',
@@ -276,9 +302,9 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
                   ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: boolean | null }) => {
                     const price =
                       siblingData?.priceInEUR ??
-                      siblingData?.price ??
                       data?.priceInEUR ??
-                      data?.price
+                      siblingData?.priceWholesale ??
+                      data?.priceWholesale
 
                     return typeof price === 'number' ? price > 0 : Boolean(value)
                   },
@@ -310,9 +336,9 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
                   ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: boolean | null }) => {
                     const price =
                       siblingData?.priceInUSD ??
-                      siblingData?.price ??
                       data?.priceInUSD ??
-                      data?.price
+                      siblingData?.priceWholesale ??
+                      data?.priceWholesale
 
                     return typeof price === 'number' ? price > 0 : Boolean(value)
                   },

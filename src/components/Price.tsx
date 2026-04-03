@@ -11,6 +11,8 @@ type BaseProps = {
   className?: string
   currencyCodeClassName?: string
   as?: 'span' | 'p'
+  priceGroup1?: null | number
+  priceWholesale?: null | number
 }
 
 type PriceFixed = {
@@ -34,11 +36,14 @@ export const Price = ({
   className,
   highestAmount,
   lowestAmount,
+  priceGroup1,
+  priceWholesale,
   currencyCode = 'EUR',
   as = 'p',
 }: Props & React.ComponentProps<'p'>) => {
   const Element = as
   const { user } = useAuth()
+  const priceTier = (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const formatCurrency = (value: number, code = currencyCode) =>
@@ -69,10 +74,19 @@ export const Price = ({
     )
   }
 
-  if (typeof amount === 'number') {
+  const resolvedAmount =
+    typeof priceWholesale === 'number' || typeof priceGroup1 === 'number'
+      ? priceTier === 'group1'
+        ? typeof priceGroup1 === 'number' && priceGroup1 > 0
+          ? priceGroup1
+          : (priceWholesale ?? amount)
+        : (priceWholesale ?? amount)
+      : amount
+
+  if (typeof resolvedAmount === 'number') {
     return (
       <Element className={className} suppressHydrationWarning>
-        {currencyCode === 'EUR' ? formatDualCurrency(amount) : formatCurrency(amount)}
+        {currencyCode === 'EUR' ? formatDualCurrency(resolvedAmount) : formatCurrency(resolvedAmount)}
       </Element>
     )
   }

@@ -37,7 +37,11 @@ export function ProductDescription({ product }: { product: Product }) {
           </h1>
         </div>
         <div className="text-base font-normal text-primary/60 lg:text-lg">
-          <Price amount={product.price} />
+          <Price
+            amount={0}
+            priceGroup1={(product as Product & { priceGroup1?: number | null }).priceGroup1}
+            priceWholesale={(product as Product & { priceWholesale?: number | null }).priceWholesale}
+          />
         </div>
       </div>
       <div className="grid gap-1.5 text-sm leading-6">

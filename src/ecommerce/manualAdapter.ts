@@ -2,6 +2,7 @@ import type {
   PaymentAdapter,
   PaymentAdapterClient,
 } from '@payloadcms/plugin-ecommerce/types'
+import { resolveLineTotalForTier } from '@/utilities/pricing'
 
 type ManualOrderData = {
   billingAddress?: Record<string, unknown>
@@ -87,10 +88,14 @@ export const manualAdapter = (): PaymentAdapter => ({
       }
     })
 
+    const resolvedAmount = cart.items.reduce((sum, item) => {
+      return sum + resolveLineTotalForTier((user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier, item)
+    }, 0)
+
     const transaction = await payload.create({
       collection: transactionsSlug,
       data: {
-        amount: cart.subtotal || 0,
+        amount: resolvedAmount,
         billingAddress,
         cart: cart.id,
         currency: cart.currency,
@@ -107,7 +112,7 @@ export const manualAdapter = (): PaymentAdapter => ({
     const order = await payload.create({
       collection: ordersSlug,
       data: {
-        amount: cart.subtotal || 0,
+        amount: resolvedAmount,
         currency: cart.currency,
         customer: user?.id || undefined,
         customerEmail: resolvedEmail,
