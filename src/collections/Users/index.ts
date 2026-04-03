@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
+import { adminOrSelfFieldAccess } from '@/access/adminOrSelfFieldAccess'
 import { adminOrSelf } from '@/access/adminOrSelf'
 import { publicAccess } from '@/access/publicAccess'
 import { checkRole } from '@/access/utilities'
@@ -203,7 +204,7 @@ export const Users: CollectionConfig = {
       type: 'text',
       access: {
         create: adminOnlyFieldAccess,
-        read: adminOrSelf,
+        read: adminOrSelfFieldAccess,
         update: adminOnlyFieldAccess,
       },
     },
@@ -214,7 +215,7 @@ export const Users: CollectionConfig = {
       defaultValue: 'general',
       access: {
         create: adminOnlyFieldAccess,
-        read: adminOrSelf,
+        read: adminOrSelfFieldAccess,
         update: adminOnlyFieldAccess,
       },
       options: [
