@@ -23,6 +23,7 @@ import { ContactInquiries } from '@/collections/ContactInquiries'
 import { Media } from '@/collections/Media'
 import { Partners } from '@/collections/Partners'
 import { Users } from '@/collections/Users'
+import { legacyLogin } from '@/endpoints/legacy-login'
 import { microinvestWebhook } from '@/endpoints/microinvest-webhook'
 import { ContactPage } from '@/globals/ContactPage'
 import { Footer } from '@/globals/Footer'
@@ -108,6 +109,11 @@ export default buildConfig({
   },
   //email: nodemailerAdapter(),
   endpoints: [
+    {
+      handler: legacyLogin,
+      method: 'post',
+      path: '/integrations/legacy-auth/login',
+    },
     {
       handler: microinvestWebhook,
       method: 'post',

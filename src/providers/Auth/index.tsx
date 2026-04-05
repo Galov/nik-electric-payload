@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = useCallback<Login>(async (args) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/integrations/legacy-auth/login`, {
         body: JSON.stringify({
           email: args.email,
           password: args.password,

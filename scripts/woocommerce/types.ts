@@ -73,7 +73,7 @@ export type NormalizedProduct = {
   sku?: string
   originalSku?: string
   manufacturerCode?: string
-  brandSourceTaxonomyId?: number
+  brandSourceTaxonomyIds: number[]
   categorySourceTaxonomyIds: number[]
   price: number
   stockQty: number
@@ -101,7 +101,7 @@ export type ImportReport = {
 
 export type ProductImportFailure = {
   batchStart: number
-  brandSourceTaxonomyId?: number
+  brandSourceTaxonomyIds: number[]
   categorySourceTaxonomyIds: number[]
   descriptionPreview: string
   error: string

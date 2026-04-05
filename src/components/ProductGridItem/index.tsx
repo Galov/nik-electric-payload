@@ -2,6 +2,7 @@ import type { Product } from '@/payload-types'
 
 import { GridAddToCartButton } from '@/components/Cart/GridAddToCartButton'
 import { Price } from '@/components/Price'
+import { ManufacturerBadge } from '@/components/product/ManufacturerBadge'
 import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { getProductPrimaryImage } from '@/utilities/product'
 import Link from 'next/link'
@@ -27,11 +28,7 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
   return (
     <article className="group flex h-full flex-col rounded-[10px] border border-transparent bg-white p-4 transition duration-300 ease-out hover:border-black/5 hover:shadow-[0_8px_18px_rgba(15,23,42,0.05)]">
       <div className="flex min-h-7 flex-wrap gap-2">
-        {manufacturerCode ? (
-          <div className="inline-flex h-8 items-center self-start rounded-md border border-[rgb(0,126,229)]/20 bg-[rgb(0,126,229)]/12 px-2.5 text-[11px] font-medium leading-none uppercase tracking-[0.04em] text-[rgb(0,126,229)]">
-            {manufacturerCode}
-          </div>
-        ) : null}
+        {manufacturerCode ? <ManufacturerBadge value={manufacturerCode} /> : null}
         {product.isRefurbished ? <RefurbishedBadge /> : null}
       </div>
 

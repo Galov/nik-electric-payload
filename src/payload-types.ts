@@ -191,6 +191,10 @@ export interface User {
   approved?: boolean | null;
   partnerCode?: string | null;
   priceTier?: ('general' | 'group1') | null;
+  legacyWPUserId?: number | null;
+  legacyWPUsername?: string | null;
+  legacyWPPasswordHash?: string | null;
+  legacyPasswordMigratedAt?: string | null;
   orders?: {
     docs?: (string | Order)[];
     hasNextPage?: boolean;
@@ -290,7 +294,7 @@ export interface Product {
   originalSku?: string | null;
   manufacturerCode?: string | null;
   isRefurbished?: boolean | null;
-  brand?: (string | null) | Brand;
+  brand?: (string | Brand)[] | null;
   categories?: (string | Category)[] | null;
   priceRetail: number;
   priceWholesale: number;
@@ -704,6 +708,10 @@ export interface UsersSelect<T extends boolean = true> {
   approved?: T;
   partnerCode?: T;
   priceTier?: T;
+  legacyWPUserId?: T;
+  legacyWPUsername?: T;
+  legacyWPPasswordHash?: T;
+  legacyPasswordMigratedAt?: T;
   orders?: T;
   cart?: T;
   addresses?: T;

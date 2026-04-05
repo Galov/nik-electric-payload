@@ -41,7 +41,7 @@ export const getProductSEODescription = (product?: Partial<Product> | null) => {
     return clampText(normalizedDescription, 180)
   }
 
-  const brand = product?.brand && typeof product.brand !== 'string' ? product.brand.title : null
+  const brand = getProductBrands(product)[0]?.title || null
   const primaryCategory =
     product?.categories?.find(
       (category): category is Exclude<NonNullable<Product['categories']>[number], string> =>
@@ -88,4 +88,39 @@ export const getProductPrimaryImage = (product?: Partial<Product> | null) => {
 
 export const isVisibleProduct = (product?: Partial<Product> | null) => {
   return Boolean(product?.published)
+}
+
+type BrandLike =
+  | null
+  | string
+  | {
+      id?: number | string
+      slug?: null | string
+      title?: null | string
+    }
+
+const normalizeBrandEntry = (brand: BrandLike) => {
+  if (!brand || typeof brand === 'string' || !brand.title) {
+    return null
+  }
+
+  return {
+    id: typeof brand.id === 'string' ? brand.id : typeof brand.id === 'number' ? String(brand.id) : undefined,
+    slug: brand.slug || undefined,
+    title: brand.title,
+  }
+}
+
+export const getProductBrands = (product?: Partial<Product> | null) => {
+  const source = product?.brand
+
+  if (Array.isArray(source)) {
+    return source
+      .map((brand) => normalizeBrandEntry(brand as BrandLike))
+      .filter((brand): brand is NonNullable<ReturnType<typeof normalizeBrandEntry>> => Boolean(brand))
+  }
+
+  const singleBrand = normalizeBrandEntry(source as BrandLike)
+
+  return singleBrand ? [singleBrand] : []
 }

@@ -55,7 +55,7 @@ export function normalizeProducts(source: LegacySourceData, options: ImportOptio
     const meta = source.postMeta.get(post.id) || new Map<string, string>()
     const taxonomyIds = source.termRelationships.get(post.id) || []
     const categories: number[] = []
-    let brandSourceTaxonomyId: number | undefined
+    const brandSourceTaxonomyIds: number[] = []
 
     for (const taxonomyId of taxonomyIds) {
       const taxonomy = source.termTaxonomies.get(taxonomyId)
@@ -63,7 +63,7 @@ export function normalizeProducts(source: LegacySourceData, options: ImportOptio
       if (!taxonomy) continue
 
       if (taxonomy.taxonomy === 'product_cat') categories.push(taxonomy.id)
-      if (taxonomy.taxonomy === 'pwb-brand' && !brandSourceTaxonomyId) brandSourceTaxonomyId = taxonomy.id
+      if (taxonomy.taxonomy === 'pwb-brand') brandSourceTaxonomyIds.push(taxonomy.id)
     }
 
     const images = resolveImages({
@@ -76,7 +76,7 @@ export function normalizeProducts(source: LegacySourceData, options: ImportOptio
 
     return {
       backordersAllowed: toBackordersAllowed(meta.get('_backorders')),
-      brandSourceTaxonomyId,
+      brandSourceTaxonomyIds,
       categorySourceTaxonomyIds: categories,
       description: emptyToUndefined(post.content),
       images: images.map(({ alt, legacyUrl, storageKey }) => ({ alt, legacyUrl, storageKey })),

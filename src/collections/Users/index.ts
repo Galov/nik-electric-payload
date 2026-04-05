@@ -230,6 +230,58 @@ export const Users: CollectionConfig = {
       ],
     },
     {
+      name: 'legacyWPUserId',
+      label: 'Legacy WP ID',
+      type: 'number',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'legacyWPUsername',
+      label: 'Legacy WP Username',
+      type: 'text',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'legacyWPPasswordHash',
+      label: 'Legacy WP Password Hash',
+      type: 'text',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'legacyPasswordMigratedAt',
+      label: 'Legacy Password Migrated At',
+      type: 'date',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
+      admin: {
+        hidden: true,
+      },
+    },
+    {
       name: 'orders',
       label: 'Поръчки',
       type: 'join',

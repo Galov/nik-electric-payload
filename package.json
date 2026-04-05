@@ -12,6 +12,8 @@
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "images:migrate:r2": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/migrateProductImagesToR2.ts",
+    "import:compatibility-brands": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importCompatibilityBrandsFromLegacySQL.ts",
+    "import:customers": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importLegacyCustomers.ts",
     "import:partners": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importPartnersFromLegacySQL.ts",
     "import:woocommerce": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/woocommerce/import.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",

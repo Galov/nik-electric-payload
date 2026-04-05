@@ -238,9 +238,9 @@ async function upsertProducts(
 
       const data = {
         backordersAllowed: product.backordersAllowed,
-        brand: product.brandSourceTaxonomyId
-          ? (brandIdBySourceTaxonomyId.get(product.brandSourceTaxonomyId) ?? null)
-          : null,
+        brand: product.brandSourceTaxonomyIds
+          .map((sourceTaxonomyId) => brandIdBySourceTaxonomyId.get(sourceTaxonomyId))
+          .filter((value): value is string => Boolean(value)),
         categories: product.categorySourceTaxonomyIds
           .map((sourceTaxonomyId) => categoryIdBySourceTaxonomyId.get(sourceTaxonomyId))
           .filter((value): value is string => Boolean(value)),
@@ -297,7 +297,7 @@ async function upsertProducts(
         const preview = (product.description || '').replace(/\s+/g, ' ').slice(0, 300)
         const failure = {
           batchStart: index,
-          brandSourceTaxonomyId: product.brandSourceTaxonomyId,
+          brandSourceTaxonomyIds: product.brandSourceTaxonomyIds,
           categorySourceTaxonomyIds: product.categorySourceTaxonomyIds,
           descriptionPreview: preview,
           error: extractErrorMessage(error),

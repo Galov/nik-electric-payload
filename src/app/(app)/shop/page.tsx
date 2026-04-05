@@ -5,6 +5,7 @@ import { Search } from '@/components/Search'
 import { SortToolbar } from '@/components/layout/search/SortToolbar'
 import { ShopBanner } from '@/components/shop/ShopBanner'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getProductBrands } from '@/utilities/product'
 import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload, type Where } from 'payload'
@@ -101,7 +102,7 @@ export default async function ShopPage({ searchParams }: Props) {
           ? [
               {
                 brand: {
-                  equals: selectedBrandID || String(brand),
+                  in: [selectedBrandID || String(brand)],
                 },
               },
             ]
@@ -132,15 +133,11 @@ export default async function ShopPage({ searchParams }: Props) {
     new Map(
       products.docs
         .flatMap((product) => {
-          if (!product.brand || typeof product.brand === 'string') return []
-
-          return [
-            {
-              id: product.brand.id,
-              slug: product.brand.slug || String(product.brand.id),
-              title: product.brand.title,
-            },
-          ]
+          return getProductBrands(product).map((brand) => ({
+            id: brand.id || brand.slug || brand.title,
+            slug: brand.slug || brand.id || brand.title,
+            title: brand.title,
+          }))
         })
         .map((availableBrand) => [availableBrand.slug, availableBrand]),
     ).values(),

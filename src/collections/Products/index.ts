@@ -235,9 +235,10 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
             {
               name: 'brand',
-              label: 'Марка',
+              label: 'Съвместим с марки',
               type: 'relationship',
               relationTo: 'brands',
+              hasMany: true,
             },
             {
               name: 'categories',

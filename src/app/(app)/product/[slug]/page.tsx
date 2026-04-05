@@ -4,7 +4,7 @@ import { RecentlyViewedProducts } from '@/components/product/RecentlyViewedProdu
 import { RelatedProducts } from '@/components/product/RelatedProducts'
 import { buildCategoryPath } from '@/utilities/category'
 import { generateMeta } from '@/utilities/generateMeta'
-import { getProductPrimaryImage, getProductSEODescription } from '@/utilities/product'
+import { getProductBrands, getProductPrimaryImage, getProductSEODescription } from '@/utilities/product'
 import {
   buildBreadcrumbSchema,
   buildProductBreadcrumbItems,
@@ -88,7 +88,7 @@ export default async function ProductPage({ params }: Args) {
 
   const productJsonLd = {
     ...buildProductSchema({
-      brand: product.brand && typeof product.brand !== 'string' ? product.brand.title : null,
+      brand: getProductBrands(product)[0]?.title || null,
       category: primaryCategory,
       description: getProductSEODescription(product),
       image: getProductPrimaryImage(product)?.url,
