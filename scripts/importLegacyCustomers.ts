@@ -8,6 +8,8 @@ import readline from 'node:readline'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
+import type { User } from '@/payload-types'
+
 import { decodeSQLValue, parseInsertStatement } from './woocommerce/sql'
 
 const DUMP_PATH = path.resolve(process.cwd(), '../nikelect_woocdb2019.sql')
@@ -278,7 +280,7 @@ const main = async () => {
       },
     })
 
-    const data = {
+    const data: Partial<User> = {
       approved: true,
       companyAddress: customer.companyAddress,
       companyCity: customer.companyCity,
