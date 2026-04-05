@@ -303,6 +303,7 @@ const main = async () => {
             id: existing.docs[0].id,
             collection: 'users',
             data,
+            draft: false,
             overrideAccess: true,
             showHiddenFields: true,
           })
@@ -313,12 +314,27 @@ const main = async () => {
       }
 
       if (!DRY_RUN) {
+        const createData = {
+          approved: true,
+          companyAddress: customer.companyAddress,
+          companyCity: customer.companyCity,
+          companyEIK: customer.companyEIK,
+          companyName: customer.companyName,
+          email: customer.email,
+          firstName: customer.firstName,
+          lastName: customer.lastName,
+          legacyWPPasswordHash: customer.legacyWPPasswordHash,
+          legacyWPUserId: customer.legacyUserId,
+          legacyWPUsername: customer.legacyWPUsername,
+          password: `legacy-${crypto.randomUUID()}`,
+          phone: customer.phone,
+          roles: ['customer'] as User['roles'],
+        }
+
         await payload.create({
           collection: 'users',
-          data: {
-            ...data,
-            password: `legacy-${crypto.randomUUID()}`,
-          },
+          data: createData,
+          draft: false,
           overrideAccess: true,
           showHiddenFields: true,
         })
