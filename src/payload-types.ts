@@ -293,6 +293,7 @@ export interface Product {
   sku?: string | null;
   originalSku?: string | null;
   manufacturerCode?: string | null;
+  productType?: ('compatible' | 'original' | 'removed-from-unit') | null;
   isRefurbished?: boolean | null;
   brand?: (string | Brand)[] | null;
   categories?: (string | Category)[] | null;
@@ -865,6 +866,7 @@ export interface ProductsSelect<T extends boolean = true> {
   sku?: T;
   originalSku?: T;
   manufacturerCode?: T;
+  productType?: T;
   isRefurbished?: T;
   brand?: T;
   categories?: T;

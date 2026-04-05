@@ -1,4 +1,5 @@
 import type { PayloadHandler, PayloadRequest } from 'payload'
+import { parseMicroinvestDescription } from '@/utilities/microinvest'
 
 type MicroinvestEvent =
   | 'price.updated'
@@ -16,10 +17,8 @@ type MicroinvestWebhookPayload = {
     priceRetail?: number
     priceWholesale?: number
     published?: boolean
-    shortDescription?: string
     state?: string
     stockQty?: number
-    title?: string
   }
   event?: MicroinvestEvent
   sku?: string
@@ -148,20 +147,16 @@ export const microinvestWebhook: PayloadHandler = async (req) => {
     nextData.stockStatus = 'outofstock'
   }
 
-  if (typeof data?.title === 'string' && data.title.trim()) {
-    nextData.title = data.title.trim()
-  }
-
   if (typeof data?.description === 'string') {
-    nextData.description = data.description
-  }
+    const parsedDescription = parseMicroinvestDescription(data.description)
 
-  if (typeof data?.shortDescription === 'string') {
-    nextData.shortDescription = data.shortDescription
-  }
-
-  if (typeof data?.originalSku === 'string') {
-    nextData.originalSku = data.originalSku
+    if (parsedDescription) {
+      nextData.originalSku = parsedDescription.originalSku
+      nextData.productType = parsedDescription.productType
+      nextData.isRefurbished = parsedDescription.isRefurbished
+    }
+  } else if (typeof data?.originalSku === 'string' && data.originalSku.trim()) {
+    nextData.originalSku = data.originalSku.trim()
   }
 
   if (typeof data?.manufacturerCode === 'string') {

@@ -4,12 +4,12 @@ import type { Product } from '@/payload-types'
 import { AddToCart } from '@/components/Cart/AddToCart'
 import { Price } from '@/components/Price'
 import { ManufacturerBadge } from '@/components/product/ManufacturerBadge'
-import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
+import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
 import Link from 'next/link'
 import React, { Suspense } from 'react'
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
 import { buildCategoryPath } from '@/utilities/category'
-import { getProductBrands } from '@/utilities/product'
+import { getProductBrands, getProductType } from '@/utilities/product'
 
 type ProductCategoryLink = {
   parent?: null | ProductCategoryLink
@@ -21,6 +21,7 @@ export function ProductDescription({ product }: { product: Product }) {
   const description = formatLegacyProductDescription(product.description || product.shortDescription)
   const stockQuantity = product.inventory || 0
   const manufacturerCode = product.manufacturerCode || null
+  const productType = getProductType(product)
   const categories = (product.categories || []).reduce<ProductCategoryLink[]>((acc, category) => {
     if (!category || typeof category === 'string' || !category.title) return acc
 
@@ -36,7 +37,7 @@ export function ProductDescription({ product }: { product: Product }) {
         <div className="flex flex-col gap-4">
           <div className="flex min-h-7 flex-wrap gap-2">
             {manufacturerCode ? <ManufacturerBadge className="self-start" value={manufacturerCode} /> : null}
-            {product.isRefurbished ? <RefurbishedBadge className="self-start" /> : null}
+            {productType ? <ProductTypeBadge className="self-start" value={productType} /> : null}
           </div>
           <h1 className="text-xl font-normal leading-tight text-[rgb(0,126,229)] lg:text-2xl">
             {product.title}
@@ -110,7 +111,7 @@ export function ProductDescription({ product }: { product: Product }) {
             {stockQuantity > 0 ? stockQuantity : 'Изчерпана наличност'}
           </span>
         </p>
-        {product.isRefurbished ? (
+        {productType === 'removed-from-unit' ? (
           <p>
             <span className="text-muted-foreground/70">Състояние:</span>{' '}
             <span className="font-normal text-emerald-700">

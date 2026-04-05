@@ -68,6 +68,7 @@ export default async function ShopPage({ searchParams }: Props) {
       inventory: true,
       isRefurbished: true,
       manufacturerCode: true,
+      productType: true,
       published: true,
       priceGroup1: true,
       priceWholesale: true,

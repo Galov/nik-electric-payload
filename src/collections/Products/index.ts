@@ -140,6 +140,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     categories: true,
     brand: true,
     isRefurbished: true,
+    productType: true,
     published: true,
   },
   fields: [
@@ -226,6 +227,25 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               name: 'manufacturerCode',
               label: 'Производител / тип',
               type: 'text',
+            },
+            {
+              name: 'productType',
+              label: 'Тип на продукта',
+              type: 'select',
+              options: [
+                {
+                  label: 'Съвместим',
+                  value: 'compatible',
+                },
+                {
+                  label: 'Оригинал',
+                  value: 'original',
+                },
+                {
+                  label: 'От нов уред',
+                  value: 'removed-from-unit',
+                },
+              ],
             },
             {
               name: 'isRefurbished',

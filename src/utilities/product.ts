@@ -1,6 +1,7 @@
 import type { Product } from '@/payload-types'
 
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
+import type { ProductTypeValue } from '@/utilities/microinvest'
 
 const publicStorageBase = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL || ''
 
@@ -123,4 +124,22 @@ export const getProductBrands = (product?: Partial<Product> | null) => {
   const singleBrand = normalizeBrandEntry(source as BrandLike)
 
   return singleBrand ? [singleBrand] : []
+}
+
+export const getProductType = (product?: Partial<Product> | null): null | ProductTypeValue => {
+  const productType = (product as Partial<Product> & { productType?: null | ProductTypeValue })?.productType
+
+  if (
+    productType === 'compatible' ||
+    productType === 'original' ||
+    productType === 'removed-from-unit'
+  ) {
+    return productType
+  }
+
+  if (product?.isRefurbished) {
+    return 'removed-from-unit'
+  }
+
+  return null
 }
