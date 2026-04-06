@@ -290,6 +290,7 @@ export interface Product {
       }[]
     | null;
   sourceId?: number | null;
+  miProductId?: number | null;
   sku?: string | null;
   originalSku?: string | null;
   manufacturerCode?: string | null;
@@ -863,6 +864,7 @@ export interface ProductsSelect<T extends boolean = true> {
         id?: T;
       };
   sourceId?: T;
+  miProductId?: T;
   sku?: T;
   originalSku?: T;
   manufacturerCode?: T;

@@ -1,10 +1,10 @@
 'use client'
 
 import { Price } from '@/components/Price'
-import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { useAuth } from '@/providers/Auth'
 import { Product } from '@/payload-types'
-import { getProductPrimaryImage, getProductType } from '@/utilities/product'
+import { getProductPrimaryImage } from '@/utilities/product'
 import { resolvePriceForTier } from '@/utilities/pricing'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -27,7 +27,6 @@ export const ProductItem: React.FC<Props> = ({
   const { user } = useAuth()
   const { title } = product
   const image = getProductPrimaryImage(product)
-  const productType = getProductType(product)
   const itemPrice = resolvePriceForTier(
     (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
     {
@@ -51,7 +50,7 @@ export const ProductItem: React.FC<Props> = ({
           <p className="text-lg font-medium text-primary/85">
             <Link href={itemURL}>{title}</Link>
           </p>
-          {productType ? <ProductTypeBadge compact className="self-start" value={productType} /> : null}
+          {product.isRefurbished ? <RefurbishedBadge compact className="self-start" /> : null}
           <div className="text-sm text-primary/55">
             {'x'}
             {quantity}

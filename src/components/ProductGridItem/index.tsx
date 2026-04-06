@@ -3,8 +3,8 @@ import type { Product } from '@/payload-types'
 import { GridAddToCartButton } from '@/components/Cart/GridAddToCartButton'
 import { Price } from '@/components/Price'
 import { ManufacturerBadge } from '@/components/product/ManufacturerBadge'
-import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
-import { getProductPrimaryImage, getProductType } from '@/utilities/product'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
+import { getProductPrimaryImage } from '@/utilities/product'
 import Link from 'next/link'
 import React from 'react'
 import clsx from 'clsx'
@@ -23,14 +23,13 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
   const { title } = product
   const image = getProductPrimaryImage(product)
   const manufacturerCode = product.manufacturerCode || null
-  const productType = getProductType(product)
   const primaryCategory = product.categories?.find(hasCategoryTitle)?.title || null
 
   return (
     <article className="group flex h-full flex-col rounded-[10px] border border-transparent bg-white p-4 transition duration-300 ease-out hover:border-black/5 hover:shadow-[0_8px_18px_rgba(15,23,42,0.05)]">
       <div className="flex min-h-7 flex-wrap gap-2">
         {manufacturerCode ? <ManufacturerBadge value={manufacturerCode} /> : null}
-        {productType ? <ProductTypeBadge value={productType} /> : null}
+        {product.isRefurbished ? <RefurbishedBadge /> : null}
       </div>
 
       <Link className="flex flex-1 flex-col" href={`/product/${product.slug}`}>

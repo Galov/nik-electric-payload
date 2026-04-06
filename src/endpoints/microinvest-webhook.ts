@@ -11,6 +11,7 @@ type MicroinvestWebhookPayload = {
   data?: {
     catalog3?: string
     description?: string
+    id?: number
     manufacturerCode?: string
     originalSku?: string
     priceGroup1?: number
@@ -21,8 +22,21 @@ type MicroinvestWebhookPayload = {
     stockQty?: number
   }
   event?: MicroinvestEvent
+  id?: number
   sku?: string
   timestamp?: string
+}
+
+type MicroinvestWebhookItemResult = {
+  event?: MicroinvestEvent
+  index: number
+  message?: string
+  miProductId?: number
+  productId?: string
+  sku?: string
+  status: number
+  timestamp?: string
+  updatedFields?: string[]
 }
 
 const SUPPORTED_EVENTS = new Set<MicroinvestEvent>([
@@ -45,101 +59,118 @@ const normalizeStockStatus = (stockQty?: number) => {
   return stockQty > 0 ? 'instock' : 'outofstock'
 }
 
-const parsePayload = async (req: PayloadRequest): Promise<MicroinvestWebhookPayload | null> => {
+const parsePayload = async (req: PayloadRequest): Promise<MicroinvestWebhookPayload[] | null> => {
   try {
     if (typeof req.json !== 'function') {
       return null
     }
 
-    return (await req.json()) as MicroinvestWebhookPayload
+    const body = (await req.json()) as unknown
+
+    return Array.isArray(body) ? (body as MicroinvestWebhookPayload[]) : null
   } catch {
     return null
   }
 }
 
-export const microinvestWebhook: PayloadHandler = async (req) => {
-  const secret = process.env.MICROINVEST_WEBHOOK_SECRET
-  const providedSecret = req.headers.get('x-microinvest-secret')
-
-  if (!secret) {
-    req.payload.logger.error('MICROINVEST_WEBHOOK_SECRET is not configured.')
-
-    return json(
-      {
-        error: 'Webhook secret is not configured.',
-      },
-      { status: 500 },
-    )
-  }
-
-  if (!providedSecret || providedSecret !== secret) {
-    return json(
-      {
-        error: 'Unauthorized.',
-      },
-      { status: 401 },
-    )
-  }
-
-  const payload = await parsePayload(req)
-
-  if (!payload) {
-    return json(
-      {
-        error: 'Invalid JSON body.',
-      },
-      { status: 400 },
-    )
-  }
-
-  const { data, event, sku, timestamp } = payload
+const processWebhookItem = async ({
+  item,
+  index,
+  req,
+}: {
+  item: MicroinvestWebhookPayload
+  index: number
+  req: PayloadRequest
+}): Promise<MicroinvestWebhookItemResult> => {
+  const { data, event, sku, timestamp } = item
+  const normalizedSku = sku?.trim()
+  const miProductId =
+    typeof item.id === 'number' && Number.isFinite(item.id)
+      ? item.id
+      : typeof data?.id === 'number' && Number.isFinite(data.id)
+        ? data.id
+        : undefined
 
   if (!event || !SUPPORTED_EVENTS.has(event)) {
-    return json(
-      {
-        error: 'Unsupported event.',
-      },
-      { status: 400 },
-    )
+    return {
+      event,
+      index,
+      message: 'Unsupported event.',
+      miProductId,
+      sku: normalizedSku,
+      status: 400,
+      timestamp,
+    }
   }
 
-  if (!sku?.trim()) {
-    return json(
-      {
-        error: 'Missing sku.',
-      },
-      { status: 400 },
-    )
+  if (!normalizedSku && typeof miProductId !== 'number') {
+    return {
+      event,
+      index,
+      message: 'Missing product identifier.',
+      miProductId,
+      sku: normalizedSku,
+      status: 400,
+      timestamp,
+    }
   }
 
-  const matchingProducts = await req.payload.find({
-    collection: 'products',
-    depth: 0,
-    limit: 1,
-    overrideAccess: true,
-    pagination: false,
-    where: {
-      sku: {
-        equals: sku.trim(),
-      },
-    },
-  })
+  let product =
+    typeof miProductId === 'number'
+      ? (
+          await req.payload.find({
+            collection: 'products',
+            depth: 0,
+            limit: 1,
+            overrideAccess: true,
+            pagination: false,
+            where: {
+              miProductId: {
+                equals: miProductId,
+              },
+            },
+          })
+        ).docs[0]
+      : undefined
 
-  const product = matchingProducts.docs[0]
+  if (!product && normalizedSku) {
+    product = (
+      await req.payload.find({
+        collection: 'products',
+        depth: 0,
+        limit: 1,
+        overrideAccess: true,
+        pagination: false,
+        where: {
+          sku: {
+            equals: normalizedSku,
+          },
+        },
+      })
+    ).docs[0]
+  }
 
   if (!product) {
-    req.payload.logger.warn(`Microinvest webhook received unknown SKU: ${sku}`)
-
-    return json(
-      {
-        error: 'Product not found.',
-        sku,
-      },
-      { status: 404 },
+    req.payload.logger.warn(
+      `Microinvest webhook received unknown product: miProductId=${miProductId ?? 'n/a'}, sku=${normalizedSku ?? 'n/a'}`,
     )
+
+    return {
+      event,
+      index,
+      message: 'Product not found.',
+      miProductId,
+      sku: normalizedSku,
+      status: 404,
+      timestamp,
+    }
   }
 
   const nextData: Record<string, unknown> = {}
+
+  if (typeof miProductId === 'number' && product.miProductId !== miProductId) {
+    nextData.miProductId = miProductId
+  }
 
   if (event === 'product.deactivated') {
     nextData.published = false
@@ -199,13 +230,16 @@ export const microinvestWebhook: PayloadHandler = async (req) => {
   }
 
   if (Object.keys(nextData).length === 0) {
-    return json({
+    return {
       event,
+      index,
       message: 'No changes detected in payload.',
       productId: product.id,
-      sku,
+      miProductId,
+      sku: normalizedSku,
+      status: 200,
       timestamp,
-    })
+    }
   }
 
   await req.payload.update({
@@ -216,14 +250,82 @@ export const microinvestWebhook: PayloadHandler = async (req) => {
     overrideAccess: true,
   })
 
-  req.payload.logger.info(`Microinvest webhook applied ${event} for SKU ${sku}`)
+  req.payload.logger.info(
+    `Microinvest webhook applied ${event} for product miProductId=${miProductId ?? 'n/a'}, sku=${normalizedSku ?? 'n/a'}`,
+  )
 
-  return json({
+  return {
     event,
+    index,
     message: 'Webhook processed successfully.',
     productId: product.id,
-    sku,
+    miProductId,
+    sku: normalizedSku,
+    status: 200,
     timestamp,
     updatedFields: Object.keys(nextData),
-  })
+  }
+}
+
+export const microinvestWebhook: PayloadHandler = async (req) => {
+  const secret = process.env.MICROINVEST_WEBHOOK_SECRET
+  const providedSecret = req.headers.get('x-microinvest-secret')
+
+  if (!secret) {
+    req.payload.logger.error('MICROINVEST_WEBHOOK_SECRET is not configured.')
+
+    return json(
+      {
+        error: 'Webhook secret is not configured.',
+      },
+      { status: 500 },
+    )
+  }
+
+  if (!providedSecret || providedSecret !== secret) {
+    return json(
+      {
+        error: 'Unauthorized.',
+      },
+      { status: 401 },
+    )
+  }
+
+  const payload = await parsePayload(req)
+
+  if (!payload) {
+    return json(
+      {
+        error: 'Request body must be a JSON array.',
+      },
+      { status: 400 },
+    )
+  }
+
+  if (payload.length === 0) {
+    return json(
+      {
+        error: 'Request body must contain at least one item.',
+      },
+      { status: 400 },
+    )
+  }
+
+  const results: MicroinvestWebhookItemResult[] = []
+
+  for (const [index, item] of payload.entries()) {
+    results.push(await processWebhookItem({ index, item, req }))
+  }
+
+  const hasErrors = results.some((result) => result.status >= 400)
+  const hasSuccess = results.some((result) => result.status < 400)
+
+  return json(
+    {
+      message: hasErrors ? 'Webhook processed with item-level errors.' : 'Webhook processed successfully.',
+      processed: results.length,
+      results,
+    },
+    { status: hasErrors && hasSuccess ? 207 : hasErrors ? 400 : 200 },
+  )
 }

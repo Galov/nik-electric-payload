@@ -14,6 +14,7 @@
     "images:migrate:r2": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/migrateProductImagesToR2.ts",
     "import:compatibility-brands": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importCompatibilityBrandsFromLegacySQL.ts",
     "import:customers": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importLegacyCustomers.ts",
+    "import:mi-csv": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importMicroinvestCsv.ts",
     "import:partners": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/importPartnersFromLegacySQL.ts",
     "import:woocommerce": "cross-env NODE_OPTIONS=--no-deprecation node --import=tsx/esm scripts/woocommerce/import.ts",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",

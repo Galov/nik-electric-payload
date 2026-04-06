@@ -20,9 +20,9 @@ import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
 import { Button } from '@/components/ui/button'
-import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
+import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
 import { Product } from '@/payload-types'
-import { getProductPrimaryImage, getProductType } from '@/utilities/product'
+import { getProductPrimaryImage } from '@/utilities/product'
 import { useAuth } from '@/providers/Auth'
 import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
 
@@ -83,7 +83,6 @@ export function CartModal() {
                     return <React.Fragment key={i} />
 
                   const image = getProductPrimaryImage(product)
-                  const productType = getProductType(product)
                   const price = resolvePriceForTier(
                     (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
                     {
@@ -116,8 +115,8 @@ export function CartModal() {
 
                           <div className="flex flex-1 flex-col text-base">
                             <span className="text-sm leading-5 text-primary/80">{product?.title}</span>
-                            {productType ? (
-                              <ProductTypeBadge compact className="mt-1 self-start" value={productType} />
+                            {product.isRefurbished ? (
+                              <RefurbishedBadge compact className="mt-1 self-start" />
                             ) : null}
                           </div>
                         </Link>

@@ -139,6 +139,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     images: true,
     categories: true,
     brand: true,
+    miProductId: true,
     isRefurbished: true,
     productType: true,
     published: true,
@@ -205,6 +206,16 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             {
               name: 'sourceId',
               label: 'Изходен ID',
+              type: 'number',
+              admin: {
+                hidden: true,
+              },
+              index: true,
+              unique: true,
+            },
+            {
+              name: 'miProductId',
+              label: 'Microinvest ID',
               type: 'number',
               admin: {
                 hidden: true,
