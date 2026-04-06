@@ -103,6 +103,12 @@ const resolvePublished = ({
   return undefined
 }
 
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'product'
+
 const buildProductData = (row: CsvRow) => {
   const nextData: Record<string, number | string | boolean> = {
     manufacturerCode: row.manufacturerCode,
@@ -236,13 +242,21 @@ const main = async () => {
       }
 
       try {
+        const createData = {
+          ...nextData,
+          price: typeof nextData.price === 'number' ? nextData.price : 0,
+          priceGroup1: typeof nextData.priceGroup1 === 'number' ? nextData.priceGroup1 : 0,
+          priceRetail: typeof nextData.priceRetail === 'number' ? nextData.priceRetail : 0,
+          priceWholesale: typeof nextData.priceWholesale === 'number' ? nextData.priceWholesale : 0,
+          slug: slugify(row.sku),
+          sku: row.sku,
+          title: row.sku,
+        }
+
         await payload.create({
           collection: 'products',
-          data: {
-            ...nextData,
-            sku: row.sku,
-            title: row.sku,
-          },
+          data: createData,
+          draft: false,
           overrideAccess: true,
         })
 
