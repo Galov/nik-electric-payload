@@ -18,8 +18,16 @@ const jsonError = (message: string, status: number) =>
   )
 
 export const legacyLogin = async (req: any) => {
-  const email = typeof req.data?.email === 'string' ? req.data.email.trim().toLowerCase() : ''
-  const password = typeof req.data?.password === 'string' ? req.data.password : ''
+  let body: { email?: unknown; password?: unknown } = {}
+
+  try {
+    body = (await req.json()) as { email?: unknown; password?: unknown }
+  } catch {
+    body = (req.data || {}) as { email?: unknown; password?: unknown }
+  }
+
+  const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : ''
+  const password = typeof body.password === 'string' ? body.password : ''
 
   if (!email) {
     return jsonError('Имейлът е задължителен.', 400)
