@@ -109,16 +109,6 @@ const hasRequiredCreateFields = (doc: Record<string, unknown>) => {
   return Boolean(sku && title && sourcePrice !== null && stockQty !== null)
 }
 
-const getCreateFieldDebug = (doc: Record<string, unknown>) => ({
-  priceRetail:
-    typeof doc.priceRetail === 'number' && Number.isFinite(doc.priceRetail) ? doc.priceRetail : null,
-  sku: getString(doc.sku),
-  sourceId: getSourceId(doc),
-  stockQty:
-    typeof doc.stockQty === 'number' && Number.isFinite(doc.stockQty) ? doc.stockQty : null,
-  title: getString(doc.title),
-})
-
 const normalizeRelationIds = (value: unknown): string[] => {
   if (!Array.isArray(value)) {
     if (typeof value === 'string') return [value]
@@ -349,9 +339,7 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
 
       if (!item) {
         req.payload.logger.warn(
-          `Skipped Ibis product.created sync for product ${String(doc.id)} because required fields are missing. ${JSON.stringify(
-            getCreateFieldDebug(normalizedDoc),
-          )}`,
+          `Skipped Ibis product.created sync for product ${String(doc.id)} because required fields are missing.`,
         )
         return doc
       }
@@ -402,12 +390,7 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
 
     if (!item) {
       req.payload.logger.warn(
-        `Skipped Ibis product.price_stock_updated sync for product ${String(doc.id)} because required fields are missing. ${JSON.stringify(
-          {
-            ...getCreateFieldDebug(normalizedDoc),
-            imagesCount: normalizeImages(normalizedDoc.images).length,
-          },
-        )}`,
+        `Skipped Ibis product.price_stock_updated sync for product ${String(doc.id)} because required fields are missing.`,
       )
       return doc
     }
