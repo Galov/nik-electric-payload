@@ -99,7 +99,7 @@ docker compose --env-file .env.staging -f docker-compose.staging.yml up -d
 
 Пример:
 
-`APP_IMAGE=ghcr.io/<owner>/<repo>:main`
+`APP_IMAGE=ghcr.io/galov/nik-electric-payload:main`
 
 ## 8. GHCR login на сървъра
 
