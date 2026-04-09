@@ -88,7 +88,16 @@ const getSourceId = (doc: Record<string, unknown>) => {
 
   const miProductId = getPositiveNumber(doc.miProductId)
 
-  return miProductId
+  if (miProductId !== null) {
+    return miProductId
+  }
+
+  const docId =
+    typeof doc.id === 'string' && /^\d+$/.test(doc.id)
+      ? Number(doc.id)
+      : getPositiveNumber(doc.id)
+
+  return docId
 }
 
 const normalizeRelationIds = (value: unknown): string[] => {
