@@ -1,6 +1,9 @@
-import type { CollectionAfterChangeHook, Payload } from 'payload'
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, Payload } from 'payload'
 
-type SyncEvent = 'product.created' | 'product.price_stock_updated'
+type SyncEvent =
+  | 'product.created'
+  | 'product.price_stock_updated'
+  | 'product.deleted'
 
 type NormalizedImage = {
   alt?: string
@@ -10,7 +13,7 @@ type NormalizedImage = {
 type SyncItem = {
   sourceId?: number
   sku: string
-  data: {
+  data?: {
     title?: string
     description?: string
     shortDescription?: string
@@ -263,9 +266,11 @@ const buildCreatedItem = async ({
 const buildPriceStockItem = ({
   doc,
   includeImages,
+  includePublished,
 }: {
   doc: Record<string, unknown>
   includeImages: boolean
+  includePublished: boolean
 }) => {
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
@@ -281,9 +286,28 @@ const buildPriceStockItem = ({
     sku,
     data: {
       ...(includeImages ? { images: normalizeImages(doc.images) } : {}),
+      ...(includePublished && typeof doc.published === 'boolean' ? { published: doc.published } : {}),
       ...(stockQty !== null ? { stockQty } : {}),
       sourcePrice,
     },
+  } satisfies SyncItem
+}
+
+const buildIdentifierItem = ({
+  doc,
+}: {
+  doc: Record<string, unknown>
+}) => {
+  const sku = getString(doc.sku)
+  const sourceId = getSourceId(doc)
+
+  if (!sku) {
+    return null
+  }
+
+  return {
+    ...(sourceId !== null ? { sourceId } : {}),
+    sku,
   } satisfies SyncItem
 }
 
@@ -378,14 +402,16 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
     const priceChanged = normalizedDoc.priceRetail !== normalizedPreviousDoc.priceRetail
     const stockChanged = normalizedDoc.stockQty !== normalizedPreviousDoc.stockQty
     const imagesChanged = !areImagesEqual(normalizedDoc.images, normalizedPreviousDoc.images)
+    const publishedChanged = normalizedDoc.published !== normalizedPreviousDoc.published
 
-    if (!priceChanged && !stockChanged && !imagesChanged) {
+    if (!priceChanged && !stockChanged && !imagesChanged && !publishedChanged) {
       return doc
     }
 
     const item = buildPriceStockItem({
       doc: normalizedDoc,
       includeImages: imagesChanged,
+      includePublished: publishedChanged,
     })
 
     if (!item) {
@@ -402,6 +428,32 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
   } catch (error) {
     req.payload.logger.error(
       `Ibis sync failed for product ${String(doc.id)}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    )
+  }
+
+  return doc
+}
+
+export const syncDeletedProductToIbisHook: CollectionAfterDeleteHook = async ({ doc, req }) => {
+  try {
+    const item = buildIdentifierItem({
+      doc: doc as Record<string, unknown>,
+    })
+
+    if (!item) {
+      req.payload.logger.warn(
+        `Skipped Ibis product.deleted sync for product ${String(doc.id)} because required fields are missing.`,
+      )
+      return doc
+    }
+
+    await sendWebhook({
+      event: 'product.deleted',
+      items: [item],
+    })
+  } catch (error) {
+    req.payload.logger.error(
+      `Ibis delete sync failed for product ${String(doc.id)}: ${error instanceof Error ? error.message : 'Unknown error'}`,
     )
   }
 

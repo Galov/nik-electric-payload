@@ -2,7 +2,10 @@ import type { CollectionOverride } from '@payloadcms/plugin-ecommerce/types'
 import type { Access } from 'payload'
 import { slugField } from 'payload'
 import { checkRole } from '@/access/utilities'
-import { syncProductToIbisHook } from '@/collections/Products/hooks/syncProductToIbis'
+import {
+  syncDeletedProductToIbisHook,
+  syncProductToIbisHook,
+} from '@/collections/Products/hooks/syncProductToIbis'
 import { buildSEOFields } from '@/fields/seo'
 
 const normalizeCatalogCompatibilityFields = ({
@@ -134,6 +137,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   hooks: {
     ...defaultCollection.hooks,
     afterChange: [...(defaultCollection.hooks?.afterChange || []), syncProductToIbisHook],
+    afterDelete: [...(defaultCollection.hooks?.afterDelete || []), syncDeletedProductToIbisHook],
     afterRead: [...(defaultCollection.hooks?.afterRead || []), ensureCatalogCompatibilityFields],
     beforeChange: [
       ...(defaultCollection.hooks?.beforeChange || []),
