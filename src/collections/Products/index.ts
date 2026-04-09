@@ -84,6 +84,34 @@ const syncInventoryFields = ({ data, siblingData, value }: { data?: Record<strin
   return typeof qty === 'number' ? qty : 0
 }
 
+const getProductVersionsConfig = (
+  versions:
+    | (CollectionOverride extends (args: any) => infer R
+        ? R extends { versions?: infer V }
+          ? V
+          : never
+        : never)
+    | undefined,
+) => {
+  const baseVersions = versions && typeof versions === 'object' ? versions : {}
+  const baseDrafts =
+    versions &&
+    typeof versions === 'object' &&
+    'drafts' in versions &&
+    versions.drafts &&
+    typeof versions.drafts === 'object'
+      ? versions.drafts
+      : {}
+
+  return {
+    ...baseVersions,
+    drafts: {
+      ...baseDrafts,
+      autosave: false,
+    },
+  }
+}
+
 const adminOrCatalogPublished: Access = ({ req: { user } }) => {
   if (user && checkRole(['admin'], user)) {
     return true
@@ -102,6 +130,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     ...defaultCollection.access,
     read: adminOrCatalogPublished,
   },
+  versions: getProductVersionsConfig(defaultCollection.versions),
   hooks: {
     ...defaultCollection.hooks,
     afterChange: [...(defaultCollection.hooks?.afterChange || []), syncProductToIbisHook],
