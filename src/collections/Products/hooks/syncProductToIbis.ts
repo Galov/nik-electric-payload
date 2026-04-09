@@ -100,6 +100,15 @@ const getSourceId = (doc: Record<string, unknown>) => {
   return docId
 }
 
+const hasRequiredCreateFields = (doc: Record<string, unknown>) => {
+  const sku = getString(doc.sku)
+  const title = getString(doc.title)
+  const sourcePrice = getNonNegativeNumber(doc.priceRetail)
+  const stockQty = getNonNegativeNumber(doc.stockQty)
+
+  return Boolean(sku && title && sourcePrice !== null && stockQty !== null)
+}
+
 const normalizeRelationIds = (value: unknown): string[] => {
   if (!Array.isArray(value)) {
     if (typeof value === 'string') return [value]
@@ -202,15 +211,15 @@ const buildCreatedItem = async ({
   doc: Record<string, unknown>
   payload: Payload
 }) => {
-  const sku = getString(doc.sku)
-  const sourceId = getSourceId(doc)
-  const title = getString(doc.title)
-  const sourcePrice = getNonNegativeNumber(doc.priceRetail)
-  const stockQty = getNonNegativeNumber(doc.stockQty)
-
-  if (!sku || !title || sourcePrice === null || stockQty === null) {
+  if (!hasRequiredCreateFields(doc)) {
     return null
   }
+
+  const sku = getString(doc.sku) as string
+  const sourceId = getSourceId(doc)
+  const title = getString(doc.title) as string
+  const sourcePrice = getNonNegativeNumber(doc.priceRetail) as number
+  const stockQty = getNonNegativeNumber(doc.stockQty) as number
 
   const brand = await resolveBrandPayload({
     payload,
@@ -348,6 +357,24 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
     }
 
     const normalizedPreviousDoc = previousDoc as Record<string, unknown>
+    const becameSyncable = hasRequiredCreateFields(normalizedDoc) && !hasRequiredCreateFields(normalizedPreviousDoc)
+
+    if (becameSyncable) {
+      const item = await buildCreatedItem({
+        doc: normalizedDoc,
+        payload: req.payload,
+      })
+
+      if (item) {
+        await sendWebhook({
+          event: 'product.created',
+          items: [item],
+        })
+
+        return doc
+      }
+    }
+
     const priceChanged = normalizedDoc.priceRetail !== normalizedPreviousDoc.priceRetail
     const stockChanged = normalizedDoc.stockQty !== normalizedPreviousDoc.stockQty
     const imagesChanged = !areImagesEqual(normalizedDoc.images, normalizedPreviousDoc.images)
