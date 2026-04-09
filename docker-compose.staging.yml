@@ -1,11 +1,7 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
-        PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
+    image: ${APP_IMAGE}
+    pull_policy: always
     container_name: nic-electrik-payload-staging
     env_file:
       - .env.staging
