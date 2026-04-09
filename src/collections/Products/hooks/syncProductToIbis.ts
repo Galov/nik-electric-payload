@@ -208,7 +208,7 @@ const buildCreatedItem = async ({
   const sourcePrice = getPositiveNumber(doc.priceRetail)
   const stockQty = getNonNegativeNumber(doc.stockQty)
 
-  if (!sku || sourceId === null || !title || sourcePrice === null || stockQty === null) {
+  if (!sku || !title || sourcePrice === null || stockQty === null) {
     return null
   }
 
@@ -223,7 +223,7 @@ const buildCreatedItem = async ({
   const images = normalizeImages(doc.images)
 
   return {
-    sourceId,
+    ...(sourceId !== null ? { sourceId } : {}),
     sku,
     data: {
       ...(brand ? { brand } : {}),
