@@ -205,7 +205,7 @@ const buildCreatedItem = async ({
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
   const title = getString(doc.title)
-  const sourcePrice = getPositiveNumber(doc.priceRetail)
+  const sourcePrice = getNonNegativeNumber(doc.priceRetail)
   const stockQty = getNonNegativeNumber(doc.stockQty)
 
   if (!sku || !title || sourcePrice === null || stockQty === null) {
@@ -260,7 +260,7 @@ const buildPriceStockItem = ({
 }) => {
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
-  const sourcePrice = getPositiveNumber(doc.priceRetail)
+  const sourcePrice = getNonNegativeNumber(doc.priceRetail)
   const stockQty = getNonNegativeNumber(doc.stockQty)
 
   if (!sku || sourcePrice === null) {
