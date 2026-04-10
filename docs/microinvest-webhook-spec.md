@@ -1,6 +1,6 @@
-# Спецификация на webhook-а от Microinvest v3
+# Спецификация на webhook-а от Microinvest v4
 
-Този документ описва текущия формат на webhook-а към сайта на Ник Електрик.
+Този документ описва новия договор за webhook-а към сайта на Ник Електрик.
 
 ## Адрес
 
@@ -8,19 +8,32 @@
 
 Текущ тестов адрес:
 
-`http://65.21.176.78:3000/api/integrations/microinvest/webhook`
+`https://nikelectric.eu/api/integrations/microinvest/webhook`
 
 ## Достъп
 
 Задължителен header:
 
-`x-microinvest-secret: test-microinvest-secret`
+`x-microinvest-secret: <shared secret>`
 
 ## Формат на заявката
 
-Тялото на заявката трябва винаги да е JSON масив.
+Тялото на заявката трябва винаги да е JSON обект:
 
-Дори когато се изпраща само 1 продукт, той трябва да бъде подаден като масив с 1 елемент.
+```json
+{
+  "event": "product.updated",
+  "items": []
+}
+```
+
+`items` винаги е масив, дори когато има само 1 продукт.
+
+## Поддържани събития
+
+- `product.created`
+- `product.updated`
+- `product.deleted`
 
 ## Ключ за разпознаване на продукта
 
@@ -29,40 +42,56 @@
 1. `id` от Microinvest
 2. `sku`, ако продуктът още няма записан `id` от Microinvest в сайта
 
-Ако продуктът бъде намерен по `sku` и има подадено `id`, сайтът ще запише това `id` към продукта за следващи синхронизации.
+Ако продуктът бъде намерен по `sku` и има подадено `id`, сайтът ще запише това `id` в `miProductId` за следващи синхронизации.
 
-## Поддържани събития
+## Логика по събития
 
-- `stock.updated`
-- `price.updated`
-- `product.updated`
-- `product.deactivated`
+### `product.created`
 
-## Текущ обхват на теста
+- ако продуктът не съществува -> създава се
+- ако продуктът вече съществува -> връща контролиран `409 Product already exists`
 
-В текущия етап моля да се тестват само следните полета:
+### `product.updated`
 
-- `id`
-- `sku`
-- `data.stockQty`
-- `data.priceRetail`
-- `data.priceWholesale`
-- `data.priceGroup1`
-- `data.catalog3`
-- `data.state`
-- `data.description`
+- ако продуктът съществува -> обновява само подадените полета
+- ако продуктът не съществува -> връща `404 Product not found`
+
+### `product.deleted`
+
+- ако продуктът съществува -> изтрива го
+- ако продуктът не съществува -> връща `404 Product not found`
+
+## Поддържани полета в `data`
+
+- `title`
+- `description`
+- `shortDescription`
+- `originalSku`
+- `manufacturerCode`
+- `catalog3`
+- `priceRetail`
+- `priceWholesale`
+- `priceGroup1`
+- `stockQty`
+- `published`
+- `state`
 
 ## Съпоставка на полетата
 
 - `id` -> `products.miProductId`
 - `sku` -> `products.sku`
-- `data.stockQty` -> `products.stockQty`
-- `data.stockQty > 0` -> `stockStatus = instock`
-- `data.stockQty <= 0` -> `stockStatus = outofstock`
+- `data.title` -> `products.title`
+- `data.description` -> `products.description`
+- `data.shortDescription` -> `products.shortDescription`
+- `data.originalSku` -> `products.originalSku`
+- `data.manufacturerCode` -> `products.manufacturerCode`
+- `data.catalog3` -> `products.manufacturerCode`
 - `data.priceRetail` -> `products.priceRetail`
 - `data.priceWholesale` -> `products.priceWholesale`
 - `data.priceGroup1` -> `products.priceGroup1`
-- `data.catalog3` -> `products.manufacturerCode`
+- `data.stockQty` -> `products.stockQty`
+- `data.stockQty > 0` -> `stockStatus = instock`
+- `data.stockQty <= 0` -> `stockStatus = outofstock`
 - `data.description` -> source за:
   - `products.originalSku`
   - `products.productType`
@@ -70,12 +99,7 @@
 - `data.state = "Стоката не се използва"` -> `products.published = false`
 - `data.state = "Стоката се използва"` -> `products.published = true`
 - `data.state = "Стоката се използва често"` -> `products.published = true`
-
-При `product.deactivated`:
-
-- `published = false`
-- `stockQty = 0`
-- `stockStatus = outofstock`
+- `data.published` -> `products.published`
 
 ## Логика за типа на продукта от `data.description`
 
@@ -91,104 +115,109 @@
 
 ## Примерни заявки
 
-### 1. Update само на наличност за 1 продукт
+### 1. Създаване на нов продукт
 
 ```json
-[
-  {
-    "event": "stock.updated",
-    "timestamp": "2026-04-06T13:00:00Z",
-    "id": 501,
-    "sku": "162AR81",
-    "data": {
-      "stockQty": 11
+{
+  "event": "product.created",
+  "items": [
+    {
+      "id": 601,
+      "sku": "NEW001",
+      "timestamp": "2026-04-10T09:00:00Z",
+      "data": {
+        "title": "Нов продукт",
+        "description": "C00861866R",
+        "shortDescription": "Кратко описание",
+        "catalog3": "OEM",
+        "priceRetail": 10,
+        "priceWholesale": 9,
+        "priceGroup1": 7.5,
+        "stockQty": 4,
+        "published": true
+      }
     }
-  }
-]
+  ]
+}
 ```
 
-### 2. Update само на трите цени за 1 продукт
+### 2. Обновяване само на цена и наличност
 
 ```json
-[
-  {
-    "event": "price.updated",
-    "timestamp": "2026-04-06T13:05:00Z",
-    "id": 501,
-    "sku": "162AR81",
-    "data": {
-      "priceRetail": 10.0,
-      "priceWholesale": 9.0,
-      "priceGroup1": 7.5
+{
+  "event": "product.updated",
+  "items": [
+    {
+      "id": 501,
+      "sku": "162AR81",
+      "timestamp": "2026-04-10T09:05:00Z",
+      "data": {
+        "priceRetail": 10,
+        "priceWholesale": 9,
+        "priceGroup1": 7.5,
+        "stockQty": 4
+      }
     }
-  }
-]
+  ]
+}
 ```
 
-### 3. Product update с описание, производител и статус
+### 3. Скриване или повторно публикуване на продукт
 
 ```json
-[
-  {
-    "event": "product.updated",
-    "timestamp": "2026-04-06T13:10:00Z",
-    "id": 501,
-    "sku": "162AR81",
-    "data": {
-      "stockQty": 4,
-      "priceRetail": 10.0,
-      "priceWholesale": 9.0,
-      "priceGroup1": 7.5,
-      "catalog3": "ORIGINAL",
-      "description": "C00861866R",
-      "state": "Стоката се използва"
+{
+  "event": "product.updated",
+  "items": [
+    {
+      "id": 501,
+      "sku": "162AR81",
+      "timestamp": "2026-04-10T09:10:00Z",
+      "data": {
+        "published": false
+      }
     }
-  }
-]
+  ]
+}
 ```
 
-### 4. Update на повече от един продукт в една заявка
+### 4. Изтриване на продукт
 
 ```json
-[
-  {
-    "event": "product.updated",
-    "timestamp": "2026-04-06T13:15:00Z",
-    "id": 501,
-    "sku": "162AR81",
-    "data": {
-      "stockQty": 4,
-      "priceRetail": 10.0,
-      "priceWholesale": 9.0,
-      "priceGroup1": 7.5,
-      "catalog3": "ORIGINAL",
-      "description": "C00861866OR",
-      "state": "Стоката се използва"
+{
+  "event": "product.deleted",
+  "items": [
+    {
+      "id": 501,
+      "sku": "162AR81",
+      "timestamp": "2026-04-10T09:15:00Z"
     }
-  },
-  {
-    "event": "stock.updated",
-    "timestamp": "2026-04-06T13:16:00Z",
-    "id": 502,
-    "sku": "162AR82",
-    "data": {
-      "stockQty": 0
-    }
-  }
-]
+  ]
+}
 ```
 
-### 5. Деактивиране на продукт
+### 5. Batch update на повече от един продукт
 
 ```json
-[
-  {
-    "event": "product.deactivated",
-    "timestamp": "2026-04-06T13:20:00Z",
-    "id": 501,
-    "sku": "162AR81"
-  }
-]
+{
+  "event": "product.updated",
+  "items": [
+    {
+      "id": 501,
+      "sku": "162AR81",
+      "data": {
+        "stockQty": 4,
+        "priceRetail": 10
+      }
+    },
+    {
+      "id": 502,
+      "sku": "162AR82",
+      "data": {
+        "published": false
+      }
+    }
+  ]
+}
 ```
 
 ## Успешен отговор
@@ -196,7 +225,7 @@
 ```json
 {
   "message": "Webhook processed successfully.",
-  "processed": 2,
+  "processed": 1,
   "results": [
     {
       "event": "product.updated",
@@ -206,30 +235,8 @@
       "miProductId": 501,
       "sku": "162AR81",
       "status": 200,
-      "timestamp": "2026-04-06T13:15:00Z",
-      "updatedFields": [
-        "priceRetail",
-        "priceWholesale",
-        "priceGroup1",
-        "stockQty",
-        "stockStatus",
-        "manufacturerCode",
-        "originalSku",
-        "productType",
-        "isRefurbished",
-        "published"
-      ]
-    },
-    {
-      "event": "stock.updated",
-      "index": 1,
-      "message": "Webhook processed successfully.",
-      "productId": "67d9a7...",
-      "miProductId": 502,
-      "sku": "162AR82",
-      "status": 200,
-      "timestamp": "2026-04-06T13:16:00Z",
-      "updatedFields": ["stockQty", "stockStatus"]
+      "timestamp": "2026-04-10T09:05:00Z",
+      "updatedFields": ["priceRetail", "priceWholesale", "priceGroup1", "stockQty", "stockStatus"]
     }
   ]
 }
@@ -237,7 +244,7 @@
 
 ## Частичен отговор при смесен резултат
 
-Ако част от продуктите бъдат обработени успешно, а част не бъдат намерени или имат невалидни данни, endpoint-ът връща:
+Ако част от продуктите бъдат обработени успешно, а част върнат грешка, endpoint-ът връща:
 
 - HTTP статус `207`
 - масив с резултат за всеки елемент
@@ -256,7 +263,7 @@
 
 ```json
 {
-  "error": "Request body must be a JSON array."
+  "error": "Request body must be a JSON object with event and items[]."
 }
 ```
 
@@ -268,29 +275,40 @@
 }
 ```
 
-### 207 Multi-Status
+### 404 Product not found
 
 ```json
 {
   "message": "Webhook processed with item-level errors.",
-  "processed": 2,
+  "processed": 1,
   "results": [
     {
       "event": "product.updated",
       "index": 0,
-      "message": "Webhook processed successfully.",
-      "productId": "67d9a6...",
-      "miProductId": 501,
-      "sku": "162AR81",
-      "status": 200
-    },
-    {
-      "event": "product.updated",
-      "index": 1,
       "message": "Product not found.",
       "miProductId": 999999,
       "sku": "sku0000000001",
       "status": 404
+    }
+  ]
+}
+```
+
+### 409 Product already exists
+
+```json
+{
+  "message": "Webhook processed with item-level errors.",
+  "processed": 1,
+  "results": [
+    {
+      "event": "product.created",
+      "index": 0,
+      "message": "Product already exists.",
+      "productId": "67d9a6...",
+      "miProductId": 501,
+      "sku": "162AR81",
+      "status": 409
     }
   ]
 }
