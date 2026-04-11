@@ -102,6 +102,7 @@ const getMediaID = (value: unknown) => {
   }
 
   return (
+    getIdentifierString(value) ||
     getIdentifierString((value as { id?: unknown }).id) ||
     getIdentifierString((value as { _id?: unknown })._id) ||
     null
