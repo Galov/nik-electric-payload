@@ -172,32 +172,33 @@ const resolveMediaImageMap = async ({
     return new Map<string, { alt?: string; url: string }>()
   }
 
-  const result = await payload.find({
-    collection: 'media',
-    depth: 0,
-    limit: mediaIDs.length,
-    overrideAccess: true,
-    pagination: false,
-    select: {
-      alt: true,
-      url: true,
-    },
-    where: {
-      id: {
-        in: mediaIDs,
-      },
-    },
-  })
+  const uniqueMediaIDs = [...new Set(mediaIDs)]
+  const mediaDocs = await Promise.all(
+    uniqueMediaIDs.map(async (id) => {
+      try {
+        const doc = await payload.findByID({
+          collection: 'media',
+          id,
+          depth: 0,
+          overrideAccess: true,
+        })
+
+        return doc
+      } catch {
+        return null
+      }
+    }),
+  )
 
   return new Map(
-    result.docs
-      .map((doc) => {
-        if (typeof doc.id !== 'string' || typeof doc.url !== 'string' || !doc.url) {
+    mediaDocs
+      .map((doc, index) => {
+        if (!doc || typeof doc.url !== 'string' || !doc.url) {
           return null
         }
 
         return [
-          doc.id,
+          uniqueMediaIDs[index] as string,
           {
             ...(getString(doc.alt) ? { alt: getString(doc.alt) as string } : {}),
             url: toAbsoluteURL(doc.url),
