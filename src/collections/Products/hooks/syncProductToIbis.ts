@@ -475,6 +475,19 @@ const sendWebhook = async ({
   )
 }
 
+const summarizeItemImages = (item: SyncItem) => {
+  const images = item.data?.images
+
+  if (!images?.length) {
+    return null
+  }
+
+  return images.map((image) => ({
+    alt: image.alt ?? null,
+    legacyUrl: image.legacyUrl,
+  }))
+}
+
 export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
   doc,
   operation,
@@ -495,6 +508,14 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
           `Skipped Ibis product.created sync for product ${String(doc.id)} because required fields are missing.`,
         )
         return doc
+      }
+
+      const imageSummary = summarizeItemImages(item)
+
+      if (imageSummary) {
+        req.payload.logger.info(
+          `Sending Ibis product.created with ${imageSummary.length} image(s) for product ${String(doc.id)}: ${JSON.stringify(imageSummary)}`,
+        )
       }
 
       await sendWebhook({
@@ -519,6 +540,14 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
       })
 
       if (item) {
+        const imageSummary = summarizeItemImages(item)
+
+        if (imageSummary) {
+          req.payload.logger.info(
+            `Sending Ibis product.created after syncable update with ${imageSummary.length} image(s) for product ${String(doc.id)}: ${JSON.stringify(imageSummary)}`,
+          )
+        }
+
         await sendWebhook({
           event: 'product.created',
           items: [item],
@@ -549,6 +578,14 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
         `Skipped Ibis product.price_stock_updated sync for product ${String(doc.id)} because required fields are missing.`,
       )
       return doc
+    }
+
+    if (imagesChanged) {
+      req.payload.logger.info(
+        `Sending Ibis product.price_stock_updated with images for product ${String(doc.id)}: ${JSON.stringify(
+          summarizeItemImages(item) ?? [],
+        )}`,
+      )
     }
 
     await sendWebhook({
