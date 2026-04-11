@@ -1,0 +1,33 @@
+{
+  "apply": true,
+  "createdProducts": 3,
+  "createdMiIds": 0,
+  "filePath": "/Users/ivogalov/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/649D3CAB-A282-4F39-8081-7358B98A50D0/Nik_Export.csv",
+  "invalidRows": [],
+  "matchedByMiProductId": 17,
+  "matchedBySku": 0,
+  "productsToCreate": [
+    {
+      "id": 2,
+      "line": 2,
+      "raw": "2;999999; ;0;0;0;0;-1;;0",
+      "sku": "999999"
+    },
+    {
+      "id": 17,
+      "line": 17,
+      "raw": "17;302CU40; ;20;18;32;0;0;;0",
+      "sku": "302CU40"
+    },
+    {
+      "id": 6018621,
+      "line": 21,
+      "raw": "6018621;sku0000000001;ïðîèçâîäèòåë;2.22;3.33;1.11;-1;0;;0",
+      "sku": "sku0000000001"
+    }
+  ],
+  "processed": 20,
+  "updated": 17,
+  "updateErrors": [],
+  "reportPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/reports/mi-csv-import-2026-04-06T10-46-46-463Z.json"
+}

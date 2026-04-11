@@ -66,9 +66,8 @@ export default async function ShopPage({ searchParams }: Props) {
     pagination: true,
     select: {
       inventory: true,
-      isRefurbished: true,
       manufacturerCode: true,
-      productType: true,
+      originalSku: true,
       published: true,
       priceGroup1: true,
       priceWholesale: true,

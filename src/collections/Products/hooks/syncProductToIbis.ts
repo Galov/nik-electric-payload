@@ -16,7 +16,6 @@ type SyncItem = {
   data?: {
     title?: string
     description?: string
-    shortDescription?: string
     originalSku?: string
     manufacturerCode?: string
     sourcePrice: number
@@ -57,30 +56,151 @@ const getString = (value: unknown) => {
   return trimmed || null
 }
 
-const normalizeImages = (value: unknown): NormalizedImage[] => {
+const serverURL =
+  process.env.NEXT_PUBLIC_SERVER_URL?.trim() || process.env.PAYLOAD_PUBLIC_SERVER_URL?.trim() || ''
+
+const toAbsoluteURL = (value: string) => {
+  if (/^https?:\/\//i.test(value)) {
+    return value
+  }
+
+  if (!serverURL) {
+    return value
+  }
+
+  return `${serverURL.replace(/\/$/, '')}/${value.replace(/^\//, '')}`
+}
+
+const serializeImages = (value: unknown) => {
+  if (!Array.isArray(value)) {
+    return '[]'
+  }
+
+  return JSON.stringify(
+    value.map((image) => ({
+      alt: getString((image as { alt?: unknown } | null)?.alt),
+      legacyUrl: getString((image as { legacyUrl?: unknown } | null)?.legacyUrl),
+      media:
+        typeof (image as { media?: unknown } | null)?.media === 'string'
+          ? (image as { media?: string }).media
+          : typeof (image as { media?: { id?: unknown } } | null)?.media === 'object'
+            ? getString((image as { media?: { id?: unknown } }).media?.id)
+            : null,
+      storageKey: getString((image as { storageKey?: unknown } | null)?.storageKey),
+    })),
+  )
+}
+
+const areImagesEqual = (left: unknown, right: unknown) => serializeImages(left) === serializeImages(right)
+
+const resolveMediaImageMap = async ({
+  payload,
+  value,
+}: {
+  payload: Payload
+  value: unknown
+}) => {
+  if (!Array.isArray(value)) {
+    return new Map<string, { alt?: string; url: string }>()
+  }
+
+  const mediaIDs = value
+    .map((image) => {
+      const media = (image as { media?: unknown } | null)?.media
+
+      if (typeof media === 'string') {
+        return media
+      }
+
+      if (media && typeof media === 'object' && typeof (media as { id?: unknown }).id === 'string') {
+        return (media as { id: string }).id
+      }
+
+      return null
+    })
+    .filter((id): id is string => Boolean(id))
+
+  if (!mediaIDs.length) {
+    return new Map<string, { alt?: string; url: string }>()
+  }
+
+  const result = await payload.find({
+    collection: 'media',
+    depth: 0,
+    limit: mediaIDs.length,
+    overrideAccess: true,
+    pagination: false,
+    select: {
+      alt: true,
+      url: true,
+    },
+    where: {
+      id: {
+        in: mediaIDs,
+      },
+    },
+  })
+
+  return new Map(
+    result.docs
+      .map((doc) => {
+        if (typeof doc.id !== 'string' || typeof doc.url !== 'string' || !doc.url) {
+          return null
+        }
+
+        return [
+          doc.id,
+          {
+            ...(getString(doc.alt) ? { alt: getString(doc.alt) as string } : {}),
+            url: toAbsoluteURL(doc.url),
+          },
+        ] as const
+      })
+      .filter((entry): entry is readonly [string, { alt?: string; url: string }] => Boolean(entry)),
+  )
+}
+
+const normalizeImages = async ({
+  payload,
+  value,
+}: {
+  payload: Payload
+  value: unknown
+}): Promise<NormalizedImage[]> => {
   if (!Array.isArray(value)) {
     return []
   }
+
+  const mediaMap = await resolveMediaImageMap({
+    payload,
+    value,
+  })
 
   return value
     .map((image) => {
       const legacyUrl = getString((image as { legacyUrl?: unknown } | null)?.legacyUrl)
       const alt = getString((image as { alt?: unknown } | null)?.alt)
+      const media = (image as { media?: unknown } | null)?.media
+      const mediaID =
+        typeof media === 'string'
+          ? media
+          : media && typeof media === 'object' && typeof (media as { id?: unknown }).id === 'string'
+            ? (media as { id: string }).id
+            : null
+      const mediaImage = mediaID ? mediaMap.get(mediaID) : null
+      const resolvedUrl = legacyUrl || mediaImage?.url || null
 
-      if (!legacyUrl) {
+      if (!resolvedUrl) {
         return null
       }
 
       return {
-        ...(alt ? { alt } : {}),
-        legacyUrl,
+        ...(alt || mediaImage?.alt ? { alt: alt || mediaImage?.alt } : {}),
+        legacyUrl: resolvedUrl,
       }
     })
     .filter((image): image is NormalizedImage => Boolean(image))
 }
-
-const areImagesEqual = (left: unknown, right: unknown) =>
-  JSON.stringify(normalizeImages(left)) === JSON.stringify(normalizeImages(right))
 
 const getSourceId = (doc: Record<string, unknown>) => {
   const sourceId = getPositiveNumber(doc.sourceId)
@@ -232,7 +352,10 @@ const buildCreatedItem = async ({
     payload,
     value: doc.categories,
   })
-  const images = normalizeImages(doc.images)
+  const images = await normalizeImages({
+    payload,
+    value: doc.images,
+  })
 
   return {
     ...(sourceId !== null ? { sourceId } : {}),
@@ -253,9 +376,6 @@ const buildCreatedItem = async ({
         : {}),
       ...(getString(doc.originalSku) ? { originalSku: getString(doc.originalSku) as string } : {}),
       ...(typeof doc.published === 'boolean' ? { published: doc.published } : {}),
-      ...(getString(doc.shortDescription)
-        ? { shortDescription: getString(doc.shortDescription) as string }
-        : {}),
       sourcePrice,
       stockQty,
       title,
@@ -263,14 +383,16 @@ const buildCreatedItem = async ({
   } satisfies SyncItem
 }
 
-const buildPriceStockItem = ({
+const buildPriceStockItem = async ({
   doc,
   includeImages,
   includePublished,
+  payload,
 }: {
   doc: Record<string, unknown>
   includeImages: boolean
   includePublished: boolean
+  payload: Payload
 }) => {
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
@@ -285,7 +407,14 @@ const buildPriceStockItem = ({
     ...(sourceId !== null ? { sourceId } : {}),
     sku,
     data: {
-      ...(includeImages ? { images: normalizeImages(doc.images) } : {}),
+      ...(includeImages
+        ? {
+            images: await normalizeImages({
+              payload,
+              value: doc.images,
+            }),
+          }
+        : {}),
       ...(includePublished && typeof doc.published === 'boolean' ? { published: doc.published } : {}),
       ...(stockQty !== null ? { stockQty } : {}),
       sourcePrice,
@@ -408,10 +537,11 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
       return doc
     }
 
-    const item = buildPriceStockItem({
+    const item = await buildPriceStockItem({
       doc: normalizedDoc,
       includeImages: imagesChanged,
       includePublished: publishedChanged,
+      payload: req.payload,
     })
 
     if (!item) {

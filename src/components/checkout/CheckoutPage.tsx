@@ -249,7 +249,7 @@ export const CheckoutPage: React.FC = () => {
 
           return (
             <div className="flex items-start gap-3 border-b border-black/5 pb-4 last:border-b-0 last:pb-0" key={index}>
-              <div className="flex h-16 w-16 items-stretch justify-stretch rounded-md border border-black/8 bg-white p-2">
+              <div className="flex h-16 w-16 shrink-0 items-stretch justify-stretch rounded-md border border-black/8 bg-white p-2">
                 <div className="relative h-full w-full">
                   {image?.url ? (
                     <Image
@@ -262,8 +262,8 @@ export const CheckoutPage: React.FC = () => {
                   ) : null}
                 </div>
               </div>
-              <div className="flex grow items-center justify-between">
-                <div className="flex flex-col gap-1">
+              <div className="flex grow flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex min-w-0 flex-col gap-1">
                   <p className="text-sm font-medium leading-5 text-primary/85">{item.product.title}</p>
                   <div className="flex h-8 w-fit flex-row items-center rounded-md border border-black/10 bg-white">
                     <EditItemQuantityButton item={item} type="minus" />
@@ -284,7 +284,7 @@ export const CheckoutPage: React.FC = () => {
                           .priceWholesale,
                       },
                     )}
-                    className="text-sm text-primary/75"
+                    className="text-sm text-primary/75 sm:text-right"
                     currencyCode="EUR"
                   />
                 )}

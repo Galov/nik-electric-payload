@@ -65,7 +65,6 @@
 
 - `title`
 - `description`
-- `shortDescription`
 - `originalSku`
 - `manufacturerCode`
 - `catalog3`
@@ -81,8 +80,6 @@
 - `id` -> `products.miProductId`
 - `sku` -> `products.sku`
 - `data.title` -> `products.title`
-- `data.description` -> `products.description`
-- `data.shortDescription` -> `products.shortDescription`
 - `data.originalSku` -> `products.originalSku`
 - `data.manufacturerCode` -> `products.manufacturerCode`
 - `data.catalog3` -> `products.manufacturerCode`
@@ -92,7 +89,7 @@
 - `data.stockQty` -> `products.stockQty`
 - `data.stockQty > 0` -> `stockStatus = instock`
 - `data.stockQty <= 0` -> `stockStatus = outofstock`
-- `data.description` -> source за:
+- `data.description` -> технически source за:
   - `products.originalSku`
   - `products.productType`
   - `products.isRefurbished`
@@ -128,7 +125,6 @@
       "data": {
         "title": "Нов продукт",
         "description": "C00861866R",
-        "shortDescription": "Кратко описание",
         "catalog3": "OEM",
         "priceRetail": 10,
         "priceWholesale": 9,

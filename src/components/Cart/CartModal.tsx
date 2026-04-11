@@ -20,9 +20,9 @@ import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
 import { Button } from '@/components/ui/button'
-import { RefurbishedBadge } from '@/components/product/RefurbishedBadge'
+import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
 import { Product } from '@/payload-types'
-import { getProductPrimaryImage } from '@/utilities/product'
+import { getProductPrimaryImage, getProductType } from '@/utilities/product'
 import { useAuth } from '@/providers/Auth'
 import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
 
@@ -83,6 +83,7 @@ export function CartModal() {
                     return <React.Fragment key={i} />
 
                   const image = getProductPrimaryImage(product)
+                  const productType = getProductType(product)
                   const price = resolvePriceForTier(
                     (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
                     {
@@ -93,34 +94,34 @@ export function CartModal() {
 
                   return (
                     <li className="flex w-full flex-col border-b border-black/5 py-4 last:border-b-0" key={i}>
-                      <div className="relative flex w-full flex-row justify-between gap-3">
-                        <div className="absolute left-12 top-0 z-40">
+                      <div className="relative flex w-full flex-col gap-3 sm:flex-row sm:justify-between">
+                        <div className="absolute left-14 top-0 z-40 sm:left-12">
                           <DeleteItemButton item={item} />
                         </div>
                         <Link
-                          className="z-30 flex flex-1 flex-row gap-3"
+                          className="z-30 flex flex-1 flex-row gap-3 pr-8 sm:pr-0"
                           href={`/product/${(item.product as Product)?.slug}`}
                         >
-                          <div className="relative h-16 w-16 overflow-hidden rounded-md border border-black/8 bg-white">
+                          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-black/8 bg-white sm:h-16 sm:w-16">
                             {image?.url ? (
                               <Image
                                 alt={image.alt}
                                 className="h-full w-full rounded-md object-contain"
                                 fill
-                                sizes="64px"
+                                sizes="(min-width: 640px) 64px, 80px"
                                 src={image.url}
                               />
                             ) : null}
                           </div>
 
-                          <div className="flex flex-1 flex-col text-base">
-                            <span className="text-sm leading-5 text-primary/80">{product?.title}</span>
-                            {product.isRefurbished ? (
-                              <RefurbishedBadge compact className="mt-1 self-start" />
+                          <div className="flex min-w-0 flex-1 flex-col text-base">
+                            <span className="text-sm leading-5 text-primary/80 sm:text-sm">{product?.title}</span>
+                            {productType ? (
+                              <ProductTypeBadge compact className="mt-1 self-start" value={productType} />
                             ) : null}
                           </div>
                         </Link>
-                        <div className="flex h-16 flex-col justify-between">
+                        <div className="flex flex-row items-end justify-between gap-3 sm:h-16 sm:min-w-[88px] sm:flex-col sm:justify-between">
                           {typeof price === 'number' && (
                             <Price
                               amount={price}

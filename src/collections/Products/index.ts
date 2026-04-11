@@ -115,6 +115,31 @@ const getProductVersionsConfig = (
   }
 }
 
+const buildProductSlugField = () => {
+  const field = slugField({
+    position: undefined,
+  })
+
+  if (field.type !== 'row') {
+    return field
+  }
+
+  return {
+    ...field,
+    fields: field.fields.map((nestedField) => {
+      if ('name' in nestedField && nestedField.name === 'slug') {
+        return {
+          ...nestedField,
+          label:
+            'Адрес на продукта (частта след nikelectric.com/product/; ако е празно, се генерира автоматично от името)',
+        }
+      }
+
+      return nestedField
+    }),
+  }
+}
+
 const adminOrCatalogPublished: Access = ({ req: { user } }) => {
   if (user && checkRole(['admin'], user)) {
     return true
@@ -160,7 +185,6 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     slug: true,
     sku: true,
     description: true,
-    shortDescription: true,
     priceRetail: true,
     priceWholesale: true,
     priceGroup1: true,
@@ -175,18 +199,17 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     categories: true,
     brand: true,
     miProductId: true,
-    isRefurbished: true,
-    productType: true,
+    originalSku: true,
     published: true,
   },
   fields: [
-    { name: 'title', label: 'Име', type: 'text', required: true },
     {
       type: 'tabs',
       tabs: [
         {
-          label: 'Каталог',
+          label: 'Ръчно съдържание',
           fields: [
+            { name: 'title', label: 'Име', type: 'text', required: true },
             {
               name: 'description',
               label: 'Описание',
@@ -196,13 +219,20 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               type: 'textarea',
             },
             {
-              name: 'shortDescription',
-              label: 'Кратко описание',
-              admin: {
-                description: 'Използвайте го, ако искате по-кратък текст за SEO или кратко резюме.',
-              },
-              type: 'textarea',
+              name: 'brand',
+              label: 'Съвместим с марки',
+              type: 'relationship',
+              relationTo: 'brands',
+              hasMany: true,
             },
+            {
+              name: 'categories',
+              label: 'Категории',
+              type: 'relationship',
+              relationTo: 'categories',
+              hasMany: true,
+            },
+            buildProductSlugField(),
             {
               name: 'images',
               label: 'Снимки',
@@ -213,10 +243,19 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               },
               fields: [
                 {
+                  name: 'media',
+                  label: 'Качен файл',
+                  type: 'upload',
+                  relationTo: 'media',
+                },
+                {
                   name: 'legacyUrl',
-                  label: 'Изходен URL',
+                  label: 'Външен URL',
                   type: 'text',
-                  required: true,
+                  admin: {
+                    description:
+                      'Използвайте го само ако снимката е от външен адрес или от стар импорт. За нормална работа качвайте файл от полето по-горе.',
+                  },
                 },
                 {
                   name: 'storageKey',
@@ -236,7 +275,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           ],
         },
         {
-          label: 'Детайли',
+          label: 'Автоматични Microinvest данни',
           fields: [
             {
               name: 'sourceId',
@@ -260,7 +299,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
             {
               name: 'sku',
-              label: 'Код',
+              label: 'Код (SKU)',
               type: 'text',
               index: true,
             },
@@ -271,13 +310,16 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
             {
               name: 'manufacturerCode',
-              label: 'Производител / тип',
+              label: 'Вид производител',
               type: 'text',
             },
             {
               name: 'productType',
               label: 'Тип на продукта',
               type: 'select',
+              admin: {
+                hidden: true,
+              },
               options: [
                 {
                   label: 'Съвместим',
@@ -298,20 +340,9 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               label: 'Refurbished продукт',
               type: 'checkbox',
               defaultValue: false,
-            },
-            {
-              name: 'brand',
-              label: 'Съвместим с марки',
-              type: 'relationship',
-              relationTo: 'brands',
-              hasMany: true,
-            },
-            {
-              name: 'categories',
-              label: 'Категории',
-              type: 'relationship',
-              relationTo: 'categories',
-              hasMany: true,
+              admin: {
+                hidden: true,
+              },
             },
             {
               name: 'priceRetail',
@@ -520,6 +551,5 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         },
       ],
     },
-    slugField(),
   ],
 })

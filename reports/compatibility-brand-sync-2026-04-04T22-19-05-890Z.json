@@ -1,0 +1,177 @@
+{
+  "dryRun": true,
+  "dumpPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nikelect_woocdb2019.sql",
+  "missingLegacyCompatibility": [
+    {
+      "id": "69b4412cc23d34935c3b3b53",
+      "sku": "312FR00",
+      "title": "FRANKE"
+    },
+    {
+      "id": "69b44318c23d34935c3b71d9",
+      "sku": "120ZN30",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b44318c23d34935c3b71e1",
+      "sku": "120ZN31",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b44339c23d34935c3b75aa",
+      "sku": "901CU15OR",
+      "title": "TEFAL"
+    },
+    {
+      "id": "69b4438fc23d34935c3b7fa9",
+      "sku": "803PE48",
+      "title": "BORA"
+    },
+    {
+      "id": "69b443d2c23d34935c3b872d",
+      "sku": "111LG13",
+      "title": "ФЛАНЕЦ ЗА БОЙЛЕР МАТЕВ"
+    },
+    {
+      "id": "69b443f5c23d34935c3b8b16",
+      "sku": "326CU168",
+      "title": "KENWOOD"
+    },
+    {
+      "id": "69b443f8c23d34935c3b8b54",
+      "sku": "326CU170",
+      "title": "ЗЪБНО КОЛЕЛО"
+    },
+    {
+      "id": "69b443f9c23d34935c3b8b6e",
+      "sku": "326CU173",
+      "title": "KENWOOD"
+    },
+    {
+      "id": "69b44427c23d34935c3b9010",
+      "sku": "230FR29",
+      "title": "PRODIGY"
+    },
+    {
+      "id": "69b44498c23d34935c3b9ba6",
+      "sku": "803RB01",
+      "title": "RAINBOW Е1"
+    },
+    {
+      "id": "69b44498c23d34935c3b9bae",
+      "sku": "803RB02",
+      "title": "RAINBOW Е2"
+    },
+    {
+      "id": "69b444c9c23d34935c3ba0c7",
+      "sku": "162HS01",
+      "title": "HISENSE"
+    },
+    {
+      "id": "69b44566c23d34935c3bb170",
+      "sku": "327LG54",
+      "title": "ТРМ"
+    },
+    {
+      "id": "69b44567c23d34935c3bb1a5",
+      "sku": "327LG28",
+      "title": "КУПЛУНГ"
+    },
+    {
+      "id": "69b445c3c23d34935c3bbbe3",
+      "sku": "131AC08",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "id": "69b445fac23d34935c3bc1db",
+      "sku": "227FR80",
+      "title": "HISENSE"
+    },
+    {
+      "id": "69b445fac23d34935c3bc1e3",
+      "sku": "227FR81",
+      "title": "HISENSE"
+    },
+    {
+      "id": "69b44625c23d34935c3bc6b1",
+      "sku": "223AC02",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "id": "69b4464ec23d34935c3bcb41",
+      "sku": "500FC164",
+      "title": "ФИЛТЪР"
+    },
+    {
+      "id": "69b4467fc23d34935c3bd0b3",
+      "sku": "326CU176",
+      "title": "MULER"
+    },
+    {
+      "id": "69b44680c23d34935c3bd0bb",
+      "sku": "326CU177",
+      "title": "MULER"
+    },
+    {
+      "id": "69b44682c23d34935c3bd10b",
+      "sku": "500FC166",
+      "title": "ФИЛТЪР"
+    },
+    {
+      "id": "69b4468ec23d34935c3bd260",
+      "sku": "806PE213",
+      "title": "5x8x10"
+    },
+    {
+      "id": "69b446bec23d34935c3bd7c3",
+      "sku": "326CU178",
+      "title": "POLARIS MAXWELL"
+    },
+    {
+      "id": "69b4470dc23d34935c3be083",
+      "sku": "803ZN20",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b4475cc23d34935c3be844",
+      "sku": "305CU35",
+      "title": "COINTRA"
+    },
+    {
+      "id": "69b4475dc23d34935c3be84c",
+      "sku": "305CU36",
+      "title": "SAUNIER DUVAL"
+    },
+    {
+      "id": "69b44760c23d34935c3be89c",
+      "sku": "901CU20",
+      "title": "Schafer"
+    },
+    {
+      "id": "69b44760c23d34935c3be8a4",
+      "sku": "901CU21",
+      "title": "Korkmaz"
+    },
+    {
+      "id": "69b44761c23d34935c3be8be",
+      "sku": "901CU23",
+      "title": "Essenso"
+    },
+    {
+      "id": "69b44761c23d34935c3be8c6",
+      "sku": "901CU24",
+      "title": "Emsan"
+    },
+    {
+      "id": "69b4489dc23d34935c3c0a3b",
+      "sku": "219FR70",
+      "title": "ТЕРМИЧНО РЕЛЕ 1/5 HP"
+    }
+  ],
+  "missingSku": [],
+  "processed": 10095,
+  "unchanged": 9259,
+  "unresolvedBrandTaxonomyIds": [],
+  "updateErrors": [],
+  "updated": 803
+}

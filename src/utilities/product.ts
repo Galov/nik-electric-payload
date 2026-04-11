@@ -1,7 +1,7 @@
 import type { Product } from '@/payload-types'
 
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
-import type { ProductTypeValue } from '@/utilities/microinvest'
+import { parseMicroinvestDescription, type ProductTypeValue } from '@/utilities/microinvest'
 
 const publicStorageBase = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL || ''
 
@@ -13,15 +13,21 @@ const clampText = (value: string, maxLength: number) => {
 
 export const getProductImageAlt = ({
   imageAlt,
+  mediaAlt,
   index = 0,
   productTitle,
 }: {
   imageAlt?: null | string
+  mediaAlt?: null | string
   index?: number
   productTitle?: null | string
 }) => {
   if (imageAlt?.trim()) {
     return imageAlt.trim()
+  }
+
+  if (mediaAlt?.trim()) {
+    return mediaAlt.trim()
   }
 
   if (productTitle?.trim()) {
@@ -34,9 +40,7 @@ export const getProductImageAlt = ({
 }
 
 export const getProductSEODescription = (product?: Partial<Product> | null) => {
-  const normalizedDescription = formatLegacyProductDescription(
-    product?.shortDescription || product?.description,
-  )
+  const normalizedDescription = formatLegacyProductDescription(product?.description)
 
   if (normalizedDescription) {
     return clampText(normalizedDescription, 180)
@@ -65,10 +69,20 @@ export const getProductSEODescription = (product?: Partial<Product> | null) => {
 
 export const resolveProductImageURL = (image?: {
   legacyUrl?: null | string
+  media?:
+    | string
+    | {
+        url?: null | string
+      }
+    | null
   storageKey?: null | string
 }) => {
   if (image?.storageKey && publicStorageBase) {
     return `${publicStorageBase.replace(/\/$/, '')}/${image.storageKey.replace(/^\//, '')}`
+  }
+
+  if (image?.media && typeof image.media === 'object' && image.media.url) {
+    return image.media.url
   }
 
   return image?.legacyUrl || ''
@@ -82,7 +96,14 @@ export const getProductPrimaryImage = (product?: Partial<Product> | null) => {
   }
 
   return {
-    alt: getProductImageAlt({ imageAlt: image.alt, productTitle: product?.title }),
+    alt: getProductImageAlt({
+      imageAlt: image.alt,
+      mediaAlt:
+        image.media && typeof image.media === 'object' && 'alt' in image.media
+          ? image.media.alt
+          : null,
+      productTitle: product?.title,
+    }),
     url: resolveProductImageURL(image),
   }
 }
@@ -127,6 +148,12 @@ export const getProductBrands = (product?: Partial<Product> | null) => {
 }
 
 export const getProductType = (product?: Partial<Product> | null): null | ProductTypeValue => {
+  const parsedOriginalSku = parseMicroinvestDescription(product?.originalSku)
+
+  if (parsedOriginalSku?.productType) {
+    return parsedOriginalSku.productType
+  }
+
   const productType = (product as Partial<Product> & { productType?: null | ProductTypeValue })?.productType
 
   if (

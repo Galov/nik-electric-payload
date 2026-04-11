@@ -14,7 +14,6 @@ type MicroinvestWebhookItem = {
     priceRetail?: number
     priceWholesale?: number
     published?: boolean
-    shortDescription?: string
     state?: string
     stockQty?: number
     title?: string
@@ -161,8 +160,6 @@ const buildUpdateData = ({
 
     if (parsedDescription) {
       nextData.originalSku = parsedDescription.originalSku
-      nextData.productType = parsedDescription.productType
-      nextData.isRefurbished = parsedDescription.isRefurbished
     }
   } else if (typeof data?.originalSku === 'string' && data.originalSku.trim()) {
     nextData.originalSku = data.originalSku.trim()
@@ -178,14 +175,6 @@ const buildUpdateData = ({
 
   if (typeof data?.title === 'string' && data.title.trim()) {
     nextData.title = data.title.trim()
-  }
-
-  if (typeof data?.shortDescription === 'string') {
-    nextData.shortDescription = data.shortDescription
-  }
-
-  if (typeof data?.description === 'string') {
-    nextData.description = data.description
   }
 
   if (typeof data?.priceRetail === 'number' && Number.isFinite(data.priceRetail)) {

@@ -277,13 +277,20 @@ export interface Product {
    * Основното описание, което се вижда на продуктовата страница.
    */
   description?: string | null;
+  brand?: (string | Brand)[] | null;
+  categories?: (string | Category)[] | null;
   /**
-   * Използвайте го, ако искате по-кратък текст за SEO или кратко резюме.
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
-  shortDescription?: string | null;
+  generateSlug?: boolean | null;
+  slug: string;
   images?:
     | {
-        legacyUrl: string;
+        media?: (string | null) | Media;
+        /**
+         * Използвайте го само ако снимката е от външен адрес или от стар импорт. За нормална работа качвайте файл от полето по-горе.
+         */
+        legacyUrl?: string | null;
         storageKey?: string | null;
         alt?: string | null;
         id?: string | null;
@@ -296,8 +303,6 @@ export interface Product {
   manufacturerCode?: string | null;
   productType?: ('compatible' | 'original' | 'removed-from-unit') | null;
   isRefurbished?: boolean | null;
-  brand?: (string | Brand)[] | null;
-  categories?: (string | Category)[] | null;
   priceRetail: number;
   priceWholesale: number;
   priceGroup1: number;
@@ -332,11 +337,6 @@ export interface Product {
     image?: (string | null) | Media;
     description?: string | null;
   };
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -854,10 +854,14 @@ export interface AddressesSelect<T extends boolean = true> {
 export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  shortDescription?: T;
+  brand?: T;
+  categories?: T;
+  generateSlug?: T;
+  slug?: T;
   images?:
     | T
     | {
+        media?: T;
         legacyUrl?: T;
         storageKey?: T;
         alt?: T;
@@ -870,8 +874,6 @@ export interface ProductsSelect<T extends boolean = true> {
   manufacturerCode?: T;
   productType?: T;
   isRefurbished?: T;
-  brand?: T;
-  categories?: T;
   priceRetail?: T;
   priceWholesale?: T;
   priceGroup1?: T;
@@ -897,8 +899,6 @@ export interface ProductsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  generateSlug?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;

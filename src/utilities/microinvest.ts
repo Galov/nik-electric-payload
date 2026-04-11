@@ -14,11 +14,9 @@ export const parseMicroinvestDescription = (value?: null | string) => {
 
   for (const { productType, suffix } of PRODUCT_TYPE_SUFFIXES) {
     if (normalized.endsWith(suffix) && normalized.length > suffix.length) {
-      const originalSku = normalized.slice(0, -suffix.length)
-
       return {
         isRefurbished: productType === 'removed-from-unit',
-        originalSku,
+        originalSku: normalized,
         productType,
       }
     }

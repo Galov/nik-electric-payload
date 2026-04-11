@@ -26,7 +26,6 @@ Target fields used by the importer:
 - `originalSku`
 - `manufacturerCode`
 - `description`
-- `shortDescription`
 - `brand`
 - `categories`
 - `price`
@@ -207,7 +206,6 @@ Target:
 - `title = posts.post_title`
 - `slug = posts.post_name`
 - `description = posts.post_content`
-- `shortDescription = posts.post_excerpt`
 - `sku = meta['_sku']`
 - `originalSku = meta['product_original_sku'] || null`
 - `manufacturerCode = meta['product_manufacturer'] || null`

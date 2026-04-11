@@ -1,0 +1,1384 @@
+{
+  "created": 5,
+  "dryRun": true,
+  "dumpPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nikelect_woocdb2019.sql",
+  "invalidUsers": [],
+  "processed": 574,
+  "updateErrors": [],
+  "updated": 569,
+  "usersWithFallbacks": [
+    {
+      "email": "sashko1969@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 8
+    },
+    {
+      "email": "jamy1@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 13
+    },
+    {
+      "email": "deltaelis999@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 15
+    },
+    {
+      "email": "rosi_995@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 19
+    },
+    {
+      "email": "milev_service@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 21
+    },
+    {
+      "email": "podarok55@mail.ru",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 31
+    },
+    {
+      "email": "doichin.s@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 35
+    },
+    {
+      "email": "s.aidan@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 36
+    },
+    {
+      "email": "tsvetanvelinov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 43
+    },
+    {
+      "email": "bobyhb@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 48
+    },
+    {
+      "email": "zahari_matov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 52
+    },
+    {
+      "email": "dpartulov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 53
+    },
+    {
+      "email": "zlmitkov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 61
+    },
+    {
+      "email": "vlad.c@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 62
+    },
+    {
+      "email": "stilianovst@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 65
+    },
+    {
+      "email": "zlatko.stoichev@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 67
+    },
+    {
+      "email": "javor_79@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 68
+    },
+    {
+      "email": "is200@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 69
+    },
+    {
+      "email": "ico_al@yahoo.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 73
+    },
+    {
+      "email": "vladi1898@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 77
+    },
+    {
+      "email": "lubanski_@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 82
+    },
+    {
+      "email": "gmurkacha@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 84
+    },
+    {
+      "email": "karadjov2004@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 85
+    },
+    {
+      "email": "pepino2009@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 90
+    },
+    {
+      "email": "georgiivanov60@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 95
+    },
+    {
+      "email": "vegaklima13@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 96
+    },
+    {
+      "email": "l_dikov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 101
+    },
+    {
+      "email": "vasil_mirage@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 102
+    },
+    {
+      "email": "kristieri@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 104
+    },
+    {
+      "email": "maximservice@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 108
+    },
+    {
+      "email": "marto0888@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 111
+    },
+    {
+      "email": "stasi_1206@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 114
+    },
+    {
+      "email": "vescovt@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 115
+    },
+    {
+      "email": "matey_p@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 117
+    },
+    {
+      "email": "ognian_yordanov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 120
+    },
+    {
+      "email": "ivanmanov@gbg.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 122
+    },
+    {
+      "email": "vasilivanov1951@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 127
+    },
+    {
+      "email": "munci@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 129
+    },
+    {
+      "email": "stass_18@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 131
+    },
+    {
+      "email": "vialex@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 132
+    },
+    {
+      "email": "n_piskov@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 133
+    },
+    {
+      "email": "drosev_eood@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 135
+    },
+    {
+      "email": "davidovmetodi@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 136
+    },
+    {
+      "email": "el.sw@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 137
+    },
+    {
+      "email": "xpx1991@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 140
+    },
+    {
+      "email": "ivanmilchov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 143
+    },
+    {
+      "email": "rumenbogdanov1953@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 144
+    },
+    {
+      "email": "rumen_mg@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 145
+    },
+    {
+      "email": "valeri.naydenov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 150
+    },
+    {
+      "email": "nik1998@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 151
+    },
+    {
+      "email": "dimitar377@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 153
+    },
+    {
+      "email": "demarco.mix@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 155
+    },
+    {
+      "email": "ychko@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 156
+    },
+    {
+      "email": "pavel_mashev@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 159
+    },
+    {
+      "email": "sahoelk@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 160
+    },
+    {
+      "email": "oulinsky@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 161
+    },
+    {
+      "email": "malinn@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 164
+    },
+    {
+      "email": "krasi_krumov69@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 167
+    },
+    {
+      "email": "sunnyberov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 170
+    },
+    {
+      "email": "et.karina@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 176
+    },
+    {
+      "email": "ivoraikov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 183
+    },
+    {
+      "email": "isv1962@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 190
+    },
+    {
+      "email": "contact.jambol@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 193
+    },
+    {
+      "email": "stancho_dobrinov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 194
+    },
+    {
+      "email": "jambolservis2@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 195
+    },
+    {
+      "email": "kiril_mail@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 196
+    },
+    {
+      "email": "trifonov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 200
+    },
+    {
+      "email": "elektrodomdobrich@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 201
+    },
+    {
+      "email": "titan-elektronics@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 203
+    },
+    {
+      "email": "technosim.bg@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 212
+    },
+    {
+      "email": "bitt91@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 213
+    },
+    {
+      "email": "evgeni.dimitrov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 224
+    },
+    {
+      "email": "zdravkocholakov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 226
+    },
+    {
+      "email": "dragoy124@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 230
+    },
+    {
+      "email": "e.mateyn@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 240
+    },
+    {
+      "email": "marto1981@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 242
+    },
+    {
+      "email": "j_coco@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 248
+    },
+    {
+      "email": "hotcool8@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 250
+    },
+    {
+      "email": "kap1954@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 254
+    },
+    {
+      "email": "didmar@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 259
+    },
+    {
+      "email": "eng@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 266
+    },
+    {
+      "email": "gorangochev@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 267
+    },
+    {
+      "email": "hristo.a123@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 271
+    },
+    {
+      "email": "danikoo@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 274
+    },
+    {
+      "email": "elektroserviz.velchev@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 278
+    },
+    {
+      "email": "tehnokomtryavna@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 282
+    },
+    {
+      "email": "xtremeracer@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 302
+    },
+    {
+      "email": "medito_02@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 319
+    },
+    {
+      "email": "www.jelev72@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 321
+    },
+    {
+      "email": "jambolservis@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 323
+    },
+    {
+      "email": "varna@panservice-bg.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 332
+    },
+    {
+      "email": "klimabg@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 333
+    },
+    {
+      "email": "katekkk@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 342
+    },
+    {
+      "email": "mitoprim@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 348
+    },
+    {
+      "email": "marchata76@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 349
+    },
+    {
+      "email": "eteldema@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 351
+    },
+    {
+      "email": "miele_@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 366
+    },
+    {
+      "email": "borislav.panov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 375
+    },
+    {
+      "email": "tinatisho@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 389
+    },
+    {
+      "email": "service.kirchev_93@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 391
+    },
+    {
+      "email": "boyan_v.m@outlook.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 404
+    },
+    {
+      "email": "telestarbg@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 410
+    },
+    {
+      "email": "iv_06@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 413
+    },
+    {
+      "email": "mitkomat@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 416
+    },
+    {
+      "email": "st_balabanov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 417
+    },
+    {
+      "email": "veso011971@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 420
+    },
+    {
+      "email": "turgut_85@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 424
+    },
+    {
+      "email": "ilko.pcb@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 429
+    },
+    {
+      "email": "ventsislavrashkov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 431
+    },
+    {
+      "email": "ivobanov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 436
+    },
+    {
+      "email": "etemserviz@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 479
+    },
+    {
+      "email": "stanislav_bojilov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 499
+    },
+    {
+      "email": "velevtr@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 513
+    },
+    {
+      "email": "hristogeorigev8@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 517
+    },
+    {
+      "email": "nasttiii@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 520
+    },
+    {
+      "email": "boyko.jordanov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 521
+    },
+    {
+      "email": "elektraserviz@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 522
+    },
+    {
+      "email": "cmp1958@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 530
+    },
+    {
+      "email": "electromania.eu@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 557
+    },
+    {
+      "email": "jordan0077@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 560
+    },
+    {
+      "email": "nikolay.colov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 561
+    },
+    {
+      "email": "djoonii@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 562
+    },
+    {
+      "email": "ilievrobert@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 569
+    },
+    {
+      "email": "et.g.georgiev@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 574
+    },
+    {
+      "email": "lubobg1980@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 577
+    },
+    {
+      "email": "vasko_nikolov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 585
+    },
+    {
+      "email": "sokol.koncar.bitola@hotmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 591
+    },
+    {
+      "email": "tinkulov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 605
+    },
+    {
+      "email": "jad_bg@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 619
+    },
+    {
+      "email": "devety@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 628
+    },
+    {
+      "email": "dayski_v@gbg.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 637
+    },
+    {
+      "email": "stoyanvasilev55@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 648
+    },
+    {
+      "email": "pitona_89@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 685
+    },
+    {
+      "email": "gagergov68@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 707
+    },
+    {
+      "email": "pumukal_ds@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 720
+    },
+    {
+      "email": "plamen66@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 741
+    },
+    {
+      "email": "nikola_58@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 768
+    },
+    {
+      "email": "tiho_tisho@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 790
+    },
+    {
+      "email": "plamenpetrov.73@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 792
+    },
+    {
+      "email": "vin4enco_@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 819
+    },
+    {
+      "email": "perfekt92@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 840
+    },
+    {
+      "email": "mitak63@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 857
+    },
+    {
+      "email": "p22221974@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 876
+    },
+    {
+      "email": "svetoslav.genov@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 893
+    },
+    {
+      "email": "ger.gogo@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 958
+    },
+    {
+      "email": "raichev_serviz@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 990
+    },
+    {
+      "email": "nuray_goles@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1020
+    },
+    {
+      "email": "evtim.yurukova@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1023
+    },
+    {
+      "email": "evtim.yurukov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1026
+    },
+    {
+      "email": "kolarov.1967@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1064
+    },
+    {
+      "email": "ivanyonkov15@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1127
+    },
+    {
+      "email": "dj_icko1@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1133
+    },
+    {
+      "email": "pavlinbanev@panservice-bg.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1134
+    },
+    {
+      "email": "mariosmfj@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1136
+    },
+    {
+      "email": "emil_lz2tf@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1148
+    },
+    {
+      "email": "elprimservice1@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1152
+    },
+    {
+      "email": "vlado.93@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1165
+    },
+    {
+      "email": "serjo_et@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1168
+    },
+    {
+      "email": "lupur@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1222
+    },
+    {
+      "email": "neo_88@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1279
+    },
+    {
+      "email": "faer1990@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1333
+    },
+    {
+      "email": "kondor_ln@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1335
+    },
+    {
+      "email": "margi_petkova74@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1372
+    },
+    {
+      "email": "sz@oceanservice.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1423
+    },
+    {
+      "email": "multikoelektron@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1458
+    },
+    {
+      "email": "vipservice.eu.pz@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1465
+    },
+    {
+      "email": "danakil@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1468
+    },
+    {
+      "email": "milevpetar8@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1525
+    },
+    {
+      "email": "p23denchovski@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1534
+    },
+    {
+      "email": "dimitar.velinov@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1546
+    },
+    {
+      "email": "elektronika2000@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1576
+    },
+    {
+      "email": "global_setvice@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1788
+    },
+    {
+      "email": "kriomaxood@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1789
+    },
+    {
+      "email": "georgotrans@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1805
+    },
+    {
+      "email": "aysman82@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1937
+    },
+    {
+      "email": "aniva1972@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1941
+    },
+    {
+      "email": "angel2809@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1943
+    },
+    {
+      "email": "atanassovw@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1945
+    },
+    {
+      "email": "bitovserviz@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1948
+    },
+    {
+      "email": "nenchev.1980@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1949
+    },
+    {
+      "email": "antoniolukarov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1966
+    },
+    {
+      "email": "ivandimitrov_@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 1996
+    },
+    {
+      "email": "anelia_1904@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2000
+    },
+    {
+      "email": "alexidel@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2001
+    },
+    {
+      "email": "serviz01@hotmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2037
+    },
+    {
+      "email": "aleksandar.hadzhiev.96@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2056
+    },
+    {
+      "email": "eto@kirilgeorgiev2005abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2059
+    },
+    {
+      "email": "nikolay.dochov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2062
+    },
+    {
+      "email": "amzin79@yahoo.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2071
+    },
+    {
+      "email": "lz2tf.emil@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2101
+    },
+    {
+      "email": "stoian4ofrend@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2110
+    },
+    {
+      "email": "dstoynov1969@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2167
+    },
+    {
+      "email": "panayot.ivanov.petrov@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2197
+    },
+    {
+      "email": "modelistcheto@gmail.com",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2269
+    },
+    {
+      "email": "galabin.karamelski@abv.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2288
+    },
+    {
+      "email": ".stanislav_mustakerski@mail.bg",
+      "fallbacks": [
+        "companyEIK"
+      ],
+      "legacyUserId": 2350
+    }
+  ],
+  "reportPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/reports/legacy-customer-import-2026-04-05T04-26-52-825Z.json"
+}
