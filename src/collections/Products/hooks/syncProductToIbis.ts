@@ -56,6 +56,31 @@ const getString = (value: unknown) => {
   return trimmed || null
 }
 
+const getIdentifierString = (value: unknown) => {
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    return trimmed || null
+  }
+
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return String(value)
+  }
+
+  if (
+    value &&
+    typeof value === 'object' &&
+    typeof (value as { toString?: unknown }).toString === 'function'
+  ) {
+    const stringified = (value as { toString: () => string }).toString().trim()
+
+    if (stringified && stringified !== '[object Object]') {
+      return stringified
+    }
+  }
+
+  return null
+}
+
 const serverURL =
   process.env.NEXT_PUBLIC_SERVER_URL?.trim() || process.env.PAYLOAD_PUBLIC_SERVER_URL?.trim() || ''
 
@@ -71,6 +96,28 @@ const toAbsoluteURL = (value: string) => {
   return `${serverURL.replace(/\/$/, '')}/${value.replace(/^\//, '')}`
 }
 
+const getMediaID = (value: unknown) => {
+  if (!value || typeof value !== 'object') {
+    return null
+  }
+
+  return (
+    getIdentifierString((value as { id?: unknown }).id) ||
+    getIdentifierString((value as { _id?: unknown })._id) ||
+    null
+  )
+}
+
+const getMediaURL = (value: unknown) => {
+  if (!value || typeof value !== 'object') {
+    return null
+  }
+
+  const url = getString((value as { url?: unknown }).url)
+
+  return url ? toAbsoluteURL(url) : null
+}
+
 const serializeImages = (value: unknown) => {
   if (!Array.isArray(value)) {
     return '[]'
@@ -83,8 +130,8 @@ const serializeImages = (value: unknown) => {
       media:
         typeof (image as { media?: unknown } | null)?.media === 'string'
           ? (image as { media?: string }).media
-          : typeof (image as { media?: { id?: unknown } } | null)?.media === 'object'
-            ? getString((image as { media?: { id?: unknown } }).media?.id)
+          : typeof (image as { media?: unknown } | null)?.media === 'object'
+            ? getMediaID((image as { media?: unknown }).media) || getMediaURL((image as { media?: unknown }).media)
             : null,
       storageKey: getString((image as { storageKey?: unknown } | null)?.storageKey),
     })),
@@ -112,8 +159,8 @@ const resolveMediaImageMap = async ({
         return media
       }
 
-      if (media && typeof media === 'object' && typeof (media as { id?: unknown }).id === 'string') {
-        return (media as { id: string }).id
+      if (media && typeof media === 'object') {
+        return getMediaID(media)
       }
 
       return null
@@ -184,18 +231,23 @@ const normalizeImages = async ({
       const mediaID =
         typeof media === 'string'
           ? media
-          : media && typeof media === 'object' && typeof (media as { id?: unknown }).id === 'string'
-            ? (media as { id: string }).id
+          : media && typeof media === 'object'
+            ? getMediaID(media)
             : null
       const mediaImage = mediaID ? mediaMap.get(mediaID) : null
-      const resolvedUrl = mediaImage?.url || legacyUrl || null
+      const inlineMediaUrl = media && typeof media === 'object' ? getMediaURL(media) : null
+      const inlineMediaAlt =
+        media && typeof media === 'object' ? getString((media as { alt?: unknown }).alt) : null
+      const resolvedUrl = mediaImage?.url || inlineMediaUrl || legacyUrl || null
 
       if (!resolvedUrl) {
         return null
       }
 
       return {
-        ...(alt || mediaImage?.alt ? { alt: alt || mediaImage?.alt } : {}),
+        ...(alt || mediaImage?.alt || inlineMediaAlt
+          ? { alt: alt || mediaImage?.alt || inlineMediaAlt }
+          : {}),
         legacyUrl: resolvedUrl,
       }
     })
