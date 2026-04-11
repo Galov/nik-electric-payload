@@ -188,7 +188,7 @@ const normalizeImages = async ({
             ? (media as { id: string }).id
             : null
       const mediaImage = mediaID ? mediaMap.get(mediaID) : null
-      const resolvedUrl = legacyUrl || mediaImage?.url || null
+      const resolvedUrl = mediaImage?.url || legacyUrl || null
 
       if (!resolvedUrl) {
         return null
