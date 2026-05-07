@@ -89,10 +89,7 @@
 - `data.stockQty` -> `products.stockQty`
 - `data.stockQty > 0` -> `stockStatus = instock`
 - `data.stockQty <= 0` -> `stockStatus = outofstock`
-- `data.description` -> технически source за:
-  - `products.originalSku`
-  - `products.productType`
-  - `products.isRefurbished`
+- `data.description` -> технически source за `products.originalSku`
 - `data.state = "Стоката не се използва"` -> `products.published = false`
 - `data.state = "Стоката се използва"` -> `products.published = true`
 - `data.state = "Стоката се използва често"` -> `products.published = true`
@@ -100,9 +97,11 @@
 
 ## Логика за типа на продукта от `data.description`
 
-- ако стойността завършва на `R` -> продуктът се третира като `От нов уред`
 - ако стойността завършва на `OR` -> продуктът се третира като `Оригинал`
+- ако стойността завършва на `R` -> продуктът се третира като `От нов уред`
 - ако няма suffix -> продуктът се третира като съвместим
+
+Тази логика не попълва отделни полета `productType` или `isRefurbished` от webhook-а. Типът на продукта се извежда в сайта от стойността на `originalSku`.
 
 ## Значение на цените
 

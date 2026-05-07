@@ -239,6 +239,7 @@ export interface Order {
     | {
         product?: (string | null) | Product;
         productSKU?: string | null;
+        productUnitPrice?: number | null;
         quantity: number;
         id?: string | null;
       }[]
@@ -935,6 +936,7 @@ export interface OrdersSelect<T extends boolean = true> {
     | {
         product?: T;
         productSKU?: T;
+        productUnitPrice?: T;
         quantity?: T;
         id?: T;
       };

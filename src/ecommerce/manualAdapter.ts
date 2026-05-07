@@ -2,7 +2,7 @@ import type {
   PaymentAdapter,
   PaymentAdapterClient,
 } from '@payloadcms/plugin-ecommerce/types'
-import { resolveLineTotalForTier } from '@/utilities/pricing'
+import { resolveLineTotalForTier, resolvePriceForTier } from '@/utilities/pricing'
 
 type ManualOrderData = {
   billingAddress?: Record<string, unknown>
@@ -81,10 +81,17 @@ export const manualAdapter = (): PaymentAdapter => ({
     const normalizedItems = cart.items.map((item) => {
       const product =
         item.product && typeof item.product === 'object' ? item.product : null
+      const productUnitPrice = product
+        ? resolvePriceForTier(
+            (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+            product,
+          )
+        : undefined
 
       return {
         ...item,
         productSKU: product?.sku || undefined,
+        productUnitPrice,
       }
     })
 

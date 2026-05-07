@@ -40,18 +40,18 @@ const normalizeMoneyAdminFields = (fields: any[]): any[] => {
   })
 }
 
-const addOrderItemSKUField = (fields: any[]): any[] => {
+const addOrderItemSnapshotFields = (fields: any[]): any[] => {
   return fields.map((field) => {
     const nextField = { ...field }
 
     if (Array.isArray(nextField.fields)) {
-      nextField.fields = addOrderItemSKUField(nextField.fields)
+      nextField.fields = addOrderItemSnapshotFields(nextField.fields)
     }
 
     if (Array.isArray(nextField.tabs)) {
       nextField.tabs = nextField.tabs.map((tab: any) => ({
         ...tab,
-        fields: Array.isArray(tab.fields) ? addOrderItemSKUField(tab.fields) : tab.fields,
+        fields: Array.isArray(tab.fields) ? addOrderItemSnapshotFields(tab.fields) : tab.fields,
       }))
     }
 
@@ -59,27 +59,79 @@ const addOrderItemSKUField = (fields: any[]): any[] => {
       const hasProductSKUField = nextField.fields.some(
         (itemField: any) => itemField?.name === 'productSKU',
       )
+      const hasProductUnitPriceField = nextField.fields.some(
+        (itemField: any) => itemField?.name === 'productUnitPrice',
+      )
+
+      const fieldsToInsert = []
 
       if (!hasProductSKUField) {
-        const productFieldIndex = nextField.fields.findIndex(
-          (itemField: any) => itemField?.name === 'product',
-        )
-
-        const skuField = {
+        fieldsToInsert.push({
           name: 'productSKU',
           type: 'text',
           label: 'Код',
           admin: {
             readOnly: true,
           },
-        }
+        })
+      }
+
+      if (!hasProductUnitPriceField) {
+        fieldsToInsert.push({
+          name: 'productUnitPrice',
+          type: 'number',
+          label: 'Ед. цена',
+          admin: {
+            readOnly: true,
+          },
+        })
+      }
+
+      if (fieldsToInsert.length > 0) {
+        const productFieldIndex = nextField.fields.findIndex(
+          (itemField: any) => itemField?.name === 'product',
+        )
+
+        nextField.fields = [...nextField.fields]
 
         if (productFieldIndex >= 0) {
-          nextField.fields = [...nextField.fields]
-          nextField.fields.splice(productFieldIndex + 1, 0, skuField)
+          nextField.fields.splice(productFieldIndex + 1, 0, ...fieldsToInsert)
         } else {
-          nextField.fields = [...nextField.fields, skuField]
+          nextField.fields.push(...fieldsToInsert)
         }
+      }
+    }
+
+    return nextField
+  })
+}
+
+const applyReadOnlyOrderItemsField = (fields: any[]): any[] => {
+  return fields.map((field) => {
+    const nextField = { ...field }
+
+    if (Array.isArray(nextField.fields)) {
+      nextField.fields = applyReadOnlyOrderItemsField(nextField.fields)
+    }
+
+    if (Array.isArray(nextField.tabs)) {
+      nextField.tabs = nextField.tabs.map((tab: any) => ({
+        ...tab,
+        fields: Array.isArray(tab.fields) ? applyReadOnlyOrderItemsField(tab.fields) : tab.fields,
+      }))
+    }
+
+    if (nextField.name === 'items') {
+      nextField.admin = {
+        ...nextField.admin,
+        components: {
+          ...nextField.admin?.components,
+          Field: {
+            path: '@/components/admin/OrderItemsReadOnlyField',
+            exportName: 'OrderItemsReadOnlyField',
+          },
+        },
+        readOnly: true,
       }
     }
 
@@ -132,7 +184,9 @@ export const plugins: Plugin[] = [
           group: 'Търговия',
         },
         fields: [
-          ...addOrderItemSKUField(normalizeMoneyAdminFields(defaultCollection.fields)),
+          ...applyReadOnlyOrderItemsField(
+            addOrderItemSnapshotFields(normalizeMoneyAdminFields(defaultCollection.fields)),
+          ),
           {
             name: 'accessToken',
             type: 'text',
