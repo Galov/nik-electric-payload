@@ -238,6 +238,7 @@ export interface Order {
   items?:
     | {
         product?: (string | null) | Product;
+        productMIId?: number | null;
         productSKU?: string | null;
         productUnitPrice?: number | null;
         quantity: number;
@@ -263,6 +264,11 @@ export interface Order {
   status?: OrderStatus;
   amount?: number | null;
   currency?: 'EUR' | null;
+  partnerCode?: string | null;
+  miOrderExportStatus?: ('pending' | 'sent' | 'failed') | null;
+  miOrderExportFileName?: string | null;
+  miOrderExportLastAttemptAt?: string | null;
+  miOrderExportLastError?: string | null;
   accessToken?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -935,6 +941,7 @@ export interface OrdersSelect<T extends boolean = true> {
     | T
     | {
         product?: T;
+        productMIId?: T;
         productSKU?: T;
         productUnitPrice?: T;
         quantity?: T;
@@ -961,6 +968,11 @@ export interface OrdersSelect<T extends boolean = true> {
   status?: T;
   amount?: T;
   currency?: T;
+  partnerCode?: T;
+  miOrderExportStatus?: T;
+  miOrderExportFileName?: T;
+  miOrderExportLastAttemptAt?: T;
+  miOrderExportLastError?: T;
   accessToken?: T;
   updatedAt?: T;
   createdAt?: T;

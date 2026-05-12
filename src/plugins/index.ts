@@ -5,6 +5,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
+import { exportOrderToMicroinvestHook } from '@/collections/Orders/hooks/exportOrderToMicroinvest'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
 import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
@@ -56,6 +57,9 @@ const addOrderItemSnapshotFields = (fields: any[]): any[] => {
     }
 
     if (nextField.name === 'items' && Array.isArray(nextField.fields)) {
+      const hasProductMIIdField = nextField.fields.some(
+        (itemField: any) => itemField?.name === 'productMIId',
+      )
       const hasProductSKUField = nextField.fields.some(
         (itemField: any) => itemField?.name === 'productSKU',
       )
@@ -64,6 +68,17 @@ const addOrderItemSnapshotFields = (fields: any[]): any[] => {
       )
 
       const fieldsToInsert = []
+
+      if (!hasProductMIIdField) {
+        fieldsToInsert.push({
+          name: 'productMIId',
+          type: 'number',
+          label: 'Microinvest ID',
+          admin: {
+            readOnly: true,
+          },
+        })
+      }
 
       if (!hasProductSKUField) {
         fieldsToInsert.push({
@@ -183,10 +198,73 @@ export const plugins: Plugin[] = [
           ...defaultCollection.admin,
           group: 'Търговия',
         },
+        hooks: {
+          ...defaultCollection.hooks,
+          afterChange: [...(defaultCollection.hooks?.afterChange || []), exportOrderToMicroinvestHook],
+        },
         fields: [
           ...applyReadOnlyOrderItemsField(
             addOrderItemSnapshotFields(normalizeMoneyAdminFields(defaultCollection.fields)),
           ),
+          {
+            name: 'partnerCode',
+            type: 'text',
+            label: 'Код на партньор',
+            admin: {
+              position: 'sidebar',
+              readOnly: true,
+            },
+          },
+          {
+            name: 'miOrderExportStatus',
+            type: 'select',
+            label: 'Microinvest export',
+            admin: {
+              position: 'sidebar',
+              readOnly: true,
+            },
+            defaultValue: 'pending',
+            options: [
+              {
+                label: 'Pending',
+                value: 'pending',
+              },
+              {
+                label: 'Sent',
+                value: 'sent',
+              },
+              {
+                label: 'Failed',
+                value: 'failed',
+              },
+            ],
+          },
+          {
+            name: 'miOrderExportFileName',
+            type: 'text',
+            label: 'Microinvest файл',
+            admin: {
+              position: 'sidebar',
+              readOnly: true,
+            },
+          },
+          {
+            name: 'miOrderExportLastAttemptAt',
+            type: 'date',
+            label: 'Последен опит за export',
+            admin: {
+              position: 'sidebar',
+              readOnly: true,
+            },
+          },
+          {
+            name: 'miOrderExportLastError',
+            type: 'textarea',
+            label: 'Microinvest export грешка',
+            admin: {
+              readOnly: true,
+            },
+          },
           {
             name: 'accessToken',
             type: 'text',

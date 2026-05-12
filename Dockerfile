@@ -27,6 +27,10 @@ WORKDIR /app
 ARG NEXT_PUBLIC_SERVER_URL
 ARG PAYLOAD_PUBLIC_SERVER_URL
 
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends curl \
+  && rm -rf /var/lib/apt/lists/*
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 type OrderItem = {
   product?: string | { id?: string | null; title?: string | null } | null
+  productMIId?: number | null
   productSKU?: string | null
   productUnitPrice?: number | null
   quantity?: number | null
@@ -127,6 +128,7 @@ export function OrderItemsReadOnlyField({ path = 'items' }: Props) {
             <thead>
               <tr style={{ background: 'var(--theme-elevation-50)' }}>
                 <th style={{ padding: '0.75rem', textAlign: 'left' }}>Продукт</th>
+                <th style={{ padding: '0.75rem', textAlign: 'left', width: '10rem' }}>Microinvest ID</th>
                 <th style={{ padding: '0.75rem', textAlign: 'left', width: '14rem' }}>Код</th>
                 <th style={{ padding: '0.75rem', textAlign: 'right', width: '8rem' }}>Количество</th>
                 <th style={{ padding: '0.75rem', textAlign: 'right', width: '8rem' }}>Ед. цена</th>
@@ -142,6 +144,7 @@ export function OrderItemsReadOnlyField({ path = 'items' }: Props) {
                 return (
                   <tr key={index} style={{ borderTop: '1px solid var(--theme-elevation-150)' }}>
                     <td style={{ padding: '0.75rem' }}>{getProductLabel(item.product, productTitlesByID)}</td>
+                    <td style={{ padding: '0.75rem' }}>{item.productMIId ?? '-'}</td>
                     <td style={{ padding: '0.75rem' }}>{item.productSKU || '-'}</td>
                     <td style={{ padding: '0.75rem', textAlign: 'right' }}>{quantity}</td>
                     <td style={{ padding: '0.75rem', textAlign: 'right' }}>

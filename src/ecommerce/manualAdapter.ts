@@ -90,6 +90,7 @@ export const manualAdapter = (): PaymentAdapter => ({
 
       return {
         ...item,
+        productMIId: typeof product?.miProductId === 'number' ? product.miProductId : undefined,
         productSKU: product?.sku || undefined,
         productUnitPrice,
       }
@@ -124,6 +125,10 @@ export const manualAdapter = (): PaymentAdapter => ({
         customer: user?.id || undefined,
         customerEmail: resolvedEmail,
         items: normalizedItems,
+        partnerCode:
+          typeof (user as typeof user & { partnerCode?: string | null })?.partnerCode === 'string'
+            ? (user as typeof user & { partnerCode?: string | null }).partnerCode
+            : undefined,
         shippingAddress,
         status: 'processing',
         transactions: [transaction.id],
