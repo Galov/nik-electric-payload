@@ -40,7 +40,22 @@ const CategoryChildren: React.FC<{
   useEffect(() => {
     if (!contentRef.current) return
 
-    setMaxHeight(isExpanded ? `${contentRef.current.scrollHeight}px` : '0px')
+    const updateHeight = () => {
+      if (!contentRef.current) return
+      setMaxHeight(isExpanded ? `${contentRef.current.scrollHeight}px` : '0px')
+    }
+
+    updateHeight()
+
+    const observer = new ResizeObserver(() => {
+      updateHeight()
+    })
+
+    observer.observe(contentRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
   }, [childrenNodes, expandedCategoryIDs, isExpanded])
 
   return (
