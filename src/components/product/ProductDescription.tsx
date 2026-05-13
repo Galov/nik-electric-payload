@@ -33,7 +33,7 @@ export function ProductDescription({ product }: { product: Product }) {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
         <div className="flex flex-col gap-4">
           <div className="flex min-h-7 flex-wrap gap-2">
             {manufacturerCode ? <ManufacturerBadge className="self-start" value={manufacturerCode} /> : null}
@@ -43,7 +43,7 @@ export function ProductDescription({ product }: { product: Product }) {
             {product.title}
           </h1>
         </div>
-        <div className="text-base font-normal text-primary/60 lg:text-lg">
+        <div className="pt-1 text-base font-normal text-primary/60 lg:pt-2 lg:text-lg">
           <Price
             amount={0}
             priceGroup1={(product as Product & { priceGroup1?: number | null }).priceGroup1}

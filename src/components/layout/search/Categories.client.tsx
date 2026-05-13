@@ -152,7 +152,52 @@ export const CategoryItem: React.FC<ItemProps> = ({
 }
 
 export const CategoryTree: React.FC<TreeProps> = ({ categories }) => {
+  const searchParams = useSearchParams()
   const [expandedCategoryIDs, setExpandedCategoryIDs] = useState<Set<string>>(new Set())
+
+  const selectedCategoryID = searchParams.get('category')
+
+  const selectedPath = useMemo(() => {
+    const findPath = (nodes: CategoryNode[], targetID: string): string[] | null => {
+      for (const node of nodes) {
+        if (node.id === targetID) {
+          return [node.id]
+        }
+
+        if (node.children.length > 0) {
+          const childPath = findPath(node.children, targetID)
+
+          if (childPath) {
+            return [node.id, ...childPath]
+          }
+        }
+      }
+
+      return null
+    }
+
+    if (!selectedCategoryID) {
+      return []
+    }
+
+    return findPath(categories, selectedCategoryID) || []
+  }, [categories, selectedCategoryID])
+
+  useEffect(() => {
+    if (!selectedPath.length) {
+      return
+    }
+
+    setExpandedCategoryIDs((current) => {
+      const next = new Set(current)
+
+      for (const categoryID of selectedPath) {
+        next.add(categoryID)
+      }
+
+      return next
+    })
+  }, [selectedPath])
 
   const onToggleCategory = useCallback((id: string) => {
     setExpandedCategoryIDs((current) => {
