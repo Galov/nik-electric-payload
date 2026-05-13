@@ -14,8 +14,10 @@ type OrderItem = {
 }
 
 type OrderLike = {
+  customer?: string | { id?: string | null; partnerCode?: string | null } | null
   id?: number | string
   items?: OrderItem[] | null
+  miOrderExportStatus?: 'failed' | 'pending' | 'sent' | string | null
   partnerCode?: string | null
 }
 
@@ -44,9 +46,77 @@ const normalizeItems = (value: unknown): OrderItem[] => {
   return value.filter((item): item is OrderItem => Boolean(item && typeof item === 'object'))
 }
 
-const buildCSV = (order: OrderLike) => {
+const resolvePartnerCode = async ({
+  order,
+  req,
+}: {
+  order: OrderLike
+  req: Parameters<CollectionAfterChangeHook>[0]['req']
+}) => {
+  const directPartnerCode = order.partnerCode?.trim()
+
+  if (directPartnerCode) {
+    return directPartnerCode
+  }
+
+  const customer = order.customer
+
+  if (customer && typeof customer === 'object') {
+    const objectPartnerCode = customer.partnerCode?.trim()
+
+    if (objectPartnerCode) {
+      return objectPartnerCode
+    }
+
+    if (typeof customer.id === 'string' && customer.id) {
+      try {
+        const user = await req.payload.findByID({
+          collection: 'users',
+          id: customer.id,
+          depth: 0,
+          overrideAccess: true,
+          req,
+        })
+
+        if (typeof user?.partnerCode === 'string' && user.partnerCode.trim()) {
+          return user.partnerCode.trim()
+        }
+      } catch {
+        return null
+      }
+    }
+  }
+
+  if (typeof customer === 'string' && customer) {
+    try {
+      const user = await req.payload.findByID({
+        collection: 'users',
+        id: customer,
+        depth: 0,
+        overrideAccess: true,
+        req,
+      })
+
+      if (typeof user?.partnerCode === 'string' && user.partnerCode.trim()) {
+        return user.partnerCode.trim()
+      }
+    } catch {
+      return null
+    }
+  }
+
+  return null
+}
+
+const buildCSV = async ({
+  order,
+  req,
+}: {
+  order: OrderLike
+  req: Parameters<CollectionAfterChangeHook>[0]['req']
+}) => {
   const orderID = String(order.id || '').trim()
-  const partnerCode = order.partnerCode?.trim()
+  const partnerCode = await resolvePartnerCode({ order, req })
   const items = normalizeItems(order.items)
 
   if (!orderID) {
@@ -89,7 +159,10 @@ const buildCSV = (order: OrderLike) => {
     ].join('|')
   })
 
-  return `${header}\n${rows.join('\n')}\n`
+  return {
+    csv: `${header}\n${rows.join('\n')}\n`,
+    partnerCode,
+  }
 }
 
 const uploadCSV = async ({ content, fileName }: { content: string; fileName: string }) => {
@@ -128,14 +201,25 @@ export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
   operation,
   req,
 }) => {
-  if (operation !== 'create' || req.context?.skipMicroinvestOrderExport) {
+  if (req.context?.skipMicroinvestOrderExport) {
+    return doc
+  }
+
+  if (operation !== 'create' && operation !== 'update') {
+    return doc
+  }
+
+  if (operation === 'update' && (doc as OrderLike).miOrderExportStatus === 'sent') {
     return doc
   }
 
   const fileName = `order-${String(doc.id)}.csv`
 
   try {
-    const csv = buildCSV(doc as OrderLike)
+    const { csv, partnerCode } = await buildCSV({
+      order: doc as OrderLike,
+      req,
+    })
 
     await uploadCSV({
       content: csv,
@@ -154,6 +238,7 @@ export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
         miOrderExportLastAttemptAt: new Date().toISOString(),
         miOrderExportLastError: '',
         miOrderExportStatus: 'sent',
+        partnerCode,
       },
       overrideAccess: true,
       req,

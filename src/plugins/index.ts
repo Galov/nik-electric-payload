@@ -207,6 +207,13 @@ export const plugins: Plugin[] = [
             addOrderItemSnapshotFields(normalizeMoneyAdminFields(defaultCollection.fields)),
           ),
           {
+            name: 'orderCorrections',
+            type: 'json',
+            admin: {
+              hidden: true,
+            },
+          },
+          {
             name: 'partnerCode',
             type: 'text',
             label: 'Код на партньор',
