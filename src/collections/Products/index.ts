@@ -6,7 +6,6 @@ import {
   syncDeletedProductToIbisHook,
   syncProductToIbisHook,
 } from '@/collections/Products/hooks/syncProductToIbis'
-import { buildSEOFields } from '@/fields/seo'
 
 const normalizeCatalogCompatibilityFields = ({
   data,
@@ -310,7 +309,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
             {
               name: 'manufacturerCode',
-              label: 'Вид производител',
+              label: 'Производител',
               type: 'text',
             },
             {
@@ -543,11 +542,6 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               defaultValue: true,
             },
           ],
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: buildSEOFields(),
         },
       ],
     },

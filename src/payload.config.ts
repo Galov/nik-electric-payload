@@ -50,6 +50,16 @@ export default buildConfig({
         },
       },
     },
+    dateFormat: 'dd.MM.yyyy, HH:mm',
+    timezones: {
+      defaultTimezone: 'Europe/Sofia',
+      supportedTimezones: [
+        {
+          label: 'Europe/Sofia',
+          value: 'Europe/Sofia',
+        },
+      ],
+    },
     user: Users.slug,
   },
   collections: [Users, Brands, Categories, Partners, ContactInquiries, Media],
