@@ -34,7 +34,6 @@ export const Media: CollectionConfig = {
       name: 'alt',
       label: 'Alt текст',
       type: 'text',
-      required: true,
     },
     {
       name: 'caption',

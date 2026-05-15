@@ -1,4 +1,4 @@
-import type { Product } from '@/payload-types'
+import type { Media, Product } from '@/payload-types'
 
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
 import { parseMicroinvestDescription, type ProductTypeValue } from '@/utilities/microinvest'
@@ -117,6 +117,7 @@ type BrandLike =
   | string
   | {
       id?: number | string
+      logo?: Media | null | string
       slug?: null | string
       title?: null | string
     }
@@ -128,6 +129,7 @@ const normalizeBrandEntry = (brand: BrandLike) => {
 
   return {
     id: typeof brand.id === 'string' ? brand.id : typeof brand.id === 'number' ? String(brand.id) : undefined,
+    logo: brand.logo && typeof brand.logo === 'object' ? brand.logo : null,
     slug: brand.slug || undefined,
     title: brand.title,
   }

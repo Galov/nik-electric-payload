@@ -47,6 +47,15 @@ export const Brands: CollectionConfig = {
       required: true,
     },
     {
+      name: 'logo',
+      label: 'Лого',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Качете лого на марката. То ще се показва на продуктовата страница, ако продуктът е свързан с тази марка.',
+      },
+    },
+    {
       name: 'productCount',
       label: 'Брой продукти',
       type: 'number',

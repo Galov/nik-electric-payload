@@ -30,10 +30,14 @@ const normalizeMoneyAdminFields = (fields: any[]): any[] => {
     if (nextField.name === 'amount' || nextField.name === 'subtotal') {
       nextField.admin = {
         ...nextField.admin,
-      }
-
-      if (nextField.admin?.components) {
-        delete nextField.admin.components
+        components: {
+          ...nextField.admin?.components,
+          Field: {
+            path: '@/components/admin/MoneyReadOnlyField',
+            exportName: 'MoneyReadOnlyField',
+          },
+        },
+        readOnly: true,
       }
     }
 
@@ -206,13 +210,6 @@ export const plugins: Plugin[] = [
           ...applyReadOnlyOrderItemsField(
             addOrderItemSnapshotFields(normalizeMoneyAdminFields(defaultCollection.fields)),
           ),
-          {
-            name: 'orderCorrections',
-            type: 'json',
-            admin: {
-              hidden: true,
-            },
-          },
           {
             name: 'partnerCode',
             type: 'text',

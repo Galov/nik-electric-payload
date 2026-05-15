@@ -29,7 +29,7 @@ export const Image: React.FC<MediaProps> = (props) => {
 
   let width: number | undefined | null
   let height: number | undefined | null
-  let alt = altFromProps
+  let alt: string | undefined = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource === 'object') {
@@ -42,7 +42,7 @@ export const Image: React.FC<MediaProps> = (props) => {
 
     width = widthFromProps ?? fullWidth
     height = heightFromProps ?? fullHeight
-    alt = altFromResource
+    alt = altFromResource || undefined
 
     src = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`
   }

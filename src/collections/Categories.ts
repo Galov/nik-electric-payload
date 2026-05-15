@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '@/access/adminOnly'
+import {
+  syncCategoryAdminMetaAfterChange,
+  syncCategoryAdminMetaAfterDelete,
+} from '@/collections/Categories/hooks/syncCategoryAdminMeta'
 import { buildSEOFields } from '@/fields/seo'
 import { buildCategorySlug } from '@/utilities/category'
 
@@ -14,12 +18,17 @@ export const Categories: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'parent', 'productCount'],
-    useAsTitle: 'title',
+    useAsTitle: 'adminLabel',
     group: 'Каталог',
   },
+  defaultSort: 'adminSort',
   labels: {
     plural: 'Категории',
     singular: 'Категория',
+  },
+  hooks: {
+    afterChange: [syncCategoryAdminMetaAfterChange],
+    afterDelete: [syncCategoryAdminMetaAfterDelete],
   },
   fields: [
     {
@@ -59,6 +68,9 @@ export const Categories: CollectionConfig = {
               label: 'Родителска категория',
               type: 'relationship',
               relationTo: 'categories',
+              admin: {
+                sortOptions: 'adminSort',
+              },
             },
             {
               name: 'productCount',
@@ -77,6 +89,21 @@ export const Categories: CollectionConfig = {
           fields: buildSEOFields(),
         },
       ],
+    },
+    {
+      name: 'adminLabel',
+      type: 'text',
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'adminSort',
+      type: 'text',
+      index: true,
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'slug',

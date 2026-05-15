@@ -12,6 +12,10 @@ type CartItemLike = {
   quantity?: null | number
 }
 
+export const roundCurrency = (value: number): number => {
+  return Math.round((value + Number.EPSILON) * 100) / 100
+}
+
 export const resolvePriceForTier = (
   priceTier: null | PriceTier | string | undefined,
   prices: PriceFields,
@@ -42,7 +46,7 @@ export const resolveLineTotalForTier = (
     return 0
   }
 
-  return resolvePriceForTier(priceTier, product) * quantity
+  return roundCurrency(resolvePriceForTier(priceTier, product) * quantity)
 }
 
 export const resolveSubtotalForTier = (
@@ -53,5 +57,7 @@ export const resolveSubtotalForTier = (
     return 0
   }
 
-  return items.reduce((subtotal, item) => subtotal + resolveLineTotalForTier(priceTier, item), 0)
+  return roundCurrency(
+    items.reduce((subtotal, item) => subtotal + resolveLineTotalForTier(priceTier, item), 0),
+  )
 }

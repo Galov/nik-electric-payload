@@ -535,6 +535,10 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
   previousDoc,
   req,
 }) => {
+  if (req.context?.skipIbisProductSync) {
+    return doc
+  }
+
   try {
     const normalizedDoc = doc as Record<string, unknown>
 

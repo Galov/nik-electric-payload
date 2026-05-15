@@ -181,6 +181,8 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   defaultPopulate: {
     ...defaultCollection.defaultPopulate,
     title: true,
+    isNewProduct: true,
+    isOnPromotion: true,
     slug: true,
     sku: true,
     description: true,
@@ -210,6 +212,18 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           fields: [
             { name: 'title', label: 'Име', type: 'text', required: true },
             {
+              name: 'isOnPromotion',
+              label: 'Продукт в промоция',
+              type: 'checkbox',
+              defaultValue: false,
+            },
+            {
+              name: 'isNewProduct',
+              label: 'Нов продукт',
+              type: 'checkbox',
+              defaultValue: false,
+            },
+            {
               name: 'description',
               label: 'Описание',
               admin: {
@@ -230,6 +244,9 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               type: 'relationship',
               relationTo: 'categories',
               hasMany: true,
+              admin: {
+                sortOptions: 'adminSort',
+              },
             },
             buildProductSlugField(),
             {

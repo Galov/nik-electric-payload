@@ -22,7 +22,7 @@ const hasCategoryTitle = (
 export const ProductGridItem: React.FC<Props> = ({ product }) => {
   const { title } = product
   const image = getProductPrimaryImage(product)
-  const manufacturerCode = product.manufacturerCode || null
+  const manufacturerCode = product.manufacturerCode?.trim() || null
   const primaryCategory = product.categories?.find(hasCategoryTitle)?.title || null
   const productType = getProductType(product)
 

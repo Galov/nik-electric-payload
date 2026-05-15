@@ -217,15 +217,6 @@ export interface Order {
   status?: OrderStatus;
   amount?: number | null;
   currency?: 'EUR' | null;
-  orderCorrections?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   partnerCode?: string | null;
   miOrderExportStatus?: ('pending' | 'sent' | 'failed') | null;
   miOrderExportFileName?: string | null;
@@ -242,6 +233,8 @@ export interface Order {
 export interface Product {
   id: string;
   title: string;
+  isOnPromotion?: boolean | null;
+  isNewProduct?: boolean | null;
   /**
    * Основното описание, което се вижда на продуктовата страница.
    */
@@ -298,14 +291,6 @@ export interface Product {
   legacyProductUrl?: string | null;
   legacyModifiedAt?: string | null;
   published?: boolean | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -320,6 +305,10 @@ export interface Brand {
   sourceTermId?: number | null;
   sourceTaxonomyId?: number | null;
   title: string;
+  /**
+   * Качете лого на марката. То ще се показва на продуктовата страница, ако продуктът е свързан с тази марка.
+   */
+  logo?: (string | null) | Media;
   productCount?: number | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -331,34 +320,11 @@ export interface Brand {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  sourceTermId?: number | null;
-  sourceTaxonomyId?: number | null;
-  title: string;
-  parent?: (string | null) | Category;
-  productCount?: number | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: string;
-  alt: string;
+  alt?: string | null;
   caption?: {
     root: {
       type: string;
@@ -385,6 +351,31 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  sourceTermId?: number | null;
+  sourceTaxonomyId?: number | null;
+  title: string;
+  parent?: (string | null) | Category;
+  productCount?: number | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  adminLabel?: string | null;
+  adminSort?: string | null;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -711,6 +702,7 @@ export interface BrandsSelect<T extends boolean = true> {
   sourceTermId?: T;
   sourceTaxonomyId?: T;
   title?: T;
+  logo?: T;
   productCount?: T;
   generateSlug?: T;
   slug?: T;
@@ -734,6 +726,8 @@ export interface CategoriesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  adminLabel?: T;
+  adminSort?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -822,6 +816,8 @@ export interface AddressesSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   title?: T;
+  isOnPromotion?: T;
+  isNewProduct?: T;
   description?: T;
   brand?: T;
   categories?: T;
@@ -861,13 +857,6 @@ export interface ProductsSelect<T extends boolean = true> {
   legacyProductUrl?: T;
   legacyModifiedAt?: T;
   published?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        description?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
@@ -930,7 +919,6 @@ export interface OrdersSelect<T extends boolean = true> {
   status?: T;
   amount?: T;
   currency?: T;
-  orderCorrections?: T;
   partnerCode?: T;
   miOrderExportStatus?: T;
   miOrderExportFileName?: T;

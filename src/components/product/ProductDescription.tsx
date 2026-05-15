@@ -2,6 +2,7 @@
 import type { Product } from '@/payload-types'
 
 import { AddToCart } from '@/components/Cart/AddToCart'
+import { Media } from '@/components/Media'
 import { Price } from '@/components/Price'
 import { ManufacturerBadge } from '@/components/product/ManufacturerBadge'
 import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
@@ -20,7 +21,7 @@ type ProductCategoryLink = {
 export function ProductDescription({ product }: { product: Product }) {
   const description = formatLegacyProductDescription(product.description)
   const stockQuantity = product.inventory || 0
-  const manufacturerCode = product.manufacturerCode || null
+  const manufacturerCode = product.manufacturerCode?.trim() || null
   const categories = (product.categories || []).reduce<ProductCategoryLink[]>((acc, category) => {
     if (!category || typeof category === 'string' || !category.title) return acc
 
@@ -29,6 +30,7 @@ export function ProductDescription({ product }: { product: Product }) {
     return acc
   }, [])
   const brands = getProductBrands(product)
+  const brandsWithLogos = brands.filter((brand) => brand.logo)
   const productType = getProductType(product)
 
   return (
@@ -55,7 +57,7 @@ export function ProductDescription({ product }: { product: Product }) {
         {product.sku ? (
           <p>
             <span className="text-muted-foreground/70">Код:</span>{' '}
-            <span className="font-normal text-primary/80">{product.sku}</span>
+            <span className="font-semibold text-primary">{product.sku}</span>
           </p>
         ) : null}
         {categories.length > 0 ? (
@@ -111,6 +113,27 @@ export function ProductDescription({ product }: { product: Product }) {
             {stockQuantity > 0 ? stockQuantity : 'Изчерпана наличност'}
           </span>
         </p>
+        {brandsWithLogos.length > 0 ? (
+          <div className="pt-2">
+            <div className="flex flex-wrap gap-3">
+              {brandsWithLogos.map((brand) => (
+                <div
+                  key={brand.id || brand.slug || brand.title}
+                  className="flex h-24 w-24 items-center justify-center overflow-hidden"
+                >
+                  <div className="relative flex h-full w-full items-center justify-center">
+                    <Media
+                      alt={`Лого на ${brand.title}`}
+                      className="flex h-full w-full items-center justify-center"
+                      imgClassName="h-full w-full object-contain"
+                      resource={brand.logo!}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
         {productType === 'removed-from-unit' ? (
           <p>
             <span className="text-muted-foreground/70">Състояние:</span>{' '}

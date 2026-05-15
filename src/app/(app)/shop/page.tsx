@@ -2,6 +2,7 @@ import { Grid } from '@/components/Grid'
 import { ProductGridItem } from '@/components/ProductGridItem'
 import { CatalogPagination } from '@/components/layout/search/CatalogPagination'
 import { Search } from '@/components/Search'
+import { PromotionTicker } from '@/components/shop/PromotionTicker.client'
 import { SortToolbar } from '@/components/layout/search/SortToolbar'
 import { ShopBanner } from '@/components/shop/ShopBanner'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -56,6 +57,40 @@ export default async function ShopPage({ searchParams }: Props) {
   const selectedBrandID = brand ? await getBrandIDForFilter(payload, String(brand)) : null
   const categoryIDs = category ? await getCategoryIDsForFilter(payload, String(category)) : null
   const searchClauses = searchTerms.length > 0 ? await getSearchClauses(payload, searchTerms) : []
+  const promotionalProducts = !searchValue && !category && !brand
+    ? await payload.find({
+        collection: 'products',
+        depth: 1,
+        draft: false,
+        limit: 12,
+        overrideAccess: false,
+        pagination: false,
+        select: {
+          id: true,
+          images: true,
+          priceGroup1: true,
+          priceWholesale: true,
+          published: true,
+          slug: true,
+          title: true,
+        },
+        sort: '-updatedAt',
+        where: {
+          and: [
+            {
+              isOnPromotion: {
+                equals: true,
+              },
+            },
+            {
+              published: {
+                equals: true,
+              },
+            },
+          ],
+        },
+      })
+    : { docs: [] }
 
   const products = await payload.find({
     collection: 'products',
@@ -182,6 +217,9 @@ export default async function ShopPage({ searchParams }: Props) {
 
       {products?.docs.length > 0 ? (
         <>
+          {promotionalProducts.docs.length > 0 ? (
+            <PromotionTicker products={promotionalProducts.docs} />
+          ) : null}
           <Grid className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.docs.map((product) => {
               return <ProductGridItem key={product.id} product={product} />
