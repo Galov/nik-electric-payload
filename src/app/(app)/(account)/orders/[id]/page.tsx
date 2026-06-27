@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Price } from '@/components/Price'
 import { Button } from '@/components/ui/button'
 import { formatDateTime } from '@/utilities/formatDateTime'
+import { fromMinorUnits } from '@/utilities/money'
 import { getNoIndexMetadata } from '@/utilities/getNoIndexMetadata'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -150,7 +151,9 @@ export default async function Order({ params, searchParams }: PageProps) {
 
           <div>
             <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Общо</p>
-            {order.amount && <Price className="text-lg text-primary/80" amount={order.amount} currencyCode="EUR" />}
+            {order.amount && (
+              <Price className="text-lg text-primary/80" amount={fromMinorUnits(order.amount)} currencyCode="EUR" />
+            )}
           </div>
 
           {order.status && (

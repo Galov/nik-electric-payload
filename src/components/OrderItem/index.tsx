@@ -3,6 +3,7 @@ import { Price } from '@/components/Price'
 import { Button } from '@/components/ui/button'
 import { Order } from '@/payload-types'
 import { formatDateTime } from '@/utilities/formatDateTime'
+import { fromMinorUnits } from '@/utilities/money'
 import Link from 'next/link'
 
 type Props = {
@@ -34,7 +35,7 @@ export const OrderItem: React.FC<Props> = ({ order }) => {
           {order.amount && (
             <>
               <span>•</span>
-              <Price as="span" amount={order.amount} currencyCode="EUR" />
+              <Price as="span" amount={fromMinorUnits(order.amount)} currencyCode="EUR" />
             </>
           )}
         </p>

@@ -1,6 +1,7 @@
 'use client'
 
 import { AuthProvider } from '@/providers/Auth'
+import type { User } from '@/payload-types'
 import { EcommerceProvider } from '@payloadcms/plugin-ecommerce/client/react'
 import React from 'react'
 
@@ -58,10 +59,11 @@ const CommerceProviders: React.FC<{ children: React.ReactNode }> = ({ children }
 
 export const Providers: React.FC<{
   children: React.ReactNode
-}> = ({ children }) => {
+  initialUser?: User | null
+}> = ({ children, initialUser = null }) => {
   return (
     <ThemeProvider>
-      <AuthProvider>
+      <AuthProvider initialUser={initialUser}>
         <HeaderThemeProvider>
           <SonnerProvider />
           <CommerceProviders>{children}</CommerceProviders>

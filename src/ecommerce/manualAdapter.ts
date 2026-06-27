@@ -3,6 +3,7 @@ import type {
   PaymentAdapterClient,
 } from '@payloadcms/plugin-ecommerce/types'
 import { resolveLineTotalForTier, resolvePriceForTier, roundCurrency } from '@/utilities/pricing'
+import { toMinorUnits } from '@/utilities/money'
 
 type ManualOrderData = {
   billingAddress?: Record<string, unknown>
@@ -107,11 +108,12 @@ export const manualAdapter = (): PaymentAdapter => ({
         )
       }, 0),
     )
+    const resolvedAmountMinor = toMinorUnits(resolvedAmount)
 
     const transaction = await payload.create({
       collection: transactionsSlug,
       data: {
-        amount: resolvedAmount,
+        amount: resolvedAmountMinor,
         billingAddress,
         cart: cart.id,
         currency: cart.currency,
@@ -128,7 +130,7 @@ export const manualAdapter = (): PaymentAdapter => ({
     const order = await payload.create({
       collection: ordersSlug,
       data: {
-        amount: resolvedAmount,
+        amount: resolvedAmountMinor,
         currency: cart.currency,
         customer: user?.id || undefined,
         customerEmail: resolvedEmail,

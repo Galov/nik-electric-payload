@@ -15,6 +15,7 @@ import React from 'react'
 import { getBaseURL } from '@/utilities/getBaseURL'
 import { getSocialImageURL } from '@/utilities/getSocialImageURL'
 import { buildOrganizationSchema } from '@/utilities/schema'
+import { headers as getHeaders } from 'next/headers'
 import './globals.css'
 
 export const dynamic = 'force-dynamic'
@@ -43,6 +44,8 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const payload = await getPayload({ config: configPromise })
+  const headers = await getHeaders()
+  const { user } = await payload.auth({ headers })
   const contactPage = await payload.findGlobal({
     slug: 'contact-page' as never,
     depth: 0,
@@ -63,7 +66,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         />
       </head>
       <body className="min-h-screen">
-        <Providers>
+        <Providers initialUser={user ?? null}>
           <div className="flex min-h-screen flex-col">
             <AdminBar />
             <LivePreviewListener />

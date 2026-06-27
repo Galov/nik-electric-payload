@@ -1,6 +1,7 @@
 'use client'
 
 import { useField, useFormFields } from '@payloadcms/ui'
+import { fromMinorUnits } from '@/utilities/money'
 
 type Props = {
   path: string
@@ -23,7 +24,7 @@ export function MoneyReadOnlyField({ path }: Props) {
     path,
   })
 
-  const formattedValue = typeof value === 'number' ? formatMoney(value) : ''
+  const formattedValue = typeof value === 'number' ? formatMoney(fromMinorUnits(value)) : ''
 
   return (
     <div

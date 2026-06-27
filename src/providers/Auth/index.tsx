@@ -32,12 +32,17 @@ type AuthContext = {
 
 const Context = createContext({} as AuthContext)
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>()
+export const AuthProvider: React.FC<{ children: React.ReactNode; initialUser?: User | null }> = ({
+  children,
+  initialUser = null,
+}) => {
+  const [user, setUser] = useState<User | null>(initialUser)
 
   // used to track the single event of logging in or logging out
   // useful for `useEffect` hooks that should only run once
-  const [status, setStatus] = useState<'loggedIn' | 'loggedOut' | undefined>()
+  const [status, setStatus] = useState<'loggedIn' | 'loggedOut' | undefined>(
+    initialUser ? 'loggedIn' : undefined,
+  )
   const getErrorMessage = async (response: Response, fallbackMessage: string) => {
     try {
       const data = (await response.json()) as {
@@ -50,6 +55,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return response.statusText || fallbackMessage
     }
   }
+
+  const fetchMe = useCallback(async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'GET',
+      })
+
+      if (res.ok) {
+        const { user: meUser } = await res.json()
+        setUser(meUser || null)
+        setStatus(meUser ? 'loggedIn' : 'loggedOut')
+      } else {
+        throw new Error('An error occurred while fetching your account.')
+      }
+    } catch (_e) {
+      setUser(null)
+      setStatus('loggedOut')
+    }
+  }, [])
 
   const create = useCallback<Create>(async (args) => {
     try {
@@ -129,31 +157,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'GET',
-        })
+    void fetchMe()
+  }, [fetchMe])
 
-        if (res.ok) {
-          const { user: meUser } = await res.json()
-          setUser(meUser || null)
-          setStatus(meUser ? 'loggedIn' : undefined)
-        } else {
-          throw new Error('An error occurred while fetching your account.')
-        }
-      } catch (e) {
-        setUser(null)
-        throw new Error('An error occurred while fetching your account.')
+  useEffect(() => {
+    const syncOnFocus = () => {
+      void fetchMe()
+    }
+
+    const syncOnVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        void fetchMe()
       }
     }
 
-    void fetchMe()
-  }, [])
+    window.addEventListener('focus', syncOnFocus)
+    document.addEventListener('visibilitychange', syncOnVisibilityChange)
+
+    return () => {
+      window.removeEventListener('focus', syncOnFocus)
+      document.removeEventListener('visibilitychange', syncOnVisibilityChange)
+    }
+  }, [fetchMe])
 
   const forgotPassword = useCallback<ForgotPassword>(async (args) => {
     try {

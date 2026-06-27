@@ -10,7 +10,7 @@ import { useAuth } from '@/providers/Auth'
 import { useEcommerce } from '@payloadcms/plugin-ecommerce/client/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
@@ -23,11 +23,17 @@ const GUEST_CART_KEY = 'cart-eur'
 export const LoginForm: React.FC = () => {
   const searchParams = useSearchParams()
   const allParams = searchParams.toString() ? `?${searchParams.toString()}` : ''
+  const errorParam = searchParams.get('error')
+  const warningParam = searchParams.get('warning')
+  const successParam = searchParams.get('success')
+  const messageParam = searchParams.get('message')
   const redirect = useRef(searchParams.get('redirect'))
-  const { login } = useAuth()
+  const { login, status, user } = useAuth()
   const { onLogin } = useEcommerce()
   const router = useRouter()
   const [error, setError] = React.useState<null | string>(null)
+  const isAlreadyLoggedIn = status === 'loggedIn' && Boolean(user)
+  const destination = redirect.current || '/shop'
 
   const {
     formState: { errors, isLoading },
@@ -58,8 +64,23 @@ export const LoginForm: React.FC = () => {
     [login, onLogin, router],
   )
 
+  useEffect(() => {
+    if (isAlreadyLoggedIn) {
+      router.replace(destination)
+    }
+  }, [destination, isAlreadyLoggedIn, router])
+
+  if (isAlreadyLoggedIn) {
+    return (
+      <Message
+        message="Вече сте вписани. Пренасочваме ви към магазина."
+      />
+    )
+  }
+
   return (
     <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <Message error={errorParam} message={messageParam} success={successParam} warning={warningParam} />
       <Message error={error} />
       <div className="flex flex-col gap-6">
         <FormItem>

@@ -246,7 +246,7 @@ export const plugins: Plugin[] = [
           {
             name: 'miOrderExportFileName',
             type: 'text',
-            label: 'Microinvest файл',
+            label: 'Microinvest референция',
             admin: {
               position: 'sidebar',
               readOnly: true,

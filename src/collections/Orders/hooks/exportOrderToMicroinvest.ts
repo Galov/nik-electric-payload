@@ -1,11 +1,4 @@
-import { execFile } from 'node:child_process'
-import { mkdtemp, rm, writeFile } from 'node:fs/promises'
-import { tmpdir } from 'node:os'
-import path from 'node:path'
-import { promisify } from 'node:util'
 import type { CollectionAfterChangeHook } from 'payload'
-
-const execFileAsync = promisify(execFile)
 
 type OrderItem = {
   productMIId?: number | null
@@ -19,25 +12,49 @@ type OrderLike = {
   items?: OrderItem[] | null
   miOrderExportStatus?: 'failed' | 'pending' | 'sent' | string | null
   partnerCode?: string | null
+  createdAt?: string | null
 }
 
-const getFTPConfig = () => {
-  const url = process.env.MICROINVEST_ORDERS_FTP_URL?.trim()
-  const user = process.env.MICROINVEST_ORDERS_FTP_USER?.trim()
-  const password = process.env.MICROINVEST_ORDERS_FTP_PASSWORD?.trim()
+type MicroinvestOrderItem = {
+  GoodID: number
+  Note: string
+  Price: number
+  Qtty: number
+}
 
-  if (!url || !user || !password) {
+type MicroinvestOrderPayload = {
+  event: 'order.create'
+  items: MicroinvestOrderItem[]
+  PartnerCode: number | string
+  timestamp: string
+}
+
+const getWebhookConfig = () => {
+  const url = process.env.MICROINVEST_ORDERS_WEBHOOK_URL?.trim()
+  const secret = process.env.MICROINVEST_ORDERS_WEBHOOK_SECRET?.trim()
+
+  if (!url || !secret) {
     return null
   }
 
-  return { password, url, user }
+  return { secret, url }
 }
 
-const sanitizeCell = (value: string) => value.replace(/[|\r\n]+/g, ' ').trim()
+const sanitizeNote = (value: string) => value.replace(/[\r\n]+/g, ' ').trim()
 
 const formatNumber = (value: number) => {
   if (!Number.isFinite(value)) return ''
   return value.toFixed(2)
+}
+
+const toValidISOString = (value?: string | null) => {
+  if (!value?.trim()) {
+    return null
+  }
+
+  const parsed = new Date(value)
+
+  return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString()
 }
 
 const normalizeItems = (value: unknown): OrderItem[] => {
@@ -108,7 +125,7 @@ const resolvePartnerCode = async ({
   return null
 }
 
-const buildCSV = async ({
+const buildPayload = async ({
   order,
   req,
 }: {
@@ -131,9 +148,8 @@ const buildCSV = async ({
     throw new Error('Order has no items.')
   }
 
-  const documentNote = sanitizeCell(`Website order ${orderID}`)
-  const header = 'partnerCode|id|qty|unitPrice|documentNote'
-  const rows = items.map((item, index) => {
+  const note = sanitizeNote(`online order ${orderID}`)
+  const normalizedItems = items.map((item, index) => {
     if (typeof item.productMIId !== 'number' || !Number.isFinite(item.productMIId)) {
       throw new Error(`Item ${index + 1} is missing Microinvest product ID.`)
     }
@@ -150,50 +166,52 @@ const buildCSV = async ({
       throw new Error(`Item ${index + 1} is missing order unit price.`)
     }
 
-    return [
-      sanitizeCell(partnerCode),
-      String(item.productMIId),
-      formatNumber(item.quantity),
-      formatNumber(item.productUnitPrice),
-      documentNote,
-    ].join('|')
+    return {
+      GoodID: item.productMIId,
+      Note: note,
+      Price: Number(formatNumber(item.productUnitPrice)),
+      Qtty: item.quantity,
+    } satisfies MicroinvestOrderItem
   })
 
+  const normalizedPartnerCode = /^\d+$/.test(partnerCode) ? Number(partnerCode) : partnerCode
+  const timestamp = toValidISOString(order.createdAt) || new Date().toISOString()
+
   return {
-    csv: `${header}\n${rows.join('\n')}\n`,
+    payload: {
+      event: 'order.create',
+      items: normalizedItems,
+      PartnerCode: normalizedPartnerCode,
+      timestamp,
+    } satisfies MicroinvestOrderPayload,
     partnerCode,
   }
 }
 
-const uploadCSV = async ({ content, fileName }: { content: string; fileName: string }) => {
-  const config = getFTPConfig()
+const sendOrderWebhook = async ({ payload }: { payload: MicroinvestOrderPayload }) => {
+  const config = getWebhookConfig()
 
   if (!config) {
-    throw new Error('Microinvest FTP config is missing.')
+    throw new Error('Microinvest webhook config is missing.')
   }
 
-  const tempDir = await mkdtemp(path.join(tmpdir(), 'mi-order-export-'))
-  const tempFile = path.join(tempDir, fileName)
-  const baseURL = config.url.endsWith('/') ? config.url : `${config.url}/`
-  const uploadURL = `${baseURL}${encodeURIComponent(fileName)}`
+  const response = await fetch(config.url, {
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Nik-Secret': config.secret,
+    },
+    method: 'POST',
+  })
 
-  try {
-    await writeFile(tempFile, content, 'utf8')
-
-    await execFileAsync('curl', [
-      '--fail',
-      '--silent',
-      '--show-error',
-      '--ftp-create-dirs',
-      '--user',
-      `${config.user}:${config.password}`,
-      '--upload-file',
-      tempFile,
-      uploadURL,
-    ])
-  } finally {
-    await rm(tempDir, { force: true, recursive: true })
+  if (response.ok) {
+    return
   }
+
+  const responseText = await response.text().catch(() => '')
+  throw new Error(
+    `Microinvest webhook failed with status ${response.status}${responseText ? `: ${responseText}` : '.'}`,
+  )
 }
 
 export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
@@ -213,18 +231,15 @@ export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
     return doc
   }
 
-  const fileName = `order-${String(doc.id)}.csv`
+  const exportReference = `order.create:${String(doc.id)}`
 
   try {
-    const { csv, partnerCode } = await buildCSV({
+    const { partnerCode, payload } = await buildPayload({
       order: doc as OrderLike,
       req,
     })
 
-    await uploadCSV({
-      content: csv,
-      fileName,
-    })
+    await sendOrderWebhook({ payload })
 
     await req.payload.update({
       id: doc.id,
@@ -234,7 +249,7 @@ export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
         skipMicroinvestOrderExport: true,
       },
       data: {
-        miOrderExportFileName: fileName,
+        miOrderExportFileName: exportReference,
         miOrderExportLastAttemptAt: new Date().toISOString(),
         miOrderExportLastError: '',
         miOrderExportStatus: 'sent',
@@ -259,7 +274,7 @@ export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
         skipMicroinvestOrderExport: true,
       },
       data: {
-        miOrderExportFileName: fileName,
+        miOrderExportFileName: exportReference,
         miOrderExportLastAttemptAt: new Date().toISOString(),
         miOrderExportLastError: message,
         miOrderExportStatus: 'failed',
