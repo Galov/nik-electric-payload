@@ -148,7 +148,7 @@ const buildPayload = async ({
     throw new Error('Order has no items.')
   }
 
-  const note = sanitizeNote(`online order ${orderID}`)
+  const note = sanitizeNote(`online order ${orderID} | Тестова поръчка от Иво`)
   const normalizedItems = items.map((item, index) => {
     if (typeof item.productMIId !== 'number' || !Number.isFinite(item.productMIId)) {
       throw new Error(`Item ${index + 1} is missing Microinvest product ID.`)
