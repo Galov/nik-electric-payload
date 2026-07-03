@@ -11,13 +11,14 @@ import type {
 
 type ExistingCategory = Pick<Category, 'id' | 'slug' | 'sourceTaxonomyId' | 'sourceTermId'>
 type ExistingBrand = Pick<Brand, 'id' | 'slug' | 'sourceTaxonomyId' | 'sourceTermId'>
-type ExistingProduct = Pick<Product, 'id' | 'slug' | 'sourceId'>
+type ExistingProduct = Pick<Product, 'id' | 'legacyProductUrl' | 'sku' | 'slug' | 'sourceId'>
 
 type ImportResult = {
   brandIdBySourceTaxonomyId: Map<number, string>
   categoryIdBySourceTaxonomyId: Map<number, string>
   failedProducts: ProductImportFailure[]
   succeededProducts: number
+  unpublishedMissingProducts: number
 }
 
 export async function importIntoPayload({
@@ -25,14 +26,19 @@ export async function importIntoPayload({
   brands,
   categories,
   products,
+  upsertTaxonomies = true,
+  unpublishMissingProducts = false,
 }: {
   batchSize: number
   brands: NormalizedBrand[]
   categories: NormalizedCategory[]
   products: NormalizedProduct[]
+  upsertTaxonomies?: boolean
+  unpublishMissingProducts?: boolean
 }): Promise<ImportResult> {
   const payload = await getPayload({ config })
   const failedProducts: ProductImportFailure[] = []
+  const productsWithSku = products.filter((product) => normalizeSku(product.sku))
 
   const existingCategories = await fetchAll<ExistingCategory>({
     collection: 'categories',
@@ -44,7 +50,9 @@ export async function importIntoPayload({
     },
   })
 
-  const categoryIdBySourceTaxonomyId = await upsertCategories(payload, categories, existingCategories)
+  const categoryIdBySourceTaxonomyId = upsertTaxonomies
+    ? await upsertCategories(payload, categories, existingCategories)
+    : mapExistingTaxonomyIds(existingCategories)
 
   const existingBrands = await fetchAll<ExistingBrand>({
     collection: 'brands',
@@ -56,12 +64,16 @@ export async function importIntoPayload({
     },
   })
 
-  const brandIdBySourceTaxonomyId = await upsertBrands(payload, brands, existingBrands)
+  const brandIdBySourceTaxonomyId = upsertTaxonomies
+    ? await upsertBrands(payload, brands, existingBrands)
+    : mapExistingTaxonomyIds(existingBrands)
 
   const existingProducts = await fetchAll<ExistingProduct>({
     collection: 'products',
     payload,
     select: {
+      legacyProductUrl: true,
+      sku: true,
       slug: true,
       sourceId: true,
     },
@@ -73,15 +85,34 @@ export async function importIntoPayload({
     categoryIdBySourceTaxonomyId,
     existingProducts,
     failedProducts,
-    products,
+    products: productsWithSku,
   })
+
+  const unpublishedMissingProducts = unpublishMissingProducts
+    ? await unpublishProductsMissingFromDump(payload, existingProducts, productsWithSku)
+    : 0
 
   return {
     brandIdBySourceTaxonomyId,
     categoryIdBySourceTaxonomyId,
     failedProducts,
-    succeededProducts: products.length - failedProducts.length,
+    succeededProducts: productsWithSku.length - failedProducts.length,
+    unpublishedMissingProducts,
   }
+}
+
+function mapExistingTaxonomyIds<T extends { id: string; sourceTaxonomyId?: null | number }>(
+  existing: T[],
+): Map<number, string> {
+  const idBySourceTaxonomyId = new Map<number, string>()
+
+  for (const item of existing) {
+    if (typeof item.sourceTaxonomyId === 'number') {
+      idBySourceTaxonomyId.set(item.sourceTaxonomyId, item.id)
+    }
+  }
+
+  return idBySourceTaxonomyId
 }
 
 async function upsertCategories(
@@ -225,71 +256,83 @@ async function upsertProducts(
   },
 ): Promise<void> {
   const existingBySourceId = new Map<number, ExistingProduct>()
+  const existingBySku = new Map<string, ExistingProduct>()
 
   for (const product of existingProducts) {
     if (typeof product.sourceId === 'number') existingBySourceId.set(product.sourceId, product)
+
+    const sku = normalizeSku(product.sku)
+    if (sku && !existingBySku.has(sku)) existingBySku.set(sku, product)
   }
 
   for (let index = 0; index < products.length; index += batchSize) {
     const batch = products.slice(index, index + batchSize)
 
     for (const product of batch) {
-      const existingProduct = existingBySourceId.get(product.sourceId)
-
-      const data = {
-        backordersAllowed: product.backordersAllowed,
-        brand: product.brandSourceTaxonomyIds
-          .map((sourceTaxonomyId) => brandIdBySourceTaxonomyId.get(sourceTaxonomyId))
-          .filter((value): value is string => Boolean(value)),
-        categories: product.categorySourceTaxonomyIds
-          .map((sourceTaxonomyId) => categoryIdBySourceTaxonomyId.get(sourceTaxonomyId))
-          .filter((value): value is string => Boolean(value)),
-        description: product.description,
-        images: product.images,
-        imagesMigrated: product.imagesMigrated,
-        inventory: product.stockQty,
-        legacyAttachmentIDs: product.legacyAttachmentIDs,
-        legacyModifiedAt: product.legacyModifiedAt,
-        legacyProductUrl: product.legacyProductUrl,
-        manageStock: product.manageStock,
-        manufacturerCode: product.manufacturerCode,
-        originalSku: product.originalSku,
-        price: product.price,
-        priceGroup1: product.price,
-        priceRetail: product.price,
-        priceWholesale: product.price,
-        priceInUSD: product.price,
-        published: product.published,
-        shortDescription: product.shortDescription,
-        sku: product.sku,
-        slug: product.slug,
-        sourceId: product.sourceId,
-        stockQty: product.stockQty,
-        stockStatus: product.stockStatus,
-        title: product.title,
-      }
+      const existingProduct = existingBySourceId.get(product.sourceId) || existingBySku.get(normalizeSku(product.sku))
+      const commonData = buildWooCommerceContentData({
+        brandIdBySourceTaxonomyId,
+        categoryIdBySourceTaxonomyId,
+        existingProduct,
+        product,
+      })
 
       try {
         if (existingProduct) {
-          await payload.update({
-            id: existingProduct.id,
-            collection: 'products',
-            data,
-            draft: false,
-            overrideAccess: true,
+          await withRetry(() =>
+            payload.update({
+              id: existingProduct.id,
+              collection: 'products',
+              data: commonData,
+              draft: false,
+              overrideAccess: true,
+            }),
+          )
+
+          existingBySourceId.set(product.sourceId, {
+            ...existingProduct,
+            legacyProductUrl: commonData.legacyProductUrl,
+            sku: product.sku,
+            sourceId: product.sourceId,
           })
           continue
         }
 
-        const created = await payload.create({
-          collection: 'products',
-          data,
-          draft: false,
-          overrideAccess: true,
-        })
+        const data = {
+          ...commonData,
+          backordersAllowed: product.backordersAllowed,
+          inventory: product.stockQty,
+          manageStock: product.manageStock,
+          price: product.price,
+          priceGroup1: product.price,
+          priceInUSD: product.price,
+          priceRetail: product.price,
+          priceWholesale: product.price,
+          published: product.published,
+          stockQty: product.stockQty,
+          stockStatus: product.stockStatus,
+        }
+
+        const created = await withRetry(() =>
+          payload.create({
+            collection: 'products',
+            data,
+            draft: false,
+            overrideAccess: true,
+          }),
+        )
 
         existingBySourceId.set(product.sourceId, {
           id: created.id,
+          legacyProductUrl: created.legacyProductUrl,
+          sku: created.sku,
+          slug: created.slug,
+          sourceId: created.sourceId,
+        })
+        if (created.sku) existingBySku.set(normalizeSku(created.sku), {
+          id: created.id,
+          legacyProductUrl: created.legacyProductUrl,
+          sku: created.sku,
           slug: created.slug,
           sourceId: created.sourceId,
         })
@@ -315,6 +358,119 @@ async function upsertProducts(
       }
     }
   }
+}
+
+function buildWooCommerceContentData({
+  brandIdBySourceTaxonomyId,
+  categoryIdBySourceTaxonomyId,
+  existingProduct,
+  product,
+}: {
+  brandIdBySourceTaxonomyId: Map<number, string>
+  categoryIdBySourceTaxonomyId: Map<number, string>
+  existingProduct?: ExistingProduct
+  product: NormalizedProduct
+}) {
+  return {
+    brand: product.brandSourceTaxonomyIds
+      .map((sourceTaxonomyId) => brandIdBySourceTaxonomyId.get(sourceTaxonomyId))
+      .filter((value): value is string => Boolean(value)),
+    categories: product.categorySourceTaxonomyIds
+      .map((sourceTaxonomyId) => categoryIdBySourceTaxonomyId.get(sourceTaxonomyId))
+      .filter((value): value is string => Boolean(value)),
+    description: product.description,
+    images: product.images,
+    imagesMigrated: product.imagesMigrated,
+    legacyAttachmentIDs: product.legacyAttachmentIDs,
+    legacyModifiedAt: product.legacyModifiedAt,
+    legacyProductUrl: chooseLegacyProductUrl(existingProduct?.legacyProductUrl, product),
+    manufacturerCode: product.manufacturerCode,
+    originalSku: product.originalSku,
+    shortDescription: product.shortDescription,
+    sku: product.sku,
+    slug: product.slug,
+    sourceId: product.sourceId,
+    title: product.title,
+  }
+}
+
+async function unpublishProductsMissingFromDump(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  existingProducts: ExistingProduct[],
+  products: NormalizedProduct[],
+): Promise<number> {
+  const dumpSourceIds = new Set(products.map((product) => product.sourceId))
+  const dumpSkus = new Set(products.map((product) => normalizeSku(product.sku)).filter(Boolean))
+  let unpublished = 0
+
+  for (const product of existingProducts) {
+    const hasSourceIdMatch = typeof product.sourceId === 'number' && dumpSourceIds.has(product.sourceId)
+    const hasSkuMatch = Boolean(normalizeSku(product.sku) && dumpSkus.has(normalizeSku(product.sku)))
+
+    if (hasSourceIdMatch || hasSkuMatch) continue
+
+    await withRetry(() =>
+      payload.update({
+        id: product.id,
+        collection: 'products',
+        data: {
+          published: false,
+        },
+        draft: false,
+        overrideAccess: true,
+      }),
+    )
+    unpublished += 1
+  }
+
+  return unpublished
+}
+
+function chooseLegacyProductUrl(existingUrl: null | string | undefined, product: NormalizedProduct): string | undefined {
+  if (existingUrl && !isQueryProductUrl(existingUrl)) return existingUrl
+  if (product.legacyProductUrl && !isQueryProductUrl(product.legacyProductUrl)) return product.legacyProductUrl
+  return buildCanonicalLegacyProductUrl(product)
+}
+
+function isQueryProductUrl(value: string): boolean {
+  return value.includes('post_type=product') || value.includes('?p=')
+}
+
+function buildCanonicalLegacyProductUrl(product: NormalizedProduct): string | undefined {
+  if (!product.slug) return product.legacyProductUrl
+  return `https://nikelectric.com/product/${product.slug}/`
+}
+
+function normalizeSku(value: null | string | undefined): string {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+async function withRetry<T>(operation: () => Promise<T>, attempts = 5): Promise<T> {
+  let lastError: unknown
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return await operation()
+    } catch (error) {
+      lastError = error
+      if (!isRetryableMongoError(error) || attempt === attempts) break
+      await delay(250 * attempt)
+    }
+  }
+
+  throw lastError
+}
+
+function isRetryableMongoError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') return false
+  const code = 'code' in error ? (error as { code?: unknown }).code : undefined
+  const labels = 'errorLabelSet' in error ? (error as { errorLabelSet?: unknown }).errorLabelSet : undefined
+
+  return code === 112 || (labels instanceof Set && labels.has('TransientTransactionError'))
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 function extractErrorMessage(error: unknown): string {

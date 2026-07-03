@@ -39,6 +39,12 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
+      beforeDashboard: [
+        {
+          exportName: 'BeforeDashboard',
+          path: '@/components/BeforeDashboard',
+        },
+      ],
       graphics: {
         Icon: {
           exportName: 'AdminIcon',

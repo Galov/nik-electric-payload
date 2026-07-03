@@ -1,0 +1,363 @@
+{
+  "apply": true,
+  "deleted": 266,
+  "reportGeneratedAt": "2026-07-02T15:53:54.116Z",
+  "sheetPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/reports/nik-items-with-qtty-1-sheet1.json",
+  "summary": {
+    "candidates": 266,
+    "published": 187,
+    "unpublished": 79
+  },
+  "sample": [
+    {
+      "id": "69da619cf3e71d3948ebba44",
+      "miProductId": null,
+      "published": true,
+      "sku": "123456789",
+      "title": "Още тестов продукт"
+    },
+    {
+      "id": "69b448c1c23d34935c3c0de0",
+      "miProductId": null,
+      "published": true,
+      "sku": "140CY09",
+      "title": "CANDY"
+    },
+    {
+      "id": "69b448afc23d34935c3c0c05",
+      "miProductId": null,
+      "published": true,
+      "sku": "139AC01",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b448a5c23d34935c3c0b09",
+      "miProductId": null,
+      "published": true,
+      "sku": "138AC05",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b448a0c23d34935c3c0a8b",
+      "miProductId": null,
+      "published": true,
+      "sku": "163AC00",
+      "title": "BEKO"
+    },
+    {
+      "id": "69b44857c23d34935c3c02d7",
+      "miProductId": null,
+      "published": true,
+      "sku": "600EG10",
+      "title": "LG"
+    },
+    {
+      "id": "69b44851c23d34935c3c022c",
+      "miProductId": null,
+      "published": true,
+      "sku": "117CY49",
+      "title": "CANDY HAIER"
+    },
+    {
+      "id": "69b4484cc23d34935c3c01a5",
+      "miProductId": null,
+      "published": true,
+      "sku": "143AC14",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b4484bc23d34935c3c019c",
+      "miProductId": null,
+      "published": true,
+      "sku": "301AC16",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b4484ac23d34935c3c0181",
+      "miProductId": null,
+      "published": true,
+      "sku": "326CU08",
+      "title": "РЕМЪК ЗА ХЛЕБОПЕКАРНА – 546mm"
+    },
+    {
+      "id": "69b44843c23d34935c3c00b2",
+      "miProductId": null,
+      "published": true,
+      "sku": "131ZN21",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b44840c23d34935c3c0073",
+      "miProductId": null,
+      "published": false,
+      "sku": "103ZN01OR",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b4483cc23d34935c3bfffe",
+      "miProductId": null,
+      "published": true,
+      "sku": "602BH01",
+      "title": "BOSCH GORENJE MIDEA"
+    },
+    {
+      "id": "69b44827c23d34935c3bfdc4",
+      "miProductId": null,
+      "published": true,
+      "sku": "322IG01",
+      "title": "WHIRLPOOL"
+    },
+    {
+      "id": "69b44826c23d34935c3bfdbb",
+      "miProductId": null,
+      "published": true,
+      "sku": "307IG08",
+      "title": "WHIRLPOOL"
+    },
+    {
+      "id": "69b44825c23d34935c3bfd97",
+      "miProductId": null,
+      "published": true,
+      "sku": "139AC19",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b44824c23d34935c3bfd8e",
+      "miProductId": null,
+      "published": true,
+      "sku": "139AC09",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b44821c23d34935c3bfd35",
+      "miProductId": null,
+      "published": true,
+      "sku": "162BH26",
+      "title": "BOSCH SIEMENS BALAY"
+    },
+    {
+      "id": "69b44820c23d34935c3bfd1b",
+      "miProductId": null,
+      "published": true,
+      "sku": "308AC15",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "id": "69b4481fc23d34935c3bfd09",
+      "miProductId": null,
+      "published": true,
+      "sku": "208FR12",
+      "title": "WHIRLPOOL IGNIS PHILIPS"
+    },
+    {
+      "id": "69b4481dc23d34935c3bfcd3",
+      "miProductId": null,
+      "published": true,
+      "sku": "138SU03",
+      "title": "SAMSUNG"
+    },
+    {
+      "id": "69b44813c23d34935c3bfbc6",
+      "miProductId": null,
+      "published": false,
+      "sku": "139ZN45OR",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b44801c23d34935c3bf9d9",
+      "miProductId": null,
+      "published": true,
+      "sku": "148BH03",
+      "title": "BOSCH SIEMENS NEFF"
+    },
+    {
+      "id": "69b447e9c23d34935c3bf75e",
+      "miProductId": null,
+      "published": true,
+      "sku": "140IG10",
+      "title": "WHIRLPOOL  INDESIT ARISTON"
+    },
+    {
+      "id": "69b447dec23d34935c3bf631",
+      "miProductId": null,
+      "published": true,
+      "sku": "140AC82",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "id": "69b447dac23d34935c3bf5c5",
+      "miProductId": null,
+      "published": true,
+      "sku": "300GR01",
+      "title": "GORENJE"
+    },
+    {
+      "id": "69b447c8c23d34935c3bf3ce",
+      "miProductId": null,
+      "published": true,
+      "sku": "143AR03",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "id": "69b447b6c23d34935c3bf1d8",
+      "miProductId": null,
+      "published": false,
+      "sku": "316AC59",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b447a2c23d34935c3befbd",
+      "miProductId": null,
+      "published": true,
+      "sku": "117GR14",
+      "title": "GORENJE"
+    },
+    {
+      "id": "69b447a0c23d34935c3bef89",
+      "miProductId": null,
+      "published": true,
+      "sku": "164AC13",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "id": "69b447a0c23d34935c3bef77",
+      "miProductId": null,
+      "published": true,
+      "sku": "103AC08",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "id": "69b44797c23d34935c3bee86",
+      "miProductId": null,
+      "published": true,
+      "sku": "103ZN06",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b44790c23d34935c3bedb8",
+      "miProductId": null,
+      "published": true,
+      "sku": "162ID31",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "id": "69b44768c23d34935c3be979",
+      "miProductId": null,
+      "published": true,
+      "sku": "162ZN28",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b44740c23d34935c3be53f",
+      "miProductId": null,
+      "published": true,
+      "sku": "140AC75",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b4471fc23d34935c3be1fc",
+      "miProductId": null,
+      "published": true,
+      "sku": "117BY20",
+      "title": "BOSCH SIEMENS"
+    },
+    {
+      "id": "69b44706c23d34935c3bdfd0",
+      "miProductId": null,
+      "published": true,
+      "sku": "131CY04",
+      "title": "CANDY"
+    },
+    {
+      "id": "69b44702c23d34935c3bdf52",
+      "miProductId": null,
+      "published": true,
+      "sku": "312CY06",
+      "title": "CANDY"
+    },
+    {
+      "id": "69b44700c23d34935c3bdf26",
+      "miProductId": null,
+      "published": true,
+      "sku": "811PE340",
+      "title": "DELONGHI"
+    },
+    {
+      "id": "69b44700c23d34935c3bdf1d",
+      "miProductId": null,
+      "published": true,
+      "sku": "811PE339",
+      "title": "DELONGHI"
+    },
+    {
+      "id": "69b446fcc23d34935c3bdeba",
+      "miProductId": null,
+      "published": true,
+      "sku": "103SM02",
+      "title": "SMEG"
+    },
+    {
+      "id": "69b446f1c23d34935c3bdd77",
+      "miProductId": null,
+      "published": true,
+      "sku": "312CU279",
+      "title": "DAEWOO"
+    },
+    {
+      "id": "69b446e8c23d34935c3bdc73",
+      "miProductId": null,
+      "published": true,
+      "sku": "103GR02",
+      "title": "GORENJE"
+    },
+    {
+      "id": "69b446c9c23d34935c3bd906",
+      "miProductId": null,
+      "published": true,
+      "sku": "306CU32",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "id": "69b446b5c23d34935c3bd6c7",
+      "miProductId": null,
+      "published": true,
+      "sku": "139ZN70",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "id": "69b446b3c23d34935c3bd692",
+      "miProductId": null,
+      "published": true,
+      "sku": "151CY02",
+      "title": "CANDY"
+    },
+    {
+      "id": "69b446aac23d34935c3bd57e",
+      "miProductId": null,
+      "published": true,
+      "sku": "107AC02",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b446aac23d34935c3bd575",
+      "miProductId": null,
+      "published": true,
+      "sku": "168AC02",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "id": "69b446a1c23d34935c3bd470",
+      "miProductId": null,
+      "published": true,
+      "sku": "133IG02",
+      "title": "WHIRLPOOL"
+    },
+    {
+      "id": "69b44682c23d34935c3bd102",
+      "miProductId": null,
+      "published": true,
+      "sku": "164AC10",
+      "title": "BEKO SANG BLOMBERG"
+    }
+  ]
+}

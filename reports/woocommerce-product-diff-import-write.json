@@ -1,0 +1,172 @@
+{
+  "apply": true,
+  "dumpPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nikelect_woocdb2019.sql",
+  "generatedAt": "2026-07-03T04:24:50.457Z",
+  "normalizeDescriptions": true,
+  "onlyHtmlDescriptions": false,
+  "summary": {
+    "failedProducts": 0,
+    "matchedBySkuOnly": 1,
+    "newInLegacy": 0,
+    "onlyInDb": 27,
+    "onlyInDbAlreadyUnpublished": 27,
+    "onlyInDbPublished": 0,
+    "skippedMatchedBySourceId": 10261,
+    "succeededProducts": 1,
+    "targetProducts": 1,
+    "unpublished": 0
+  },
+  "samples": {
+    "matchedBySkuOnly": [
+      {
+        "published": true,
+        "sku": "162FR14",
+        "sourceId": 69334,
+        "title": "VESTEL"
+      }
+    ],
+    "newInLegacy": [],
+    "onlyInDb": [
+      {
+        "id": "6a469318068fc300483edd50",
+        "published": false,
+        "sku": "162BH25OR",
+        "sourceId": null,
+        "title": "Циркулационна помпа за съдомиялна BOSCH с нагревател"
+      },
+      {
+        "id": "6a469318068fc300483edd48",
+        "published": false,
+        "sku": "116LG404OR",
+        "sourceId": null,
+        "title": "Ремък за сушилня 1991 6PHE"
+      },
+      {
+        "id": "6a43a7299c3767f83b8001ff",
+        "published": false,
+        "sku": "117GR00L",
+        "sourceId": null,
+        "title": "117GR00L - Ластик"
+      },
+      {
+        "id": "6a3f0a0163ce2a8468e56f1d",
+        "published": false,
+        "sku": "602BH01OR",
+        "sourceId": null,
+        "title": "Кварцов нагревател MWO  500W  115V   L=25.5cm"
+      },
+      {
+        "id": "6a3e28e263ce2a8468e53594",
+        "published": false,
+        "sku": "810PE103",
+        "sourceId": null,
+        "title": "810PE103 - кабел силиконов 2.5 мм2"
+      },
+      {
+        "id": "6a3e28e263ce2a8468e5358c",
+        "published": false,
+        "sku": "810PE102",
+        "sourceId": null,
+        "title": "810PE102 - кабел силиконов 1.5 мм2"
+      },
+      {
+        "id": "6a3daa8263ce2a8468e50d22",
+        "published": false,
+        "sku": "816PE50",
+        "sourceId": null,
+        "title": "816PE50 - ТРМ KS198 - 70 C"
+      },
+      {
+        "id": "6a3daa8263ce2a8468e50d17",
+        "published": false,
+        "sku": "803PE602",
+        "sourceId": null,
+        "title": "803PE602 - филтър за аспиратор с индикатор - А02"
+      },
+      {
+        "id": "6a3d47df63ce2a8468e47937",
+        "published": false,
+        "sku": "117SI22",
+        "sourceId": null,
+        "title": "Маншон за пералня BOSCH"
+      },
+      {
+        "id": "6a3d47de63ce2a8468e4791b",
+        "published": false,
+        "sku": "312BH27",
+        "sourceId": null,
+        "title": "Кръгъл нагревател за фурна BOSCH 2200W"
+      },
+      {
+        "id": "6a39b60c63ce2a8468e0d699",
+        "published": false,
+        "sku": "102LG200",
+        "sourceId": null,
+        "title": "Маркучч за клапани 9x15mm"
+      },
+      {
+        "id": "6a33aaea63ce2a8468daac8d",
+        "published": false,
+        "sku": "111LG230",
+        "sourceId": null,
+        "title": "Уплътнение за фланец на бойлер Сънсистем"
+      },
+      {
+        "id": "6a33106763ce2a8468da918b",
+        "published": false,
+        "sku": "110ED13",
+        "sourceId": null,
+        "title": "ТЕН Елдом 2000W хоризонтален  мед прав"
+      },
+      {
+        "id": "6a33106763ce2a8468da9183",
+        "published": false,
+        "sku": "813PE408",
+        "sourceId": null,
+        "title": "813PE408 - О-ринг 11х2.5"
+      },
+      {
+        "id": "6a33106763ce2a8468da917b",
+        "published": false,
+        "sku": "813PE405",
+        "sourceId": null,
+        "title": "813PE405 - О-ринг 8х2"
+      },
+      {
+        "id": "6a33106763ce2a8468da9173",
+        "published": false,
+        "sku": "813PE401",
+        "sourceId": null,
+        "title": "813PE401 - О-ринг 4х2"
+      },
+      {
+        "id": "6a32955a63ce2a8468d9e2e3",
+        "published": false,
+        "sku": "803SU02",
+        "sourceId": null,
+        "title": "Хепа филтър за прахосмукачка SAMSUNG"
+      },
+      {
+        "id": "6a32955963ce2a8468d9e2db",
+        "published": false,
+        "sku": "322CU62",
+        "sourceId": null,
+        "title": "ТРМ 294 C  L=163mm"
+      },
+      {
+        "id": "6a32955863ce2a8468d9e2d3",
+        "published": false,
+        "sku": "816PE20",
+        "sourceId": null,
+        "title": "Защита за фритюрник 230°C  L=740mm"
+      },
+      {
+        "id": "69ff2f8958138c72b910dc09",
+        "published": false,
+        "sku": "806PE252",
+        "sourceId": null,
+        "title": "Гр.четка 6.5х6.5х17.5"
+      }
+    ]
+  }
+}

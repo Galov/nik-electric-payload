@@ -47,7 +47,7 @@ export const CreateAccountForm: React.FC = () => {
     async (data: FormData) => {
       setError(null)
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
+      const response = await fetch('/api/users', {
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',

@@ -1,0 +1,6530 @@
+{
+  "categories": {
+    "fieldMismatches": [
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa449",
+          "slug": "без-категория",
+          "sourceTaxonomyId": 15,
+          "sourceTermId": 15,
+          "title": "Без категория"
+        },
+        "legacy": {
+          "productCount": 3,
+          "slug": "d0b1d0b5d0b7-d0bad0b0d182d0b5d0b3d0bed180d0b8d18f",
+          "sourceTaxonomyId": 15,
+          "sourceTermId": 15,
+          "title": "Без категория"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa45b",
+          "slug": "перални",
+          "sourceTaxonomyId": 528,
+          "sourceTermId": 528,
+          "title": "Перални"
+        },
+        "legacy": {
+          "productCount": 30,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8",
+          "sourceTaxonomyId": 528,
+          "sourceTermId": 528,
+          "title": "Перални"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa465",
+          "slug": "маншони",
+          "sourceTaxonomyId": 529,
+          "sourceTermId": 529,
+          "title": "Маншони"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 383,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bcd0b0d0bdd188d0bed0bdd0b8",
+          "sourceTaxonomyId": 529,
+          "sourceTermId": 529,
+          "title": "Маншони"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa46a",
+          "slug": "помпи",
+          "sourceTaxonomyId": 550,
+          "sourceTermId": 550,
+          "title": "Помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 122,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 550,
+          "sourceTermId": 550,
+          "title": "Помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa471",
+          "slug": "съдомиялни",
+          "sourceTaxonomyId": 551,
+          "sourceTermId": 551,
+          "title": "Съдомиялни"
+        },
+        "legacy": {
+          "productCount": 18,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8",
+          "sourceTaxonomyId": 551,
+          "sourceTermId": 551,
+          "title": "Съдомиялни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa476",
+          "slug": "помпи-изхвърлящи",
+          "sourceTaxonomyId": 552,
+          "sourceTermId": 552,
+          "title": "Помпи изхвърлящи"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 37,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bfd0bed0bcd0bfd0b8-d0b8d0b7d185d0b2d18ad180d0bbd18fd189d0b8",
+          "sourceTaxonomyId": 552,
+          "sourceTermId": 552,
+          "title": "Помпи изхвърлящи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa47b",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 555,
+          "sourceTermId": 555,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 19,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 555,
+          "sourceTermId": 555,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c32c23d34935c3aa47f",
+          "slug": "горни",
+          "sourceTaxonomyId": 556,
+          "sourceTermId": 556,
+          "title": "Горни"
+        },
+        "legacy": {
+          "parentSourceTermId": 555,
+          "productCount": 169,
+          "slug": "d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8-d0b3d0bed180d0bdd0b8",
+          "sourceTaxonomyId": 556,
+          "sourceTermId": 556,
+          "title": "Горни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa483",
+          "slug": "долни",
+          "sourceTaxonomyId": 558,
+          "sourceTermId": 558,
+          "title": "Долни"
+        },
+        "legacy": {
+          "parentSourceTermId": 555,
+          "productCount": 151,
+          "slug": "d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8-d0b4d0bed0bbd0bdd0b8",
+          "sourceTaxonomyId": 558,
+          "sourceTermId": 558,
+          "title": "Долни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa487",
+          "slug": "бойлери",
+          "sourceTaxonomyId": 560,
+          "sourceTermId": 560,
+          "title": "Бойлери"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8",
+          "sourceTaxonomyId": 560,
+          "sourceTermId": 560,
+          "title": "Бойлери"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa48b",
+          "slug": "фланци",
+          "sourceTaxonomyId": 561,
+          "sourceTermId": 561,
+          "title": "Фланци"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 18,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d184d0bbd0b0d0bdd186d0b8",
+          "sourceTaxonomyId": 561,
+          "sourceTermId": 561,
+          "title": "Фланци"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa48e",
+          "slug": "нагревателни-плочи",
+          "sourceTaxonomyId": 563,
+          "sourceTermId": 563,
+          "title": "Нагревателни плочи"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 2,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0bdd0b8-d0bfd0bbd0bed187d0b8",
+          "sourceTaxonomyId": 563,
+          "sourceTermId": 563,
+          "title": "Нагревателни плочи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa490",
+          "slug": "чугунени",
+          "sourceTaxonomyId": 564,
+          "sourceTermId": 564,
+          "title": "Чугунени"
+        },
+        "legacy": {
+          "parentSourceTermId": 563,
+          "productCount": 28,
+          "slug": "d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0bdd0b8-d0bfd0bbd0bed187d0b8-d187d183d0b3d183d0bdd0b5d0bdd0b8",
+          "sourceTaxonomyId": 564,
+          "sourceTermId": 564,
+          "title": "Чугунени"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa492",
+          "slug": "биметални-ключалки",
+          "sourceTaxonomyId": 567,
+          "sourceTermId": 567,
+          "title": "Биметални ключалки"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 174,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b1d0b8d0bcd0b5d182d0b0d0bbd0bdd0b8-d0bad0bbd18ed187d0b0d0bbd0bad0b8",
+          "sourceTaxonomyId": 567,
+          "sourceTermId": 567,
+          "title": "Биметални ключалки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa494",
+          "slug": "закопчалки",
+          "sourceTaxonomyId": 569,
+          "sourceTermId": 569,
+          "title": "Закопчалки"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 322,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b7d0b0d0bad0bed0bfd187d0b0d0bbd0bad0b8",
+          "sourceTaxonomyId": 569,
+          "sourceTermId": 569,
+          "title": "Закопчалки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa496",
+          "slug": "затварящи-механизми",
+          "sourceTaxonomyId": 572,
+          "sourceTermId": 572,
+          "title": "Затварящи механизми"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 53,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0b7d0b0d182d0b2d0b0d180d18fd189d0b8-d0bcd0b5d185d0b0d0bdd0b8d0b7d0bcd0b8",
+          "sourceTaxonomyId": 572,
+          "sourceTermId": 572,
+          "title": "Затварящи механизми"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa498",
+          "slug": "уплътнители-за-помпи",
+          "sourceTaxonomyId": 573,
+          "sourceTermId": 573,
+          "title": "Уплътнители за помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 16,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8-d0b7d0b0-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 573,
+          "sourceTermId": 573,
+          "title": "Уплътнители за помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa49a",
+          "slug": "семеринги",
+          "sourceTaxonomyId": 574,
+          "sourceTermId": 574,
+          "title": "Семеринги"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 236,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d181d0b5d0bcd0b5d180d0b8d0bdd0b3d0b8",
+          "sourceTaxonomyId": 574,
+          "sourceTermId": 574,
+          "title": "Семеринги"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa49c",
+          "slug": "кондензатори",
+          "sourceTaxonomyId": 576,
+          "sourceTermId": 576,
+          "title": "Кондензатори"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 576,
+          "sourceTermId": 576,
+          "title": "Кондензатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa49e",
+          "slug": "работни-кондензатори",
+          "sourceTaxonomyId": 577,
+          "sourceTermId": 577,
+          "title": "Работни кондензатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 576,
+          "productCount": 76,
+          "slug": "d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8-d180d0b0d0b1d0bed182d0bdd0b8-d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 577,
+          "sourceTermId": 577,
+          "title": "Работни кондензатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa4a0",
+          "slug": "ремъци",
+          "sourceTaxonomyId": 578,
+          "sourceTermId": 578,
+          "title": "Ремъци"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 2,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d180d0b5d0bcd18ad186d0b8",
+          "sourceTaxonomyId": 578,
+          "sourceTermId": 578,
+          "title": "Ремъци"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c33c23d34935c3aa4a2",
+          "slug": "трапецовидни",
+          "sourceTaxonomyId": 579,
+          "sourceTermId": 579,
+          "title": "Трапецовидни"
+        },
+        "legacy": {
+          "parentSourceTermId": 578,
+          "productCount": 23,
+          "slug": "d180d0b5d0bcd18ad186d0b8-d182d180d0b0d0bfd0b5d186d0bed0b2d0b8d0b4d0bdd0b8",
+          "sourceTaxonomyId": 579,
+          "sourceTermId": 579,
+          "title": "Трапецовидни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4a4",
+          "slug": "j-стъпка",
+          "sourceTaxonomyId": 580,
+          "sourceTermId": 580,
+          "title": "J стъпка"
+        },
+        "legacy": {
+          "parentSourceTermId": 578,
+          "productCount": 160,
+          "slug": "d180d0b5d0bcd18ad186d0b8-j-d181d182d18ad0bfd0bad0b0",
+          "sourceTaxonomyId": 580,
+          "sourceTermId": 580,
+          "title": "J стъпка"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4a6",
+          "slug": "h-стъпка",
+          "sourceTaxonomyId": 583,
+          "sourceTermId": 583,
+          "title": "H стъпка"
+        },
+        "legacy": {
+          "parentSourceTermId": 578,
+          "productCount": 53,
+          "slug": "d180d0b5d0bcd18ad186d0b8-h-d181d182d18ad0bfd0bad0b0",
+          "sourceTaxonomyId": 583,
+          "sourceTermId": 583,
+          "title": "H стъпка"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4a8",
+          "slug": "гофрирани-маркучи",
+          "sourceTaxonomyId": 584,
+          "sourceTermId": 584,
+          "title": "Гофрирани маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 3,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b3d0bed184d180d0b8d180d0b0d0bdd0b8-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 584,
+          "sourceTermId": 584,
+          "title": "Гофрирани маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4aa",
+          "slug": "входящи",
+          "sourceTaxonomyId": 585,
+          "sourceTermId": 585,
+          "title": "Входящи"
+        },
+        "legacy": {
+          "parentSourceTermId": 584,
+          "productCount": 95,
+          "slug": "d0b3d0bed184d180d0b8d180d0b0d0bdd0b8-d0bcd0b0d180d0bad183d187d0b8-d0b2d185d0bed0b4d18fd189d0b8",
+          "sourceTaxonomyId": 585,
+          "sourceTermId": 585,
+          "title": "Входящи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4ac",
+          "slug": "изходящи",
+          "sourceTaxonomyId": 586,
+          "sourceTermId": 586,
+          "title": "Изходящи"
+        },
+        "legacy": {
+          "parentSourceTermId": 584,
+          "productCount": 87,
+          "slug": "d0b3d0bed184d180d0b8d180d0b0d0bdd0b8-d0bcd0b0d180d0bad183d187d0b8-d0b8d0b7d185d0bed0b4d18fd189d0b8",
+          "sourceTaxonomyId": 586,
+          "sourceTermId": 586,
+          "title": "Изходящи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4ae",
+          "slug": "термостати",
+          "sourceTaxonomyId": 588,
+          "sourceTermId": 588,
+          "title": "Термостати"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 35,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8",
+          "sourceTaxonomyId": 588,
+          "sourceTermId": 588,
+          "title": "Термостати"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4b0",
+          "slug": "скари",
+          "sourceTaxonomyId": 591,
+          "sourceTermId": 591,
+          "title": "Скари"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d181d0bad0b0d180d0b8",
+          "sourceTaxonomyId": 591,
+          "sourceTermId": 591,
+          "title": "Скари"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4b2",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 592,
+          "sourceTermId": 592,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 591,
+          "productCount": 8,
+          "slug": "d181d0bad0b0d180d0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 592,
+          "sourceTermId": 592,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4b4",
+          "slug": "прахосмукачки",
+          "sourceTaxonomyId": 598,
+          "sourceTermId": 598,
+          "title": "Прахосмукачки"
+        },
+        "legacy": {
+          "productCount": 5,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8",
+          "sourceTaxonomyId": 598,
+          "sourceTermId": 598,
+          "title": "Прахосмукачки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4b6",
+          "slug": "четки-и-накрайници",
+          "sourceTaxonomyId": 599,
+          "sourceTermId": 599,
+          "title": "Четки и накрайници"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 61,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d187d0b5d182d0bad0b8-d0b8-d0bdd0b0d0bad180d0b0d0b9d0bdd0b8d186d0b8",
+          "sourceTaxonomyId": 599,
+          "sourceTermId": 599,
+          "title": "Четки и накрайници"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4b8",
+          "slug": "торбички",
+          "sourceTaxonomyId": 600,
+          "sourceTermId": 600,
+          "title": "Торбички"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 18,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d182d0bed180d0b1d0b8d187d0bad0b8",
+          "sourceTaxonomyId": 600,
+          "sourceTermId": 600,
+          "title": "Торбички"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4ba",
+          "slug": "мотори",
+          "sourceTaxonomyId": 601,
+          "sourceTermId": 601,
+          "title": "Мотори"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 71,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d0bcd0bed182d0bed180d0b8",
+          "sourceTaxonomyId": 601,
+          "sourceTermId": 601,
+          "title": "Мотори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c34c23d34935c3aa4bc",
+          "slug": "тръби",
+          "sourceTaxonomyId": 602,
+          "sourceTermId": 602,
+          "title": "Тръби"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 12,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d182d180d18ad0b1d0b8",
+          "sourceTaxonomyId": 602,
+          "sourceTermId": 602,
+          "title": "Тръби"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4be",
+          "slug": "готварски-печки",
+          "sourceTaxonomyId": 603,
+          "sourceTermId": 603,
+          "title": "Готварски печки"
+        },
+        "legacy": {
+          "productCount": 12,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8",
+          "sourceTaxonomyId": 603,
+          "sourceTermId": 603,
+          "title": "Готварски печки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4c0",
+          "slug": "ключове",
+          "sourceTaxonomyId": 604,
+          "sourceTermId": 604,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 264,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 604,
+          "sourceTermId": 604,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4c2",
+          "slug": "микровълнови-фурни",
+          "sourceTaxonomyId": 606,
+          "sourceTermId": 606,
+          "title": "Микровълнови фурни"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8",
+          "sourceTaxonomyId": 606,
+          "sourceTermId": 606,
+          "title": "Микровълнови фурни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4c4",
+          "slug": "чинии",
+          "sourceTaxonomyId": 607,
+          "sourceTermId": 607,
+          "title": "Чинии"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 16,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d187d0b8d0bdd0b8d0b8",
+          "sourceTaxonomyId": 607,
+          "sourceTermId": 607,
+          "title": "Чинии"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4c6",
+          "slug": "панти-и-пружини",
+          "sourceTaxonomyId": 608,
+          "sourceTermId": 608,
+          "title": "Панти и пружини"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 78,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bfd0b0d0bdd182d0b8-d0b8-d0bfd180d183d0b6d0b8d0bdd0b8",
+          "sourceTaxonomyId": 608,
+          "sourceTermId": 608,
+          "title": "Панти и пружини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4c8",
+          "slug": "лампи-и-плафони",
+          "sourceTaxonomyId": 609,
+          "sourceTermId": 609,
+          "title": "Лампи и плафони"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 38,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bbd0b0d0bcd0bfd0b8-d0b8-d0bfd0bbd0b0d184d0bed0bdd0b8",
+          "sourceTaxonomyId": 609,
+          "sourceTermId": 609,
+          "title": "Лампи и плафони"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4ca",
+          "slug": "отоплителни-уреди",
+          "sourceTaxonomyId": 610,
+          "sourceTermId": 610,
+          "title": "Отоплителни уреди"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d0bed182d0bed0bfd0bbd0b8d182d0b5d0bbd0bdd0b8-d183d180d0b5d0b4d0b8",
+          "sourceTaxonomyId": 610,
+          "sourceTermId": 610,
+          "title": "Отоплителни уреди"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4cc",
+          "slug": "термостати-и-термозащити",
+          "sourceTaxonomyId": 612,
+          "sourceTermId": 612,
+          "title": "Термостати и Термозащити"
+        },
+        "legacy": {
+          "productCount": 7,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0b8-d182d0b5d180d0bcd0bed0b7d0b0d189d0b8d182d0b8",
+          "sourceTaxonomyId": 612,
+          "sourceTermId": 612,
+          "title": "Термостати и Термозащити"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4ce",
+          "slug": "регулируеми-термостати",
+          "sourceTaxonomyId": 613,
+          "sourceTermId": 613,
+          "title": "Регулируеми термостати"
+        },
+        "legacy": {
+          "parentSourceTermId": 612,
+          "productCount": 8,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0b8-d182d0b5d180d0bcd0bed0b7d0b0d189d0b8d182d0b8-d180d0b5d0b3d183d0bbd0b8d180d183d0b5d0bc",
+          "sourceTaxonomyId": 613,
+          "sourceTermId": 613,
+          "title": "Регулируеми термостати"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4d0",
+          "slug": "врътки",
+          "sourceTaxonomyId": 614,
+          "sourceTermId": 614,
+          "title": "Врътки"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 90,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0b2d180d18ad182d0bad0b8",
+          "sourceTaxonomyId": 614,
+          "sourceTermId": 614,
+          "title": "Врътки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4d2",
+          "slug": "лампи",
+          "sourceTaxonomyId": 615,
+          "sourceTermId": 615,
+          "title": "Лампи"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 10,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d0bbd0b0d0bcd0bfd0b8",
+          "sourceTaxonomyId": 615,
+          "sourceTermId": 615,
+          "title": "Лампи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4d4",
+          "slug": "мотори-за-грил",
+          "sourceTaxonomyId": 617,
+          "sourceTermId": 617,
+          "title": "Мотори за грил"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 1,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bcd0bed182d0bed180d0b8-d0b7d0b0-d0b3d180d0b8d0bb",
+          "sourceTaxonomyId": 617,
+          "sourceTermId": 617,
+          "title": "Мотори за грил"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4d6",
+          "slug": "други",
+          "sourceTaxonomyId": 618,
+          "sourceTermId": 618,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 35,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 618,
+          "sourceTermId": 618,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c35c23d34935c3aa4d8",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 619,
+          "sourceTermId": 619,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 610,
+          "productCount": 24,
+          "slug": "d0bed182d0bed0bfd0bbd0b8d182d0b5d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0b4d180d183d0b3d0b8-d0bed182d0bed0bfd0bbd0b8d182d0b5d0bbd0bdd0b8",
+          "sourceTaxonomyId": 619,
+          "sourceTermId": 619,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4da",
+          "slug": "защити",
+          "sourceTaxonomyId": 621,
+          "sourceTermId": 621,
+          "title": "Защити"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 16,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0b7d0b0d189d0b8d182d0b8",
+          "sourceTaxonomyId": 621,
+          "sourceTermId": 621,
+          "title": "Защити"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4dc",
+          "slug": "анодни-защити",
+          "sourceTaxonomyId": 622,
+          "sourceTermId": 622,
+          "title": "Анодни защити"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 9,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0b0d0bdd0bed0b4d0bdd0b8-d0b7d0b0d189d0b8d182d0b8",
+          "sourceTaxonomyId": 622,
+          "sourceTermId": 622,
+          "title": "Анодни защити"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4de",
+          "slug": "други",
+          "sourceTaxonomyId": 623,
+          "sourceTermId": 623,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 23,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 623,
+          "sourceTermId": 623,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4e0",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 624,
+          "sourceTermId": 624,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 76,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 624,
+          "sourceTermId": 624,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4e2",
+          "slug": "филтър-кондензатори",
+          "sourceTaxonomyId": 628,
+          "sourceTermId": 628,
+          "title": "Филтър-кондензатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 30,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d184d0b8d0bbd182d18ad180-d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 628,
+          "sourceTermId": 628,
+          "title": "Филтър-кондензатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4e4",
+          "slug": "универсални",
+          "sourceTaxonomyId": 630,
+          "sourceTermId": 630,
+          "title": "Универсални"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d183d0bdd0b8d0b2d0b5d180d181d0b0d0bbd0bdd0b8",
+          "sourceTaxonomyId": 630,
+          "sourceTermId": 630,
+          "title": "Универсални"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4e6",
+          "slug": "термостати",
+          "sourceTaxonomyId": 635,
+          "sourceTermId": 635,
+          "title": "Термостати"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 20,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8",
+          "sourceTaxonomyId": 635,
+          "sourceTermId": 635,
+          "title": "Термостати"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4e8",
+          "slug": "ranco",
+          "sourceTaxonomyId": 636,
+          "sourceTermId": 636,
+          "title": "RANCO"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 55,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-ranco",
+          "sourceTaxonomyId": 636,
+          "sourceTermId": 636,
+          "title": "RANCO"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4ea",
+          "slug": "хладилници",
+          "sourceTaxonomyId": 637,
+          "sourceTermId": 637,
+          "title": "Хладилници"
+        },
+        "legacy": {
+          "productCount": 4,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8",
+          "sourceTaxonomyId": 637,
+          "sourceTermId": 637,
+          "title": "Хладилници"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4ec",
+          "slug": "релета-и-защити",
+          "sourceTaxonomyId": 638,
+          "sourceTermId": 638,
+          "title": "Релета и защити"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 32,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d180d0b5d0bbd0b5d182d0b0-d0b8-d0b7d0b0d189d0b8d182d0b8",
+          "sourceTaxonomyId": 638,
+          "sourceTermId": 638,
+          "title": "Релета и защити"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4ee",
+          "slug": "моторчета",
+          "sourceTaxonomyId": 639,
+          "sourceTermId": 639,
+          "title": "Моторчета"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 8,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d0bcd0bed182d0bed180d187d0b5d182d0b0",
+          "sourceTaxonomyId": 639,
+          "sourceTermId": 639,
+          "title": "Моторчета"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4f0",
+          "slug": "електро-инструменти",
+          "sourceTaxonomyId": 641,
+          "sourceTermId": 641,
+          "title": "Електро-инструменти"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0be-d0b8d0bdd181d182d180d183d0bcd0b5d0bdd182d0b8",
+          "sourceTaxonomyId": 641,
+          "sourceTermId": 641,
+          "title": "Електро-инструменти"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4f2",
+          "slug": "ключове",
+          "sourceTaxonomyId": 642,
+          "sourceTermId": 642,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 641,
+          "productCount": 16,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0be-d0b8d0bdd181d182d180d183d0bcd0b5d0bdd182d0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 642,
+          "sourceTermId": 642,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c36c23d34935c3aa4f4",
+          "slug": "кафемашини",
+          "sourceTaxonomyId": 644,
+          "sourceTermId": 644,
+          "title": "Кафемашини"
+        },
+        "legacy": {
+          "productCount": 16,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8",
+          "sourceTaxonomyId": 644,
+          "sourceTermId": 644,
+          "title": "Кафемашини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa4f6",
+          "slug": "ръкохватки",
+          "sourceTaxonomyId": 645,
+          "sourceTermId": 645,
+          "title": "Ръкохватки"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 32,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d180d18ad0bad0bed185d0b2d0b0d182d0bad0b8",
+          "sourceTaxonomyId": 645,
+          "sourceTermId": 645,
+          "title": "Ръкохватки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa4f8",
+          "slug": "помпи",
+          "sourceTaxonomyId": 647,
+          "sourceTermId": 647,
+          "title": "Помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 14,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 647,
+          "sourceTermId": 647,
+          "title": "Помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa4fa",
+          "slug": "цедки-и-филтри",
+          "sourceTaxonomyId": 649,
+          "sourceTermId": 649,
+          "title": "Цедки и филтри"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 45,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d186d0b5d0b4d0bad0b8-d0b8-d184d0b8d0bbd182d180d0b8",
+          "sourceTaxonomyId": 649,
+          "sourceTermId": 649,
+          "title": "Цедки и филтри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa4fc",
+          "slug": "водосъдържатели",
+          "sourceTaxonomyId": 653,
+          "sourceTermId": 653,
+          "title": "Водосъдържатели"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 10,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0b2d0bed0b4d0bed181d18ad0b4d18ad180d0b6d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 653,
+          "sourceTermId": 653,
+          "title": "Водосъдържатели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa4fe",
+          "slug": "пресостати",
+          "sourceTaxonomyId": 654,
+          "sourceTermId": 654,
+          "title": "Пресостати"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 7,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0bfd180d0b5d181d0bed181d182d0b0d182d0b8",
+          "sourceTaxonomyId": 654,
+          "sourceTermId": 654,
+          "title": "Пресостати"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa500",
+          "slug": "уплътнители",
+          "sourceTaxonomyId": 655,
+          "sourceTermId": 655,
+          "title": "Уплътнители"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 39,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 655,
+          "sourceTermId": 655,
+          "title": "Уплътнители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa502",
+          "slug": "ключове",
+          "sourceTaxonomyId": 656,
+          "sourceTermId": 656,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 16,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 656,
+          "sourceTermId": 656,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa504",
+          "slug": "графитни-четки",
+          "sourceTaxonomyId": 657,
+          "sourceTermId": 657,
+          "title": "Графитни четки"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 45,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b3d180d0b0d184d0b8d182d0bdd0b8-d187d0b5d182d0bad0b8",
+          "sourceTaxonomyId": 657,
+          "sourceTermId": 657,
+          "title": "Графитни четки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa506",
+          "slug": "ntc",
+          "sourceTaxonomyId": 658,
+          "sourceTermId": 658,
+          "title": "NTC"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 21,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-ntc",
+          "sourceTaxonomyId": 658,
+          "sourceTermId": 658,
+          "title": "NTC"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa508",
+          "slug": "захранващи-маркучи",
+          "sourceTaxonomyId": 659,
+          "sourceTermId": 659,
+          "title": "Захранващи маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 14,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b7d0b0d185d180d0b0d0bdd0b2d0b0d189d0b8-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 659,
+          "sourceTermId": 659,
+          "title": "Захранващи маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa50a",
+          "slug": "амортисьори",
+          "sourceTaxonomyId": 660,
+          "sourceTermId": 660,
+          "title": "Амортисьори"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 90,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b0d0bcd0bed180d182d0b8d181d18cd0bed180d0b8",
+          "sourceTaxonomyId": 660,
+          "sourceTermId": 660,
+          "title": "Амортисьори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa50c",
+          "slug": "ниворегулатори",
+          "sourceTaxonomyId": 661,
+          "sourceTermId": 661,
+          "title": "Ниворегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 6,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bdd0b8d0b2d0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 661,
+          "sourceTermId": 661,
+          "title": "Ниворегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa50e",
+          "slug": "едно-ниво",
+          "sourceTaxonomyId": 662,
+          "sourceTermId": 662,
+          "title": "едно ниво"
+        },
+        "legacy": {
+          "parentSourceTermId": 661,
+          "productCount": 40,
+          "slug": "d0bdd0b8d0b2d0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8-d0b5d0b4d0bdd0be-d0bdd0b8d0b2d0be",
+          "sourceTaxonomyId": 662,
+          "sourceTermId": 662,
+          "title": "едно ниво"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c37c23d34935c3aa510",
+          "slug": "две-нива",
+          "sourceTaxonomyId": 663,
+          "sourceTermId": 663,
+          "title": "две нива"
+        },
+        "legacy": {
+          "parentSourceTermId": 661,
+          "productCount": 10,
+          "slug": "d0bdd0b8d0b2d0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8-d0b4d0b2d0b5-d0bdd0b8d0b2d0b0",
+          "sourceTaxonomyId": 663,
+          "sourceTermId": 663,
+          "title": "две нива"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa512",
+          "slug": "три-нива",
+          "sourceTaxonomyId": 664,
+          "sourceTermId": 664,
+          "title": "три нива"
+        },
+        "legacy": {
+          "parentSourceTermId": 661,
+          "productCount": 1,
+          "slug": "d0bdd0b8d0b2d0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8-d182d180d0b8-d0bdd0b8d0b2d0b0",
+          "sourceTaxonomyId": 664,
+          "sourceTermId": 664,
+          "title": "три нива"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa514",
+          "slug": "елклапани",
+          "sourceTaxonomyId": 665,
+          "sourceTermId": 665,
+          "title": "Ел.Клапани"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 6,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b5d0bb-d0bad0bbd0b0d0bfd0b0d0bdd0b8",
+          "sourceTaxonomyId": 665,
+          "sourceTermId": 665,
+          "title": "Ел.Клапани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa516",
+          "slug": "единичен",
+          "sourceTaxonomyId": 666,
+          "sourceTermId": 666,
+          "title": "Единичен"
+        },
+        "legacy": {
+          "parentSourceTermId": 665,
+          "productCount": 41,
+          "slug": "d0b5d0bb-d0bad0bbd0b0d0bfd0b0d0bdd0b8-d0b5d0b4d0b8d0bdd0b8d187d0b5d0bd",
+          "sourceTaxonomyId": 666,
+          "sourceTermId": 666,
+          "title": "Единичен"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa518",
+          "slug": "лагерни-тела-и-носачи",
+          "sourceTaxonomyId": 668,
+          "sourceTermId": 668,
+          "title": "Лагерни тела и Носачи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 7,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0-d0b8-d0bdd0bed181d0b0d187d0b8",
+          "sourceTaxonomyId": 668,
+          "sourceTermId": 668,
+          "title": "Лагерни тела и Носачи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa51a",
+          "slug": "носачи-за-горно-отваряне",
+          "sourceTaxonomyId": 669,
+          "sourceTermId": 669,
+          "title": "Носачи за горно отваряне"
+        },
+        "legacy": {
+          "parentSourceTermId": 668,
+          "productCount": 12,
+          "slug": "d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0-d0b8-d0bdd0bed181d0b0d187d0b8-d0bdd0bed181d0b0d187d0b8-d0b7d0b0-d0b3d0bed180d0bdd0be-d0be",
+          "sourceTaxonomyId": 669,
+          "sourceTermId": 669,
+          "title": "Носачи за горно отваряне"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa51c",
+          "slug": "кръстачки-за-барабан",
+          "sourceTaxonomyId": 670,
+          "sourceTermId": 670,
+          "title": "Кръстачки за барабан"
+        },
+        "legacy": {
+          "parentSourceTermId": 668,
+          "productCount": 91,
+          "slug": "d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0-d0b8-d0bdd0bed181d0b0d187d0b8-d0bad180d18ad181d182d0b0d187d0bad0b8-d0b7d0b0-d0b1d0b0d180",
+          "sourceTaxonomyId": 670,
+          "sourceTermId": 670,
+          "title": "Кръстачки за барабан"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa51e",
+          "slug": "лагерни-тела",
+          "sourceTaxonomyId": 671,
+          "sourceTermId": 671,
+          "title": "Лагерни тела"
+        },
+        "legacy": {
+          "parentSourceTermId": 668,
+          "productCount": 50,
+          "slug": "d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0-d0b8-d0bdd0bed181d0b0d187d0b8-d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0",
+          "sourceTaxonomyId": 671,
+          "sourceTermId": 671,
+          "title": "Лагерни тела"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa520",
+          "slug": "ключове-и-бутони",
+          "sourceTaxonomyId": 673,
+          "sourceTermId": 673,
+          "title": "Ключове и бутони"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 66,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 673,
+          "sourceTermId": 673,
+          "title": "Ключове и бутони"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa522",
+          "slug": "ключове",
+          "sourceTaxonomyId": 674,
+          "sourceTermId": 674,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 19,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 674,
+          "sourceTermId": 674,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa524",
+          "slug": "ремъчни-шайби",
+          "sourceTaxonomyId": 675,
+          "sourceTermId": 675,
+          "title": "Ремъчни шайби"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 56,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d180d0b5d0bcd18ad187d0bdd0b8-d188d0b0d0b9d0b1d0b8",
+          "sourceTaxonomyId": 675,
+          "sourceTermId": 675,
+          "title": "Ремъчни шайби"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa526",
+          "slug": "панти",
+          "sourceTaxonomyId": 676,
+          "sourceTermId": 676,
+          "title": "Панти"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 58,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bfd0b0d0bdd182d0b8",
+          "sourceTaxonomyId": 676,
+          "sourceTermId": 676,
+          "title": "Панти"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa528",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 678,
+          "sourceTermId": 678,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 96,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 678,
+          "sourceTermId": 678,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c38c23d34935c3aa52a",
+          "slug": "термостати-регулиращи",
+          "sourceTaxonomyId": 679,
+          "sourceTermId": 679,
+          "title": "Термостати регулиращи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 17,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d180d0b5d0b3d183d0bbd0b8d180d0b0d189d0b8",
+          "sourceTaxonomyId": 679,
+          "sourceTermId": 679,
+          "title": "Термостати регулиращи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa52c",
+          "slug": "термостати-фиксирани",
+          "sourceTaxonomyId": 680,
+          "sourceTermId": 680,
+          "title": "Термостати фиксирани"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 14,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d184d0b8d0bad181d0b8d180d0b0d0bdd0b8",
+          "sourceTaxonomyId": 680,
+          "sourceTermId": 680,
+          "title": "Термостати фиксирани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa52e",
+          "slug": "помпи-корпуси",
+          "sourceTaxonomyId": 681,
+          "sourceTermId": 681,
+          "title": "Помпи корпуси"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 14,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bfd0bed0bcd0bfd0b8-d0bad0bed180d0bfd183d181d0b8",
+          "sourceTaxonomyId": 681,
+          "sourceTermId": 681,
+          "title": "Помпи корпуси"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa530",
+          "slug": "помпи-циркулационни",
+          "sourceTaxonomyId": 682,
+          "sourceTermId": 682,
+          "title": "Помпи циркулационни"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 55,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bfd0bed0bcd0bfd0b8-d186d0b8d180d0bad183d0bbd0b0d186d0b8d0bed0bdd0bdd0b8",
+          "sourceTaxonomyId": 682,
+          "sourceTermId": 682,
+          "title": "Помпи циркулационни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa532",
+          "slug": "турбини-за-помпи",
+          "sourceTaxonomyId": 683,
+          "sourceTermId": 683,
+          "title": "Турбини за помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 13,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d182d183d180d0b1d0b8d0bdd0b8-d0b7d0b0-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 683,
+          "sourceTermId": 683,
+          "title": "Турбини за помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa534",
+          "slug": "сушилни",
+          "sourceTaxonomyId": 684,
+          "sourceTermId": 684,
+          "title": "Сушилни"
+        },
+        "legacy": {
+          "productCount": 10,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8",
+          "sourceTaxonomyId": 684,
+          "sourceTermId": 684,
+          "title": "Сушилни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa536",
+          "slug": "ремъци",
+          "sourceTaxonomyId": 685,
+          "sourceTermId": 685,
+          "title": "Ремъци"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 67,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d180d0b5d0bcd18ad186d0b8",
+          "sourceTaxonomyId": 685,
+          "sourceTermId": 685,
+          "title": "Ремъци"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa538",
+          "slug": "програматори",
+          "sourceTaxonomyId": 686,
+          "sourceTermId": 686,
+          "title": "Програматори"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 28,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bfd180d0bed0b3d180d0b0d0bcd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 686,
+          "sourceTermId": 686,
+          "title": "Програматори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa53a",
+          "slug": "модули",
+          "sourceTaxonomyId": 687,
+          "sourceTermId": 687,
+          "title": "Модули"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 48,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bcd0bed0b4d183d0bbd0b8",
+          "sourceTaxonomyId": 687,
+          "sourceTermId": 687,
+          "title": "Модули"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa53c",
+          "slug": "уплътнители",
+          "sourceTaxonomyId": 688,
+          "sourceTermId": 688,
+          "title": "Уплътнители"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 101,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 688,
+          "sourceTermId": 688,
+          "title": "Уплътнители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa53e",
+          "slug": "клемореди",
+          "sourceTaxonomyId": 689,
+          "sourceTermId": 689,
+          "title": "Клемореди"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 18,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bad0bbd0b5d0bcd0bed180d0b5d0b4d0b8",
+          "sourceTaxonomyId": 689,
+          "sourceTermId": 689,
+          "title": "Клемореди"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa540",
+          "slug": "терморегулатори",
+          "sourceTaxonomyId": 690,
+          "sourceTermId": 690,
+          "title": "Терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 18,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d182d0b5d180d0bcd0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 690,
+          "sourceTermId": 690,
+          "title": "Терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa542",
+          "slug": "двигатели",
+          "sourceTaxonomyId": 691,
+          "sourceTermId": 691,
+          "title": "Двигатели"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 32,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b4d0b2d0b8d0b3d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 691,
+          "sourceTermId": 691,
+          "title": "Двигатели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa544",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 692,
+          "sourceTermId": 692,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 50,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 692,
+          "sourceTermId": 692,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c39c23d34935c3aa546",
+          "slug": "програматори",
+          "sourceTaxonomyId": 693,
+          "sourceTermId": 693,
+          "title": "Програматори"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 7,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bfd180d0bed0b3d180d0b0d0bcd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 693,
+          "sourceTermId": 693,
+          "title": "Програматори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa548",
+          "slug": "кутии-за-прах",
+          "sourceTaxonomyId": 694,
+          "sourceTermId": 694,
+          "title": "Кутии за прах"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 28,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bad183d182d0b8d0b8-d0b7d0b0-d0bfd180d0b0d185",
+          "sourceTaxonomyId": 694,
+          "sourceTermId": 694,
+          "title": "Кутии за прах"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa54a",
+          "slug": "керамични",
+          "sourceTaxonomyId": 695,
+          "sourceTermId": 695,
+          "title": "Керамични"
+        },
+        "legacy": {
+          "parentSourceTermId": 563,
+          "productCount": 32,
+          "slug": "d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0bdd0b8-d0bfd0bbd0bed187d0b8-d0bad0b5d180d0b0d0bcd0b8d187d0bdd0b8",
+          "sourceTaxonomyId": 695,
+          "sourceTermId": 695,
+          "title": "Керамични"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa54c",
+          "slug": "danfoss",
+          "sourceTaxonomyId": 699,
+          "sourceTermId": 699,
+          "title": "DANFOSS"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 17,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-danfoss",
+          "sourceTaxonomyId": 699,
+          "sourceTermId": 699,
+          "title": "DANFOSS"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa54e",
+          "slug": "термостати",
+          "sourceTaxonomyId": 700,
+          "sourceTermId": 700,
+          "title": "Термостати"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 10,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8",
+          "sourceTaxonomyId": 700,
+          "sourceTermId": 700,
+          "title": "Термостати"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa550",
+          "slug": "двоен",
+          "sourceTaxonomyId": 701,
+          "sourceTermId": 701,
+          "title": "Двоен"
+        },
+        "legacy": {
+          "parentSourceTermId": 665,
+          "productCount": 37,
+          "slug": "d0b5d0bb-d0bad0bbd0b0d0bfd0b0d0bdd0b8-d0b4d0b2d0bed0b5d0bd",
+          "sourceTaxonomyId": 701,
+          "sourceTermId": 701,
+          "title": "Двоен"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa552",
+          "slug": "троен",
+          "sourceTaxonomyId": 702,
+          "sourceTermId": 702,
+          "title": "Троен"
+        },
+        "legacy": {
+          "parentSourceTermId": 665,
+          "productCount": 20,
+          "slug": "d0b5d0bb-d0bad0bbd0b0d0bfd0b0d0bdd0b8-d182d180d0bed0b5d0bd",
+          "sourceTaxonomyId": 702,
+          "sourceTermId": 702,
+          "title": "Троен"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa554",
+          "slug": "елклапани-и-разпределители",
+          "sourceTaxonomyId": 703,
+          "sourceTermId": 703,
+          "title": "Ел.Клапани и разпределители"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 43,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0b5d0bb-d0bad0bbd0b0d0bfd0b0d0bdd0b8",
+          "sourceTaxonomyId": 703,
+          "sourceTermId": 703,
+          "title": "Ел.Клапани и разпределители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa556",
+          "slug": "аспиратори",
+          "sourceTaxonomyId": 705,
+          "sourceTermId": 705,
+          "title": "Аспиратори"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d0b0d181d0bfd0b8d180d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 705,
+          "sourceTermId": 705,
+          "title": "Аспиратори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa558",
+          "slug": "двигатели",
+          "sourceTaxonomyId": 706,
+          "sourceTermId": 706,
+          "title": "Двигатели"
+        },
+        "legacy": {
+          "parentSourceTermId": 705,
+          "productCount": 8,
+          "slug": "d0b0d181d0bfd0b8d180d0b0d182d0bed180d0b8-d0b4d0b2d0b8d0b3d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 706,
+          "sourceTermId": 706,
+          "title": "Двигатели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa55a",
+          "slug": "ключове",
+          "sourceTaxonomyId": 707,
+          "sourceTermId": 707,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 10,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 707,
+          "sourceTermId": 707,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa55c",
+          "slug": "маркучи",
+          "sourceTaxonomyId": 708,
+          "sourceTermId": 708,
+          "title": "Маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 36,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 708,
+          "sourceTermId": 708,
+          "title": "Маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa55e",
+          "slug": "вентилатори-и-мотори",
+          "sourceTaxonomyId": 709,
+          "sourceTermId": 709,
+          "title": "Вентилатори и мотори"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 23,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0b8-d0b8-d0bcd0bed182d0bed180d0b8",
+          "sourceTaxonomyId": 709,
+          "sourceTermId": 709,
+          "title": "Вентилатори и мотори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa560",
+          "slug": "уреди-на-газ",
+          "sourceTaxonomyId": 710,
+          "sourceTermId": 710,
+          "title": "Уреди на газ"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7",
+          "sourceTaxonomyId": 710,
+          "sourceTermId": 710,
+          "title": "Уреди на газ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ac23d34935c3aa562",
+          "slug": "термодвойка",
+          "sourceTaxonomyId": 711,
+          "sourceTermId": 711,
+          "title": "Термодвойка"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 41,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d182d0b5d180d0bcd0bed0b4d0b2d0bed0b9d0bad0b0",
+          "sourceTaxonomyId": 711,
+          "sourceTermId": 711,
+          "title": "Термодвойка"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa564",
+          "slug": "предпазители",
+          "sourceTaxonomyId": 712,
+          "sourceTermId": 712,
+          "title": "Предпазители"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 23,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d0bfd180d0b5d0b4d0bfd0b0d0b7d0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 712,
+          "sourceTermId": 712,
+          "title": "Предпазители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa566",
+          "slug": "трансформатори-и-запалки",
+          "sourceTaxonomyId": 713,
+          "sourceTermId": 713,
+          "title": "Трансформатори и запалки"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 13,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d182d180d0b0d0bdd181d184d0bed180d0bcd0b0d182d0bed180d0b8-d0b8-d0b7d0b0d0bfd0b0d0bbd0bad0b8",
+          "sourceTaxonomyId": 713,
+          "sourceTermId": 713,
+          "title": "Трансформатори и запалки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa568",
+          "slug": "вентилатори-и-перки",
+          "sourceTaxonomyId": 714,
+          "sourceTermId": 714,
+          "title": "Вентилатори и перки"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 3,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0b8-d0b8-d0bfd0b5d180d0bad0b8",
+          "sourceTaxonomyId": 714,
+          "sourceTermId": 714,
+          "title": "Вентилатори и перки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa56a",
+          "slug": "вентилатори",
+          "sourceTaxonomyId": 715,
+          "sourceTermId": 715,
+          "title": "Вентилатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 714,
+          "productCount": 49,
+          "slug": "d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0b8-d0b8-d0bfd0b5d180d0bad0b8-d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 715,
+          "sourceTermId": 715,
+          "title": "Вентилатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa56c",
+          "slug": "перки",
+          "sourceTaxonomyId": 716,
+          "sourceTermId": 716,
+          "title": "Перки"
+        },
+        "legacy": {
+          "parentSourceTermId": 714,
+          "productCount": 14,
+          "slug": "d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0b8-d0b8-d0bfd0b5d180d0bad0b8-d0bfd0b5d180d0bad0b8",
+          "sourceTaxonomyId": 716,
+          "sourceTermId": 716,
+          "title": "Перки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa56e",
+          "slug": "накрайници",
+          "sourceTaxonomyId": 717,
+          "sourceTermId": 717,
+          "title": "Накрайници"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 8,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0bdd0b0d0bad180d0b0d0b9d0bdd0b8d186d0b8",
+          "sourceTaxonomyId": 717,
+          "sourceTermId": 717,
+          "title": "Накрайници"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa570",
+          "slug": "маркучи",
+          "sourceTaxonomyId": 718,
+          "sourceTermId": 718,
+          "title": "Маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 2,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 718,
+          "sourceTermId": 718,
+          "title": "Маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa572",
+          "slug": "таймери-nofrost",
+          "sourceTaxonomyId": 719,
+          "sourceTermId": 719,
+          "title": "Таймери NoFrost"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 11,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d182d0b0d0b9d0bcd0b5d180d0b8-nofrost",
+          "sourceTaxonomyId": 719,
+          "sourceTermId": 719,
+          "title": "Таймери NoFrost"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa574",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 720,
+          "sourceTermId": 720,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 49,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 720,
+          "sourceTermId": 720,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa576",
+          "slug": "други",
+          "sourceTaxonomyId": 721,
+          "sourceTermId": 721,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 705,
+          "productCount": 11,
+          "slug": "d0b0d181d0bfd0b8d180d0b0d182d0bed180d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 721,
+          "sourceTermId": 721,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa578",
+          "slug": "ключове",
+          "sourceTaxonomyId": 722,
+          "sourceTermId": 722,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 705,
+          "productCount": 11,
+          "slug": "d0b0d181d0bfd0b8d180d0b0d182d0bed180d0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 722,
+          "sourceTermId": 722,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa57a",
+          "slug": "дръжки",
+          "sourceTaxonomyId": 723,
+          "sourceTermId": 723,
+          "title": "Дръжки"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 68,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0b4d180d18ad0b6d0bad0b8",
+          "sourceTaxonomyId": 723,
+          "sourceTermId": 723,
+          "title": "Дръжки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa57c",
+          "slug": "кани",
+          "sourceTaxonomyId": 724,
+          "sourceTermId": 724,
+          "title": "Кани"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 4,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0bad0b0d0bdd0b8",
+          "sourceTaxonomyId": 724,
+          "sourceTermId": 724,
+          "title": "Кани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3bc23d34935c3aa57e",
+          "slug": "филтри-за-помпи",
+          "sourceTaxonomyId": 725,
+          "sourceTermId": 725,
+          "title": "Филтри за помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 77,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d184d0b8d0bbd182d180d0b8-d0b7d0b0-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 725,
+          "sourceTermId": 725,
+          "title": "Филтри за помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa580",
+          "slug": "карбонови-филтри",
+          "sourceTaxonomyId": 726,
+          "sourceTermId": 726,
+          "title": "Карбонови Филтри"
+        },
+        "legacy": {
+          "parentSourceTermId": 705,
+          "productCount": 14,
+          "slug": "d0b0d181d0bfd0b8d180d0b0d182d0bed180d0b8-d0bad0b0d180d0b1d0bed0bdd0bed0b2d0b8-d184d0b8d0bbd182d180d0b8",
+          "sourceTaxonomyId": 726,
+          "sourceTermId": 726,
+          "title": "Карбонови Филтри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa582",
+          "slug": "уплътнители",
+          "sourceTaxonomyId": 728,
+          "sourceTermId": 728,
+          "title": "Уплътнители"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 25,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 728,
+          "sourceTermId": 728,
+          "title": "Уплътнители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa584",
+          "slug": "други",
+          "sourceTaxonomyId": 729,
+          "sourceTermId": 729,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 62,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 729,
+          "sourceTermId": 729,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa586",
+          "slug": "бутони",
+          "sourceTaxonomyId": 730,
+          "sourceTermId": 730,
+          "title": "Бутони"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 20,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0b1d183d182d0bed0bdd0b8",
+          "sourceTaxonomyId": 730,
+          "sourceTermId": 730,
+          "title": "Бутони"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa588",
+          "slug": "други",
+          "sourceTaxonomyId": 731,
+          "sourceTermId": 731,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 32,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 731,
+          "sourceTermId": 731,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa58a",
+          "slug": "лампи",
+          "sourceTaxonomyId": 732,
+          "sourceTermId": 732,
+          "title": "Лампи"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 14,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0bbd0b0d0bcd0bfd0b8",
+          "sourceTaxonomyId": 732,
+          "sourceTermId": 732,
+          "title": "Лампи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa58c",
+          "slug": "професионални-уреди",
+          "sourceTaxonomyId": 733,
+          "sourceTermId": 733,
+          "title": "Професионални уреди"
+        },
+        "legacy": {
+          "productCount": 5,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8",
+          "sourceTaxonomyId": 733,
+          "sourceTermId": 733,
+          "title": "Професионални уреди"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa58e",
+          "slug": "терморегулатори",
+          "sourceTaxonomyId": 734,
+          "sourceTermId": 734,
+          "title": "Терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 25,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d182d0b5d180d0bcd0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 734,
+          "sourceTermId": 734,
+          "title": "Терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa590",
+          "slug": "люкове-и-части",
+          "sourceTaxonomyId": 735,
+          "sourceTermId": 735,
+          "title": "Люкове и части"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 0,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bbd18ed0bad0bed0b2d0b5-d0b8-d187d0b0d181d182d0b8",
+          "sourceTaxonomyId": 735,
+          "sourceTermId": 735,
+          "title": "Люкове и части"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa592",
+          "slug": "люкове",
+          "sourceTaxonomyId": 736,
+          "sourceTermId": 736,
+          "title": "Люкове"
+        },
+        "legacy": {
+          "parentSourceTermId": 735,
+          "productCount": 12,
+          "slug": "d0bbd18ed0bad0bed0b2d0b5-d0b8-d187d0b0d181d182d0b8-d0bbd18ed0bad0bed0b2d0b5",
+          "sourceTaxonomyId": 736,
+          "sourceTermId": 736,
+          "title": "Люкове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa594",
+          "slug": "гривни",
+          "sourceTaxonomyId": 737,
+          "sourceTermId": 737,
+          "title": "Гривни"
+        },
+        "legacy": {
+          "parentSourceTermId": 735,
+          "productCount": 47,
+          "slug": "d0bbd18ed0bad0bed0b2d0b5-d0b8-d187d0b0d181d182d0b8-d0b3d180d0b8d0b2d0bdd0b8",
+          "sourceTaxonomyId": 737,
+          "sourceTermId": 737,
+          "title": "Гривни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa596",
+          "slug": "врътки-за-програматори-и-термост",
+          "sourceTaxonomyId": 738,
+          "sourceTermId": 738,
+          "title": "Врътки за програматори и термост"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 34,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b2d180d18ad182d0bad0b8-d0b7d0b0-d0bfd180d0bed0b3d180d0b0d0bcd0b0d182d0bed180d0b8-d0b8-d182d0b5d180d0bc",
+          "sourceTaxonomyId": 738,
+          "sourceTermId": 738,
+          "title": "Врътки за програматори и термост"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa598",
+          "slug": "фритюрници",
+          "sourceTaxonomyId": 739,
+          "sourceTermId": 739,
+          "title": "Фритюрници"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d184d180d0b8d182d18ed180d0bdd0b8d186d0b8",
+          "sourceTaxonomyId": 739,
+          "sourceTermId": 739,
+          "title": "Фритюрници"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3cc23d34935c3aa59a",
+          "slug": "терморегулатори",
+          "sourceTaxonomyId": 740,
+          "sourceTermId": 740,
+          "title": "Терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 739,
+          "productCount": 20,
+          "slug": "d184d180d0b8d182d18ed180d0bdd0b8d186d0b8-d182d0b5d180d0bcd0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 740,
+          "sourceTermId": 740,
+          "title": "Терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa59c",
+          "slug": "термопредпазители",
+          "sourceTaxonomyId": 741,
+          "sourceTermId": 741,
+          "title": "Термопредпазители"
+        },
+        "legacy": {
+          "parentSourceTermId": 612,
+          "productCount": 19,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0b8-d182d0b5d180d0bcd0bed0b7d0b0d189d0b8d182d0b8-d182d0b5d180d0bcd0bed0bfd180d0b5d0b4d0bf",
+          "sourceTaxonomyId": 741,
+          "sourceTermId": 741,
+          "title": "Термопредпазители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa59e",
+          "slug": "предпазители",
+          "sourceTaxonomyId": 742,
+          "sourceTermId": 742,
+          "title": "Предпазители"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d0bfd180d0b5d0b4d0bfd0b0d0b7d0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 742,
+          "sourceTermId": 742,
+          "title": "Предпазители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5a0",
+          "slug": "63-х-32",
+          "sourceTaxonomyId": 743,
+          "sourceTermId": 743,
+          "title": "6,3 х 32"
+        },
+        "legacy": {
+          "parentSourceTermId": 742,
+          "productCount": 0,
+          "slug": "d0bfd180d0b5d0b4d0bfd0b0d0b7d0b8d182d0b5d0bbd0b8-63-d185-32",
+          "sourceTaxonomyId": 743,
+          "sourceTermId": 743,
+          "title": "6,3 х 32"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5a2",
+          "slug": "аксесоари",
+          "sourceTaxonomyId": 748,
+          "sourceTermId": 748,
+          "title": "Аксесоари"
+        },
+        "legacy": {
+          "productCount": 20,
+          "slug": "d183d0bdd0b8d0b2d0b5d180d181d0b0d0bbd0bdd0b8-d0b0d0bad181d0b5d181d0bed0b0d180d0b8",
+          "sourceTaxonomyId": 748,
+          "sourceTermId": 748,
+          "title": "Аксесоари"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5a4",
+          "slug": "прегради-за-барабан",
+          "sourceTaxonomyId": 749,
+          "sourceTermId": 749,
+          "title": "Прегради за барабан"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 73,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bfd180d0b5d0b3d180d0b0d0b4d0b8-d0b7d0b0-d0b1d0b0d180d0b0d0b1d0b0d0bd",
+          "sourceTaxonomyId": 749,
+          "sourceTermId": 749,
+          "title": "Прегради за барабан"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5a6",
+          "slug": "модули",
+          "sourceTaxonomyId": 750,
+          "sourceTermId": 750,
+          "title": "Модули"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 29,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bcd0bed0b4d183d0bbd0b8",
+          "sourceTaxonomyId": 750,
+          "sourceTermId": 750,
+          "title": "Модули"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5a8",
+          "slug": "термозащити",
+          "sourceTaxonomyId": 751,
+          "sourceTermId": 751,
+          "title": "Термозащити"
+        },
+        "legacy": {
+          "parentSourceTermId": 612,
+          "productCount": 12,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0b8-d182d0b5d180d0bcd0bed0b7d0b0d189d0b8d182d0b8-d182d0b5d180d0bcd0bed0b7d0b0d189d0b8d182",
+          "sourceTaxonomyId": 751,
+          "sourceTermId": 751,
+          "title": "Термозащити"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5aa",
+          "slug": "крепежни-елементи",
+          "sourceTaxonomyId": 755,
+          "sourceTermId": 755,
+          "title": "Крепежни елементи"
+        },
+        "legacy": {
+          "parentSourceTermId": 668,
+          "productCount": 9,
+          "slug": "d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0-d0b8-d0bdd0bed181d0b0d187d0b8-d0bad180d0b5d0bfd0b5d0b6d0bdd0b8-d0b5d0bbd0b5d0bcd0b5d0bd",
+          "sourceTaxonomyId": 755,
+          "sourceTermId": 755,
+          "title": "Крепежни елементи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5ac",
+          "slug": "стъкла",
+          "sourceTaxonomyId": 756,
+          "sourceTermId": 756,
+          "title": "Стъкла"
+        },
+        "legacy": {
+          "parentSourceTermId": 735,
+          "productCount": 2,
+          "slug": "d0bbd18ed0bad0bed0b2d0b5-d0b8-d187d0b0d181d182d0b8-d181d182d18ad0bad0bbd0b0",
+          "sourceTaxonomyId": 756,
+          "sourceTermId": 756,
+          "title": "Стъкла"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5ae",
+          "slug": "изхвърлящи-маркучи",
+          "sourceTaxonomyId": 757,
+          "sourceTermId": 757,
+          "title": "Изхвърлящи маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 29,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b8d0b7d185d0b2d18ad180d0bbd18fd189d0b8-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 757,
+          "sourceTermId": 757,
+          "title": "Изхвърлящи маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5b0",
+          "slug": "терморегулатори",
+          "sourceTaxonomyId": 758,
+          "sourceTermId": 758,
+          "title": "Терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 8,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8",
+          "sourceTaxonomyId": 758,
+          "sourceTermId": 758,
+          "title": "Терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5b2",
+          "slug": "термостати-кликсон",
+          "sourceTaxonomyId": 760,
+          "sourceTermId": 760,
+          "title": "Термостати Кликсон"
+        },
+        "legacy": {
+          "productCount": 85,
+          "slug": "d184d0b8d0bad181d0b8d180d0b0d0bdd0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0bcd0b8d0bdd0b8",
+          "sourceTaxonomyId": 760,
+          "sourceTermId": 760,
+          "title": "Термостати Кликсон"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5b4",
+          "slug": "сигнални-лампи",
+          "sourceTaxonomyId": 763,
+          "sourceTermId": 763,
+          "title": "Сигнални лампи"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 34,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d181d0b8d0b3d0bdd0b0d0bbd0bdd0b8-d0bbd0b0d0bcd0bfd0b8",
+          "sourceTaxonomyId": 763,
+          "sourceTermId": 763,
+          "title": "Сигнални лампи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5b6",
+          "slug": "кафеварки",
+          "sourceTaxonomyId": 764,
+          "sourceTermId": 764,
+          "title": "Кафеварки"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d0bad0b0d184d0b5d0b2d0b0d180d0bad0b8",
+          "sourceTaxonomyId": 764,
+          "sourceTermId": 764,
+          "title": "Кафеварки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3dc23d34935c3aa5b8",
+          "slug": "цедки",
+          "sourceTaxonomyId": 765,
+          "sourceTermId": 765,
+          "title": "Цедки"
+        },
+        "legacy": {
+          "parentSourceTermId": 764,
+          "productCount": 5,
+          "slug": "d0bad0b0d184d0b5d0b2d0b0d180d0bad0b8-d186d0b5d0b4d0bad0b8",
+          "sourceTaxonomyId": 765,
+          "sourceTermId": 765,
+          "title": "Цедки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5ba",
+          "slug": "филтри",
+          "sourceTaxonomyId": 766,
+          "sourceTermId": 766,
+          "title": "Филтри"
+        },
+        "legacy": {
+          "parentSourceTermId": 764,
+          "productCount": 4,
+          "slug": "d0bad0b0d184d0b5d0b2d0b0d180d0bad0b8-d184d0b8d0bbd182d180d0b8",
+          "sourceTaxonomyId": 766,
+          "sourceTermId": 766,
+          "title": "Филтри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5bc",
+          "slug": "кръгли",
+          "sourceTaxonomyId": 768,
+          "sourceTermId": 768,
+          "title": "Кръгли"
+        },
+        "legacy": {
+          "parentSourceTermId": 555,
+          "productCount": 75,
+          "slug": "d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8-d0bad180d18ad0b3d0bbd0b8",
+          "sourceTaxonomyId": 768,
+          "sourceTermId": 768,
+          "title": "Кръгли"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5be",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 770,
+          "sourceTermId": 770,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 739,
+          "productCount": 7,
+          "slug": "d184d180d0b8d182d18ed180d0bdd0b8d186d0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 770,
+          "sourceTermId": 770,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5c0",
+          "slug": "уплътнители",
+          "sourceTaxonomyId": 772,
+          "sourceTermId": 772,
+          "title": "Уплътнители"
+        },
+        "legacy": {
+          "parentSourceTermId": 764,
+          "productCount": 10,
+          "slug": "d0bad0b0d184d0b5d0b2d0b0d180d0bad0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 772,
+          "sourceTermId": 772,
+          "title": "Уплътнители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5c2",
+          "slug": "ролери-и-водачи",
+          "sourceTaxonomyId": 773,
+          "sourceTermId": 773,
+          "title": "Ролери и водачи"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 25,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d180d0bed0bbd0b5d180d0b8-d0b8-d0b2d0bed0b4d0b0d187d0b8",
+          "sourceTaxonomyId": 773,
+          "sourceTermId": 773,
+          "title": "Ролери и водачи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5c4",
+          "slug": "магнетрони",
+          "sourceTaxonomyId": 774,
+          "sourceTermId": 774,
+          "title": "Магнетрони"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 8,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d0bcd0b0d0b3d0bdd0b5d182d180d0bed0bdd0b8",
+          "sourceTaxonomyId": 774,
+          "sourceTermId": 774,
+          "title": "Магнетрони"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5c6",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 775,
+          "sourceTermId": 775,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 22,
+          "slug": "d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 775,
+          "sourceTermId": 775,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5c8",
+          "slug": "дръжки",
+          "sourceTaxonomyId": 776,
+          "sourceTermId": 776,
+          "title": "Дръжки"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 19,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0b4d180d18ad0b6d0bad0b8",
+          "sourceTaxonomyId": 776,
+          "sourceTermId": 776,
+          "title": "Дръжки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5ca",
+          "slug": "стъкла-за-фурни",
+          "sourceTaxonomyId": 777,
+          "sourceTermId": 777,
+          "title": "Стъкла за фурни"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 17,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d181d182d18ad0bad0bbd0b0-d0b7d0b0-d184d183d180d0bdd0b8",
+          "sourceTaxonomyId": 777,
+          "sourceTermId": 777,
+          "title": "Стъкла за фурни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5cc",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 778,
+          "sourceTermId": 778,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 23,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 778,
+          "sourceTermId": 778,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5ce",
+          "slug": "ключове",
+          "sourceTaxonomyId": 779,
+          "sourceTermId": 779,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 20,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 779,
+          "sourceTermId": 779,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5d0",
+          "slug": "датчици-и-релета-nofrost",
+          "sourceTaxonomyId": 782,
+          "sourceTermId": 782,
+          "title": "Датчици и релета NoFrost"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 62,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0b4d0b0d182d187d0b8d186d0b8-d0b8-d180d0b5d0bbd0b5d182d0b0-nofrost",
+          "sourceTaxonomyId": 782,
+          "sourceTermId": 782,
+          "title": "Датчици и релета NoFrost"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5d2",
+          "slug": "вентилатори-nofrost",
+          "sourceTaxonomyId": 783,
+          "sourceTermId": 783,
+          "title": "Вентилатори NoFrost"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 66,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0b8-nofrost",
+          "sourceTaxonomyId": 783,
+          "sourceTermId": 783,
+          "title": "Вентилатори NoFrost"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3ec23d34935c3aa5d4",
+          "slug": "други",
+          "sourceTaxonomyId": 784,
+          "sourceTermId": 784,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 44,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 784,
+          "sourceTermId": 784,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5d6",
+          "slug": "части-за-ледогенератори",
+          "sourceTaxonomyId": 785,
+          "sourceTermId": 785,
+          "title": "Части за ледогенератори"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 9,
+          "slug": "d187d0b0d181d182d0b8-d0b7d0b0-d0bbd0b5d0b4d0bed0b3d0b5d0bdd0b5d180d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 785,
+          "sourceTermId": 785,
+          "title": "Части за ледогенератори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5d8",
+          "slug": "лагерни-тела",
+          "sourceTaxonomyId": 787,
+          "sourceTermId": 787,
+          "title": "Лагерни тела"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 12,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d0bbd0b0d0b3d0b5d180d0bdd0b8-d182d0b5d0bbd0b0",
+          "sourceTaxonomyId": 787,
+          "sourceTermId": 787,
+          "title": "Лагерни тела"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5da",
+          "slug": "дюзи",
+          "sourceTaxonomyId": 788,
+          "sourceTermId": 788,
+          "title": "Дюзи"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 36,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0b4d18ed0b7d0b8",
+          "sourceTaxonomyId": 788,
+          "sourceTermId": 788,
+          "title": "Дюзи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5dc",
+          "slug": "горелки",
+          "sourceTaxonomyId": 789,
+          "sourceTermId": 789,
+          "title": "Горелки"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 36,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0b3d0bed180d0b5d0bbd0bad0b8",
+          "sourceTaxonomyId": 789,
+          "sourceTermId": 789,
+          "title": "Горелки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5de",
+          "slug": "термостати-и-ntc",
+          "sourceTaxonomyId": 790,
+          "sourceTermId": 790,
+          "title": "Термостати и NTC"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 31,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0b8-ntc",
+          "sourceTaxonomyId": 790,
+          "sourceTermId": 790,
+          "title": "Термостати и NTC"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5e0",
+          "slug": "уплътнители-за-врата",
+          "sourceTaxonomyId": 792,
+          "sourceTermId": 792,
+          "title": "Уплътнители за врата"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 49,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8-d0b7d0b0-d0b2d180d0b0d182d0b0",
+          "sourceTaxonomyId": 792,
+          "sourceTermId": 792,
+          "title": "Уплътнители за врата"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5e2",
+          "slug": "колелца",
+          "sourceTaxonomyId": 793,
+          "sourceTermId": 793,
+          "title": "Колелца"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 41,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bad0bed0bbd0b5d0bbd186d0b0",
+          "sourceTaxonomyId": 793,
+          "sourceTermId": 793,
+          "title": "Колелца"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5e4",
+          "slug": "затв-механизми",
+          "sourceTaxonomyId": 794,
+          "sourceTermId": 794,
+          "title": "Затв. механизми"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 39,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d0b7d0b0d182d0b2-d0bcd0b5d185d0b0d0bdd0b8d0b7d0bcd0b8",
+          "sourceTaxonomyId": 794,
+          "sourceTermId": 794,
+          "title": "Затв. механизми"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5e6",
+          "slug": "хепа-филтри",
+          "sourceTaxonomyId": 796,
+          "sourceTermId": 796,
+          "title": "Хепа филтри"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 250,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d185d0b5d0bfd0b0-d184d0b8d0bbd182d180d0b8",
+          "sourceTaxonomyId": 796,
+          "sourceTermId": 796,
+          "title": "Хепа филтри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5e8",
+          "slug": "помпи",
+          "sourceTaxonomyId": 797,
+          "sourceTermId": 797,
+          "title": "Помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 27,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 797,
+          "sourceTermId": 797,
+          "title": "Помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5ea",
+          "slug": "ръкохватки",
+          "sourceTaxonomyId": 800,
+          "sourceTermId": 800,
+          "title": "Ръкохватки"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 6,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d180d18ad0bad0bed185d0b2d0b0d182d0bad0b8",
+          "sourceTaxonomyId": 800,
+          "sourceTermId": 800,
+          "title": "Ръкохватки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5ec",
+          "slug": "тръби",
+          "sourceTaxonomyId": 801,
+          "sourceTermId": 801,
+          "title": "Тръби"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 15,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d182d180d18ad0b1d0b8",
+          "sourceTaxonomyId": 801,
+          "sourceTermId": 801,
+          "title": "Тръби"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5ee",
+          "slug": "други",
+          "sourceTaxonomyId": 803,
+          "sourceTermId": 803,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 9,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 803,
+          "sourceTermId": 803,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c3fc23d34935c3aa5f0",
+          "slug": "клапани",
+          "sourceTaxonomyId": 807,
+          "sourceTermId": 807,
+          "title": "Клапани"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 40,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0bad0bbd0b0d0bfd0b0d0bdd0b8",
+          "sourceTaxonomyId": 807,
+          "sourceTermId": 807,
+          "title": "Клапани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5f2",
+          "slug": "уплътнители",
+          "sourceTaxonomyId": 808,
+          "sourceTermId": 808,
+          "title": "Уплътнители"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 81,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 808,
+          "sourceTermId": 808,
+          "title": "Уплътнители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5f4",
+          "slug": "дръжки",
+          "sourceTaxonomyId": 809,
+          "sourceTermId": 809,
+          "title": "Дръжки"
+        },
+        "legacy": {
+          "parentSourceTermId": 764,
+          "productCount": 6,
+          "slug": "d0bad0b0d184d0b5d0b2d0b0d180d0bad0b8-d0b4d180d18ad0b6d0bad0b8",
+          "sourceTaxonomyId": 809,
+          "sourceTermId": 809,
+          "title": "Дръжки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5f6",
+          "slug": "ключове-и-бутони",
+          "sourceTaxonomyId": 810,
+          "sourceTermId": 810,
+          "title": "Ключове и Бутони"
+        },
+        "legacy": {
+          "productCount": 65,
+          "slug": "d0bad0bbd18ed187d0bed0b2d0b5-d0b8-d0b1d183d182d0bed0bdd0b8",
+          "sourceTaxonomyId": 810,
+          "sourceTermId": 810,
+          "title": "Ключове и Бутони"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5f8",
+          "slug": "atea",
+          "sourceTaxonomyId": 812,
+          "sourceTermId": 812,
+          "title": "ATEA"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 17,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-atea",
+          "sourceTaxonomyId": 812,
+          "sourceTermId": 812,
+          "title": "ATEA"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5fa",
+          "slug": "други",
+          "sourceTaxonomyId": 813,
+          "sourceTermId": 813,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 739,
+          "productCount": 2,
+          "slug": "d184d180d0b8d182d18ed180d0bdd0b8d186d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 813,
+          "sourceTermId": 813,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5fc",
+          "slug": "други",
+          "sourceTaxonomyId": 814,
+          "sourceTermId": 814,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 65,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 814,
+          "sourceTermId": 814,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa5fe",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 815,
+          "sourceTermId": 815,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 42,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 815,
+          "sourceTermId": 815,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa600",
+          "slug": "филтри-за-вода",
+          "sourceTaxonomyId": 816,
+          "sourceTermId": 816,
+          "title": "Филтри за вода"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 43,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d184d0b8d0bbd182d180d0b8-d0b7d0b0-d0b2d0bed0b4d0b0",
+          "sourceTaxonomyId": 816,
+          "sourceTermId": 816,
+          "title": "Филтри за вода"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa602",
+          "slug": "таймери-и-модули",
+          "sourceTaxonomyId": 817,
+          "sourceTermId": 817,
+          "title": "Таймери и модули"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 29,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d182d0b0d0b9d0bcd0b5d180d0b8-d0b8-d0bcd0bed0b4d183d0bbd0b8",
+          "sourceTaxonomyId": 817,
+          "sourceTermId": 817,
+          "title": "Таймери и модули"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa604",
+          "slug": "други",
+          "sourceTaxonomyId": 818,
+          "sourceTermId": 818,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 610,
+          "productCount": 7,
+          "slug": "d0bed182d0bed0bfd0bbd0b8d182d0b5d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0b2d0b5d0bdd182d0b8d0bbd0b0d182d0bed180d0bdd0b8-d0bfd0b5d187d0ba",
+          "sourceTaxonomyId": 818,
+          "sourceTermId": 818,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa606",
+          "slug": "ниворегулатори",
+          "sourceTaxonomyId": 819,
+          "sourceTermId": 819,
+          "title": "Ниворегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 17,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bdd0b8d0b2d0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 819,
+          "sourceTermId": 819,
+          "title": "Ниворегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa608",
+          "slug": "турбини",
+          "sourceTaxonomyId": 820,
+          "sourceTermId": 820,
+          "title": "Турбини"
+        },
+        "legacy": {
+          "parentSourceTermId": 630,
+          "productCount": 7,
+          "slug": "d183d0bdd0b8d0b2d0b5d180d181d0b0d0bbd0bdd0b8-d182d183d180d0b1d0b8d0bdd0b8",
+          "sourceTaxonomyId": 820,
+          "sourceTermId": 820,
+          "title": "Турбини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa60a",
+          "slug": "пускови-кондензатори",
+          "sourceTaxonomyId": 821,
+          "sourceTermId": 821,
+          "title": "Пускови кондензатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 576,
+          "productCount": 13,
+          "slug": "d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8-d0bfd183d181d0bad0bed0b2d0b8-d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 821,
+          "sourceTermId": 821,
+          "title": "Пускови кондензатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa60c",
+          "slug": "пръскалки",
+          "sourceTaxonomyId": 825,
+          "sourceTermId": 825,
+          "title": "Пръскалки"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 87,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bfd180d18ad181d0bad0b0d0bbd0bad0b8",
+          "sourceTaxonomyId": 825,
+          "sourceTermId": 825,
+          "title": "Пръскалки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c40c23d34935c3aa60e",
+          "slug": "уплътнители-терморегулатори",
+          "sourceTaxonomyId": 826,
+          "sourceTermId": 826,
+          "title": "Уплътнители терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 10,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8-d182d0b5d180d0bcd0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 826,
+          "sourceTermId": 826,
+          "title": "Уплътнители терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa610",
+          "slug": "prodigy",
+          "sourceTaxonomyId": 828,
+          "sourceTermId": 828,
+          "title": "PRODIGY"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 4,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-prodigy",
+          "sourceTaxonomyId": 828,
+          "sourceTermId": 828,
+          "title": "PRODIGY"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa612",
+          "slug": "пружини",
+          "sourceTaxonomyId": 830,
+          "sourceTermId": 830,
+          "title": "Пружини"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 34,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bfd180d183d0b6d0b8d0bdd0b8",
+          "sourceTaxonomyId": 830,
+          "sourceTermId": 830,
+          "title": "Пружини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa614",
+          "slug": "пружини",
+          "sourceTaxonomyId": 831,
+          "sourceTermId": 831,
+          "title": "Пружини"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 29,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bfd180d183d0b6d0b8d0bdd0b8",
+          "sourceTaxonomyId": 831,
+          "sourceTermId": 831,
+          "title": "Пружини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa616",
+          "slug": "турбини",
+          "sourceTaxonomyId": 834,
+          "sourceTermId": 834,
+          "title": "Турбини"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 29,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d182d183d180d0b1d0b8d0bdd0b8",
+          "sourceTaxonomyId": 834,
+          "sourceTermId": 834,
+          "title": "Турбини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa618",
+          "slug": "кошници",
+          "sourceTaxonomyId": 839,
+          "sourceTermId": 839,
+          "title": "Кошници"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 21,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bad0bed188d0bdd0b8d186d0b8",
+          "sourceTaxonomyId": 839,
+          "sourceTermId": 839,
+          "title": "Кошници"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa61a",
+          "slug": "захранващи-маркучи",
+          "sourceTaxonomyId": 840,
+          "sourceTermId": 840,
+          "title": "Захранващи маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 12,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0b7d0b0d185d180d0b0d0bdd0b2d0b0d189d0b8-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 840,
+          "sourceTermId": 840,
+          "title": "Захранващи маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa61c",
+          "slug": "захранващи-маркучи-с-аквастоп",
+          "sourceTaxonomyId": 841,
+          "sourceTermId": 841,
+          "title": "Захранващи маркучи с аквастоп"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 8,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b7d0b0d185d180d0b0d0bdd0b2d0b0d189d0b8-d0bcd0b0d180d0bad183d187d0b8-d181-d0b0d0bad0b2d0b0d181d182d0be",
+          "sourceTaxonomyId": 841,
+          "sourceTermId": 841,
+          "title": "Захранващи маркучи с аквастоп"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa61e",
+          "slug": "ntc-и-сензори",
+          "sourceTaxonomyId": 844,
+          "sourceTermId": 844,
+          "title": "NTC и СЕНЗОРИ"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 16,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-ntc",
+          "sourceTaxonomyId": 844,
+          "sourceTermId": 844,
+          "title": "NTC и СЕНЗОРИ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa620",
+          "slug": "крачета",
+          "sourceTaxonomyId": 846,
+          "sourceTermId": 846,
+          "title": "Крачета"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 12,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0bad180d0b0d187d0b5d182d0b0",
+          "sourceTaxonomyId": 846,
+          "sourceTermId": 846,
+          "title": "Крачета"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa622",
+          "slug": "преходници",
+          "sourceTaxonomyId": 847,
+          "sourceTermId": 847,
+          "title": "Преходници"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 41,
+          "slug": "d0bad0b0d184d0b5d0bcd0b0d188d0b8d0bdd0b8-d0bfd180d0b5d185d0bed0b4d0bdd0b8d186d0b8",
+          "sourceTaxonomyId": 847,
+          "sourceTermId": 847,
+          "title": "Преходници"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa624",
+          "slug": "ключове",
+          "sourceTaxonomyId": 848,
+          "sourceTermId": 848,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 4,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 848,
+          "sourceTermId": 848,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa626",
+          "slug": "уплътнители-за-казан",
+          "sourceTaxonomyId": 849,
+          "sourceTermId": 849,
+          "title": "Уплътнители за казан"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 1,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8-d0b7d0b0-d0bad0b0d0b7d0b0d0bd",
+          "sourceTaxonomyId": 849,
+          "sourceTermId": 849,
+          "title": "Уплътнители за казан"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa628",
+          "slug": "алуминиеви-филтри",
+          "sourceTaxonomyId": 852,
+          "sourceTermId": 852,
+          "title": "Алуминиеви филтри"
+        },
+        "legacy": {
+          "parentSourceTermId": 705,
+          "productCount": 123,
+          "slug": "d0b0d181d0bfd0b8d180d0b0d182d0bed180d0b8-d0b0d0bbd183d0bcd0b8d0bdd0b8d0b5d0b2d0b8-d184d0b8d0bbd182d180d0b8",
+          "sourceTaxonomyId": 852,
+          "sourceTermId": 852,
+          "title": "Алуминиеви филтри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c41c23d34935c3aa62a",
+          "slug": "tam",
+          "sourceTaxonomyId": 853,
+          "sourceTermId": 853,
+          "title": "TAM"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 0,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-tam",
+          "sourceTaxonomyId": 853,
+          "sourceTermId": 853,
+          "title": "TAM"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa62c",
+          "slug": "редуцил-вентили",
+          "sourceTaxonomyId": 854,
+          "sourceTermId": 854,
+          "title": "Редуцил вентили"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 5,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d180d0b5d0b4d183d186d0b8d0bb-d0b2d0b5d0bdd182d0b8d0bbd0b8",
+          "sourceTaxonomyId": 854,
+          "sourceTermId": 854,
+          "title": "Редуцил вентили"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa62e",
+          "slug": "барабани",
+          "sourceTaxonomyId": 855,
+          "sourceTermId": 855,
+          "title": "Барабани"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 5,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d0b1d0b0d180d0b0d0b1d0b0d0bdd0b8",
+          "sourceTaxonomyId": 855,
+          "sourceTermId": 855,
+          "title": "Барабани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa630",
+          "slug": "маркучи",
+          "sourceTaxonomyId": 856,
+          "sourceTermId": 856,
+          "title": "Маркучи"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 43,
+          "slug": "d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8-d0bcd0b0d180d0bad183d187d0b8",
+          "sourceTaxonomyId": 856,
+          "sourceTermId": 856,
+          "title": "Маркучи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa632",
+          "slug": "хлебопекарни",
+          "sourceTaxonomyId": 857,
+          "sourceTermId": 857,
+          "title": "Хлебопекарни"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d185d0bbd0b5d0b1d0bed0bfd0b5d0bad0b0d180d0bdd0b8",
+          "sourceTaxonomyId": 857,
+          "sourceTermId": 857,
+          "title": "Хлебопекарни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa634",
+          "slug": "бъркалки",
+          "sourceTaxonomyId": 858,
+          "sourceTermId": 858,
+          "title": "Бъркалки"
+        },
+        "legacy": {
+          "parentSourceTermId": 857,
+          "productCount": 11,
+          "slug": "d185d0bbd0b5d0b1d0bed0bfd0b5d0bad0b0d180d0bdd0b8-d0b1d18ad180d0bad0b0d0bbd0bad0b8",
+          "sourceTaxonomyId": 858,
+          "sourceTermId": 858,
+          "title": "Бъркалки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa636",
+          "slug": "врътки",
+          "sourceTaxonomyId": 862,
+          "sourceTermId": 862,
+          "title": "Врътки"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 17,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0b2d180d18ad182d0bad0b8",
+          "sourceTaxonomyId": 862,
+          "sourceTermId": 862,
+          "title": "Врътки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa638",
+          "slug": "ролки",
+          "sourceTaxonomyId": 863,
+          "sourceTermId": 863,
+          "title": "Ролки"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 43,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d180d0bed0bbd0bad0b8",
+          "sourceTaxonomyId": 863,
+          "sourceTermId": 863,
+          "title": "Ролки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa63a",
+          "slug": "електроди",
+          "sourceTaxonomyId": 864,
+          "sourceTermId": 864,
+          "title": "Електроди"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 16,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0b5d0bbd0b5d0bad182d180d0bed0b4d0b8",
+          "sourceTaxonomyId": 864,
+          "sourceTermId": 864,
+          "title": "Електроди"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa63c",
+          "slug": "термометри",
+          "sourceTaxonomyId": 867,
+          "sourceTermId": 867,
+          "title": "Термометри"
+        },
+        "legacy": {
+          "parentSourceTermId": 630,
+          "productCount": 1,
+          "slug": "d183d0bdd0b8d0b2d0b5d180d181d0b0d0bbd0bdd0b8-d182d0b5d180d0bcd0bed0bcd0b5d182d180d0b8",
+          "sourceTaxonomyId": 867,
+          "sourceTermId": 867,
+          "title": "Термометри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa63e",
+          "slug": "капаци",
+          "sourceTaxonomyId": 868,
+          "sourceTermId": 868,
+          "title": "Капаци"
+        },
+        "legacy": {
+          "parentSourceTermId": 560,
+          "productCount": 5,
+          "slug": "d0b1d0bed0b9d0bbd0b5d180d0b8-d0bad0b0d0bfd0b0d186d0b8",
+          "sourceTaxonomyId": 868,
+          "sourceTermId": 868,
+          "title": "Капаци"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa640",
+          "slug": "малки-домакински-уреди",
+          "sourceTaxonomyId": 869,
+          "sourceTermId": 869,
+          "title": "Малки домакински уреди"
+        },
+        "legacy": {
+          "productCount": 2,
+          "slug": "d0bcd0b0d0bbd0bad0b8-d0b4d0bed0bcd0b0d0bad0b8d0bdd181d0bad0b8-d183d180d0b5d0b4d0b8",
+          "sourceTaxonomyId": 869,
+          "sourceTermId": 869,
+          "title": "Малки домакински уреди"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa642",
+          "slug": "стийм-мопове",
+          "sourceTaxonomyId": 870,
+          "sourceTermId": 870,
+          "title": "Стийм мопове"
+        },
+        "legacy": {
+          "parentSourceTermId": 869,
+          "productCount": 0,
+          "slug": "d0bcd0b0d0bbd0bad0b8-d0b4d0bed0bcd0b0d0bad0b8d0bdd181d0bad0b8-d183d180d0b5d0b4d0b8-d181d182d0b8d0b9d0bc-d0bcd0bed0bfd0bed0b2d0b5",
+          "sourceTaxonomyId": 870,
+          "sourceTermId": 870,
+          "title": "Стийм мопове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa644",
+          "slug": "v-ринг",
+          "sourceTaxonomyId": 871,
+          "sourceTermId": 871,
+          "title": "V РИНГ"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 18,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-v-d180d0b8d0bdd0b3",
+          "sourceTaxonomyId": 871,
+          "sourceTermId": 871,
+          "title": "V РИНГ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c42c23d34935c3aa646",
+          "slug": "терморегулатори",
+          "sourceTaxonomyId": 872,
+          "sourceTermId": 872,
+          "title": "Терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 591,
+          "productCount": 1,
+          "slug": "d181d0bad0b0d180d0b8-d182d0b5d180d0bcd0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 872,
+          "sourceTermId": 872,
+          "title": "Терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa648",
+          "slug": "ниворегулатори",
+          "sourceTaxonomyId": 873,
+          "sourceTermId": 873,
+          "title": "Ниворегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 4,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0bdd0b8d0b2d0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 873,
+          "sourceTermId": 873,
+          "title": "Ниворегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa64a",
+          "slug": "помпи",
+          "sourceTaxonomyId": 874,
+          "sourceTermId": 874,
+          "title": "Помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 5,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 874,
+          "sourceTermId": 874,
+          "title": "Помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa64c",
+          "slug": "мембрани",
+          "sourceTaxonomyId": 877,
+          "sourceTermId": 877,
+          "title": "Мембрани"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 17,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0bcd0b5d0bcd0b1d180d0b0d0bdd0b8",
+          "sourceTaxonomyId": 877,
+          "sourceTermId": 877,
+          "title": "Мембрани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa64e",
+          "slug": "други",
+          "sourceTaxonomyId": 878,
+          "sourceTermId": 878,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 641,
+          "productCount": 12,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0be-d0b8d0bdd181d182d180d183d0bcd0b5d0bdd182d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 878,
+          "sourceTermId": 878,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa650",
+          "slug": "патрони-за-газ",
+          "sourceTaxonomyId": 880,
+          "sourceTermId": 880,
+          "title": "Патрони за газ"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 5,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0bfd0b0d182d180d0bed0bdd0b8-d0b7d0b0-d0b3d0b0d0b7",
+          "sourceTaxonomyId": 880,
+          "sourceTermId": 880,
+          "title": "Патрони за газ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa652",
+          "slug": "10-x-38",
+          "sourceTaxonomyId": 881,
+          "sourceTermId": 881,
+          "title": "10 x 38"
+        },
+        "legacy": {
+          "parentSourceTermId": 742,
+          "productCount": 0,
+          "slug": "d0bfd180d0b5d0b4d0bfd0b0d0b7d0b8d182d0b5d0bbd0b8-10-x-38",
+          "sourceTaxonomyId": 881,
+          "sourceTermId": 881,
+          "title": "10 x 38"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa654",
+          "slug": "кранове-за-газ",
+          "sourceTaxonomyId": 883,
+          "sourceTermId": 883,
+          "title": "Кранове за газ"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 8,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0bad180d0b0d0bdd0bed0b2d0b5-d0b7d0b0-d0b3d0b0d0b7",
+          "sourceTaxonomyId": 883,
+          "sourceTermId": 883,
+          "title": "Кранове за газ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa656",
+          "slug": "електроматериали",
+          "sourceTaxonomyId": 884,
+          "sourceTermId": 884,
+          "title": "Електроматериали"
+        },
+        "legacy": {
+          "productCount": 16,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0bed0bcd0b0d182d0b5d180d0b8d0b0d0bbd0b8",
+          "sourceTaxonomyId": 884,
+          "sourceTermId": 884,
+          "title": "Електроматериали"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa658",
+          "slug": "селектори",
+          "sourceTaxonomyId": 885,
+          "sourceTermId": 885,
+          "title": "Селектори"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 11,
+          "slug": "d0bfd0b5d180d0b0d0bbd0bdd0b8-d181d0b5d0bbd0b5d0bad182d0bed180d0b8",
+          "sourceTaxonomyId": 885,
+          "sourceTermId": 885,
+          "title": "Селектори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa65a",
+          "slug": "графитни-четки",
+          "sourceTaxonomyId": 890,
+          "sourceTermId": 890,
+          "title": "Графитни четки"
+        },
+        "legacy": {
+          "parentSourceTermId": 641,
+          "productCount": 72,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0be-d0b8d0bdd181d182d180d183d0bcd0b5d0bdd182d0b8-d0b3d180d0b0d184d0b8d182d0bdd0b8-d187d0b5d182d0bad0b8",
+          "sourceTaxonomyId": 890,
+          "sourceTermId": 890,
+          "title": "Графитни четки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa65c",
+          "slug": "модули",
+          "sourceTaxonomyId": 891,
+          "sourceTermId": 891,
+          "title": "Модули"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 9,
+          "slug": "d185d0bbd0b0d0b4d0b8d0bbd0bdd0b8d186d0b8-d0bcd0bed0b4d183d0bbd0b8",
+          "sourceTaxonomyId": 891,
+          "sourceTermId": 891,
+          "title": "Модули"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa65e",
+          "slug": "пилоти",
+          "sourceTaxonomyId": 892,
+          "sourceTermId": 892,
+          "title": "Пилоти"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 4,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0bfd0b8d0bbd0bed182d0b8",
+          "sourceTaxonomyId": 892,
+          "sourceTermId": 892,
+          "title": "Пилоти"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c43c23d34935c3aa660",
+          "slug": "вани",
+          "sourceTaxonomyId": 894,
+          "sourceTermId": 894,
+          "title": "Вани"
+        },
+        "legacy": {
+          "parentSourceTermId": 857,
+          "productCount": 0,
+          "slug": "d185d0bbd0b5d0b1d0bed0bfd0b5d0bad0b0d180d0bdd0b8-d0b2d0b0d0bdd0b8",
+          "sourceTaxonomyId": 894,
+          "sourceTermId": 894,
+          "title": "Вани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa662",
+          "slug": "ремъци",
+          "sourceTaxonomyId": 895,
+          "sourceTermId": 895,
+          "title": "Ремъци"
+        },
+        "legacy": {
+          "parentSourceTermId": 857,
+          "productCount": 10,
+          "slug": "d185d0bbd0b5d0b1d0bed0bfd0b5d0bad0b0d180d0bdd0b8-d180d0b5d0bcd18ad186d0b8",
+          "sourceTaxonomyId": 895,
+          "sourceTermId": 895,
+          "title": "Ремъци"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa664",
+          "slug": "таймери",
+          "sourceTaxonomyId": 896,
+          "sourceTermId": 896,
+          "title": "Таймери"
+        },
+        "legacy": {
+          "parentSourceTermId": 630,
+          "productCount": 5,
+          "slug": "d183d0bdd0b8d0b2d0b5d180d181d0b0d0bbd0bdd0b8-d182d0b0d0b9d0bcd0b5d180d0b8",
+          "sourceTaxonomyId": 896,
+          "sourceTermId": 896,
+          "title": "Таймери"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa666",
+          "slug": "5-x-20",
+          "sourceTaxonomyId": 898,
+          "sourceTermId": 898,
+          "title": "5 x 20"
+        },
+        "legacy": {
+          "parentSourceTermId": 742,
+          "productCount": 19,
+          "slug": "d0bfd180d0b5d0b4d0bfd0b0d0b7d0b8d182d0b5d0bbd0b8-5-x-20",
+          "sourceTaxonomyId": 898,
+          "sourceTermId": 898,
+          "title": "5 x 20"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa668",
+          "slug": "сешоари-професионални",
+          "sourceTaxonomyId": 900,
+          "sourceTermId": 900,
+          "title": "Сешоари професионални"
+        },
+        "legacy": {
+          "productCount": 2,
+          "slug": "d181d0b5d188d0bed0b0d180d0b8-d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8",
+          "sourceTaxonomyId": 900,
+          "sourceTermId": 900,
+          "title": "Сешоари професионални"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa66a",
+          "slug": "мотори",
+          "sourceTaxonomyId": 901,
+          "sourceTermId": 901,
+          "title": "Мотори"
+        },
+        "legacy": {
+          "parentSourceTermId": 900,
+          "productCount": 3,
+          "slug": "d181d0b5d188d0bed0b0d180d0b8-d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d0bcd0bed182d0bed180d0b8",
+          "sourceTaxonomyId": 901,
+          "sourceTermId": 901,
+          "title": "Мотори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa66c",
+          "slug": "скари",
+          "sourceTaxonomyId": 902,
+          "sourceTermId": 902,
+          "title": "Скари"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 22,
+          "slug": "d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d181d0bad0b0d180d0b8",
+          "sourceTaxonomyId": 902,
+          "sourceTermId": 902,
+          "title": "Скари"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa66e",
+          "slug": "ключове",
+          "sourceTaxonomyId": 903,
+          "sourceTermId": 903,
+          "title": "Ключове"
+        },
+        "legacy": {
+          "parentSourceTermId": 900,
+          "productCount": 0,
+          "slug": "d181d0b5d188d0bed0b0d180d0b8-d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 903,
+          "sourceTermId": 903,
+          "title": "Ключове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa670",
+          "slug": "други",
+          "sourceTaxonomyId": 904,
+          "sourceTermId": 904,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 764,
+          "productCount": 3,
+          "slug": "d0bad0b0d184d0b5d0b2d0b0d180d0bad0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 904,
+          "sourceTermId": 904,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa672",
+          "slug": "нагреватели",
+          "sourceTaxonomyId": 905,
+          "sourceTermId": 905,
+          "title": "Нагреватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 900,
+          "productCount": 5,
+          "slug": "d181d0b5d188d0bed0b0d180d0b8-d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d0bdd0b0d0b3d180d0b5d0b2d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 905,
+          "sourceTermId": 905,
+          "title": "Нагреватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa674",
+          "slug": "турбини",
+          "sourceTaxonomyId": 906,
+          "sourceTermId": 906,
+          "title": "Турбини"
+        },
+        "legacy": {
+          "parentSourceTermId": 900,
+          "productCount": 5,
+          "slug": "d181d0b5d188d0bed0b0d180d0b8-d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d182d183d180d0b1d0b8d0bdd0b8",
+          "sourceTaxonomyId": 906,
+          "sourceTermId": 906,
+          "title": "Турбини"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa676",
+          "slug": "графитни-четки",
+          "sourceTaxonomyId": 907,
+          "sourceTermId": 907,
+          "title": "Графитни четки"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 13,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d0b3d180d0b0d184d0b8d182d0bdd0b8-d187d0b5d182d0bad0b8",
+          "sourceTaxonomyId": 907,
+          "sourceTermId": 907,
+          "title": "Графитни четки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa678",
+          "slug": "четкодържатели",
+          "sourceTaxonomyId": 908,
+          "sourceTermId": 908,
+          "title": "Четкодържатели"
+        },
+        "legacy": {
+          "parentSourceTermId": 641,
+          "productCount": 5,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0be-d0b8d0bdd181d182d180d183d0bcd0b5d0bdd182d0b8-d187d0b5d182d0bad0bed0b4d18ad180d0b6d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 908,
+          "sourceTermId": 908,
+          "title": "Четкодържатели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa67a",
+          "slug": "други",
+          "sourceTaxonomyId": 910,
+          "sourceTermId": 910,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 857,
+          "productCount": 0,
+          "slug": "d185d0bbd0b5d0b1d0bed0bfd0b5d0bad0b0d180d0bdd0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 910,
+          "sourceTermId": 910,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c44c23d34935c3aa67c",
+          "slug": "месомелачки",
+          "sourceTaxonomyId": 911,
+          "sourceTermId": 911,
+          "title": "Месомелачки"
+        },
+        "legacy": {
+          "productCount": 0,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8",
+          "sourceTaxonomyId": 911,
+          "sourceTermId": 911,
+          "title": "Месомелачки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa67e",
+          "slug": "ножове",
+          "sourceTaxonomyId": 912,
+          "sourceTermId": 912,
+          "title": "Ножове"
+        },
+        "legacy": {
+          "parentSourceTermId": 911,
+          "productCount": 16,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8-d0bdd0bed0b6d0bed0b2d0b5",
+          "sourceTaxonomyId": 912,
+          "sourceTermId": 912,
+          "title": "Ножове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa680",
+          "slug": "решетки",
+          "sourceTaxonomyId": 913,
+          "sourceTermId": 913,
+          "title": "Решетки"
+        },
+        "legacy": {
+          "parentSourceTermId": 911,
+          "productCount": 6,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8-d180d0b5d188d0b5d182d0bad0b8",
+          "sourceTaxonomyId": 913,
+          "sourceTermId": 913,
+          "title": "Решетки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa682",
+          "slug": "плъзгачи-и-превключватели",
+          "sourceTaxonomyId": 914,
+          "sourceTermId": 914,
+          "title": "Плъзгачи и превключватели"
+        },
+        "legacy": {
+          "parentSourceTermId": 641,
+          "productCount": 0,
+          "slug": "d0b5d0bbd0b5d0bad182d180d0be-d0b8d0bdd181d182d180d183d0bcd0b5d0bdd182d0b8-d0bfd0bbd18ad0b7d0b3d0b0d187d0b8-d0b8-d0bfd180d0b5d0b2d0ba",
+          "sourceTaxonomyId": 914,
+          "sourceTermId": 914,
+          "title": "Плъзгачи и превключватели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa684",
+          "slug": "други",
+          "sourceTaxonomyId": 915,
+          "sourceTermId": 915,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 869,
+          "productCount": 21,
+          "slug": "d0bcd0b0d0bbd0bad0b8-d0b4d0bed0bcd0b0d0bad0b8d0bdd181d0bad0b8-d183d180d0b5d0b4d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 915,
+          "sourceTermId": 915,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa686",
+          "slug": "държачи",
+          "sourceTaxonomyId": 916,
+          "sourceTermId": 916,
+          "title": "Държачи"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 15,
+          "slug": "d0bfd180d0b0d185d0bed181d0bcd183d0bad0b0d187d0bad0b8-d0b4d18ad180d0b6d0b0d187d0b8",
+          "sourceTaxonomyId": 916,
+          "sourceTermId": 916,
+          "title": "Държачи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa688",
+          "slug": "china-thermostats",
+          "sourceTaxonomyId": 917,
+          "sourceTermId": 917,
+          "title": "CHINA THERMOSTATS"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 16,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-china-thermostats",
+          "sourceTaxonomyId": 917,
+          "sourceTermId": 917,
+          "title": "CHINA THERMOSTATS"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa68a",
+          "slug": "врътки",
+          "sourceTaxonomyId": 918,
+          "sourceTermId": 918,
+          "title": "Врътки"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 7,
+          "slug": "d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8-d0b2d180d18ad182d0bad0b8",
+          "sourceTaxonomyId": 918,
+          "sourceTermId": 918,
+          "title": "Врътки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa68c",
+          "slug": "beko",
+          "sourceTaxonomyId": 919,
+          "sourceTermId": 919,
+          "title": "BEKO"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 11,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-beko",
+          "sourceTaxonomyId": 919,
+          "sourceTermId": 919,
+          "title": "BEKO"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa68e",
+          "slug": "куплунзи",
+          "sourceTaxonomyId": 920,
+          "sourceTermId": 920,
+          "title": "Куплунзи"
+        },
+        "legacy": {
+          "parentSourceTermId": 911,
+          "productCount": 5,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8-d0bad183d0bfd0bbd183d0bdd0b7d0b8",
+          "sourceTaxonomyId": 920,
+          "sourceTermId": 920,
+          "title": "Куплунзи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa690",
+          "slug": "сауна",
+          "sourceTaxonomyId": 921,
+          "sourceTermId": 921,
+          "title": "Сауна"
+        },
+        "legacy": {
+          "productCount": 23,
+          "slug": "d181d0b0d183d0bdd0b0",
+          "sourceTaxonomyId": 921,
+          "sourceTermId": 921,
+          "title": "Сауна"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa692",
+          "slug": "други",
+          "sourceTaxonomyId": 922,
+          "sourceTermId": 922,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 710,
+          "productCount": 5,
+          "slug": "d183d180d0b5d0b4d0b8-d0bdd0b0-d0b3d0b0d0b7-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 922,
+          "sourceTermId": 922,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa694",
+          "slug": "шнекове",
+          "sourceTaxonomyId": 923,
+          "sourceTermId": 923,
+          "title": "Шнекове"
+        },
+        "legacy": {
+          "parentSourceTermId": 911,
+          "productCount": 5,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8-d188d0bdd0b5d0bad0bed0b2d0b5",
+          "sourceTaxonomyId": 923,
+          "sourceTermId": 923,
+          "title": "Шнекове"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa696",
+          "slug": "зъбни-колела",
+          "sourceTaxonomyId": 928,
+          "sourceTermId": 928,
+          "title": "Зъбни колела"
+        },
+        "legacy": {
+          "parentSourceTermId": 911,
+          "productCount": 28,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8-d0b7d18ad0b1d0bdd0b8-d0bad0bed0bbd0b5d0bbd0b0",
+          "sourceTaxonomyId": 928,
+          "sourceTermId": 928,
+          "title": "Зъбни колела"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c45c23d34935c3aa698",
+          "slug": "други",
+          "sourceTaxonomyId": 929,
+          "sourceTermId": 929,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 911,
+          "productCount": 5,
+          "slug": "d0bcd0b5d181d0bed0bcd0b5d0bbd0b0d187d0bad0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 929,
+          "sourceTermId": 929,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa69a",
+          "slug": "филтри-за-сушилни",
+          "sourceTaxonomyId": 933,
+          "sourceTermId": 933,
+          "title": "Филтри за сушилни"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 77,
+          "slug": "d181d183d188d0b8d0bbd0bdd0b8-d184d0b8d0bbd182d180d0b8-d0b7d0b0-d181d183d188d0b8d0bbd0bdd0b8",
+          "sourceTaxonomyId": 933,
+          "sourceTermId": 933,
+          "title": "Филтри за сушилни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa69c",
+          "slug": "други",
+          "sourceTaxonomyId": 934,
+          "sourceTermId": 934,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 635,
+          "productCount": 0,
+          "slug": "d182d0b5d180d0bcd0bed181d182d0b0d182d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 934,
+          "sourceTermId": 934,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa69e",
+          "slug": "други",
+          "sourceTaxonomyId": 936,
+          "sourceTermId": 936,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 5,
+          "slug": "d0bfd180d0bed184d0b5d181d0b8d0bed0bdd0b0d0bbd0bdd0b8-d183d180d0b5d0b4d0b8-d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 936,
+          "sourceTermId": 936,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6a0",
+          "slug": "тенджери-под-налягане",
+          "sourceTaxonomyId": 944,
+          "sourceTermId": 944,
+          "title": "Тенджери под налягане"
+        },
+        "legacy": {
+          "productCount": 36,
+          "slug": "d182d0b5d0bdd0b4d0b6d0b5d180d0b8-d0bfd0bed0b4-d0bdd0b0d0bbd18fd0b3d0b0d0bdd0b5",
+          "sourceTaxonomyId": 944,
+          "sourceTermId": 944,
+          "title": "Тенджери под налягане"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6a2",
+          "slug": "лагери",
+          "sourceTaxonomyId": 945,
+          "sourceTermId": 945,
+          "title": "Лагери"
+        },
+        "legacy": {
+          "productCount": 60,
+          "slug": "d0bbd0b0d0b3d0b5d180d0b8",
+          "sourceTaxonomyId": 945,
+          "sourceTermId": 945,
+          "title": "Лагери"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6a4",
+          "slug": "котли",
+          "sourceTaxonomyId": 946,
+          "sourceTermId": 946,
+          "title": "Котли"
+        },
+        "legacy": {
+          "productCount": 5,
+          "slug": "d0bad0bed182d0bbd0b8",
+          "sourceTaxonomyId": 946,
+          "sourceTermId": 946,
+          "title": "Котли"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6a6",
+          "slug": "ютии-и-парогенератори",
+          "sourceTaxonomyId": 947,
+          "sourceTermId": 947,
+          "title": "Ютии и парогенератори"
+        },
+        "legacy": {
+          "productCount": 2,
+          "slug": "d18ed182d0b8d0b8-d0b8-d0bfd0b0d180d0bed0b3d0b5d0bdd0b5d180d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 947,
+          "sourceTermId": 947,
+          "title": "Ютии и парогенератори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6a8",
+          "slug": "диспенсъри",
+          "sourceTaxonomyId": 948,
+          "sourceTermId": 948,
+          "title": "Диспенсъри"
+        },
+        "legacy": {
+          "productCount": 31,
+          "slug": "d0b4d0b8d181d0bfd0b5d0bdd181d18ad180d0b8",
+          "sourceTaxonomyId": 948,
+          "sourceTermId": 948,
+          "title": "Диспенсъри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6aa",
+          "slug": "минифурни",
+          "sourceTaxonomyId": 949,
+          "sourceTermId": 949,
+          "title": "Минифурни"
+        },
+        "legacy": {
+          "productCount": 16,
+          "slug": "d0bcd0b8d0bdd0b8d184d183d180d0bdd0b8",
+          "sourceTaxonomyId": 949,
+          "sourceTermId": 949,
+          "title": "Минифурни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6ac",
+          "slug": "кабелни-обувки",
+          "sourceTaxonomyId": 950,
+          "sourceTermId": 950,
+          "title": "Кабелни обувки"
+        },
+        "legacy": {
+          "productCount": 18,
+          "slug": "d0bad0b0d0b1d0b5d0bbd0bdd0b8-d0bed0b1d183d0b2d0bad0b8",
+          "sourceTaxonomyId": 950,
+          "sourceTermId": 950,
+          "title": "Кабелни обувки"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6ae",
+          "slug": "скоби",
+          "sourceTaxonomyId": 951,
+          "sourceTermId": 951,
+          "title": "Скоби"
+        },
+        "legacy": {
+          "productCount": 11,
+          "slug": "d181d0bad0bed0b1d0b8",
+          "sourceTaxonomyId": 951,
+          "sourceTermId": 951,
+          "title": "Скоби"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6b0",
+          "slug": "други",
+          "sourceTaxonomyId": 965,
+          "sourceTermId": 965,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 9,
+          "slug": "d0b4d180d183d0b3d0b8",
+          "sourceTaxonomyId": 965,
+          "sourceTermId": 965,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6b2",
+          "slug": "уплътнители-сушилни",
+          "sourceTaxonomyId": 966,
+          "sourceTermId": 966,
+          "title": "Уплътнители сушилни"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 39,
+          "slug": "d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8-d181d183d188d0b8d0bbd0bdd0b8",
+          "sourceTaxonomyId": 966,
+          "sourceTermId": 966,
+          "title": "Уплътнители сушилни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c46c23d34935c3aa6b4",
+          "slug": "филтри-съдомиялни",
+          "sourceTaxonomyId": 967,
+          "sourceTermId": 967,
+          "title": "Филтри съдомиялни"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 22,
+          "slug": "d184d0b8d0bbd182d180d0b8-d181d18ad0b4d0bed0bcd0b8d18fd0bbd0bdd0b8",
+          "sourceTaxonomyId": 967,
+          "sourceTermId": 967,
+          "title": "Филтри съдомиялни"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6b6",
+          "slug": "терморегулатори",
+          "sourceTaxonomyId": 969,
+          "sourceTermId": 969,
+          "title": "Терморегулатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 610,
+          "productCount": 10,
+          "slug": "d182d0b5d180d0bcd0bed180d0b5d0b3d183d0bbd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 969,
+          "sourceTermId": 969,
+          "title": "Терморегулатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6b8",
+          "slug": "фитинги",
+          "sourceTaxonomyId": 971,
+          "sourceTermId": 971,
+          "title": "Фитинги"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 18,
+          "slug": "d184d0b8d182d0b8d0bdd0b3d0b8",
+          "sourceTaxonomyId": 971,
+          "sourceTermId": 971,
+          "title": "Фитинги"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6ba",
+          "slug": "мотори",
+          "sourceTaxonomyId": 973,
+          "sourceTermId": 973,
+          "title": "Мотори"
+        },
+        "legacy": {
+          "parentSourceTermId": 610,
+          "productCount": 4,
+          "slug": "d0bcd0bed182d0bed180d0b8",
+          "sourceTaxonomyId": 973,
+          "sourceTermId": 973,
+          "title": "Мотори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6bc",
+          "slug": "водопровод",
+          "sourceTaxonomyId": 974,
+          "sourceTermId": 974,
+          "title": "Водопровод"
+        },
+        "legacy": {
+          "productCount": 12,
+          "slug": "d0b2d0bed0b4d0bed0bfd180d0bed0b2d0bed0b4",
+          "sourceTaxonomyId": 974,
+          "sourceTermId": 974,
+          "title": "Водопровод"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6be",
+          "slug": "модули",
+          "sourceTaxonomyId": 977,
+          "sourceTermId": 977,
+          "title": "Модули"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 4,
+          "slug": "d0bcd0bed0b4d183d0bbd0b8",
+          "sourceTaxonomyId": 977,
+          "sourceTermId": 977,
+          "title": "Модули"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6c0",
+          "slug": "роботи",
+          "sourceTaxonomyId": 978,
+          "sourceTermId": 978,
+          "title": "Роботи"
+        },
+        "legacy": {
+          "parentSourceTermId": 598,
+          "productCount": 21,
+          "slug": "d180d0bed0b1d0bed182d0b8",
+          "sourceTaxonomyId": 978,
+          "sourceTermId": 978,
+          "title": "Роботи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6c2",
+          "slug": "кондензатори",
+          "sourceTaxonomyId": 981,
+          "sourceTermId": 981,
+          "title": "Кондензатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 8,
+          "slug": "d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8-d0bcd0b8d0bad180d0bed0b2d18ad0bbd0bdd0bed0b2d0b8-d184d183d180d0bdd0b8",
+          "sourceTaxonomyId": 981,
+          "sourceTermId": 981,
+          "title": "Кондензатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6c4",
+          "slug": "водни-завеси-и-флоуметри",
+          "sourceTaxonomyId": 982,
+          "sourceTermId": 982,
+          "title": "ВОДНИ ЗАВЕСИ И ФЛОУМЕТРИ"
+        },
+        "legacy": {
+          "parentSourceTermId": 551,
+          "productCount": 28,
+          "slug": "d0b2d0bed0b4d0bdd0b8-d0b7d0b0d0b2d0b5d181d0b8-d0b8-d184d0bbd0bed183d0bcd0b5d182d180d0b8",
+          "sourceTaxonomyId": 982,
+          "sourceTermId": 982,
+          "title": "ВОДНИ ЗАВЕСИ И ФЛОУМЕТРИ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6c6",
+          "slug": "панти",
+          "sourceTaxonomyId": 983,
+          "sourceTermId": 983,
+          "title": "Панти"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 24,
+          "slug": "d0bfd0b0d0bdd182d0b8",
+          "sourceTaxonomyId": 983,
+          "sourceTermId": 983,
+          "title": "Панти"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6c8",
+          "slug": "климатици",
+          "sourceTaxonomyId": 984,
+          "sourceTermId": 984,
+          "title": "Климатици"
+        },
+        "legacy": {
+          "productCount": 1,
+          "slug": "d0bad0bbd0b8d0bcd0b0d182d0b8d186d0b8",
+          "sourceTaxonomyId": 984,
+          "sourceTermId": 984,
+          "title": "КЛИМАТИЦИ"
+        },
+        "mismatches": [
+          "title",
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6ca",
+          "slug": "плочи",
+          "sourceTaxonomyId": 986,
+          "sourceTermId": 986,
+          "title": "ПЛОЧИ"
+        },
+        "legacy": {
+          "parentSourceTermId": 733,
+          "productCount": 4,
+          "slug": "d0bfd0bbd0bed187d0b8",
+          "sourceTaxonomyId": 986,
+          "sourceTermId": 986,
+          "title": "ПЛОЧИ"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6cc",
+          "slug": "помпи",
+          "sourceTaxonomyId": 988,
+          "sourceTermId": 988,
+          "title": "Помпи"
+        },
+        "legacy": {
+          "parentSourceTermId": 947,
+          "productCount": 10,
+          "slug": "d0bfd0bed0bcd0bfd0b8",
+          "sourceTaxonomyId": 988,
+          "sourceTermId": 988,
+          "title": "Помпи"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6ce",
+          "slug": "защитни-клапани",
+          "sourceTaxonomyId": 989,
+          "sourceTermId": 989,
+          "title": "Защитни клапани"
+        },
+        "legacy": {
+          "parentSourceTermId": 947,
+          "productCount": 7,
+          "slug": "d0b7d0b0d189d0b8d182d0bdd0b8-d0bad0bbd0b0d0bfd0b0d0bdd0b8",
+          "sourceTaxonomyId": 989,
+          "sourceTermId": 989,
+          "title": "Защитни клапани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c47c23d34935c3aa6d0",
+          "slug": "вентили-и-пресостати",
+          "sourceTaxonomyId": 990,
+          "sourceTermId": 990,
+          "title": "Вентили и пресостати"
+        },
+        "legacy": {
+          "parentSourceTermId": 947,
+          "productCount": 11,
+          "slug": "d0b2d0b5d0bdd182d0b8d0bbd0b8-d0b8-d0bfd180d0b5d181d0bed181d182d0b0d182d0b8",
+          "sourceTaxonomyId": 990,
+          "sourceTermId": 990,
+          "title": "Вентили и пресостати"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6d2",
+          "slug": "други",
+          "sourceTaxonomyId": 991,
+          "sourceTermId": 991,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 947,
+          "productCount": 9,
+          "slug": "d0b4d180d183d0b3d0b8-d18ed182d0b8d0b8-d0b8-d0bfd0b0d180d0bed0b3d0b5d0bdd0b5d180d0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 991,
+          "sourceTermId": 991,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6d4",
+          "slug": "кани-за-вода",
+          "sourceTaxonomyId": 992,
+          "sourceTermId": 992,
+          "title": "Кани за вода"
+        },
+        "legacy": {
+          "parentSourceTermId": 869,
+          "productCount": 14,
+          "slug": "d0bad0b0d0bdd0b8-d0b7d0b0-d0b2d0bed0b4d0b0",
+          "sourceTaxonomyId": 992,
+          "sourceTermId": 992,
+          "title": "Кани за вода"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6d6",
+          "slug": "реотани",
+          "sourceTaxonomyId": 993,
+          "sourceTermId": 993,
+          "title": "Реотани"
+        },
+        "legacy": {
+          "parentSourceTermId": 610,
+          "productCount": 6,
+          "slug": "d180d0b5d0bed182d0b0d0bdd0b8",
+          "sourceTaxonomyId": 993,
+          "sourceTermId": 993,
+          "title": "Реотани"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6d8",
+          "slug": "за-климатици",
+          "sourceTaxonomyId": 995,
+          "sourceTermId": 995,
+          "title": "За климатици"
+        },
+        "legacy": {
+          "parentSourceTermId": 576,
+          "productCount": 9,
+          "slug": "d0b7d0b0-d0bad0bbd0b8d0bcd0b0d182d0b8d186d0b8",
+          "sourceTaxonomyId": 995,
+          "sourceTermId": 995,
+          "title": "За климатици"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6da",
+          "slug": "двигатели",
+          "sourceTaxonomyId": 996,
+          "sourceTermId": 996,
+          "title": "Двигатели"
+        },
+        "legacy": {
+          "parentSourceTermId": 984,
+          "productCount": 13,
+          "slug": "d0b4d0b2d0b8d0b3d0b0d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 996,
+          "sourceTermId": 996,
+          "title": "Двигатели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6dc",
+          "slug": "трансформатори",
+          "sourceTaxonomyId": 997,
+          "sourceTermId": 997,
+          "title": "Трансформатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 4,
+          "slug": "d182d180d0b0d0bdd181d184d0bed180d0bcd0b0d182d0bed180d0b8",
+          "sourceTaxonomyId": 997,
+          "sourceTermId": 997,
+          "title": "Трансформатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6de",
+          "slug": "стъпков-мотор",
+          "sourceTaxonomyId": 999,
+          "sourceTermId": 999,
+          "title": "Стъпков мотор"
+        },
+        "legacy": {
+          "parentSourceTermId": 984,
+          "productCount": 7,
+          "slug": "d181d182d18ad0bfd0bad0bed0b2-d0bcd0bed182d0bed180",
+          "sourceTaxonomyId": 999,
+          "sourceTermId": 999,
+          "title": "Стъпков мотор"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6e0",
+          "slug": "датчици",
+          "sourceTaxonomyId": 1000,
+          "sourceTermId": 1000,
+          "title": "Датчици"
+        },
+        "legacy": {
+          "parentSourceTermId": 984,
+          "productCount": 3,
+          "slug": "d0b4d0b0d182d187d0b8d186d0b8",
+          "sourceTaxonomyId": 1000,
+          "sourceTermId": 1000,
+          "title": "Датчици"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6e2",
+          "slug": "кондензатори",
+          "sourceTaxonomyId": 1001,
+          "sourceTermId": 1001,
+          "title": "Кондензатори"
+        },
+        "legacy": {
+          "parentSourceTermId": 984,
+          "productCount": 10,
+          "slug": "d0bad0bed0bdd0b4d0b5d0bdd0b7d0b0d182d0bed180d0b8-d0bad0bbd0b8d0bcd0b0d182d0b8d186d0b8",
+          "sourceTaxonomyId": 1001,
+          "sourceTermId": 1001,
+          "title": "Кондензатори"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6e4",
+          "slug": "други",
+          "sourceTaxonomyId": 1002,
+          "sourceTermId": 1002,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 984,
+          "productCount": 5,
+          "slug": "d0b4d180d183d0b3d0b8-d0bad0bbd0b8d0bcd0b0d182d0b8d186d0b8",
+          "sourceTaxonomyId": 1002,
+          "sourceTermId": 1002,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6e6",
+          "slug": "двигатели",
+          "sourceTaxonomyId": 1003,
+          "sourceTermId": 1003,
+          "title": "Двигатели"
+        },
+        "legacy": {
+          "parentSourceTermId": 684,
+          "productCount": 4,
+          "slug": "d0b4d0b2d0b8d0b3d0b0d182d0b5d0bbd0b8-d181d183d188d0b8d0bbd0bdd0b8",
+          "sourceTaxonomyId": 1003,
+          "sourceTermId": 1003,
+          "title": "Двигатели"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6e8",
+          "slug": "корпусни-детайли",
+          "sourceTaxonomyId": 1005,
+          "sourceTermId": 1005,
+          "title": "Корпусни детайли"
+        },
+        "legacy": {
+          "parentSourceTermId": 637,
+          "productCount": 19,
+          "slug": "d0bad0bed180d0bfd183d181d0bdd0b8-d0b4d0b5d182d0b0d0b9d0bbd0b8",
+          "sourceTaxonomyId": 1005,
+          "sourceTermId": 1005,
+          "title": "Корпусни детайли"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6ea",
+          "slug": "аналогови",
+          "sourceTaxonomyId": 1006,
+          "sourceTermId": 1006,
+          "title": "Аналогови"
+        },
+        "legacy": {
+          "parentSourceTermId": 661,
+          "productCount": 27,
+          "slug": "d0b0d0bdd0b0d0bbd0bed0b3d0bed0b2d0b8",
+          "sourceTaxonomyId": 1006,
+          "sourceTermId": 1006,
+          "title": "Аналогови"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c48c23d34935c3aa6ec",
+          "slug": "препарати-и-филтри",
+          "sourceTaxonomyId": 1007,
+          "sourceTermId": 1007,
+          "title": "Препарати и филтри"
+        },
+        "legacy": {
+          "parentSourceTermId": 644,
+          "productCount": 18,
+          "slug": "d0bfd180d0b5d0bfd0b0d180d0b0d182d0b8-d0b8-d184d0b8d0bbd182d180d0b8",
+          "sourceTaxonomyId": 1007,
+          "sourceTermId": 1007,
+          "title": "Препарати и филтри"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa6ee",
+          "slug": "ego",
+          "sourceTaxonomyId": 1019,
+          "sourceTermId": 1019,
+          "title": "E.G.O."
+        },
+        "legacy": {
+          "parentSourceTermId": 690,
+          "productCount": 17,
+          "slug": "e-g-o",
+          "sourceTaxonomyId": 1019,
+          "sourceTermId": 1019,
+          "title": "E.G.O."
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa6f4",
+          "slug": "сензори-ntc",
+          "sourceTaxonomyId": 1022,
+          "sourceTermId": 1022,
+          "title": "Сензори NTC"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 10,
+          "slug": "d181d0b5d0bdd0b7d0bed180d0b8-ntc",
+          "sourceTaxonomyId": 1022,
+          "sourceTermId": 1022,
+          "title": "Сензори NTC"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa6f6",
+          "slug": "термозащити",
+          "sourceTaxonomyId": 1023,
+          "sourceTermId": 1023,
+          "title": "Термозащити"
+        },
+        "legacy": {
+          "parentSourceTermId": 603,
+          "productCount": 15,
+          "slug": "d182d0b5d180d0bcd0bed0b7d0b0d189d0b8d182d0b8",
+          "sourceTaxonomyId": 1023,
+          "sourceTermId": 1023,
+          "title": "Термозащити"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa6f8",
+          "slug": "ego",
+          "sourceTaxonomyId": 1024,
+          "sourceTermId": 1024,
+          "title": "E.G.O."
+        },
+        "legacy": {
+          "parentSourceTermId": 604,
+          "productCount": 56,
+          "slug": "e-g-o-d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 1024,
+          "sourceTermId": 1024,
+          "title": "E.G.O."
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa6fc",
+          "slug": "b-и-amps",
+          "sourceTaxonomyId": 1026,
+          "sourceTermId": 1026,
+          "title": "B&amp;S"
+        },
+        "legacy": {
+          "parentSourceTermId": 604,
+          "productCount": 13,
+          "slug": "bs",
+          "sourceTaxonomyId": 1026,
+          "sourceTermId": 1026,
+          "title": "B&amp;S"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa702",
+          "slug": "anel",
+          "sourceTaxonomyId": 1029,
+          "sourceTermId": 1029,
+          "title": "AN.EL"
+        },
+        "legacy": {
+          "parentSourceTermId": 604,
+          "productCount": 16,
+          "slug": "an-el",
+          "sourceTaxonomyId": 1029,
+          "sourceTermId": 1029,
+          "title": "AN.EL"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa704",
+          "slug": "уплътнители",
+          "sourceTaxonomyId": 1030,
+          "sourceTermId": 1030,
+          "title": "Уплътнители"
+        },
+        "legacy": {
+          "parentSourceTermId": 944,
+          "productCount": 37,
+          "slug": "d183d0bfd0bbd18ad182d0bdd0b8d182d0b5d0bbd0b8",
+          "sourceTaxonomyId": 1030,
+          "sourceTermId": 1030,
+          "title": "Уплътнители"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c49c23d34935c3aa706",
+          "slug": "други",
+          "sourceTaxonomyId": 1031,
+          "sourceTermId": 1031,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 944,
+          "productCount": 11,
+          "slug": "d0b4d180d183d0b3d0b8-d182d0b5d0bdd0b4d0b6d0b5d180d0b8-d0bfd0bed0b4-d0bdd0b0d0bbd18fd0b3d0b0d0bdd0b5",
+          "sourceTaxonomyId": 1031,
+          "sourceTermId": 1031,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c4ac23d34935c3aa70c",
+          "slug": "скоби-маншон",
+          "sourceTaxonomyId": 1037,
+          "sourceTermId": 1037,
+          "title": "Скоби маншон"
+        },
+        "legacy": {
+          "parentSourceTermId": 528,
+          "productCount": 11,
+          "slug": "d181d0bad0bed0b1d0b8-d0bcd0b0d0bdd188d0bed0bd",
+          "sourceTaxonomyId": 1037,
+          "sourceTermId": 1037,
+          "title": "Скоби маншон"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c4ac23d34935c3aa70e",
+          "slug": "други",
+          "sourceTaxonomyId": 1038,
+          "sourceTermId": 1038,
+          "title": "Други"
+        },
+        "legacy": {
+          "parentSourceTermId": 604,
+          "productCount": 11,
+          "slug": "d0b4d180d183d0b3d0b8-d0b3d0bed182d0b2d0b0d180d181d0bad0b8-d0bfd0b5d187d0bad0b8-d0bad0bbd18ed187d0bed0b2d0b5",
+          "sourceTaxonomyId": 1038,
+          "sourceTermId": 1038,
+          "title": "Други"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c4ac23d34935c3aa712",
+          "slug": "микрети",
+          "sourceTaxonomyId": 1040,
+          "sourceTermId": 1040,
+          "title": "Микрети"
+        },
+        "legacy": {
+          "productCount": 28,
+          "slug": "d0bcd0b8d0bad180d0b5d182d0b8",
+          "sourceTaxonomyId": 1040,
+          "sourceTermId": 1040,
+          "title": "Микрети"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      },
+      {
+        "db": {
+          "id": "69b43c4ac23d34935c3aa720",
+          "slug": "слюда",
+          "sourceTaxonomyId": 1048,
+          "sourceTermId": 1048,
+          "title": "Слюда"
+        },
+        "legacy": {
+          "parentSourceTermId": 606,
+          "productCount": 13,
+          "slug": "d181d0bbd18ed0b4d0b0",
+          "sourceTaxonomyId": 1048,
+          "sourceTermId": 1048,
+          "title": "Слюда"
+        },
+        "mismatches": [
+          "slug"
+        ]
+      }
+    ],
+    "missingInDb": [],
+    "missingInLegacy": [],
+    "summary": {
+      "db": 341,
+      "exactMatches": 14,
+      "legacy": 341,
+      "mismatched": 327,
+      "missingInDb": 0,
+      "missingInLegacy": 0
+    }
+  },
+  "generatedAt": "2026-07-02T17:22:54.947Z",
+  "brands": {
+    "fieldMismatches": [],
+    "missingInDb": [],
+    "missingInLegacy": [],
+    "summary": {
+      "db": 111,
+      "exactMatches": 111,
+      "legacy": 111,
+      "mismatched": 0,
+      "missingInDb": 0,
+      "missingInLegacy": 0
+    }
+  },
+  "dumpPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nikelect_woocdb2019.sql"
+}

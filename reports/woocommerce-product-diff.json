@@ -1,0 +1,1603 @@
+{
+  "dumpPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nikelect_woocdb2019.sql",
+  "generatedAt": "2026-07-03T03:44:27.411Z",
+  "summary": {
+    "dbProducts": 9898,
+    "ignoredLegacyMissingSku": 1,
+    "legacyProducts": 10264,
+    "legacyProductsWithSku": 10263,
+    "matchedBySkuOnly": 65,
+    "matchedBySourceId": 9817,
+    "newInLegacy": 381,
+    "onlyInDb": 31,
+    "onlyInDbPublished": 28,
+    "onlyInDbUnpublished": 3
+  },
+  "samples": {
+    "ignoredLegacyMissingSku": [
+      {
+        "imagesCount": 0,
+        "legacyProductUrl": "https://nikelectric.com/?post_type=product&p=69605",
+        "published": false,
+        "sku": "",
+        "sourceId": 69605,
+        "title": "AUTO-DRAFT"
+      }
+    ],
+    "matchedBySkuOnly": [
+      {
+        "db": {
+          "id": "69ff0b3158138c72b910c241",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "117AC03",
+          "sourceId": null,
+          "title": "маншон 2804860100/200/300"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/beko-21/",
+          "published": true,
+          "sku": "117AC03",
+          "sourceId": 3479,
+          "title": "BEKO"
+        }
+      },
+      {
+        "db": {
+          "id": "6a4514d09c3767f83b80a50e",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "601MD10OR",
+          "sourceId": null,
+          "title": "Чиния за микровълнова фурна  274мм /225мм"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/%d1%87%d0%b8%d0%bd%d0%b8%d1%8f-274%d0%bc%d0%bc/",
+          "published": true,
+          "sku": "601MD10OR",
+          "sourceId": 9691,
+          "title": "ЧИНИЯ 274мм"
+        }
+      },
+      {
+        "db": {
+          "id": "6a4506c39c3767f83b809fcc",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "145GR05OR",
+          "sourceId": null,
+          "title": "Външен ринг за пералня GORENJE"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/gorenje-184/",
+          "published": true,
+          "sku": "145GR05OR",
+          "sourceId": 10305,
+          "title": "GORENJE"
+        }
+      },
+      {
+        "db": {
+          "id": "6a4263c57a812b8ec7f36357",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "308AC08OR",
+          "sourceId": null,
+          "title": "Уплътнител за фурна BEKO с обратни куки 32х45"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "http://nikelectric.com/produkt/beko-127/",
+          "published": true,
+          "sku": "308AC08OR",
+          "sourceId": 11404,
+          "title": "BEKO"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3258138c72b910c251",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "167IG14",
+          "sourceId": null,
+          "title": "Амортисьор за пералня 120N"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/whirlpool-ignis-philips-182/",
+          "published": true,
+          "sku": "167IG14",
+          "sourceId": 12977,
+          "title": "WHIRLPOOL IGNIS PHILIPS"
+        }
+      },
+      {
+        "db": {
+          "id": "6a3a7ab663ce2a8468e12ce2",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "143AC07OR",
+          "sourceId": null,
+          "title": "Филтър сушилня"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/beko-sang-blomberg-61/",
+          "published": true,
+          "sku": "143AC07OR",
+          "sourceId": 13239,
+          "title": "BEKO SANG BLOMBERG"
+        }
+      },
+      {
+        "db": {
+          "id": "6a3a508a63ce2a8468e11a52",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "147AC05OR",
+          "sourceId": null,
+          "title": "Микроключ 3 дълги изводи"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/beko-sang-blomberg-68/",
+          "published": true,
+          "sku": "147AC05OR",
+          "sourceId": 13252,
+          "title": "BEKO SANG BLOMBERG"
+        }
+      },
+      {
+        "db": {
+          "id": "6a469318068fc300483edd40",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "811PE399OR",
+          "sourceId": null,
+          "title": "Инфузер за кафеавтомат"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "http://nikelectric.com/produkt/delonghi-65/",
+          "published": true,
+          "sku": "811PE399OR",
+          "sourceId": 13377,
+          "title": "DELONGHI"
+        }
+      },
+      {
+        "db": {
+          "id": "6a3a427663ce2a8468e11153",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "308AC13OR",
+          "sourceId": null,
+          "title": "Уплътнител за плот 2x8x2250 mm"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=14130",
+          "published": true,
+          "sku": "308AC13OR",
+          "sourceId": 14130,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "6a39b60c63ce2a8468e0d6a1",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "167AR03OR",
+          "sourceId": null,
+          "title": "Амортисьори за пералня 100N"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=27694",
+          "published": true,
+          "sku": "167AR03OR",
+          "sourceId": 27694,
+          "title": "INDESIT ARISTON"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3358138c72b910c261",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "167BH07",
+          "sourceId": null,
+          "title": "167BH07 - Амортисьор 90N - Ф8 /13.2 - 3 бр. - 00673541-00660865"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=34452",
+          "published": true,
+          "sku": "167BH07",
+          "sourceId": 34452,
+          "title": "BOSCH SIEMENS BALAY"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3158138c72b910c239",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "813PE215",
+          "sourceId": null,
+          "title": "упл.за бойлер Бриел"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67493",
+          "published": true,
+          "sku": "813PE215",
+          "sourceId": 67493,
+          "title": "BRIEL"
+        }
+      },
+      {
+        "db": {
+          "id": "69b43efdc23d34935c3af865",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/rowenta-3/",
+          "published": true,
+          "sku": "811PE208",
+          "sourceId": 6726,
+          "title": "811PE208 - Ръкохватка BRIEL - 256030"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67496",
+          "published": true,
+          "sku": "811PE208",
+          "sourceId": 67496,
+          "title": "BRIEL"
+        }
+      },
+      {
+        "db": {
+          "id": "69b444fcc23d34935c3ba618",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=38873",
+          "published": false,
+          "sku": "811PE335",
+          "sourceId": 38873,
+          "title": "НАГРЕВАТЕЛ 900W"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67499",
+          "published": true,
+          "sku": "811PE335",
+          "sourceId": 67499,
+          "title": "ELITE NEO ROHNSON CROWN"
+        }
+      },
+      {
+        "db": {
+          "id": "69b44244c23d34935c3b59fb",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=15062",
+          "published": false,
+          "sku": "811PE331",
+          "sourceId": 15062,
+          "title": "GAGGIA"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67502",
+          "published": true,
+          "sku": "811PE331",
+          "sourceId": 67502,
+          "title": "ELITE NEO ROHNSON CROWN"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3258138c72b910c259",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "138CY03",
+          "sourceId": null,
+          "title": "мотор за вентилатор пералня/сушилня - 43013591"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67583",
+          "published": true,
+          "sku": "138CY03",
+          "sourceId": 67583,
+          "title": "CANDY"
+        }
+      },
+      {
+        "db": {
+          "id": "69b44205c23d34935c3b5328",
+          "imagesCount": 2,
+          "legacyProductUrl": "http://nikelectric.com/produkt/candy-174/",
+          "published": true,
+          "sku": "166CY08",
+          "sourceId": 13664,
+          "title": "Ролка за сушилня"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67596",
+          "published": true,
+          "sku": "166CY08",
+          "sourceId": 67596,
+          "title": "CANDY"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3358138c72b910c271",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "112LG83",
+          "sourceId": null,
+          "title": "Кондензатор 18 mF  метален S2"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67652",
+          "published": true,
+          "sku": "112LG83",
+          "sourceId": 67652,
+          "title": "18mF"
+        }
+      },
+      {
+        "db": {
+          "id": "69b444bac23d34935c3b9f32",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=37068",
+          "published": false,
+          "sku": "150VE02",
+          "sourceId": 37068,
+          "title": "VESTEL"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67709",
+          "published": true,
+          "sku": "150VE02",
+          "sourceId": 67709,
+          "title": "VESTEL GORENJE HAIER"
+        }
+      },
+      {
+        "db": {
+          "id": "6a3f0a0163ce2a8468e56f25",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "308GR07",
+          "sourceId": null,
+          "title": "308GR07 - Упл. фурна обр. куки - 567390"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67737",
+          "published": true,
+          "sku": "308GR07",
+          "sourceId": 67737,
+          "title": "GORENJE"
+        }
+      },
+      {
+        "db": {
+          "id": "69b43e65c23d34935c3ae638",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-237/",
+          "published": true,
+          "sku": "168ID17",
+          "sourceId": 5325,
+          "title": "168ID17 - бронз. втулка сушилня - C00142628"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67928",
+          "published": true,
+          "sku": "168ID17",
+          "sourceId": 67928,
+          "title": "INDESIT ARISTON"
+        }
+      },
+      {
+        "db": {
+          "id": "69b440e5c23d34935c3b32f4",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/beko-148/",
+          "published": true,
+          "sku": "312AC11",
+          "sourceId": 11528,
+          "title": "312AC11 - ТЕН вент. ВЕКО - 1800W - Ф205 - 262900074I"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67955",
+          "published": true,
+          "sku": "312AC11",
+          "sourceId": 67955,
+          "title": "BEKO"
+        }
+      },
+      {
+        "db": {
+          "id": "69b443f5c23d34935c3b8b04",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=30901",
+          "published": false,
+          "sku": "215FR24",
+          "sourceId": 30901,
+          "title": "А03 0091"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67966",
+          "published": true,
+          "sku": "215FR24",
+          "sourceId": 67966,
+          "title": "A13 0701"
+        }
+      },
+      {
+        "db": {
+          "id": "69b445e3c23d34935c3bbf66",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=48482",
+          "published": false,
+          "sku": "215FR100",
+          "sourceId": 48482,
+          "title": "UNIVERSAL"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67989",
+          "published": true,
+          "sku": "215FR100",
+          "sourceId": 67989,
+          "title": "MIDEA"
+        }
+      },
+      {
+        "db": {
+          "id": "69b44251c23d34935c3b5b97",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=15295",
+          "published": true,
+          "sku": "215FR112",
+          "sourceId": 15295,
+          "title": "215FR112 - Термостат - WDF23T-920 - 409862"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67992",
+          "published": true,
+          "sku": "215FR112",
+          "sourceId": 67992,
+          "title": "GORENJE"
+        }
+      },
+      {
+        "db": {
+          "id": "69b4456ec23d34935c3bb257",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=43854",
+          "published": true,
+          "sku": "215FR116",
+          "sourceId": 43854,
+          "title": "215FR116 - Термостат WDF34K - EX  - 49118246"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67994",
+          "published": true,
+          "sku": "215FR116",
+          "sourceId": 67994,
+          "title": "CANDY HAIER"
+        }
+      },
+      {
+        "db": {
+          "id": "6a33106763ce2a8468da916b",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "215FR06",
+          "sourceId": null,
+          "title": "215FR06 - A03-0091 750 mm 2C -28/-13,5"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67997",
+          "published": true,
+          "sku": "215FR06",
+          "sourceId": 67997,
+          "title": "A03-0091"
+        }
+      },
+      {
+        "db": {
+          "id": "69b445f9c23d34935c3bc1d2",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=49247",
+          "published": false,
+          "sku": "215FR125",
+          "sourceId": 49247,
+          "title": "DAEWOO"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=67999",
+          "published": true,
+          "sku": "215FR125",
+          "sourceId": 67999,
+          "title": "HISENSE GORENJE"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0bf158138c72b910c31f",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "311GR01",
+          "sourceId": null,
+          "title": "311GR01 - Горелка Голяма Ф 95 - 222616"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68090",
+          "published": true,
+          "sku": "311GR01",
+          "sourceId": 68090,
+          "title": "GORENJE HISENSE CROWN"
+        }
+      },
+      {
+        "db": {
+          "id": "69fa0344b6016830e5a48cb5",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "120SU06OR",
+          "sourceId": null,
+          "title": "Гофриран маркуч долен"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68097",
+          "published": true,
+          "sku": "120SU06OR",
+          "sourceId": 68097,
+          "title": "SAMSUNG"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3458138c72b910c281",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "164BH06",
+          "sourceId": null,
+          "title": "панта - 00626459"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68100",
+          "published": true,
+          "sku": "164BH06",
+          "sourceId": 68100,
+          "title": "BOSCH SIEMENS NEFF"
+        }
+      },
+      {
+        "db": {
+          "id": "69b43fa8c23d34935c3b0cf3",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/midea-11/",
+          "published": false,
+          "sku": "312MA02",
+          "sourceId": 8423,
+          "title": "MIDEA"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68123",
+          "published": true,
+          "sku": "312MA02",
+          "sourceId": 68123,
+          "title": "MIDEA"
+        }
+      },
+      {
+        "db": {
+          "id": "69b442a2c23d34935c3b64c6",
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=18274",
+          "published": false,
+          "sku": "323CU23",
+          "sourceId": 18274,
+          "title": "UNIVERSAL"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68292",
+          "published": true,
+          "sku": "323CU23",
+          "sourceId": 68292,
+          "title": "ЗАЩИТА 335C"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3358138c72b910c269",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "163AC18OR",
+          "sourceId": null,
+          "title": "Помпа за пералня"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68354",
+          "published": true,
+          "sku": "163AC18OR",
+          "sourceId": 68354,
+          "title": "BEKO SANG BLOMBERG"
+        }
+      },
+      {
+        "db": {
+          "id": "69b43e52c23d34935c3ae3f8",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-226/",
+          "published": true,
+          "sku": "159ID08",
+          "sourceId": 5167,
+          "title": "INDESIT ARISTON"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68358",
+          "published": true,
+          "sku": "159ID08",
+          "sourceId": 68358,
+          "title": "INDESIT ARISTON"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3058138c72b910c231",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "325CU27",
+          "sourceId": null,
+          "title": "Реотан 800 W - пържолник"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68420",
+          "published": true,
+          "sku": "325CU27",
+          "sourceId": 68420,
+          "title": "РЕОТАН ЗА ПЪРЖОЛНИК"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3458138c72b910c289",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "201ZN02",
+          "sourceId": null,
+          "title": "Уплътнение фризер - 2248016590-2426448151 - 2144830268"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68486",
+          "published": true,
+          "sku": "201ZN02",
+          "sourceId": 68486,
+          "title": "ELECTROLUX ZANUSSI AEG"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff0b3358138c72b910c279",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "140ZN93",
+          "sourceId": null,
+          "title": "Конзола за горна пръскалка - 1561425370"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68497",
+          "published": true,
+          "sku": "140ZN93",
+          "sourceId": 68497,
+          "title": "ELECTROLUX ZANUSSI AEG"
+        }
+      },
+      {
+        "db": {
+          "id": "69b441afc23d34935c3b4add",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/candy-165/",
+          "published": true,
+          "sku": "139CY14",
+          "sourceId": 13170,
+          "title": "Закопчалка 49016396"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68540",
+          "published": true,
+          "sku": "139CY14",
+          "sourceId": 68540,
+          "title": "CANDY"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11dc58138c72b910c48b",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU109",
+          "sourceId": null,
+          "title": "ТЕН 90см. Фурни долен - 1400W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68553",
+          "published": true,
+          "sku": "312CU109",
+          "sourceId": 68553,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11dd58138c72b910c493",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU110",
+          "sourceId": null,
+          "title": "ТЕН 90см. Фурни долен - 1700W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68555",
+          "published": true,
+          "sku": "312CU110",
+          "sourceId": 68555,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11dd58138c72b910c49b",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU111",
+          "sourceId": null,
+          "title": "ТЕН 90см. Фурни горен - 1000W+1800W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68557",
+          "published": true,
+          "sku": "312CU111",
+          "sourceId": 68557,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11dd58138c72b910c4a3",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU112",
+          "sourceId": null,
+          "title": "ТЕН 90см. Фурни горен - 1200W+2200W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68559",
+          "published": true,
+          "sku": "312CU112",
+          "sourceId": 68559,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11de58138c72b910c4ab",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU113",
+          "sourceId": null,
+          "title": "ТЕН 90см. Фурни долен - 1400W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68561",
+          "published": true,
+          "sku": "312CU113",
+          "sourceId": 68561,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11de58138c72b910c4b3",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU114",
+          "sourceId": null,
+          "title": "ТЕН 90см. Фурни горен - 1000W+1800W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68563",
+          "published": true,
+          "sku": "312CU114",
+          "sourceId": 68563,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11de58138c72b910c4bb",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU117",
+          "sourceId": null,
+          "title": "ТЕН Фурни долен - 1300W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68565",
+          "published": true,
+          "sku": "312CU117",
+          "sourceId": 68565,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "69ff11de58138c72b910c4c3",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "312CU118",
+          "sourceId": null,
+          "title": "ТЕН Фурни горен - 900W+2000W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68567",
+          "published": true,
+          "sku": "312CU118",
+          "sourceId": 68567,
+          "title": "UNIVERSAL"
+        }
+      },
+      {
+        "db": {
+          "id": "6a42398c7a812b8ec7f35a66",
+          "imagesCount": 0,
+          "published": true,
+          "sku": "302CU76",
+          "sourceId": null,
+          "title": "Плоча за керамичен плот 180/120 мм 1700/700W"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68713",
+          "published": true,
+          "sku": "302CU76",
+          "sourceId": 68713,
+          "title": "ПЛОЧА 180mm/120mm"
+        }
+      },
+      {
+        "db": {
+          "id": "69b43cc6c23d34935c3ab450",
+          "imagesCount": 1,
+          "legacyProductUrl": "http://nikelectric.com/produkt/ardo-merloni-8/",
+          "published": true,
+          "sku": "139AK01",
+          "sourceId": 1139,
+          "title": "ARDO MERLONI"
+        },
+        "legacy": {
+          "imagesCount": 2,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68737",
+          "published": true,
+          "sku": "139AK01",
+          "sourceId": 68737,
+          "title": "ARDO"
+        }
+      },
+      {
+        "db": {
+          "id": "69b43e20c23d34935c3addd8",
+          "imagesCount": 0,
+          "legacyProductUrl": "http://nikelectric.com/produkt/%d1%84%d0%b8%d0%bb%d1%82%d1%8a%d1%80-6/",
+          "published": false,
+          "sku": "813PE118",
+          "sourceId": 4387,
+          "title": "ФИЛТЪР"
+        },
+        "legacy": {
+          "imagesCount": 1,
+          "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=68799",
+          "published": true,
+          "sku": "813PE118",
+          "sourceId": 68799,
+          "title": "ЦЕДКА 12 КАФЕТА"
+        }
+      }
+    ],
+    "newInLegacy": [
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/smeg-electrolux-zanussi-aeg/",
+        "published": false,
+        "sku": "163SM03",
+        "sourceId": 661,
+        "title": "SMEG ELECTROLUX ZANUSSI AEG"
+      },
+      {
+        "imagesCount": 2,
+        "legacyProductUrl": "http://nikelectric.com/produkt/candy-31/",
+        "published": false,
+        "sku": "163CY10",
+        "sourceId": 759,
+        "title": "CANDY"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/siltal-22/",
+        "published": true,
+        "sku": "139SL03",
+        "sourceId": 1401,
+        "title": "SILTAL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/12-x-24-x-7/",
+        "published": true,
+        "sku": "113LG99",
+        "sourceId": 1475,
+        "title": "12 x 24 x 7"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/35-x-52-65-x-7-105/",
+        "published": true,
+        "sku": "113AR08",
+        "sourceId": 1629,
+        "title": "35 x 52/65 x 7/10,5"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/%d0%ba%d0%bb%d1%8e%d1%87-capax/",
+        "published": false,
+        "sku": "806PE12",
+        "sourceId": 2299,
+        "title": "КЛЮЧ CAPAX"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/1270-j4-el/",
+        "published": false,
+        "sku": "116LG",
+        "sourceId": 2441,
+        "title": "1270"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-92/",
+        "published": false,
+        "sku": "168ID14",
+        "sourceId": 2639,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/whirlpool-ignis-philips-42/",
+        "published": false,
+        "sku": "146IG08",
+        "sourceId": 2697,
+        "title": "WHIRLPOOL IGNIS PHILIPS"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/sangiorgio-13/",
+        "published": false,
+        "sku": "146SG01",
+        "sourceId": 2705,
+        "title": "SANGIORGIO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/sangiorgio-14/",
+        "published": false,
+        "sku": "146SG02",
+        "sourceId": 2713,
+        "title": "SANGIORGIO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/1314-j5/",
+        "published": true,
+        "sku": "116LG342",
+        "sourceId": 2953,
+        "title": "1314 J5"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/1930-h6/",
+        "published": false,
+        "sku": "116LG178",
+        "sourceId": 2993,
+        "title": "1930 H5/6"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/beko-14/",
+        "published": true,
+        "sku": "308AC05",
+        "sourceId": 3067,
+        "title": "BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/faber-whirlpool-indesit-zanussi/",
+        "published": true,
+        "sku": "500FC36",
+        "sourceId": 3303,
+        "title": "FABER WHIRLPOOL INDESIT ZANUSSI"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/siltal-48/",
+        "published": false,
+        "sku": "145SL03",
+        "sourceId": 3489,
+        "title": "SILTAL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/siltal-49/",
+        "published": false,
+        "sku": "145SL04",
+        "sourceId": 3491,
+        "title": "SILTAL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-132/",
+        "published": false,
+        "sku": "141AR13",
+        "sourceId": 3501,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-142/",
+        "published": false,
+        "sku": "147ID00",
+        "sourceId": 3653,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-148/",
+        "published": true,
+        "sku": "162AR38",
+        "sourceId": 3669,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-152/",
+        "published": false,
+        "sku": "139AR24",
+        "sourceId": 3715,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/philco-31/",
+        "published": true,
+        "sku": "119PH01",
+        "sourceId": 3803,
+        "title": "PHILCO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-161/",
+        "published": true,
+        "sku": "120AR02",
+        "sourceId": 3815,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/candy-96/",
+        "published": true,
+        "sku": "122CY02",
+        "sourceId": 3849,
+        "title": "CANDY"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/%d1%82%d1%80%d1%8a%d0%b1%d0%b0-%d1%82%d0%b5%d0%bb%d0%b5%d1%81%d0%ba%d0%be%d0%bf%d0%b8%d1%87%d0%bd%d0%b0-35%d0%bc%d0%bc/",
+        "published": false,
+        "sku": "801PE21",
+        "sourceId": 4325,
+        "title": "ТРЪБА ТЕЛЕСКОПИЧНА 35мм"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/electrolux-zanussi-aeg-141/",
+        "published": false,
+        "sku": "312CU73",
+        "sourceId": 4456,
+        "title": "ELECTROLUX ZANUSSI AEG"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-206/",
+        "published": false,
+        "sku": "171ID28",
+        "sourceId": 4793,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-216/",
+        "published": true,
+        "sku": "162AR18",
+        "sourceId": 4923,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-223/",
+        "published": true,
+        "sku": "162AR45",
+        "sourceId": 4951,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/sangiorgio-19/",
+        "published": true,
+        "sku": "162SG02",
+        "sourceId": 5063,
+        "title": "Sangiorgio"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/1991-8phe/",
+        "published": true,
+        "sku": "116LG404",
+        "sourceId": 5351,
+        "title": "1991 6PHE"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/sangiorgio-23/",
+        "published": true,
+        "sku": "121SG02",
+        "sourceId": 5615,
+        "title": "SANGIORGIO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/1110-j4-el/",
+        "published": true,
+        "sku": "116LG208",
+        "sourceId": 5831,
+        "title": "1110 J4 EL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/beko-50/",
+        "published": true,
+        "sku": "139AC05OR",
+        "sourceId": 6072,
+        "title": "BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/siltal-75/",
+        "published": true,
+        "sku": "122SL06",
+        "sourceId": 6156,
+        "title": "SILTAL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/beko-56/",
+        "published": true,
+        "sku": "139AC04OR",
+        "sourceId": 6308,
+        "title": "BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/smeg-27/",
+        "published": false,
+        "sku": "308SM02",
+        "sourceId": 6374,
+        "title": "SMEG"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/electrolux-zanussi-aeg-privileg-3/",
+        "published": false,
+        "sku": "163ZN34",
+        "sourceId": 6467,
+        "title": "ELECTROLUX ZANUSSI AEG PRIVILEG"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/indesit-ariston-295/",
+        "published": true,
+        "sku": "119AR01",
+        "sourceId": 6551,
+        "title": "INDESIT ARISTON"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/beko-59/",
+        "published": true,
+        "sku": "150AC01",
+        "sourceId": 6586,
+        "title": "BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/whirlpool-beko/",
+        "published": true,
+        "sku": "150AC00",
+        "sourceId": 6648,
+        "title": "WHIRLPOOL BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/ardo-samsung-3/",
+        "published": false,
+        "sku": "125AK01",
+        "sourceId": 6824,
+        "title": "ARDO SAMSUNG"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/beko-66/",
+        "published": true,
+        "sku": "120AC04OR",
+        "sourceId": 6850,
+        "title": "BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/briel-3/",
+        "published": false,
+        "sku": "811PE64",
+        "sourceId": 6876,
+        "title": "BRIEL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/midea-7/",
+        "published": false,
+        "sku": "312MA04",
+        "sourceId": 6914,
+        "title": "MIDEA"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/arthur-martin-9/",
+        "published": false,
+        "sku": "333640",
+        "sourceId": 7164,
+        "title": "ARTHUR MARTIN"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/beko-80/",
+        "published": true,
+        "sku": "308AC04OR",
+        "sourceId": 7310,
+        "title": "BEKO"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/47-x-80-x-10-13/",
+        "published": true,
+        "sku": "113FA05",
+        "sourceId": 7446,
+        "title": "47 x 80 x 10/13"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/neo-elite/",
+        "published": false,
+        "sku": "816PE19A",
+        "sourceId": 7472,
+        "title": "UNIVERSAL"
+      },
+      {
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/midea-neo-crown-4/",
+        "published": false,
+        "sku": "161MA03",
+        "sourceId": 7542,
+        "title": "MIDEA NEO CROWN"
+      }
+    ],
+    "onlyInDb": [
+      {
+        "id": "6a469319068fc300483edd58",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "811PE241OR",
+        "sourceId": null,
+        "title": "Клапан за кафемашина SAECO"
+      },
+      {
+        "id": "6a469318068fc300483edd50",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "162BH25OR",
+        "sourceId": null,
+        "title": "Циркулационна помпа за съдомиялна BOSCH с нагревател"
+      },
+      {
+        "id": "6a469318068fc300483edd48",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "116LG404OR",
+        "sourceId": null,
+        "title": "Ремък за сушилня 1991 6PHE"
+      },
+      {
+        "id": "6a465adc068fc300483ecbea",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "139GR09OR",
+        "sourceId": null,
+        "title": "Закопчалка за пералня GORENJE"
+      },
+      {
+        "id": "6a43a7299c3767f83b8001ff",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "117GR00L",
+        "sourceId": null,
+        "title": "117GR00L - Ластик"
+      },
+      {
+        "id": "6a3f0a0163ce2a8468e56f1d",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "602BH01OR",
+        "sourceId": null,
+        "title": "Кварцов нагревател MWO  500W  115V   L=25.5cm"
+      },
+      {
+        "id": "6a3e28e263ce2a8468e53594",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "810PE103",
+        "sourceId": null,
+        "title": "810PE103 - кабел силиконов 2.5 мм2"
+      },
+      {
+        "id": "6a3e28e263ce2a8468e5358c",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "810PE102",
+        "sourceId": null,
+        "title": "810PE102 - кабел силиконов 1.5 мм2"
+      },
+      {
+        "id": "6a3daa8263ce2a8468e50d22",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "816PE50",
+        "sourceId": null,
+        "title": "816PE50 - ТРМ KS198 - 70 C"
+      },
+      {
+        "id": "6a3daa8263ce2a8468e50d17",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "803PE602",
+        "sourceId": null,
+        "title": "803PE602 - филтър за аспиратор с индикатор - А02"
+      },
+      {
+        "id": "6a3d47df63ce2a8468e47937",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "117SI22",
+        "sourceId": null,
+        "title": "Маншон за пералня BOSCH"
+      },
+      {
+        "id": "6a3d47de63ce2a8468e4791b",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "312BH27",
+        "sourceId": null,
+        "title": "Кръгъл нагревател за фурна BOSCH 2200W"
+      },
+      {
+        "id": "6a39b60c63ce2a8468e0d699",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "102LG200",
+        "sourceId": null,
+        "title": "Маркучч за клапани 9x15mm"
+      },
+      {
+        "id": "6a33aaea63ce2a8468daac8d",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "111LG230",
+        "sourceId": null,
+        "title": "Уплътнение за фланец на бойлер Сънсистем"
+      },
+      {
+        "id": "6a33106763ce2a8468da918b",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "110ED13",
+        "sourceId": null,
+        "title": "ТЕН Елдом 2000W хоризонтален  мед прав"
+      },
+      {
+        "id": "6a33106763ce2a8468da9183",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "813PE408",
+        "sourceId": null,
+        "title": "813PE408 - О-ринг 11х2.5"
+      },
+      {
+        "id": "6a33106763ce2a8468da917b",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "813PE405",
+        "sourceId": null,
+        "title": "813PE405 - О-ринг 8х2"
+      },
+      {
+        "id": "6a33106763ce2a8468da9173",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "813PE401",
+        "sourceId": null,
+        "title": "813PE401 - О-ринг 4х2"
+      },
+      {
+        "id": "6a32955a63ce2a8468d9e2e3",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "803SU02",
+        "sourceId": null,
+        "title": "Хепа филтър за прахосмукачка SAMSUNG"
+      },
+      {
+        "id": "6a32955963ce2a8468d9e2db",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "322CU62",
+        "sourceId": null,
+        "title": "ТРМ 294 C  L=163mm"
+      },
+      {
+        "id": "6a32955863ce2a8468d9e2d3",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "816PE20",
+        "sourceId": null,
+        "title": "Защита за фритюрник 230°C  L=740mm"
+      },
+      {
+        "id": "69ff2f8958138c72b910dc09",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "806PE252",
+        "sourceId": null,
+        "title": "Гр.четка 6.5х6.5х17.5"
+      },
+      {
+        "id": "69ff2f8958138c72b910dc01",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "813PE404",
+        "sourceId": null,
+        "title": "О-ринг 7х2"
+      },
+      {
+        "id": "69ff10e858138c72b910c479",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "139CY14OR",
+        "sourceId": null,
+        "title": "закопчалка 49016396"
+      },
+      {
+        "id": "69ff0bf058138c72b910c317",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "167GR10OR",
+        "sourceId": null,
+        "title": "Амортисьор 100N"
+      },
+      {
+        "id": "69ff0b3258138c72b910c249",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "159ID08OR",
+        "sourceId": null,
+        "title": "нагревател сушилня 2.3 kW - C00260053 - 281561 - 282396"
+      },
+      {
+        "id": "69fa02b7b6016830e5a48c94",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "161AR14",
+        "sourceId": null,
+        "title": "161AR14  - корпус  с нагревател  за помпа - C00634181 - 488000634181"
+      },
+      {
+        "id": "69d38f14aee9eefaf1f41238",
+        "imagesCount": 0,
+        "published": true,
+        "sku": "302CU40",
+        "sourceId": null,
+        "title": "145mm 1500W - 2 извода без термостат"
+      },
+      {
+        "id": "69b446bbc23d34935c3bd772",
+        "imagesCount": 0,
+        "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=54619",
+        "published": false,
+        "sku": "316AC57",
+        "sourceId": 54619,
+        "title": "BEKO BLOMBERG"
+      },
+      {
+        "id": "69b44240c23d34935c3b5998",
+        "imagesCount": 2,
+        "legacyProductUrl": "https://nikelectric.com/?post_type=product&#038;p=15025",
+        "published": false,
+        "sku": "302CU14",
+        "sourceId": 15025,
+        "title": "НАГРЕВАТЕЛНА ПЛОЧА 80мм"
+      },
+      {
+        "id": "69b43e0ec23d34935c3adbbc",
+        "imagesCount": 1,
+        "legacyProductUrl": "http://nikelectric.com/produkt/ego-12/",
+        "published": false,
+        "sku": "302CU15",
+        "sourceId": 4219,
+        "title": "EGO"
+      }
+    ]
+  }
+}

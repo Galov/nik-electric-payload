@@ -1,0 +1,524 @@
+{
+  "ambiguous": [],
+  "autoFixed": [],
+  "autoFixable": 0,
+  "mode": "dry-run",
+  "notFound": [
+    {
+      "imageIndex": 0,
+      "legacyUrl": "http://nikelectric.com/wp-content/uploads/2019/02/CingJ.jpg",
+      "previousStorageKey": "products/1270/69b43d43c23d34935c3ac340-1-CingJ.jpg",
+      "productId": "69b43d43c23d34935c3ac340",
+      "sku": "116LG",
+      "title": "1270"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/04/308CU45-1.jpg",
+      "previousStorageKey": "products/14143/69b4421ac23d34935c3b5516-1-308CU45-1.jpg",
+      "productId": "69b4421ac23d34935c3b5516",
+      "sku": "308CU45",
+      "title": "ДИПЛОМАТ ВИКОМ"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/04/813PE218.jpg",
+      "previousStorageKey": "products/14155/69b4421bc23d34935c3b553a-1-813PE218.jpg",
+      "productId": "69b4421bc23d34935c3b553a",
+      "sku": "813PE218",
+      "title": "ARIETE"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/04/208FR04-1.jpg",
+      "previousStorageKey": "products/14182/69b4421dc23d34935c3b5588-1-208FR04-1.jpg",
+      "productId": "69b4421dc23d34935c3b5588",
+      "sku": "208FR04",
+      "title": "SAMSUNG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/06/117AR32.jpg",
+      "previousStorageKey": "products/14980/69b4423dc23d34935c3b593e-1-117AR32.jpg",
+      "productId": "69b4423dc23d34935c3b593e",
+      "sku": "117AR32",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/06/312AR13A.jpg",
+      "previousStorageKey": "products/15252/69b4424ec23d34935c3b5b3f-1-312AR13A.jpg",
+      "productId": "69b4424ec23d34935c3b5b3f",
+      "sku": "312AR13OR",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/06/312AR13AA.jpg",
+      "previousStorageKey": "products/15252/69b4424ec23d34935c3b5b3f-2-312AR13AA.jpg",
+      "productId": "69b4424ec23d34935c3b5b3f",
+      "sku": "312AR13OR",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/06/148VE02-1.jpg",
+      "previousStorageKey": "products/15459/69b44258c23d34935c3b5c5d-1-148VE02-1.jpg",
+      "productId": "69b44258c23d34935c3b5c5d",
+      "sku": "148VE02",
+      "title": "VESTEL"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/06/119CY11.jpg",
+      "previousStorageKey": "products/15529/69b44258c23d34935c3b5c66-1-119CY11.jpg",
+      "productId": "69b44258c23d34935c3b5c66",
+      "sku": "119CY11",
+      "title": "CANDY"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/08/802PE49.jpg",
+      "previousStorageKey": "products/16172/69b44270c23d34935c3b5f19-1-802PE49.jpg",
+      "productId": "69b44270c23d34935c3b5f19",
+      "sku": "802PE49",
+      "title": "UNIVERSAL"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/10/307MC09-1.jpg",
+      "previousStorageKey": "products/17553/69b4428ec23d34935c3b6274-1-307MC09-1.jpg",
+      "productId": "69b4428ec23d34935c3b6274",
+      "sku": "307MC09",
+      "title": "AMICA"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/11/117MD00-1.jpg",
+      "previousStorageKey": "products/18121/69b4429ec23d34935c3b6451-1-117MD00-1.jpg",
+      "productId": "69b4429ec23d34935c3b6451",
+      "sku": "117MD00",
+      "title": "MIDEA HANSA"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/11/139ZN30.jpg",
+      "previousStorageKey": "products/18136/69b442a0c23d34935c3b6499-1-139ZN30.jpg",
+      "productId": "69b442a0c23d34935c3b6499",
+      "sku": "139ZN30",
+      "title": "ELECTROLUX ZANUSSI AEG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2020/02/140ID09-1.jpg",
+      "previousStorageKey": "products/19807/69b442c5c23d34935c3b685a-1-140ID09-1.jpg",
+      "productId": "69b442c5c23d34935c3b685a",
+      "sku": "140ID09OR",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2020/02/140ID09-1-1.jpg",
+      "previousStorageKey": "products/19807/69b442c5c23d34935c3b685a-2-140ID09-1-1.jpg",
+      "productId": "69b442c5c23d34935c3b685a",
+      "sku": "140ID09OR",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2020/02/103LG22.jpg",
+      "previousStorageKey": "products/19976/69b442c9c23d34935c3b68ea-1-103LG22.jpg",
+      "productId": "69b442c9c23d34935c3b68ea",
+      "sku": "103LG22",
+      "title": "ИЗХВЪРЛЯЩ МАРКУЧ Ф30 - 2.5m"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2019/04/900LG07.jpg",
+      "previousStorageKey": "products/20716/69b442d8c23d34935c3b6aa2-1-900LG07.jpg",
+      "productId": "69b442d8c23d34935c3b6aa2",
+      "sku": "900LG10",
+      "title": "НАГРЕВАТЕЛ ЗА САУНА"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2021/02/802PE02.jpg",
+      "previousStorageKey": "products/26084/69b44361c23d34935c3b7a4b-1-802PE02.jpg",
+      "productId": "69b44361c23d34935c3b7a4b",
+      "sku": "802PE02",
+      "title": "Мотор прахосмукачка Miele,Hoover 1000W"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2021/02/802PE02-1.jpg",
+      "previousStorageKey": "products/26084/69b44361c23d34935c3b7a4b-2-802PE02-1.jpg",
+      "productId": "69b44361c23d34935c3b7a4b",
+      "sku": "802PE02",
+      "title": "Мотор прахосмукачка Miele,Hoover 1000W"
+    },
+    {
+      "imageIndex": 2,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2021/02/802PE02-2.jpg",
+      "previousStorageKey": "products/26084/69b44361c23d34935c3b7a4b-3-802PE02-2.jpg",
+      "productId": "69b44361c23d34935c3b7a4b",
+      "sku": "802PE02",
+      "title": "Мотор прахосмукачка Miele,Hoover 1000W"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2021/03/811PE359-1.jpg",
+      "previousStorageKey": "products/26535/69b44374c23d34935c3b7c8b-1-811PE359-1.jpg",
+      "productId": "69b44374c23d34935c3b7c8b",
+      "sku": "811PE359",
+      "title": "SAECO"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2015/06/500FC106.jpg",
+      "previousStorageKey": "products/28386/69b443abc23d34935c3b82d2-1-500FC106.jpg",
+      "productId": "69b443abc23d34935c3b82d2",
+      "sku": "500FC117",
+      "title": "АЛУМИНИЕВ ФИЛТЪР"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2022/01/227FR74.jpg",
+      "previousStorageKey": "products/31924/69b4441cc23d34935c3b8ee7-1-227FR74.jpg",
+      "productId": "69b4441cc23d34935c3b8ee7",
+      "sku": "227FR74",
+      "title": "INDESIT ARISTON"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2022/01/500FC114.jpg",
+      "previousStorageKey": "products/32015/69b44422c23d34935c3b8f77-1-500FC114.jpg",
+      "productId": "69b44422c23d34935c3b8f77",
+      "sku": "500FC119",
+      "title": "АЛУМИНИЕВ ФИЛТЪР"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2022/01/500FC120.jpg",
+      "previousStorageKey": "products/32016/69b44422c23d34935c3b8f80-1-500FC120.jpg",
+      "productId": "69b44422c23d34935c3b8f80",
+      "sku": "500FC120",
+      "title": "АЛУМИНИЕВ ФИЛТЪР"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2022/01/802PE20.jpg",
+      "previousStorageKey": "products/32568/69b44440c23d34935c3b928e-1-802PE20.jpg",
+      "productId": "69b44440c23d34935c3b928e",
+      "sku": "802PE20",
+      "title": "UNIVERSAL"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2022/11/812PE17.jpg",
+      "previousStorageKey": "products/37462/69b444cac23d34935c3ba0ea-1-812PE17.jpg",
+      "productId": "69b444cac23d34935c3ba0ea",
+      "sku": "812PE17",
+      "title": "ПОМПА 53W"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/01/168VE06.jpg",
+      "previousStorageKey": "products/38461/69b444ecc23d34935c3ba463-1-168VE06.jpg",
+      "productId": "69b444ecc23d34935c3ba463",
+      "sku": "168VE06",
+      "title": "кръстачка Ф30/25/17"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/02/154CY03.jpg",
+      "previousStorageKey": "products/39451/69b4450cc23d34935c3ba7bf-1-154CY03.jpg",
+      "productId": "69b4450cc23d34935c3ba7bf",
+      "sku": "154CY03",
+      "title": "CANDY"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/05/316AC28-1.jpg",
+      "previousStorageKey": "products/43964/69b44570c23d34935c3bb295-1-316AC28-1.jpg",
+      "productId": "69b44570c23d34935c3bb295",
+      "sku": "316AC28",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/05/316AC28-1-1.jpg",
+      "previousStorageKey": "products/43964/69b44570c23d34935c3bb295-2-316AC28-1-1.jpg",
+      "productId": "69b44570c23d34935c3bb295",
+      "sku": "316AC28",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/07/140GR14A.jpg",
+      "previousStorageKey": "products/45736/69b4458dc23d34935c3bb5d0-1-140GR14A.jpg",
+      "productId": "69b4458dc23d34935c3bb5d0",
+      "sku": "140GR14",
+      "title": "GORENJE"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/07/140GR14.jpg",
+      "previousStorageKey": "products/45736/69b4458dc23d34935c3bb5d0-2-140GR14.jpg",
+      "productId": "69b4458dc23d34935c3bb5d0",
+      "sku": "140GR14",
+      "title": "GORENJE"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/07/163GR04.jpg",
+      "previousStorageKey": "products/45970/69b44595c23d34935c3bb69e-1-163GR04.jpg",
+      "productId": "69b44595c23d34935c3bb69e",
+      "sku": "163GR04",
+      "title": "GORENJE"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2012/02/163LG57.jpg",
+      "previousStorageKey": "products/45970/69b44595c23d34935c3bb69e-2-163LG57.jpg",
+      "productId": "69b44595c23d34935c3bb69e",
+      "sku": "163GR04",
+      "title": "GORENJE"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2009/10/801PE19.jpg",
+      "previousStorageKey": "products/46546/69b445aec23d34935c3bb977-1-801PE19.jpg",
+      "productId": "69b445aec23d34935c3bb977",
+      "sku": "801PE18",
+      "title": "ТРЪБА 32мм"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/09/813PE118.jpg",
+      "previousStorageKey": "products/46933/69b445b4c23d34935c3bba21-1-813PE118.jpg",
+      "productId": "69b445b4c23d34935c3bba21",
+      "sku": "813PE128",
+      "title": "MOKA"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/09/126GR03.jpg",
+      "previousStorageKey": "products/47047/69b445b7c23d34935c3bba84-1-126GR03.jpg",
+      "productId": "69b445b7c23d34935c3bba84",
+      "sku": "126GR03",
+      "title": "SMEG GORENJE"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2012/05/601MD02.jpg",
+      "previousStorageKey": "products/47468/69b445c0c23d34935c3bbb77-1-601MD02.jpg",
+      "productId": "69b445c0c23d34935c3bbb77",
+      "sku": "601MD00",
+      "title": "LG ELECTROLUX  190/245mm"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/11/307VE24.jpg",
+      "previousStorageKey": "products/90/69b445d5c23d34935c3bbdd1-1-307VE24.jpg",
+      "productId": "69b445d5c23d34935c3bbdd1",
+      "sku": "307VE24",
+      "title": "9+0"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/11/148AC18.jpg",
+      "previousStorageKey": "products/48360/69b445dec23d34935c3bbed6-1-148AC18.jpg",
+      "productId": "69b445dec23d34935c3bbed6",
+      "sku": "148AC18",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2023/11/148AC18A.jpg",
+      "previousStorageKey": "products/48360/69b445dec23d34935c3bbed6-2-148AC18A.jpg",
+      "productId": "69b445dec23d34935c3bbed6",
+      "sku": "148AC18",
+      "title": "BEKO SANG BLOMBERG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/03/163SU02.jpg",
+      "previousStorageKey": "products/50577/69b44618c23d34935c3bc542-1-163SU02.jpg",
+      "productId": "69b44618c23d34935c3bc542",
+      "sku": "163SU02",
+      "title": "SAMSUNG"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/03/163SU02A.jpg",
+      "previousStorageKey": "products/50577/69b44618c23d34935c3bc542-2-163SU02A.jpg",
+      "productId": "69b44618c23d34935c3bc542",
+      "sku": "163SU02",
+      "title": "SAMSUNG"
+    },
+    {
+      "imageIndex": 2,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/03/163SU02AA.jpg",
+      "previousStorageKey": "products/50577/69b44618c23d34935c3bc542-3-163SU02AA.jpg",
+      "productId": "69b44618c23d34935c3bc542",
+      "sku": "163SU02",
+      "title": "SAMSUNG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/04/500FC163.jpg",
+      "previousStorageKey": "products/51671/69b4464ec23d34935c3bcb2f-1-500FC163.jpg",
+      "productId": "69b4464ec23d34935c3bcb2f",
+      "sku": "500FC163",
+      "title": "АЛУМИНИЕВ ФИЛТЪР"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/08/168AC02.jpg",
+      "previousStorageKey": "products/54235/69b446aac23d34935c3bd575-1-168AC02.jpg",
+      "productId": "69b446aac23d34935c3bd575",
+      "sku": "168AC02",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/09/145BH02.jpg",
+      "previousStorageKey": "products/54700/69b446bfc23d34935c3bd7dd-1-145BH02.jpg",
+      "productId": "69b446bfc23d34935c3bd7dd",
+      "sku": "145BH02",
+      "title": "BOSCH SIEMENS BALAY"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/09/145BH02-1.jpg",
+      "previousStorageKey": "products/54700/69b446bfc23d34935c3bd7dd-2-145BH02-1.jpg",
+      "productId": "69b446bfc23d34935c3bd7dd",
+      "sku": "145BH02",
+      "title": "BOSCH SIEMENS BALAY"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/11/Photoroom-20241102_120704.jpg",
+      "previousStorageKey": "products/55807/69b446eec23d34935c3bdd1e-1-Photoroom-20241102_120704.jpg",
+      "productId": "69b446eec23d34935c3bdd1e",
+      "sku": "120MA01",
+      "title": "Маркуч помпа"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/12/901FA08.jpg",
+      "previousStorageKey": "products/57039/69b44734c23d34935c3be3d7-1-901FA08.jpg",
+      "productId": "69b44734c23d34935c3be3d7",
+      "sku": "901FA08",
+      "title": "FAGOR"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2024/12/901FA08-1.jpg",
+      "previousStorageKey": "products/57039/69b44734c23d34935c3be3d7-2-901FA08-1.jpg",
+      "productId": "69b44734c23d34935c3be3d7",
+      "sku": "901FA08",
+      "title": "FAGOR"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2025/01/309CU83.jpg",
+      "previousStorageKey": "products/57584/69b44749c23d34935c3be628-1-309CU83.jpg",
+      "productId": "69b44749c23d34935c3be628",
+      "sku": "309CU83",
+      "title": "Product 57584"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2025/01/803PH16.jpg",
+      "previousStorageKey": "products/57611/69b4474cc23d34935c3be682-1-803PH16.jpg",
+      "productId": "69b4474cc23d34935c3be682",
+      "sku": "803PH16",
+      "title": "PHILIPS"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2025/03/312GR33.jpg",
+      "previousStorageKey": "products/59599/69b4479dc23d34935c3bef38-1-312GR33.jpg",
+      "productId": "69b4479dc23d34935c3bef38",
+      "sku": "312GR33",
+      "title": "GORENJE"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2025/05/901CU03.jpg",
+      "previousStorageKey": "products/60881/69b447cfc23d34935c3bf494-1-901CU03.jpg",
+      "productId": "69b447cfc23d34935c3bf494",
+      "sku": "901CU03",
+      "title": "УПЛЪТНИТЕЛ ТЕНДЖЕРА"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2010/07/901FA18-1-1.jpg",
+      "previousStorageKey": "products/60881/69b447cfc23d34935c3bf494-2-901FA18-1-1.jpg",
+      "productId": "69b447cfc23d34935c3bf494",
+      "sku": "901CU03",
+      "title": "УПЛЪТНИТЕЛ ТЕНДЖЕРА"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2025/10/139AC19.jpg",
+      "previousStorageKey": "products/64050/69b44825c23d34935c3bfd97-1-139AC19.jpg",
+      "productId": "69b44825c23d34935c3bfd97",
+      "sku": "139AC19",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2025/11/150GR10.jpg",
+      "previousStorageKey": "products/64941/69b44855c23d34935c3c02aa-1-150GR10.jpg",
+      "productId": "69b44855c23d34935c3c02aa",
+      "sku": "150GR10",
+      "title": "температурен сензор - 230566, 413318"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2026/02/208AC00-1.jpg",
+      "previousStorageKey": "products/66898/69b448a4c23d34935c3c0aee-1-208AC00-1.jpg",
+      "productId": "69b448a4c23d34935c3c0aee",
+      "sku": "208AC01",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2026/02/208AC00A.jpg",
+      "previousStorageKey": "products/66898/69b448a4c23d34935c3c0aee-2-208AC00A.jpg",
+      "productId": "69b448a4c23d34935c3c0aee",
+      "sku": "208AC01",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2026/02/203AC22.jpg",
+      "previousStorageKey": "products/66915/69b448a6c23d34935c3c0b1b-1-203AC22.jpg",
+      "productId": "69b448a6c23d34935c3c0b1b",
+      "sku": "203AC22",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "imageIndex": 1,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2026/02/203AC22A.jpg",
+      "previousStorageKey": "products/66915/69b448a6c23d34935c3c0b1b-2-203AC22A.jpg",
+      "productId": "69b448a6c23d34935c3c0b1b",
+      "sku": "203AC22",
+      "title": "BEKO BLOMBERG"
+    },
+    {
+      "imageIndex": 0,
+      "legacyUrl": "https://nikelectric.com/wp-content/uploads/2026/03/143MI07-1.jpg",
+      "previousStorageKey": "products/67360/69b448bdc23d34935c3c0d86-1-143MI07-1.jpg",
+      "productId": "69b448bdc23d34935c3c0d86",
+      "sku": "143MI07",
+      "title": "143MI07  - Филтър за сушилня MIELE - 220 x126 x 30 - 09499230"
+    }
+  ],
+  "processedProducts": 10126,
+  "suspiciousImages": 64,
+  "totalR2Objects": 11817,
+  "updatedProducts": 0
+}

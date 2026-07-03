@@ -202,6 +202,11 @@ export const Users: CollectionConfig = {
       name: 'partnerCode',
       label: 'Код на партньор',
       type: 'text',
+      admin: {
+        components: {
+          Field: '@/components/admin/LockableTextField#LockableTextField',
+        },
+      },
       access: {
         create: adminOnlyFieldAccess,
         read: adminOrSelfFieldAccess,

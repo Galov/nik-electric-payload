@@ -116,5 +116,6 @@ export type ImportOptions = {
   dryRun: boolean
   dumpFile: string
   legacySiteUrl?: string
+  unpublishMissingProducts?: boolean
   uploadsBaseUrl?: string
 }

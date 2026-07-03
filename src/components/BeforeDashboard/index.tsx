@@ -1,84 +1,82 @@
+import configPromise from '@payload-config'
 import { Banner } from '@payloadcms/ui'
+import { getPayload } from 'payload'
+import { unstable_noStore as noStore } from 'next/cache'
+import Link from 'next/link'
 import React from 'react'
 
-import { SeedButton } from './SeedButton'
 import './index.scss'
 
 const baseClass = 'before-dashboard'
+const ordersAdminPath = '/admin/collections/orders'
 
-export const BeforeDashboard: React.FC = () => {
+const buildOrdersLabel = (count: number, singular: string, plural: string) =>
+  count === 1 ? singular : plural
+
+const processingOrdersURL = `${ordersAdminPath}?where[status][equals]=processing`
+const failedOrdersURL = `${ordersAdminPath}?where[miOrderExportStatus][equals]=failed`
+
+export const BeforeDashboard = async () => {
+  noStore()
+
+  const payload = await getPayload({ config: configPromise })
+
+  const [{ totalDocs: failedOrders }, { totalDocs: processingOrders }] = await Promise.all([
+    payload.count({
+      collection: 'orders',
+      overrideAccess: true,
+      where: {
+        miOrderExportStatus: {
+          equals: 'failed',
+        },
+      },
+    }),
+    payload.count({
+      collection: 'orders',
+      overrideAccess: true,
+      where: {
+        status: {
+          equals: 'processing',
+        },
+      },
+    }),
+  ])
+
   return (
     <div className={baseClass}>
-      <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your dashboard!</h4>
-      </Banner>
-      Here&apos;s what to do next:
-      <ul className={`${baseClass}__instructions`}>
-        <li>
-          <SeedButton />
-          {' with a few products and pages to jump-start your new project, then '}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/">visit your website</a>
-          {' to see the results.'}
-        </li>
-        <li>
-          {'Head over to '}
-          <a
-            href="https://dashboard.stripe.com/test/apikeys"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Stripe to obtain your API Keys
-          </a>
-          {
-            '. Create a new account if needed, then copy them into your environment variables and restart your server. See the '
-          }
-          <a
-            href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            README
-          </a>
-          {' for more details.'}
-        </li>
-        <li>
-          {'Modify your '}
-          <a
-            href="https://payloadcms.com/docs/configuration/collections"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            collections
-          </a>
-          {' and add more '}
-          <a
-            href="https://payloadcms.com/docs/fields/overview"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            fields
-          </a>
-          {' as needed. If you are new to Payload, we also recommend you check out the '}
-          <a
-            href="https://payloadcms.com/docs/getting-started/what-is-payload"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Getting Started
-          </a>
-          {' docs.'}
-        </li>
-      </ul>
-      {'Pro Tip: This block is a '}
-      <a
-        href="https://payloadcms.com/docs/admin/components#base-component-overrides"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        custom component
-      </a>
-      , you can remove it at any time by updating your <strong>payload.config</strong>.
+      {failedOrders > 0 && (
+        <Banner className={`${baseClass}__banner`} type="error">
+          Имате {failedOrders} {buildOrdersLabel(failedOrders, 'грешна поръчка', 'грешни поръчки')}.
+          Проверете ги възможно най-скоро.
+        </Banner>
+      )}
+
+      <div className={`${baseClass}__grid`}>
+        <div className={`${baseClass}__card`}>
+          <p className={`${baseClass}__eyebrow`}>Неприключени поръчки</p>
+          <p className={`${baseClass}__value`}>{processingOrders}</p>
+          <p className={`${baseClass}__description`}>
+            Имате {processingOrders}{' '}
+            {buildOrdersLabel(processingOrders, 'неприключена поръчка', 'неприключени поръчки')}.
+          </p>
+          <Link className={`${baseClass}__link`} href={processingOrdersURL}>
+            Отвори неприключените
+          </Link>
+        </div>
+
+        <div className={`${baseClass}__card`}>
+          <p className={`${baseClass}__eyebrow`}>Грешни поръчки</p>
+          <p className={`${baseClass}__value ${failedOrders > 0 ? `${baseClass}__value--danger` : ''}`}>
+            {failedOrders}
+          </p>
+          <p className={`${baseClass}__description`}>
+            Имате {failedOrders} {buildOrdersLabel(failedOrders, 'грешна поръчка', 'грешни поръчки')}.
+          </p>
+          <Link className={`${baseClass}__link`} href={failedOrdersURL}>
+            Отвори грешните
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }

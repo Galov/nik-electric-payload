@@ -1,3 +1,4 @@
+import { LockableTextField as LockableTextField_40b1c4149398564f418d89cac3068ff3 } from '@/components/admin/LockableTextField'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
@@ -34,10 +35,12 @@ import { SubscriptFeatureClient as SubscriptFeatureClient_e70f5e05f09f93e00b997e
 import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { AdminIcon as AdminIcon_048abc6671a4fc1f451175ea3afb1836 } from '@/components/Logo/AdminIcon'
 import { AdminLogo as AdminLogo_d0335e7a62aec198e4416a8134eda638 } from '@/components/Logo/AdminLogo'
+import { BeforeDashboard as BeforeDashboard_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
+  "@/components/admin/LockableTextField#LockableTextField": LockableTextField_40b1c4149398564f418d89cac3068ff3,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
   "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
@@ -74,6 +77,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#StrikethroughFeatureClient": StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/Logo/AdminIcon#AdminIcon": AdminIcon_048abc6671a4fc1f451175ea3afb1836,
   "@/components/Logo/AdminLogo#AdminLogo": AdminLogo_d0335e7a62aec198e4416a8134eda638,
+  "@/components/BeforeDashboard#BeforeDashboard": BeforeDashboard_1a7510af427896d367a49dbf838d2de6,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

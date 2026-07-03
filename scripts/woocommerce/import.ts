@@ -31,6 +31,7 @@ async function main(): Promise<void> {
     brands,
     categories,
     products,
+    unpublishMissingProducts: Boolean(options.unpublishMissingProducts),
   })
 
   report.failedProducts = result.failedProducts.length
@@ -41,6 +42,7 @@ async function main(): Promise<void> {
   console.log('\nImport completed.')
   console.log(`Succeeded products: ${result.succeededProducts}`)
   console.log(`Failed products: ${result.failedProducts.length}`)
+  console.log(`Unpublished missing products: ${result.unpublishedMissingProducts}`)
   console.log(`Failure report: ${reportFile}`)
 }
 
@@ -51,6 +53,7 @@ function parseArgs(args: string[]): ImportOptions & { help: boolean } {
     dumpFile: path.resolve(process.cwd(), '../nikelect_woocdb2019.sql'),
     help: false,
     legacySiteUrl: process.env.LEGACY_SITE_URL,
+    unpublishMissingProducts: false,
     uploadsBaseUrl: process.env.LEGACY_UPLOADS_BASE_URL,
   }
 
@@ -60,6 +63,7 @@ function parseArgs(args: string[]): ImportOptions & { help: boolean } {
     else if (arg.startsWith('--dump=')) defaults.dumpFile = path.resolve(process.cwd(), arg.slice(7))
     else if (arg.startsWith('--batch-size=')) defaults.batchSize = Number(arg.slice(13)) || defaults.batchSize
     else if (arg.startsWith('--legacy-site-url=')) defaults.legacySiteUrl = arg.slice(18)
+    else if (arg === '--unpublish-missing') defaults.unpublishMissingProducts = true
     else if (arg.startsWith('--uploads-base-url=')) defaults.uploadsBaseUrl = arg.slice(19)
   }
 
@@ -79,6 +83,7 @@ Options:
   --dump=<path>             SQL dump path. Defaults to ../nikelect_woocdb2019.sql
   --batch-size=<number>     Product import batch size. Defaults to 250
   --legacy-site-url=<url>   Used to build image URLs when attachment guid is missing
+  --unpublish-missing       Set existing products missing from the dump to published=false
   --uploads-base-url=<url>  Explicit uploads base URL, overrides legacy-site-url
   --help                    Show this message
 `)

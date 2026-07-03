@@ -229,6 +229,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               admin: {
                 description: 'Основното описание, което се вижда на продуктовата страница.',
               },
+              maxLength: 100000,
               type: 'textarea',
             },
             {
@@ -308,7 +309,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               label: 'Microinvest ID',
               type: 'number',
               admin: {
-                hidden: true,
+                readOnly: true,
               },
               index: true,
               unique: true,

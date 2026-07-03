@@ -1,0 +1,403 @@
+{
+  "apply": false,
+  "inputPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/reports/mi-id-sku-mismatches.json",
+  "reportGeneratedAt": "2026-07-02T16:13:03.002Z",
+  "summary": {
+    "skipped": 0,
+    "totalRows": 39,
+    "updated": 39
+  },
+  "updated": [
+    {
+      "productId": "69b442fcc23d34935c3b6e98",
+      "ourSku": "302CU04",
+      "miProductId": 6,
+      "ourTitle": "UNIVERSAL",
+      "miSku": "302CU04OR",
+      "miTitle": "Плоча  180 mm 1800W за ключ 6+0",
+      "published": true,
+      "slug": "universal-145"
+    },
+    {
+      "productId": "69b43d86c23d34935c3acb5e",
+      "ourSku": "302CU22",
+      "miProductId": 20,
+      "ourTitle": "Плоча 180/120 мм. 1700/700W",
+      "miSku": "302CU22OR",
+      "miTitle": "Плоча 180/120 мм. 1700/700W",
+      "published": true,
+      "slug": "ego-180-120d0bcd0bc"
+    },
+    {
+      "productId": "69b43eb4c23d34935c3aefa8",
+      "ourSku": "210FR23",
+      "miProductId": 1529,
+      "ourTitle": "Бутон за хладилник",
+      "miSku": "210FR23OR",
+      "miTitle": "Бутон за хладилник",
+      "published": true,
+      "slug": "beko-51"
+    },
+    {
+      "productId": "69b43e7fc23d34935c3ae94f",
+      "ourSku": "811PE350",
+      "miProductId": 2195,
+      "ourTitle": "Клапан за кафемашина",
+      "miSku": "811PE350OR",
+      "miTitle": "Клапан за кафемашина",
+      "published": true,
+      "slug": "delonghi-10"
+    },
+    {
+      "productId": "69b43f1dc23d34935c3afc36",
+      "ourSku": "210FR01",
+      "miProductId": 2394,
+      "ourTitle": "Бутон за хладилник",
+      "miSku": "210FR01OR",
+      "miTitle": "Бутон за хладилник",
+      "published": true,
+      "slug": "d0b1d183d182d0bed0bd-3"
+    },
+    {
+      "productId": "69b441adc23d34935c3b4ab0",
+      "ourSku": "167GR02",
+      "miProductId": 4065,
+      "ourTitle": "Амортисьор -159737",
+      "miSku": "167GR02OR",
+      "miTitle": "Амортисьор за пералня",
+      "published": true,
+      "slug": "gorenje-228"
+    },
+    {
+      "productId": "69b4436cc23d34935c3b7b98",
+      "ourSku": "133AC02",
+      "miProductId": 5230,
+      "ourTitle": "Пружина миялна - 1880880100 - 1743980100",
+      "miSku": "133AC02OR",
+      "miTitle": "Пружина за съдомиялна BEKO",
+      "published": true,
+      "slug": "beko-sang-blomberg-167"
+    },
+    {
+      "productId": "69b43ef6c23d34935c3af78e",
+      "ourSku": "301GR03",
+      "miProductId": 5254,
+      "ourTitle": "Клеморед за готварски печки Горение",
+      "miSku": "301GR03OR",
+      "miTitle": "Клеморед за готварски печки Горение",
+      "published": true,
+      "slug": "gorenje-106"
+    },
+    {
+      "productId": "69b4401ec23d34935c3b1b3b",
+      "ourSku": "326CU11",
+      "miProductId": 6099,
+      "ourTitle": "Ремък за хлебопекарна 420 мм",
+      "miSku": "326CU11OR",
+      "miTitle": "Ремък за хлебопекарна 420 мм",
+      "published": true,
+      "slug": "d180d0b5d0bcd18ad0ba-d0b7d0b0-d185d0bbd0b5d0b1d0bed0bfd0b5d0bad0b0d180d0bdd0b0-420mm"
+    },
+    {
+      "productId": "69b44035c23d34935c3b1de9",
+      "ourSku": "166ZN02",
+      "miProductId": 6275,
+      "ourTitle": "Ролка за сушилня",
+      "miSku": "166ZN02OR",
+      "miTitle": "Ролка за сушилня",
+      "published": true,
+      "slug": "electrolux-zanussi-aeg-273"
+    },
+    {
+      "productId": "69b44057c23d34935c3b2210",
+      "ourSku": "308MC01",
+      "miProductId": 6417,
+      "ourTitle": "Уплътнител  фурна AMICA, HANSA 325 x 415 mm",
+      "miSku": "308MC01OR",
+      "miTitle": "Уплътнител  фурна AMICA, HANSA 325 x 415 mm",
+      "published": true,
+      "slug": "amica-23"
+    },
+    {
+      "productId": "69b440a8c23d34935c3b2ba8",
+      "ourSku": "800PE118",
+      "miProductId": 6647,
+      "ourTitle": "Четка под за прахосмукачки Zelmer",
+      "miSku": "800PE118OR",
+      "miTitle": "Четка под за прахосмукачки Zelmer",
+      "published": true,
+      "slug": "zelmer-20"
+    },
+    {
+      "productId": "69b44135c23d34935c3b3c79",
+      "ourSku": "308CU80",
+      "miProductId": 7183,
+      "ourTitle": "уплътнител за керамичен плот 3 м - 288509",
+      "miSku": "308CU80OR",
+      "miTitle": "Уплътнител за керамичен плот 3 м",
+      "published": true,
+      "slug": "d183d0bfd0bbd18ad0bdd0b8d182d0b5d0bb-2"
+    },
+    {
+      "productId": "69b4415ec23d34935c3b4152",
+      "ourSku": "116LG651",
+      "miProductId": 7440,
+      "ourTitle": "Ремък за сушилня  2010 H7",
+      "miSku": "116LG651OR",
+      "miTitle": "Ремък за сушилня  2010 H7",
+      "published": true,
+      "slug": "2010-h7"
+    },
+    {
+      "productId": "69b4416ec23d34935c3b432e",
+      "ourSku": "308AC11",
+      "miProductId": 7518,
+      "ourTitle": "Уплътнител за фурна с обратни куки 33х43.5",
+      "miSku": "308AC11OR",
+      "miTitle": "Уплътнител за фурна с обратни куки 33х43.5",
+      "published": true,
+      "slug": "beko-sang-blomberg-14"
+    },
+    {
+      "productId": "69b44185c23d34935c3b45fe",
+      "ourSku": "200AC05",
+      "miProductId": 7635,
+      "ourTitle": "Дръжка за хладилник  295 мм",
+      "miSku": "200AC05OR",
+      "miTitle": "Дръжка за хладилник  295 мм",
+      "published": true,
+      "slug": "beko-sang-blomberg-39"
+    },
+    {
+      "productId": "69b4425fc23d34935c3b5d2c",
+      "ourSku": "143AC08",
+      "miProductId": 8610,
+      "ourTitle": "филтър сушилня  - 2964840200",
+      "miSku": "143AC08OR",
+      "miTitle": "Филтър сушилня BEKO",
+      "published": true,
+      "slug": "beko-sang-blomberg-102"
+    },
+    {
+      "productId": "69b4429ec23d34935c3b6448",
+      "ourSku": "312AC16",
+      "miProductId": 8786,
+      "ourTitle": "Горен нагревател за фурна 800+800 W",
+      "miSku": "312AC16OR",
+      "miTitle": "Горен нагревател за фурна 800+800 W",
+      "published": true,
+      "slug": "beko-sang-blomberg-106"
+    },
+    {
+      "productId": "69b442c8c23d34935c3b68bd",
+      "ourSku": "162AC26",
+      "miProductId": 8877,
+      "ourTitle": "Помпа съдомиялна ATLANTIS с нагревател",
+      "miSku": "162AC26OR",
+      "miTitle": "Помпа съдомиялна ATLANTIS с нагревател",
+      "published": true,
+      "slug": "beko-sang-blomberg-128"
+    },
+    {
+      "productId": "69b442bdc23d34935c3b67b8",
+      "ourSku": "119AC05",
+      "miProductId": 8901,
+      "ourTitle": "гумено съединение - 2846690100",
+      "miSku": "119AC05OR",
+      "miTitle": "Горен гофриран маркуч за перални BEKO",
+      "published": true,
+      "slug": "beko-sang-blomberg-120"
+    },
+    {
+      "productId": "69b44387c23d34935c3b7ec1",
+      "ourSku": "168SU18",
+      "miProductId": 9672,
+      "ourTitle": "Болт - DC60-40137A",
+      "miSku": "168SU18OR",
+      "miTitle": "Болт за носач на пералня",
+      "published": true,
+      "slug": "d0b1d0bed0bbd182"
+    },
+    {
+      "productId": "69b44392c23d34935c3b8014",
+      "ourSku": "165GR06",
+      "miProductId": 9704,
+      "ourTitle": "Ремъчна шайба за пералня",
+      "miSku": "165GR06OR",
+      "miTitle": "Ремъчна шайба за пералня",
+      "published": true,
+      "slug": "gorenje-159"
+    },
+    {
+      "productId": "69b4439dc23d34935c3b814f",
+      "ourSku": "148ZN40",
+      "miProductId": 9749,
+      "ourTitle": "Ключалка за съдомиялна ELECTROLUX",
+      "miSku": "148ZN40OR",
+      "miTitle": "Ключалка за съдомиялна ELECTROLUX",
+      "published": true,
+      "slug": "electrolux-zanussi-aeg-502"
+    },
+    {
+      "productId": "69b443b6c23d34935c3b840d",
+      "ourSku": "145GR10",
+      "miProductId": 9834,
+      "ourTitle": "Външен ринг за пералня GORENJE",
+      "miSku": "145GR10OR",
+      "miTitle": "Външен ринг за пералня GORENJE",
+      "published": true,
+      "slug": "gorenje-235"
+    },
+    {
+      "productId": "69b443ecc23d34935c3b8a0c",
+      "ourSku": "116LG505",
+      "miProductId": 10077,
+      "ourTitle": "Ремък за сушилня 1971 H7",
+      "miSku": "116LG505OR",
+      "miTitle": "Ремък за сушилня 1971 H7",
+      "published": true,
+      "slug": "1971-h7-orig"
+    },
+    {
+      "productId": "69b44407c23d34935c3b8cb9",
+      "ourSku": "120AC13",
+      "miProductId": 10247,
+      "ourTitle": "Долен гофриран маркуч",
+      "miSku": "120AC13OR",
+      "miTitle": "Долен гофриран маркуч",
+      "published": true,
+      "slug": "beko-sang-blomberg-203"
+    },
+    {
+      "productId": "69b4440fc23d34935c3b8d7f",
+      "ourSku": "202AC01",
+      "miProductId": 10270,
+      "ourTitle": "краче за хладилник - BEKO - 4528210100",
+      "miSku": "202AC01OR",
+      "miTitle": "Краче за хладилник",
+      "published": true,
+      "slug": "beko-sang-blomberg-218"
+    },
+    {
+      "productId": "69b4443ac23d34935c3b9207",
+      "ourSku": "138GR03",
+      "miProductId": 10417,
+      "ourTitle": "Турбина за сушилня GORENJE",
+      "miSku": "138GR03OR",
+      "miTitle": "Турбина за сушилня GORENJE",
+      "published": true,
+      "slug": "gorenje-243"
+    },
+    {
+      "productId": "69b445d6c23d34935c3bbdec",
+      "ourSku": "500FC149",
+      "miProductId": 4011604,
+      "ourTitle": "Алуминиев филтър  456,5 x 185 мм",
+      "miSku": "500FC149OR",
+      "miTitle": "Алуминиев филтър  456,5 x 185 мм",
+      "published": true,
+      "slug": "d0b0d0bbd183d0bcd0b8d0bdd0b8d0b5d0b2-d184d0b8d0bbd182d18ad180-39"
+    },
+    {
+      "productId": "69b445fcc23d34935c3bc218",
+      "ourSku": "159AC11",
+      "miProductId": 6012591,
+      "ourTitle": "Нагревател пералня/ сушилня к-т",
+      "miSku": "159AC11OR",
+      "miTitle": "Нагревател пералня/ сушилня к-т",
+      "published": true,
+      "slug": "beko-sang-blomberg-338"
+    },
+    {
+      "productId": "69b44530c23d34935c3bab76",
+      "ourSku": "302CU05",
+      "miProductId": 6016561,
+      "ourTitle": "плоча 180/120 мм - 1700/700W - EGO 10.58211.004",
+      "miSku": "302CU05OR",
+      "miTitle": "Плоча 180/120 мм 1700/700W",
+      "published": true,
+      "slug": "indesit-ariston-282"
+    },
+    {
+      "productId": "69b446aac23d34935c3bd587",
+      "ourSku": "138AC03",
+      "miProductId": 6016777,
+      "ourTitle": "Турбина за вент.сушилня - 2977500200",
+      "miSku": "138AC03OR",
+      "miTitle": "Турбина за вентилатор сушилня",
+      "published": true,
+      "slug": "beko-blomberg-34"
+    },
+    {
+      "productId": "69ff0b3358138c72b910c269",
+      "ourSku": "163AC18",
+      "miProductId": 6017566,
+      "ourTitle": "Помпа за пералня",
+      "miSku": "163AC18OR",
+      "miTitle": "Помпа за пералня",
+      "published": true,
+      "slug": "163ac18-------2---1421000200"
+    },
+    {
+      "productId": "69b447eac23d34935c3bf767",
+      "ourSku": "166IG02",
+      "miProductId": 6017730,
+      "ourTitle": "Ролка за сушилня WHIRLPOOL",
+      "miSku": "166IG02OR",
+      "miTitle": "Ролка за сушилня WHIRLPOOL",
+      "published": true,
+      "slug": "whirlpool-indesit-ariston-12"
+    },
+    {
+      "productId": "69b44855c23d34935c3c02aa",
+      "ourSku": "150GR10",
+      "miProductId": 6018076,
+      "ourTitle": "Температурен сензор за фурна",
+      "miSku": "150GR10OR",
+      "miTitle": "Температурен сензор за фурна",
+      "published": true,
+      "slug": "64941"
+    },
+    {
+      "productId": "69b447a3c23d34935c3befc6",
+      "ourSku": "312GR32",
+      "miProductId": 6018580,
+      "ourTitle": "Долен нагревател за фурна1100W",
+      "miSku": "312GR32OR",
+      "miTitle": "Долен нагревател за фурна1100W",
+      "published": true,
+      "slug": "gorenje-280"
+    },
+    {
+      "productId": "69b44881c23d34935c3c0742",
+      "ourSku": "163BH07",
+      "miProductId": 7020595,
+      "ourTitle": "Помпа пералня BOSCH",
+      "miSku": "163BH07OR",
+      "miTitle": "Помпа пералня BOSCH",
+      "published": true,
+      "slug": "bosch-siemens-neff-57"
+    },
+    {
+      "productId": "69ff0bf058138c72b910c317",
+      "ourSku": "167GR10",
+      "miProductId": 9020561,
+      "ourTitle": "Амортисьор 100N",
+      "miSku": "167GR10OR",
+      "miTitle": "Амортисьор 100N",
+      "published": true,
+      "slug": "167gr10----100n---341221"
+    },
+    {
+      "productId": "69fa0344b6016830e5a48cb5",
+      "ourSku": "120SU06",
+      "miProductId": 11020723,
+      "ourTitle": "гумено съединение DC97-20750A - DC67-00551A",
+      "miSku": "120SU06OR",
+      "miTitle": "Гофриран маркуч долен",
+      "published": true,
+      "slug": "120su06-----dc97-20750a---dc67-00551a"
+    }
+  ],
+  "skipped": []
+}
