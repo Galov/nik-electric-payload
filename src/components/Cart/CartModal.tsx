@@ -22,7 +22,7 @@ import { OpenCartButton } from './OpenCart'
 import { Button } from '@/components/ui/button'
 import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
 import { Product } from '@/payload-types'
-import { getProductPrimaryImage, getProductType } from '@/utilities/product'
+import { formatProductTitle, getProductPrimaryImage, getProductType } from '@/utilities/product'
 import { useAuth } from '@/providers/Auth'
 import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
 
@@ -115,7 +115,9 @@ export function CartModal() {
                           </div>
 
                           <div className="flex min-w-0 flex-1 flex-col text-base">
-                            <span className="text-sm leading-5 text-primary/80 sm:text-sm">{product?.title}</span>
+                            <span className="text-sm leading-5 text-primary/80 sm:text-sm">
+                              {formatProductTitle(product?.title)}
+                            </span>
                             {productType ? (
                               <ProductTypeBadge compact className="mt-1 self-start" value={productType} />
                             ) : null}

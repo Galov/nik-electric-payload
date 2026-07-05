@@ -4,6 +4,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import configPromise from '@payload-config'
+import {
+  SKIP_CATEGORY_PRODUCT_COUNT_SYNC,
+  syncCategoryProductCount,
+} from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { getPayload } from 'payload'
 
 import { parseMicroinvestDescription } from '../src/utilities/microinvest'
@@ -255,6 +259,9 @@ const main = async () => {
 
         await payload.create({
           collection: 'products',
+          context: {
+            [SKIP_CATEGORY_PRODUCT_COUNT_SYNC]: true,
+          },
           data: createData,
           draft: false,
           overrideAccess: true,
@@ -295,6 +302,9 @@ const main = async () => {
       await payload.update({
         id: product.id,
         collection: 'products',
+        context: {
+          [SKIP_CATEGORY_PRODUCT_COUNT_SYNC]: true,
+        },
         data: nextData,
         overrideAccess: true,
       })
@@ -308,6 +318,10 @@ const main = async () => {
         sku: row.sku,
       })
     }
+  }
+
+  if (APPLY && (report.createdProducts > 0 || report.updated > 0)) {
+    await syncCategoryProductCount(payload)
   }
 
   fs.mkdirSync(REPORTS_DIR, { recursive: true })

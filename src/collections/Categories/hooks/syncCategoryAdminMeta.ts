@@ -3,6 +3,7 @@ import type {
   CollectionAfterDeleteHook,
   Payload,
 } from 'payload'
+import { SKIP_CATEGORY_PRODUCT_COUNT_SYNC } from '@/collections/Categories/hooks/syncCategoryProductCount'
 
 type CategoryNode = {
   adminLabel?: null | string
@@ -113,6 +114,7 @@ export const syncCategoryAdminMeta = async (payload: Payload) => {
       overrideAccess: true,
       context: {
         [SKIP_SYNC_FLAG]: true,
+        [SKIP_CATEGORY_PRODUCT_COUNT_SYNC]: true,
       },
     })
   }

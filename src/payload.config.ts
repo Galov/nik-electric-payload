@@ -1,4 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { bg as payloadBg } from '@payloadcms/translations/languages/bg'
 import { bg as ecommerceBg } from '@payloadcms/plugin-ecommerce/translations/languages/bg'
 
@@ -35,6 +36,15 @@ import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const emailEnabled = process.env.EMAIL_ENABLED === 'true'
+const emailAdapter =
+  emailEnabled && process.env.RESEND_API_KEY
+    ? resendAdapter({
+        apiKey: process.env.RESEND_API_KEY,
+        defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'no-reply@nikelectric.com',
+        defaultFromName: process.env.EMAIL_FROM_NAME || 'Ник Електрик',
+      })
+    : undefined
 
 export default buildConfig({
   admin: {
@@ -123,7 +133,7 @@ export default buildConfig({
       },
     },
   },
-  //email: nodemailerAdapter(),
+  ...(emailAdapter ? { email: emailAdapter } : {}),
   endpoints: [
     {
       handler: legacyLogin,

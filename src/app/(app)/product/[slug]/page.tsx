@@ -4,7 +4,13 @@ import { RecentlyViewedProducts } from '@/components/product/RecentlyViewedProdu
 import { RelatedProducts } from '@/components/product/RelatedProducts'
 import { buildCategoryPath } from '@/utilities/category'
 import { generateMeta } from '@/utilities/generateMeta'
-import { getProductBrands, getProductPrimaryImage, getProductSEODescription } from '@/utilities/product'
+import {
+  formatProductTitle,
+  getAvailableProductQuantity,
+  getProductBrands,
+  getProductPrimaryImage,
+  getProductSEODescription,
+} from '@/utilities/product'
 import {
   buildBreadcrumbSchema,
   buildProductBreadcrumbItems,
@@ -30,6 +36,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
   const product = await queryProductBySlug({ slug })
 
   if (!product) return notFound()
+  const formattedProductTitle = formatProductTitle(product.title)
 
   const primaryImage = getProductPrimaryImage(product)
   const metadata = await generateMeta({
@@ -69,6 +76,7 @@ export default async function ProductPage({ params }: Args) {
   const product = await queryProductBySlug({ slug })
 
   if (!product) return notFound()
+  const formattedProductTitle = formatProductTitle(product.title)
 
   const primaryCategory =
     product.categories?.find(
@@ -92,8 +100,8 @@ export default async function ProductPage({ params }: Args) {
       category: primaryCategory,
       description: getProductSEODescription(product),
       image: getProductPrimaryImage(product)?.url,
-      inStock: (product.inventory || 0) > 0,
-      name: product.title,
+      inStock: getAvailableProductQuantity(product) > 0,
+      name: formattedProductTitle,
       price: product.price,
       sku: product.sku,
       slug,
@@ -102,7 +110,7 @@ export default async function ProductPage({ params }: Args) {
   const breadcrumbJsonLd = buildBreadcrumbSchema(
     buildProductBreadcrumbItems({
       category: primaryCategory,
-      productName: product.title,
+      productName: formattedProductTitle,
       productSlug: slug,
     }),
   )
@@ -150,7 +158,7 @@ export default async function ProductPage({ params }: Args) {
               </>
             ) : null}
             <span>/</span>
-            <span className="text-primary/80">{product.title}</span>
+            <span className="text-primary/80">{formattedProductTitle}</span>
           </nav>
         </div>
         <div className="flex flex-col gap-12 py-4 lg:flex-row lg:gap-10">
@@ -161,7 +169,7 @@ export default async function ProductPage({ params }: Args) {
               }
             >
               {product.images && product.images.length > 0 ? (
-                <Gallery gallery={product.images} productTitle={product.title} />
+                <Gallery gallery={product.images} productTitle={formattedProductTitle} />
               ) : null}
             </Suspense>
           </div>
@@ -185,7 +193,7 @@ export default async function ProductPage({ params }: Args) {
             slug: product.slug,
             sku: product.sku,
             stockQty: product.stockQty,
-            title: product.title,
+            title: formattedProductTitle,
           }}
         />
 
@@ -215,6 +223,11 @@ const queryProductBySlug = async ({ slug }: { slug: string }) => {
         {
           published: {
             equals: true,
+          },
+        },
+        {
+          stockQty: {
+            greater_than: 0,
           },
         },
       ],
@@ -263,6 +276,11 @@ const queryRelatedProducts = async ({
         {
           published: {
             equals: true,
+          },
+        },
+        {
+          stockQty: {
+            greater_than: 0,
           },
         },
         {

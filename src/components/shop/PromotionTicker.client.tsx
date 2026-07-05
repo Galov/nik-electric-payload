@@ -3,7 +3,7 @@
 import { Price } from '@/components/Price'
 import { useAuth } from '@/providers/Auth'
 import type { Product } from '@/payload-types'
-import { getProductPrimaryImage } from '@/utilities/product'
+import { formatProductTitle, getProductPrimaryImage } from '@/utilities/product'
 import { resolvePriceForTier } from '@/utilities/pricing'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -78,7 +78,7 @@ export function PromotionTicker({ products }: Props) {
 
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 text-[15px] font-medium leading-5 text-primary/85">
-                    {product.title}
+                    {formatProductTitle(product.title)}
                   </p>
                   {user ? (
                     <Price

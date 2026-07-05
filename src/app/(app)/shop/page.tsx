@@ -87,6 +87,11 @@ export default async function ShopPage({ searchParams }: Props) {
                 equals: true,
               },
             },
+            {
+              stockQty: {
+                greater_than: 0,
+              },
+            },
           ],
         },
       })
@@ -121,6 +126,11 @@ export default async function ShopPage({ searchParams }: Props) {
         {
           published: {
             equals: true,
+          },
+        },
+        {
+          stockQty: {
+            greater_than: 0,
           },
         },
         ...searchClauses,

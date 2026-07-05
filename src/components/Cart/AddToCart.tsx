@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import React, { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
 import { resolvePriceForTier } from '@/utilities/pricing'
+import { getAvailableProductQuantity } from '@/utilities/product'
 type Props = {
   product: Product
 }
@@ -17,6 +18,7 @@ export function AddToCart({ product }: Props) {
   const { user } = useAuth()
   const { addItem, cart, isLoading } = useCart()
   const normalizedProductID = String(product.id)
+  const availableQty = getAvailableProductQuantity(product)
   const activePrice = resolvePriceForTier(
     (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
     {
@@ -48,15 +50,15 @@ export function AddToCart({ product }: Props) {
     if (existingItem) {
       const existingQuantity = existingItem.quantity
 
-      return existingQuantity >= (product.inventory || 0)
+      return existingQuantity >= availableQty
     }
 
-    if (product.inventory === 0 || activePrice <= 0 || !product.published) {
+    if (availableQty <= 0 || activePrice <= 0 || !product.published) {
       return true
     }
 
     return false
-  }, [activePrice, cart?.items, normalizedProductID, product])
+  }, [activePrice, availableQty, cart?.items, normalizedProductID, product.published])
 
   if (!user) {
     return null

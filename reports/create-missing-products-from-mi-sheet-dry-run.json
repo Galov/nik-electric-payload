@@ -1,0 +1,34 @@
+{
+  "apply": false,
+  "createErrors": [],
+  "created": [],
+  "createdCount": 0,
+  "inputPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/reports/nik-items-with-qtty-1-sheet1.json",
+  "invalidRows": [],
+  "productsToCreate": [],
+  "productsToCreateCount": 0,
+  "reportPath": "/Users/ivogalov/Downloads/Projects/NIK electric/NikElectricPayload/nic-electrik-payload/reports/create-missing-products-from-mi-sheet-dry-run.json",
+  "skippedDuplicateRows": [
+    {
+      "line": 8077,
+      "miProductId": 10073,
+      "sku": "313ZN09"
+    },
+    {
+      "line": 9819,
+      "miProductId": 6012668,
+      "sku": "203IG10"
+    },
+    {
+      "line": 10971,
+      "miProductId": 6017452,
+      "sku": "170ZN25"
+    },
+    {
+      "line": 11995,
+      "miProductId": 11020706,
+      "sku": "162AR97"
+    }
+  ],
+  "skippedExistingCount": 12116
+}

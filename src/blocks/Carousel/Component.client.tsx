@@ -6,7 +6,7 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import Link from 'next/link'
 import React from 'react'
 import { GridTileImage } from '@/components/Grid/tile'
-import { getProductPrimaryImage } from '@/utilities/product'
+import { formatProductTitle, getProductPrimaryImage } from '@/utilities/product'
 
 export const CarouselClient: React.FC<{ products: Product[] }> = async ({ products }) => {
   if (!products?.length) return null
@@ -45,7 +45,7 @@ export const CarouselClient: React.FC<{ products: Product[] }> = async ({ produc
                   amount: product.price,
                   priceGroup1: (product as Product & { priceGroup1?: number | null }).priceGroup1,
                   priceWholesale: (product as Product & { priceWholesale?: number | null }).priceWholesale,
-                  title: product.title,
+                  title: formatProductTitle(product.title),
                 }}
                 src={image.url}
               />

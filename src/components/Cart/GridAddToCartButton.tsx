@@ -7,6 +7,7 @@ import { ShoppingCart } from 'lucide-react'
 import React, { useMemo } from 'react'
 import { toast } from 'sonner'
 import { resolvePriceForTier } from '@/utilities/pricing'
+import { getAvailableProductQuantity } from '@/utilities/product'
 
 type Props = {
   inventory?: null | number
@@ -29,7 +30,7 @@ export const GridAddToCartButton: React.FC<Props> = ({
   const { addItem, cart, isLoading } = useCart()
   const normalizedProductID = String(productID)
 
-  const availableQty = typeof inventory === 'number' ? inventory : (stockQty ?? 0)
+  const availableQty = getAvailableProductQuantity({ inventory, stockQty })
   const activePrice = resolvePriceForTier(
     (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
     {

@@ -5,6 +5,10 @@ import {
   syncCategoryAdminMetaAfterChange,
   syncCategoryAdminMetaAfterDelete,
 } from '@/collections/Categories/hooks/syncCategoryAdminMeta'
+import {
+  syncCategoryProductCountAfterCategoryChange,
+  syncCategoryProductCountAfterCategoryDelete,
+} from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { buildSEOFields } from '@/fields/seo'
 import { buildCategorySlug } from '@/utilities/category'
 
@@ -27,8 +31,8 @@ export const Categories: CollectionConfig = {
     singular: 'Категория',
   },
   hooks: {
-    afterChange: [syncCategoryAdminMetaAfterChange],
-    afterDelete: [syncCategoryAdminMetaAfterDelete],
+    afterChange: [syncCategoryAdminMetaAfterChange, syncCategoryProductCountAfterCategoryChange],
+    afterDelete: [syncCategoryAdminMetaAfterDelete, syncCategoryProductCountAfterCategoryDelete],
   },
   fields: [
     {

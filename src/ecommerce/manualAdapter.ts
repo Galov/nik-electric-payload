@@ -11,6 +11,24 @@ type ManualOrderData = {
   shippingAddress?: Record<string, unknown>
 }
 
+const getProductID = (value: unknown) => {
+  if (typeof value === 'string') return value
+
+  if (value && typeof value === 'object' && typeof (value as { id?: unknown }).id === 'string') {
+    return (value as { id: string }).id
+  }
+
+  return null
+}
+
+const getProductStockQty = (value: unknown) => {
+  if (!value || typeof value !== 'object') return null
+
+  const stockQty = (value as { stockQty?: unknown }).stockQty
+
+  return typeof stockQty === 'number' && Number.isFinite(stockQty) ? stockQty : null
+}
+
 export const manualAdapter = (): PaymentAdapter => ({
   name: 'manual',
   label: 'Изпрати поръчката',
@@ -96,6 +114,29 @@ export const manualAdapter = (): PaymentAdapter => ({
         productUnitPrice,
       }
     })
+    const orderedQuantitiesByProductID = new Map<
+      string,
+      {
+        currentStockQty: null | number
+        quantity: number
+      }
+    >()
+
+    for (const item of cart.items) {
+      const productID = getProductID(item.product)
+      const quantity = typeof item.quantity === 'number' && Number.isFinite(item.quantity)
+        ? item.quantity
+        : 0
+
+      if (!productID || quantity <= 0) continue
+
+      const current = orderedQuantitiesByProductID.get(productID)
+
+      orderedQuantitiesByProductID.set(productID, {
+        currentStockQty: current?.currentStockQty ?? getProductStockQty(item.product),
+        quantity: (current?.quantity || 0) + quantity,
+      })
+    }
 
     const resolvedAmount = roundCurrency(
       cart.items.reduce((sum, item) => {
@@ -157,6 +198,20 @@ export const manualAdapter = (): PaymentAdapter => ({
       overrideAccess: true,
       req,
     })
+
+    for (const [productID, ordered] of orderedQuantitiesByProductID.entries()) {
+      if (ordered.currentStockQty === null) continue
+
+      await payload.update({
+        id: productID,
+        collection: 'products',
+        data: {
+          stockQty: Math.max(0, ordered.currentStockQty - ordered.quantity),
+        },
+        overrideAccess: true,
+        req,
+      })
+    }
 
     await payload.update({
       id: cart.id,

@@ -3,6 +3,10 @@ import type { Access } from 'payload'
 import { slugField } from 'payload'
 import { checkRole } from '@/access/utilities'
 import {
+  syncCategoryProductCountAfterProductChange,
+  syncCategoryProductCountAfterProductDelete,
+} from '@/collections/Categories/hooks/syncCategoryProductCount'
+import {
   syncDeletedProductToIbisHook,
   syncProductToIbisHook,
 } from '@/collections/Products/hooks/syncProductToIbis'
@@ -153,6 +157,7 @@ const adminOrCatalogPublished: Access = ({ req: { user } }) => {
 
 export const ProductsCollection: CollectionOverride = ({ defaultCollection }) => ({
   ...defaultCollection,
+  enableQueryPresets: true,
   access: {
     ...defaultCollection.access,
     read: adminOrCatalogPublished,
@@ -160,8 +165,16 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   versions: getProductVersionsConfig(defaultCollection.versions),
   hooks: {
     ...defaultCollection.hooks,
-    afterChange: [...(defaultCollection.hooks?.afterChange || []), syncProductToIbisHook],
-    afterDelete: [...(defaultCollection.hooks?.afterDelete || []), syncDeletedProductToIbisHook],
+    afterChange: [
+      ...(defaultCollection.hooks?.afterChange || []),
+      syncProductToIbisHook,
+      syncCategoryProductCountAfterProductChange,
+    ],
+    afterDelete: [
+      ...(defaultCollection.hooks?.afterDelete || []),
+      syncDeletedProductToIbisHook,
+      syncCategoryProductCountAfterProductDelete,
+    ],
     afterRead: [...(defaultCollection.hooks?.afterRead || []), ensureCatalogCompatibilityFields],
     beforeChange: [
       ...(defaultCollection.hooks?.beforeChange || []),
@@ -172,6 +185,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     ...defaultCollection.admin,
     defaultColumns: ['title', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
     group: 'Каталог',
+    listSearchableFields: ['sku', 'miProductId'],
     useAsTitle: 'title',
   },
   labels: {
@@ -259,6 +273,18 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
                 singular: 'Снимка',
               },
               fields: [
+                {
+                  name: 'preview',
+                  type: 'ui',
+                  admin: {
+                    components: {
+                      Field: {
+                        path: '@/components/admin/ProductImagePreviewField',
+                        exportName: 'ProductImagePreviewField',
+                      },
+                    },
+                  },
+                },
                 {
                   name: 'media',
                   label: 'Качен файл',
@@ -558,6 +584,11 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               label: 'Публикуван',
               type: 'checkbox',
               defaultValue: true,
+              admin: {
+                components: {
+                  Cell: '@/components/admin/PublishedStatusCell#PublishedStatusCell',
+                },
+              },
             },
           ],
         },

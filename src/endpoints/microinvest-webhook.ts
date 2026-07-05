@@ -1,4 +1,8 @@
 import type { PayloadHandler, PayloadRequest } from 'payload'
+import {
+  SKIP_CATEGORY_PRODUCT_COUNT_SYNC,
+  syncCategoryProductCount,
+} from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { parseMicroinvestDescription } from '@/utilities/microinvest'
 
 type MicroinvestEvent = 'product.created' | 'product.updated' | 'product.deleted'
@@ -448,9 +452,17 @@ export const microinvestWebhook: PayloadHandler = async (req) => {
   }
 
   const results: MicroinvestWebhookItemResult[] = []
+  req.context = {
+    ...(req.context || {}),
+    [SKIP_CATEGORY_PRODUCT_COUNT_SYNC]: true,
+  }
 
   for (const [index, item] of payload.items.entries()) {
     results.push(await processWebhookItem({ event: payload.event, index, item, req }))
+  }
+
+  if (results.some((result) => result.status < 400)) {
+    await syncCategoryProductCount(req.payload)
   }
 
   const hasErrors = results.some((result) => result.status >= 400)

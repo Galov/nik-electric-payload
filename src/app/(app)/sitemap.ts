@@ -32,9 +32,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         published: true,
       },
       where: {
-        published: {
-          equals: true,
-        },
+        and: [
+          {
+            published: {
+              equals: true,
+            },
+          },
+          {
+            stockQty: {
+              greater_than: 0,
+            },
+          },
+        ],
       },
     }),
     payload.find({

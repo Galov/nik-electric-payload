@@ -6,6 +6,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
 import { exportOrderToMicroinvestHook } from '@/collections/Orders/hooks/exportOrderToMicroinvest'
+import { sendOrderCreatedEmailsHook } from '@/collections/Orders/hooks/sendOrderCreatedEmails'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
 import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
@@ -198,13 +199,18 @@ export const plugins: Plugin[] = [
     orders: {
       ordersCollectionOverride: ({ defaultCollection }) => ({
         ...defaultCollection,
+        enableQueryPresets: true,
         admin: {
           ...defaultCollection.admin,
           group: 'Търговия',
         },
         hooks: {
           ...defaultCollection.hooks,
-          afterChange: [...(defaultCollection.hooks?.afterChange || []), exportOrderToMicroinvestHook],
+          afterChange: [
+            ...(defaultCollection.hooks?.afterChange || []),
+            sendOrderCreatedEmailsHook,
+            exportOrderToMicroinvestHook,
+          ],
         },
         fields: [
           ...applyReadOnlyOrderItemsField(

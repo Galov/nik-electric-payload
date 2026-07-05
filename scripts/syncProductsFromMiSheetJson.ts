@@ -4,6 +4,10 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import configPromise from '@payload-config'
+import {
+  SKIP_CATEGORY_PRODUCT_COUNT_SYNC,
+  syncCategoryProductCount,
+} from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { type AnyBulkWriteOperation, MongoClient, ObjectId } from 'mongodb'
 import { getPayload } from 'payload'
 
@@ -306,6 +310,7 @@ const main = async () => {
       await payload.update({
         collection: 'products',
         context: {
+          [SKIP_CATEGORY_PRODUCT_COUNT_SYNC]: true,
           skipIbisProductSync: true,
         },
         id: String(product.id),
@@ -352,6 +357,10 @@ const main = async () => {
     } finally {
       await client.close()
     }
+  }
+
+  if (APPLY && (bulkOperations.length > 0 || report.updated.length > 0)) {
+    await syncCategoryProductCount(payload)
   }
 
   await fs.mkdir(REPORTS_DIR, { recursive: true })

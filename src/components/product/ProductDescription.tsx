@@ -10,7 +10,12 @@ import Link from 'next/link'
 import React, { Suspense } from 'react'
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
 import { buildCategoryPath } from '@/utilities/category'
-import { getProductBrands, getProductType } from '@/utilities/product'
+import {
+  formatProductTitle,
+  getAvailableProductQuantity,
+  getProductBrands,
+  getProductType,
+} from '@/utilities/product'
 
 type ProductCategoryLink = {
   parent?: null | ProductCategoryLink
@@ -20,7 +25,7 @@ type ProductCategoryLink = {
 
 export function ProductDescription({ product }: { product: Product }) {
   const description = formatLegacyProductDescription(product.description)
-  const stockQuantity = product.inventory || 0
+  const stockQuantity = getAvailableProductQuantity(product)
   const manufacturerCode = product.manufacturerCode?.trim() || null
   const categories = (product.categories || []).reduce<ProductCategoryLink[]>((acc, category) => {
     if (!category || typeof category === 'string' || !category.title) return acc
@@ -42,7 +47,7 @@ export function ProductDescription({ product }: { product: Product }) {
             {productType ? <ProductTypeBadge className="self-start" value={productType} /> : null}
           </div>
           <h1 className="text-xl font-normal leading-tight text-[rgb(0,126,229)] lg:text-2xl">
-            {product.title}
+            {formatProductTitle(product.title)}
           </h1>
         </div>
         <div className="pt-1 text-base font-normal text-primary/60 lg:pt-2 lg:text-lg">

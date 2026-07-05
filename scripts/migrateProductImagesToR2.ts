@@ -195,7 +195,7 @@ const migrate = async () => {
 
       if (!productChanged) continue
 
-      await payload.update({
+      await payload.db.updateOne({
         id: rawProduct.id,
         collection: 'products',
         data: {
@@ -205,7 +205,7 @@ const migrate = async () => {
             storageKey: image.storageKey || undefined,
           })),
         },
-        overrideAccess: true,
+        returning: false,
       })
 
       touchedProducts += 1

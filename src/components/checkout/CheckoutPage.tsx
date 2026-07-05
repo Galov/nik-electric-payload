@@ -13,7 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/providers/Auth'
-import { getProductPrimaryImage } from '@/utilities/product'
+import { formatProductTitle, getProductPrimaryImage } from '@/utilities/product'
 import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
 import { useAddresses, useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import Image from 'next/image'
@@ -264,7 +264,9 @@ export const CheckoutPage: React.FC = () => {
               </div>
               <div className="flex grow flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex min-w-0 flex-col gap-1">
-                  <p className="text-sm font-medium leading-5 text-primary/85">{item.product.title}</p>
+                  <p className="text-sm font-medium leading-5 text-primary/85">
+                    {formatProductTitle(item.product.title)}
+                  </p>
                   <div className="flex h-8 w-fit flex-row items-center rounded-md border border-black/10 bg-white">
                     <EditItemQuantityButton item={item} type="minus" />
                     <p className="w-8 text-center text-sm text-primary/70">{item.quantity}</p>

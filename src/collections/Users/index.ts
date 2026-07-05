@@ -9,6 +9,8 @@ import { checkRole } from '@/access/utilities'
 import { APIError } from 'payload'
 
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
+import { sendCustomerApprovedEmailHook } from './hooks/sendCustomerApprovedEmail'
+import { sendCustomerRegistrationEmailHook } from './hooks/sendCustomerRegistrationEmail'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -33,6 +35,7 @@ export const Users: CollectionConfig = {
     tokenExpiration: 1209600,
   },
   hooks: {
+    afterChange: [sendCustomerRegistrationEmailHook, sendCustomerApprovedEmailHook],
     beforeChange: [
       ({ data }) => {
         if (!data) {
@@ -192,6 +195,11 @@ export const Users: CollectionConfig = {
       label: 'Одобрен',
       type: 'checkbox',
       defaultValue: false,
+      admin: {
+        components: {
+          Cell: '@/components/admin/ApprovedStatusCell#ApprovedStatusCell',
+        },
+      },
       access: {
         create: adminOnlyFieldAccess,
         read: adminOnlyFieldAccess,

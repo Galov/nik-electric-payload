@@ -1,7 +1,7 @@
 import type { Media, Product } from '@/payload-types'
 
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
-import { parseMicroinvestDescription, type ProductTypeValue } from '@/utilities/microinvest'
+import type { ProductTypeValue } from '@/utilities/microinvest'
 
 const publicStorageBase = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL || ''
 
@@ -112,6 +112,37 @@ export const isVisibleProduct = (product?: Partial<Product> | null) => {
   return Boolean(product?.published)
 }
 
+export const getAvailableProductQuantity = (product?: Partial<Product> | null) => {
+  const stockQty = product?.stockQty
+  const inventory = product?.inventory
+
+  if (typeof stockQty === 'number' && Number.isFinite(stockQty)) {
+    return stockQty
+  }
+
+  if (typeof inventory === 'number' && Number.isFinite(inventory)) {
+    return inventory
+  }
+
+  return 0
+}
+
+export const isAvailableProduct = (product?: Partial<Product> | null) => {
+  return Boolean(product?.published) && getAvailableProductQuantity(product) > 0
+}
+
+export const formatProductTitle = (value?: null | string) => {
+  const title = value?.trim() || ''
+
+  if (!title) {
+    return ''
+  }
+
+  const [firstCharacter, ...rest] = Array.from(title)
+
+  return `${firstCharacter.toLocaleUpperCase('bg-BG')}${rest.join('')}`
+}
+
 type BrandLike =
   | null
   | string
@@ -150,25 +181,15 @@ export const getProductBrands = (product?: Partial<Product> | null) => {
 }
 
 export const getProductType = (product?: Partial<Product> | null): null | ProductTypeValue => {
-  const parsedOriginalSku = parseMicroinvestDescription(product?.originalSku)
+  const sku = product?.sku?.trim().toUpperCase() || ''
 
-  if (parsedOriginalSku?.productType) {
-    return parsedOriginalSku.productType
+  if (sku.endsWith('OR')) {
+    return 'original'
   }
 
-  const productType = (product as Partial<Product> & { productType?: null | ProductTypeValue })?.productType
-
-  if (
-    productType === 'compatible' ||
-    productType === 'original' ||
-    productType === 'removed-from-unit'
-  ) {
-    return productType
-  }
-
-  if (product?.isRefurbished) {
+  if (sku.endsWith('R') && !/[A-Z]R$/.test(sku)) {
     return 'removed-from-unit'
   }
 
-  return null
+  return 'compatible'
 }

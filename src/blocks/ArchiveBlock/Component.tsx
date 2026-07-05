@@ -6,6 +6,7 @@ import React from 'react'
 import { RichText } from '@/components/RichText'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { isAvailableProduct } from '@/utilities/product'
 
 type ArchiveBlockProps = {
   categories?: Array<{ id?: string } | string> | null
@@ -39,15 +40,29 @@ export const ArchiveBlock: React.FC<
       collection: 'products',
       depth: 1,
       limit,
-      ...(flattenedCategories && flattenedCategories.length > 0
-        ? {
-            where: {
-              categories: {
-                in: flattenedCategories,
-              },
+      where: {
+        and: [
+          ...(flattenedCategories && flattenedCategories.length > 0
+            ? [
+                {
+                  categories: {
+                    in: flattenedCategories,
+                  },
+                },
+              ]
+            : []),
+          {
+            published: {
+              equals: true,
             },
-          }
-        : {}),
+          },
+          {
+            stockQty: {
+              greater_than: 0,
+            },
+          },
+        ],
+      },
     })
 
     posts = fetchedProducts.docs
@@ -57,7 +72,7 @@ export const ArchiveBlock: React.FC<
         if (typeof post.value === 'object') return post.value
       }) as Product[]
 
-      posts = filteredSelectedPosts
+      posts = filteredSelectedPosts.filter(isAvailableProduct)
     }
   }
 

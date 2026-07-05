@@ -1,5 +1,7 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
+import { sendMicroinvestExportFailedEmail } from '@/utilities/email/notifications'
+
 type OrderItem = {
   productMIId?: number | null
   productUnitPrice?: number | null
@@ -282,6 +284,21 @@ export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
       overrideAccess: true,
       req,
     })
+
+    try {
+      await sendMicroinvestExportFailedEmail({
+        order: {
+          ...(doc as OrderLike),
+          miOrderExportLastError: message,
+        },
+        payload: req.payload,
+      })
+    } catch (emailError) {
+      req.payload.logger.error({
+        err: emailError,
+        msg: `Failed to send Microinvest export failed email for order ${String(doc.id)}`,
+      })
+    }
   }
 
   return doc

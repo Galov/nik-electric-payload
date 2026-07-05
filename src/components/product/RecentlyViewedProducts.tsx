@@ -3,6 +3,7 @@
 import type { Product } from '@/payload-types'
 
 import { ProductGridItem } from '@/components/ProductGridItem'
+import { isAvailableProduct } from '@/utilities/product'
 import React, { useEffect, useMemo, useState } from 'react'
 
 const RECENTLY_VIEWED_PRODUCTS_KEY = 'nik-electric-recently-viewed-products-v2'
@@ -68,7 +69,7 @@ export const RecentlyViewedProducts: React.FC<Props> = ({ product }) => {
   }, [product])
 
   const productsToRender = useMemo(
-    () => recentlyViewedProducts.filter((item) => item.published !== false && item.slug),
+    () => recentlyViewedProducts.filter((item) => item.slug && isAvailableProduct(item)),
     [recentlyViewedProducts],
   )
 

@@ -4,7 +4,7 @@ import { GridAddToCartButton } from '@/components/Cart/GridAddToCartButton'
 import { Price } from '@/components/Price'
 import { ManufacturerBadge } from '@/components/product/ManufacturerBadge'
 import { ProductTypeBadge } from '@/components/product/ProductTypeBadge'
-import { getProductPrimaryImage, getProductType } from '@/utilities/product'
+import { formatProductTitle, getProductPrimaryImage, getProductType } from '@/utilities/product'
 import Link from 'next/link'
 import React from 'react'
 import clsx from 'clsx'
@@ -20,7 +20,7 @@ const hasCategoryTitle = (
   Boolean(category && typeof category !== 'string' && 'title' in category && category.title)
 
 export const ProductGridItem: React.FC<Props> = ({ product }) => {
-  const { title } = product
+  const title = formatProductTitle(product.title)
   const image = getProductPrimaryImage(product)
   const manufacturerCode = product.manufacturerCode?.trim() || null
   const primaryCategory = product.categories?.find(hasCategoryTitle)?.title || null
