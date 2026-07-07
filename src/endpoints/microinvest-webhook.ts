@@ -145,10 +145,12 @@ const buildUpdateData = ({
   data,
   miProductId,
   product,
+  sku,
 }: {
   data?: MicroinvestWebhookItem['data']
   miProductId?: number
   product?: Record<string, unknown>
+  sku?: string
 }) => {
   const nextData: Record<string, unknown> = {}
 
@@ -157,6 +159,14 @@ const buildUpdateData = ({
     (!product || typeof product.miProductId !== 'number' || product.miProductId !== miProductId)
   ) {
     nextData.miProductId = miProductId
+  }
+
+  if (
+    typeof miProductId === 'number' &&
+    sku &&
+    (typeof product?.sku !== 'string' || product.sku !== sku)
+  ) {
+    nextData.sku = sku
   }
 
   if (typeof data?.description === 'string') {
@@ -283,10 +293,11 @@ const processWebhookItem = async ({
       }
     }
 
-    const nextData = buildUpdateData({
-      data,
-      miProductId,
-    })
+  const nextData = buildUpdateData({
+    data,
+    miProductId,
+    sku: normalizedSku,
+  })
 
     if (!('priceRetail' in nextData)) nextData.priceRetail = 0
     if (!('priceWholesale' in nextData)) nextData.priceWholesale = 0
@@ -367,6 +378,7 @@ const processWebhookItem = async ({
     data,
     miProductId,
     product: product as unknown as Record<string, unknown>,
+    sku: normalizedSku,
   })
 
   if (Object.keys(nextData).length === 0) {

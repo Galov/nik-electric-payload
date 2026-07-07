@@ -260,6 +260,7 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  published?: boolean | null;
   sourceId?: number | null;
   miProductId?: number | null;
   sku?: string | null;
@@ -292,7 +293,6 @@ export interface Product {
     | null;
   legacyProductUrl?: string | null;
   legacyModifiedAt?: string | null;
-  published?: boolean | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -883,6 +883,7 @@ export interface ProductsSelect<T extends boolean = true> {
         alt?: T;
         id?: T;
       };
+  published?: T;
   sourceId?: T;
   miProductId?: T;
   sku?: T;
@@ -907,7 +908,6 @@ export interface ProductsSelect<T extends boolean = true> {
   legacyAttachmentIDs?: T;
   legacyProductUrl?: T;
   legacyModifiedAt?: T;
-  published?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;

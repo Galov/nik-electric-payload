@@ -27,6 +27,7 @@ export const ThreeItemGridItem: React.FC<Props> = ({ item, size }) => {
               position: size === 'full' ? 'center' : 'bottom',
               priceGroup1: (item as Product & { priceGroup1?: number | null }).priceGroup1,
               priceWholesale: (item as Product & { priceWholesale?: number | null }).priceWholesale,
+              sku: item.sku,
               title: item.title,
             }}
             src={image.url}

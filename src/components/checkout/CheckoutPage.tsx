@@ -223,8 +223,10 @@ export const CheckoutPage: React.FC = () => {
           ))}
 
         <div className="bg-muted/20 px-5 py-4 text-sm text-primary/60">
-          Не се събира онлайн плащане. Изпращането на формата създава заявка за поръчка за
-          ръчна обработка.
+          Цената не включва доставка. Тя се определя според тарифата на куриерската компания.
+          <br />
+          Не се събира онлайн плащане. Изпращането на формата създава заявка за поръчка за ръчна
+          обработка.
         </div>
 
         {canSubmitOrder && (
@@ -248,7 +250,10 @@ export const CheckoutPage: React.FC = () => {
           const image = getProductPrimaryImage(item.product)
 
           return (
-            <div className="flex items-start gap-3 border-b border-black/5 pb-4 last:border-b-0 last:pb-0" key={index}>
+            <div
+              className="flex items-start gap-3 border-b border-black/5 pb-4 last:border-b-0 last:pb-0"
+              key={index}
+            >
               <div className="flex h-16 w-16 shrink-0 items-stretch justify-stretch rounded-md border border-black/8 bg-white p-2">
                 <div className="relative h-full w-full">
                   {image?.url ? (
@@ -274,16 +279,21 @@ export const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
 
-                {(typeof (item.product as typeof item.product & { priceWholesale?: number | null }).priceWholesale === 'number' ||
-                  typeof (item.product as typeof item.product & { priceGroup1?: number | null }).priceGroup1 === 'number') && (
+                {(typeof (item.product as typeof item.product & { priceWholesale?: number | null })
+                  .priceWholesale === 'number' ||
+                  typeof (item.product as typeof item.product & { priceGroup1?: number | null })
+                    .priceGroup1 === 'number') && (
                   <Price
                     amount={resolvePriceForTier(
-                      (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
+                      (user as typeof user & { priceTier?: 'general' | 'group1' | null })
+                        ?.priceTier,
                       {
-                        priceGroup1: (item.product as typeof item.product & { priceGroup1?: number | null })
-                          .priceGroup1,
-                        priceWholesale: (item.product as typeof item.product & { priceWholesale?: number | null })
-                          .priceWholesale,
+                        priceGroup1: (
+                          item.product as typeof item.product & { priceGroup1?: number | null }
+                        ).priceGroup1,
+                        priceWholesale: (
+                          item.product as typeof item.product & { priceWholesale?: number | null }
+                        ).priceWholesale,
                       },
                     )}
                     className="text-sm text-primary/75 sm:text-right"
@@ -297,8 +307,14 @@ export const CheckoutPage: React.FC = () => {
 
         <div className="border-t border-black/5 pt-6">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Общо</span>
-            <Price amount={activeSubtotal} className="text-2xl font-medium text-primary/80" currencyCode="EUR" />
+            <span className="text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+              Общо
+            </span>
+            <Price
+              amount={activeSubtotal}
+              className="text-2xl font-medium text-primary/80"
+              currencyCode="EUR"
+            />
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ type Props = {
   position?: 'bottom' | 'center'
   priceGroup1?: null | number
   priceWholesale?: null | number
+  sku?: null | string
   title: string
 }
 
@@ -16,6 +17,7 @@ export const Label: React.FC<Props> = ({
   position = 'bottom',
   priceGroup1,
   priceWholesale,
+  sku,
   title,
 }) => {
   return (
@@ -25,9 +27,12 @@ export const Label: React.FC<Props> = ({
       })}
     >
       <div className="flex items-end justify-between text-sm grow font-semibold ">
-        <h3 className="mr-4 line-clamp-2 rounded-full border bg-white/70 p-2 px-3 leading-none tracking-tight text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">
-          {title}
-        </h3>
+        <div className="mr-4 rounded-full border bg-white/75 p-2 px-3 backdrop-blur-md dark:border-neutral-800 dark:bg-black/70">
+          <h3 className="line-clamp-2 leading-none tracking-tight text-neutral-800 dark:text-white">{title}</h3>
+          {sku ? (
+            <p className="mt-1 text-xs font-semibold leading-none text-[rgb(0,126,229)]">Код: {sku}</p>
+          ) : null}
+        </div>
 
         <Price
           amount={amount}

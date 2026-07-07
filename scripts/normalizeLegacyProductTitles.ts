@@ -18,10 +18,11 @@ const normalizeTitle = ({
 }) => {
   let nextTitle = title.trim()
   const normalizedSKU = sku?.trim()
-  const leadingMarker = normalizedSKU ? `${normalizedSKU} - ` : null
 
-  if (leadingMarker && nextTitle.startsWith(leadingMarker)) {
-    nextTitle = nextTitle.slice(leadingMarker.length).trim()
+  if (normalizedSKU) {
+    const escapedSKU = normalizedSKU.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const leadingMarkerPattern = new RegExp(`^${escapedSKU}\\s*[-–—]\\s*`, 'i')
+    nextTitle = nextTitle.replace(leadingMarkerPattern, '').trim()
   }
 
   if (!shouldTrimTail) {

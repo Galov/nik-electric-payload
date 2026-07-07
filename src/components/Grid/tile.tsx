@@ -14,6 +14,7 @@ type Props = {
     position?: 'bottom' | 'center'
     priceGroup1?: null | number
     priceWholesale?: null | number
+    sku?: null | string
     title: string
   }
   media?: MediaType
@@ -62,6 +63,7 @@ export const GridTileImage: React.FC<Props> = ({
           position={label.position}
           priceGroup1={label.priceGroup1}
           priceWholesale={label.priceWholesale}
+          sku={label.sku}
           title={label.title}
         />
       ) : null}

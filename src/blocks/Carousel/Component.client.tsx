@@ -45,6 +45,7 @@ export const CarouselClient: React.FC<{ products: Product[] }> = async ({ produc
                   amount: product.price,
                   priceGroup1: (product as Product & { priceGroup1?: number | null }).priceGroup1,
                   priceWholesale: (product as Product & { priceWholesale?: number | null }).priceWholesale,
+                  sku: product.sku,
                   title: formatProductTitle(product.title),
                 }}
                 src={image.url}

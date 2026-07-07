@@ -37,7 +37,7 @@ export function HeaderClient({ header }: Props) {
         <div className="flex w-full items-center justify-between">
           <div className="flex w-full items-center gap-14 md:w-1/3">
             <Link className="flex w-full items-center justify-center py-6 md:w-auto" href="/">
-              <SiteLogo className="h-auto w-44" priority />
+              <SiteLogo className="h-auto w-64" priority />
             </Link>
             {menu.length ? (
               <ul className="hidden gap-4 pl-6 text-sm md:flex md:items-center">

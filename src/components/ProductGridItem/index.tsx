@@ -49,13 +49,13 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
         </div>
 
         <div className="flex flex-1 flex-col">
-          <div className="min-h-[2.5rem] font-medium leading-[1.2] tracking-[-0.01em] text-[rgb(0,126,229)]">
+          <div className="min-h-[2.5rem] font-medium leading-[1.2] tracking-[-0.01em] text-neutral-800">
             {title}
           </div>
 
           <div className="mt-1 min-h-[3.75rem] space-y-0 text-sm leading-5 text-primary/35">
             {primaryCategory ? <p>{primaryCategory}</p> : null}
-            {product.sku ? <p className="text-primary/55">Код: {product.sku}</p> : null}
+            {product.sku ? <p className="font-medium text-[rgb(0,126,229)]">Код: {product.sku}</p> : null}
           </div>
         </div>
       </Link>

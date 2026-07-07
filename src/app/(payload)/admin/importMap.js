@@ -21,6 +21,7 @@ import { IndentFeatureClient as IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { TableFeatureClient as TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ProductImagePreviewField as ProductImagePreviewField_9a8078d3df8622020d3e7c9e5d490db5 } from '@/components/admin/ProductImagePreviewField'
 import { PublishedStatusCell as PublishedStatusCell_6db1db0c63cc983697617b016190944e } from '@/components/admin/PublishedStatusCell'
+import { HiddenProductDraftStatus as HiddenProductDraftStatus_b1bc3ea913e88844f52b93629811dbf3 } from '@/components/admin/HiddenProductDraftStatus'
 import { PriceCell as PriceCell_e27bf7b8cc50640dcdd584767b8eac3c } from '@payloadcms/plugin-ecommerce/client'
 import { MoneyReadOnlyField as MoneyReadOnlyField_611bc254f8b85bfd78de34cc0a5cc5cd } from '@/components/admin/MoneyReadOnlyField'
 import { OrderItemsReadOnlyField as OrderItemsReadOnlyField_a5fb466e8411c12c06676e5255209cbf } from '@/components/admin/OrderItemsReadOnlyField'
@@ -73,6 +74,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#TableFeatureClient": TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/admin/ProductImagePreviewField#ProductImagePreviewField": ProductImagePreviewField_9a8078d3df8622020d3e7c9e5d490db5,
   "@/components/admin/PublishedStatusCell#PublishedStatusCell": PublishedStatusCell_6db1db0c63cc983697617b016190944e,
+  "@/components/admin/HiddenProductDraftStatus#HiddenProductDraftStatus": HiddenProductDraftStatus_b1bc3ea913e88844f52b93629811dbf3,
   "@payloadcms/plugin-ecommerce/client#PriceCell": PriceCell_e27bf7b8cc50640dcdd584767b8eac3c,
   "@/components/admin/MoneyReadOnlyField#MoneyReadOnlyField": MoneyReadOnlyField_611bc254f8b85bfd78de34cc0a5cc5cd,
   "@/components/admin/OrderItemsReadOnlyField#OrderItemsReadOnlyField": OrderItemsReadOnlyField_a5fb466e8411c12c06676e5255209cbf,

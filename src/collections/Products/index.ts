@@ -183,6 +183,16 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   },
   admin: {
     ...defaultCollection.admin,
+    components: {
+      ...defaultCollection.admin?.components,
+      edit: {
+        ...defaultCollection.admin?.components?.edit,
+        Status: {
+          path: '@/components/admin/HiddenProductDraftStatus',
+          exportName: 'HiddenProductDraftStatus',
+        },
+      },
+    },
     defaultColumns: ['title', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
     group: 'Каталог',
     listSearchableFields: ['sku', 'miProductId'],
@@ -320,6 +330,17 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         {
           label: 'Автоматични Microinvest данни',
           fields: [
+            {
+              name: 'published',
+              label: 'Публикуван',
+              type: 'checkbox',
+              defaultValue: true,
+              admin: {
+                components: {
+                  Cell: '@/components/admin/PublishedStatusCell#PublishedStatusCell',
+                },
+              },
+            },
             {
               name: 'sourceId',
               label: 'Изходен ID',
@@ -577,17 +598,6 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               type: 'date',
               admin: {
                 hidden: true,
-              },
-            },
-            {
-              name: 'published',
-              label: 'Публикуван',
-              type: 'checkbox',
-              defaultValue: true,
-              admin: {
-                components: {
-                  Cell: '@/components/admin/PublishedStatusCell#PublishedStatusCell',
-                },
               },
             },
           ],

@@ -21,6 +21,8 @@ type ItemProps = {
 
 type TreeProps = {
   categories: CategoryNode[]
+  isFullTreeVisible: boolean
+  onFocusTree: () => void
 }
 
 type PanelProps = {
@@ -166,24 +168,24 @@ export const CategoryItem: React.FC<ItemProps> = ({
   )
 }
 
-export const CategoryTree: React.FC<TreeProps> = ({ categories }) => {
+export const CategoryTree: React.FC<TreeProps> = ({ categories, isFullTreeVisible, onFocusTree }) => {
   const searchParams = useSearchParams()
   const [expandedCategoryIDs, setExpandedCategoryIDs] = useState<Set<string>>(new Set())
 
   const selectedCategoryID = searchParams.get('category')
 
   const selectedPath = useMemo(() => {
-    const findPath = (nodes: CategoryNode[], targetID: string): string[] | null => {
+    const findPath = (nodes: CategoryNode[], targetID: string): CategoryNode[] | null => {
       for (const node of nodes) {
         if (node.id === targetID) {
-          return [node.id]
+          return [node]
         }
 
         if (node.children.length > 0) {
           const childPath = findPath(node.children, targetID)
 
           if (childPath) {
-            return [node.id, ...childPath]
+            return [node, ...childPath]
           }
         }
       }
@@ -198,20 +200,54 @@ export const CategoryTree: React.FC<TreeProps> = ({ categories }) => {
     return findPath(categories, selectedCategoryID) || []
   }, [categories, selectedCategoryID])
 
+  const visibleCategories = useMemo(() => {
+    if (isFullTreeVisible || selectedPath.length < 2) {
+      return categories
+    }
+
+    const activeRoot = selectedPath[0]
+    const selectedParent = selectedPath[selectedPath.length - 2]
+    const selectedCategory = selectedPath[selectedPath.length - 1]
+
+    const cloneActiveBranch = (node: CategoryNode, pathIndex: number): CategoryNode => {
+      const nextPathNode = selectedPath[pathIndex + 1]
+
+      if (!nextPathNode) {
+        return {
+          ...node,
+          children: node.children,
+        }
+      }
+
+      if (node.id === selectedParent.id) {
+        return {
+          ...node,
+          children: node.children,
+        }
+      }
+
+      return {
+        ...node,
+        children: node.children
+          .filter((child) => child.id === nextPathNode.id)
+          .map((child) => cloneActiveBranch(child, pathIndex + 1)),
+      }
+    }
+
+    if (selectedCategory.id === activeRoot.id) {
+      return [activeRoot]
+    }
+
+    return [cloneActiveBranch(activeRoot, 0)]
+  }, [categories, isFullTreeVisible, selectedPath])
+
   useEffect(() => {
     if (!selectedPath.length) {
       return
     }
 
-    setExpandedCategoryIDs((current) => {
-      const next = new Set(current)
-
-      for (const categoryID of selectedPath) {
-        next.add(categoryID)
-      }
-
-      return next
-    })
+    setExpandedCategoryIDs(new Set(selectedPath.map((category) => category.id)))
+    onFocusTree()
   }, [selectedPath])
 
   const onToggleCategory = useCallback((id: string) => {
@@ -230,12 +266,13 @@ export const CategoryTree: React.FC<TreeProps> = ({ categories }) => {
 
   return (
     <ul>
-      {categories.map((category) => {
+      {visibleCategories.map((category) => {
         return (
           <CategoryItem
             key={category.id}
             category={category}
             expandedCategoryIDs={expandedCategoryIDs}
+            level={1}
             onToggleCategory={onToggleCategory}
           />
         )
@@ -247,7 +284,11 @@ export const CategoryTree: React.FC<TreeProps> = ({ categories }) => {
 export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
   const contentRef = useRef<HTMLDivElement | null>(null)
   const [isOpen, setIsOpen] = useState(true)
+  const [isFullTreeVisible, setIsFullTreeVisible] = useState(false)
   const [maxHeight, setMaxHeight] = useState('none')
+  const searchParams = useSearchParams()
+  const selectedCategoryID = searchParams.get('category')
+  const isFocusedTreeVisible = Boolean(selectedCategoryID && !isFullTreeVisible)
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 768px)')
@@ -286,25 +327,34 @@ export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
     <section className="rounded-[6px] bg-[rgb(250,251,253)] px-5 py-5 md:px-6">
       <button
         type="button"
-        aria-expanded={isOpen}
-        className="flex w-full items-center justify-between gap-4 text-left"
-        onClick={() => setIsOpen((current) => !current)}
+        aria-expanded={isFocusedTreeVisible ? false : isOpen}
+        className="flex w-full items-center gap-2 text-left"
+        onClick={() => {
+          if (isFocusedTreeVisible) {
+            setIsFullTreeVisible(true)
+            setIsOpen(true)
+            return
+          }
+
+          setIsOpen((current) => !current)
+        }}
       >
-        <div className="flex items-center gap-3">
-          <span className="h-px w-8 bg-[rgb(0,126,229)]/55" />
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center">
+          <ChevronDown
+            className={clsx(
+              'h-[18px] w-[18px] text-[rgb(0,126,229)] transition-transform duration-500 ease-in-out',
+              {
+                'rotate-180': isOpen && !isFocusedTreeVisible,
+              },
+            )}
+          />
+        </span>
+
+        <div className="flex items-center">
           <h3 className="text-sm font-normal tracking-[0.04em] text-[rgb(0,126,229)]">
             Категории
           </h3>
         </div>
-
-        <ChevronDown
-          className={clsx(
-            'h-4 w-4 text-[rgb(0,126,229)] transition-transform duration-500 ease-in-out',
-            {
-              'rotate-180': isOpen,
-            },
-          )}
-        />
       </button>
 
       <div
@@ -315,7 +365,11 @@ export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
         style={{ maxHeight }}
       >
         <div ref={contentRef}>
-          <CategoryTree categories={categories} />
+          <CategoryTree
+            categories={categories}
+            isFullTreeVisible={isFullTreeVisible}
+            onFocusTree={() => setIsFullTreeVisible(false)}
+          />
         </div>
       </div>
     </section>

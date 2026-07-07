@@ -181,7 +181,7 @@ export function Header() {
 
           <div className="flex justify-center">
             <Link className="flex items-center" href="/">
-              <SiteLogo className="h-auto w-36" priority />
+              <SiteLogo className="h-auto w-44" priority />
             </Link>
           </div>
 
@@ -194,7 +194,7 @@ export function Header() {
       <div className="hidden md:block">
         <nav className="container flex items-center justify-between py-6">
           <Link className="flex items-center" href="/">
-            <SiteLogo className="h-auto w-44" priority />
+            <SiteLogo className="h-auto w-64" priority />
           </Link>
 
           <div className="headerNav relative flex items-center gap-8 text-sm" ref={navRef}>
