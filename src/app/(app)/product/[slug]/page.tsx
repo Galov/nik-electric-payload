@@ -10,6 +10,7 @@ import {
   getProductBrands,
   getProductPrimaryImage,
   getProductSEODescription,
+  PRODUCT_IMAGE_PLACEHOLDER_URL,
 } from '@/utilities/product'
 import {
   buildBreadcrumbSchema,
@@ -168,9 +169,14 @@ export default async function ProductPage({ params }: Args) {
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
               }
             >
-              {product.images && product.images.length > 0 ? (
-                <Gallery gallery={product.images} productTitle={formattedProductTitle} />
-              ) : null}
+              <Gallery
+                gallery={
+                  product.images && product.images.length > 0
+                    ? product.images
+                    : [{ alt: formattedProductTitle, legacyUrl: PRODUCT_IMAGE_PLACEHOLDER_URL }]
+                }
+                productTitle={formattedProductTitle}
+              />
             </Suspense>
           </div>
 

@@ -1,0 +1,33 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Ник Електрик placeholder за продукт без снимка</title>
+  <desc id="desc">Квадратно изображение със знака на Ник Електрик и текст Снимката предстои.</desc>
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 308) rotate(90) scale(220)">
+      <stop offset="0" stop-color="#8A98A5" stop-opacity="0.08"/>
+      <stop offset="0.62" stop-color="#8A98A5" stop-opacity="0.035"/>
+      <stop offset="1" stop-color="#8A98A5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="105" y1="59" x2="695" y2="741" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAFBFC"/>
+      <stop offset="1" stop-color="#F2F5F7"/>
+    </linearGradient>
+    <filter id="shadow" x="187" y="113" width="426" height="426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#7D8A96" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#panel)"/>
+  <circle cx="400" cy="308" r="253" fill="url(#glow)"/>
+
+  <g filter="url(#shadow)">
+    <circle cx="400" cy="287" r="157" stroke="#A9B4BE" stroke-width="23"/>
+    <circle cx="400" cy="287" r="51" fill="#A9B4BE"/>
+  </g>
+
+  <text x="400" y="540" text-anchor="middle" fill="#7B8792" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" letter-spacing="1">
+    НИК ЕЛЕКТРИК
+  </text>
+  <text x="400" y="591" text-anchor="middle" fill="#9AA5AE" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="500">
+    Снимката предстои
+  </text>
+</svg>

@@ -4,6 +4,7 @@ import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductD
 import type { ProductTypeValue } from '@/utilities/microinvest'
 
 const publicStorageBase = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL || ''
+export const PRODUCT_IMAGE_PLACEHOLDER_URL = '/product-placeholder.png'
 
 const clampText = (value: string, maxLength: number) => {
   if (value.length <= maxLength) return value
@@ -92,8 +93,15 @@ export const getProductPrimaryImage = (product?: Partial<Product> | null) => {
   const image = product?.images?.[0]
 
   if (!image) {
-    return null
+    return {
+      alt: getProductImageAlt({
+        productTitle: product?.title,
+      }),
+      url: PRODUCT_IMAGE_PLACEHOLDER_URL,
+    }
   }
+
+  const imageUrl = resolveProductImageURL(image)
 
   return {
     alt: getProductImageAlt({
@@ -104,7 +112,7 @@ export const getProductPrimaryImage = (product?: Partial<Product> | null) => {
           : null,
       productTitle: product?.title,
     }),
-    url: resolveProductImageURL(image),
+    url: imageUrl || PRODUCT_IMAGE_PLACEHOLDER_URL,
   }
 }
 
