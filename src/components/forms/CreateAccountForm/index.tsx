@@ -102,8 +102,8 @@ export const CreateAccountForm: React.FC = () => {
     <form className="max-w-lg" onSubmit={handleSubmit(onSubmit)}>
       <Message error={error} />
       <div className="mb-8 rounded-md bg-[rgb(0,126,229)]/10 px-4 py-3 text-sm leading-6 text-[rgb(0,126,229)]">
-        Регистрацията е предназначена за фирми и сервизни партньори. След изпращане профилът ще
-        бъде активиран след проверка от администратор.
+        Регистрацията е предназначена за фирми и сервизни партньори. След изпращане профилът ще бъде
+        активиран след проверка от администратор.
       </div>
 
       <div className="mb-8 flex flex-col gap-6">
@@ -120,11 +120,7 @@ export const CreateAccountForm: React.FC = () => {
               <Label htmlFor="companyName" className="mb-2">
                 Име на фирма
               </Label>
-              <Input
-                id="companyName"
-                {...register('companyName', { required: 'Името на фирмата е задължително.' })}
-                type="text"
-              />
+              <Input id="companyName" {...register('companyName')} type="text" />
               {errors.companyName && <FormError message={errors.companyName.message} />}
             </FormItem>
 
@@ -132,11 +128,7 @@ export const CreateAccountForm: React.FC = () => {
               <Label htmlFor="companyEIK" className="mb-2">
                 ЕИК
               </Label>
-              <Input
-                id="companyEIK"
-                {...register('companyEIK', { required: 'ЕИК е задължителен.' })}
-                type="text"
-              />
+              <Input id="companyEIK" {...register('companyEIK')} type="text" />
               {errors.companyEIK && <FormError message={errors.companyEIK.message} />}
             </FormItem>
           </div>

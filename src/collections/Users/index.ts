@@ -88,7 +88,6 @@ export const Users: CollectionConfig = {
                   name: 'companyName',
                   label: 'Име на фирма',
                   type: 'text',
-                  required: true,
                   admin: {
                     width: '50%',
                   },
@@ -97,7 +96,6 @@ export const Users: CollectionConfig = {
                   name: 'companyEIK',
                   label: 'ЕИК',
                   type: 'text',
-                  required: true,
                   admin: {
                     width: '50%',
                   },

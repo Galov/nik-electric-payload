@@ -135,8 +135,8 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   name?: string | null;
-  companyName: string;
-  companyEIK: string;
+  companyName?: string | null;
+  companyEIK?: string | null;
   companyCity: string;
   phone: string;
   companyAddress: string;

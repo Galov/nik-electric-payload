@@ -78,7 +78,7 @@ export function CartModal() {
           <OpenCartButton quantity={totalQuantity} />
         </SheetTrigger>
 
-        <SheetContent className="flex flex-col">
+        <SheetContent className="flex h-dvh max-h-dvh flex-col overflow-hidden">
           <SheetHeader>
             <SheetTitle className="text-xl font-normal text-primary/85">Моята количка</SheetTitle>
 
@@ -95,9 +95,9 @@ export function CartModal() {
               </p>
             </div>
           ) : (
-            <div className="flex grow px-2">
-              <div className="flex w-full flex-col justify-between">
-                <ul className="grow overflow-auto py-4">
+            <div className="flex min-h-0 grow px-2">
+              <div className="flex min-h-0 w-full flex-col">
+                <ul className="min-h-0 grow overflow-y-auto py-4">
                   {cart?.items?.map((item, i) => {
                     const product = item.product
 
@@ -179,7 +179,7 @@ export function CartModal() {
                   })}
                 </ul>
 
-                <div className="border-t border-black/5 px-2 pb-4 pt-5">
+                <div className="shrink-0 border-t border-black/5 px-2 pb-4 pt-5">
                   <div className="text-sm text-primary/55">
                     {typeof activeSubtotal === 'number' && (
                       <div className="mb-4 flex items-center justify-between">

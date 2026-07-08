@@ -193,11 +193,7 @@ export const AccountForm: React.FC = () => {
                 <Label htmlFor="companyName" className="mb-2">
                   Име на фирма
                 </Label>
-                <Input
-                  id="companyName"
-                  {...register('companyName', { required: 'Моля, въведете име на фирма.' })}
-                  type="text"
-                />
+                <Input id="companyName" {...register('companyName')} type="text" />
                 {errors.companyName && <FormError message={errors.companyName.message} />}
               </FormItem>
 
@@ -205,11 +201,7 @@ export const AccountForm: React.FC = () => {
                 <Label htmlFor="companyEIK" className="mb-2">
                   ЕИК
                 </Label>
-                <Input
-                  id="companyEIK"
-                  {...register('companyEIK', { required: 'Моля, въведете ЕИК.' })}
-                  type="text"
-                />
+                <Input id="companyEIK" {...register('companyEIK')} type="text" />
                 {errors.companyEIK && <FormError message={errors.companyEIK.message} />}
               </FormItem>
             </div>
