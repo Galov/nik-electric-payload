@@ -56,10 +56,11 @@ type ContactInquiryLike = {
 }
 
 const brandName = 'Ник Електрик'
-const brandColor = '#0f4c3a'
-const ink = '#1f2933'
-const muted = '#667085'
-const surface = '#f4f0e8'
+const brandColor = 'rgb(0,126,229)'
+const ink = '#1f2937'
+const muted = '#64748b'
+const line = '#e5e7eb'
+const surface = '#f8fcff'
 
 const escapeHTML = (value: unknown) =>
   String(value ?? '')
@@ -123,9 +124,9 @@ const renderItems = (items?: null | OrderItem[]) => {
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
       <thead>
         <tr>
-          <th align="left" style="border-bottom: 1px solid #e4ded2; color: ${muted}; font-size: 12px; font-weight: 700; padding: 0 0 10px; text-transform: uppercase;">Артикул</th>
-          <th align="right" style="border-bottom: 1px solid #e4ded2; color: ${muted}; font-size: 12px; font-weight: 700; padding: 0 0 10px; text-transform: uppercase;">Бр.</th>
-          <th align="right" style="border-bottom: 1px solid #e4ded2; color: ${muted}; font-size: 12px; font-weight: 700; padding: 0 0 10px; text-transform: uppercase;">Цена</th>
+          <th align="left" style="border-bottom: 1px solid ${line}; color: ${muted}; font-size: 12px; font-weight: 700; padding: 0 0 10px; text-transform: uppercase;">Артикул</th>
+          <th align="right" style="border-bottom: 1px solid ${line}; color: ${muted}; font-size: 12px; font-weight: 700; padding: 0 0 10px; text-transform: uppercase;">Бр.</th>
+          <th align="right" style="border-bottom: 1px solid ${line}; color: ${muted}; font-size: 12px; font-weight: 700; padding: 0 0 10px; text-transform: uppercase;">Цена</th>
         </tr>
       </thead>
       <tbody>
@@ -133,7 +134,7 @@ const renderItems = (items?: null | OrderItem[]) => {
           .map(
             (item) => `
               <tr>
-                <td style="border-bottom: 1px solid #eee9df; color: ${ink}; font-size: 14px; padding: 12px 0;">
+                <td style="border-bottom: 1px solid ${line}; color: ${ink}; font-size: 14px; padding: 12px 0;">
                   <div style="font-weight: 700;">${escapeHTML(getProductTitle(item))}</div>
                   ${
                     item.productSKU || item.productMIId
@@ -141,8 +142,8 @@ const renderItems = (items?: null | OrderItem[]) => {
                       : ''
                   }
                 </td>
-                <td align="right" style="border-bottom: 1px solid #eee9df; color: ${ink}; font-size: 14px; padding: 12px 0;">${escapeHTML(item.quantity ?? '')}</td>
-                <td align="right" style="border-bottom: 1px solid #eee9df; color: ${ink}; font-size: 14px; padding: 12px 0;">${escapeHTML(typeof item.productUnitPrice === 'number' ? `${item.productUnitPrice.toFixed(2)} EUR` : '-')}</td>
+                <td align="right" style="border-bottom: 1px solid ${line}; color: ${ink}; font-size: 14px; padding: 12px 0;">${escapeHTML(item.quantity ?? '')}</td>
+                <td align="right" style="border-bottom: 1px solid ${line}; color: ${ink}; font-size: 14px; padding: 12px 0;">${escapeHTML(typeof item.productUnitPrice === 'number' ? `${item.productUnitPrice.toFixed(2)} EUR` : '-')}</td>
               </tr>
             `,
           )
@@ -172,27 +173,27 @@ const renderLayout = ({
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>${escapeHTML(title)}</title>
     </head>
-    <body style="margin: 0; background: ${surface}; color: ${ink}; font-family: Georgia, 'Times New Roman', serif;">
+    <body style="margin: 0; background: ${surface}; color: ${ink}; font-family: Arial, Helvetica, sans-serif;">
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: ${surface}; padding: 32px 16px;">
         <tr>
           <td align="center">
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: #fffaf2; border: 1px solid #e5dccc; border-radius: 22px; max-width: 680px; overflow: hidden;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: #ffffff; border: 1px solid ${line}; border-radius: 6px; max-width: 680px; overflow: hidden;">
               <tr>
-                <td style="background: ${brandColor}; padding: 28px 32px;">
-                  <div style="color: #d9f2df; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;">${escapeHTML(eyebrow)}</div>
-                  <h1 style="color: #fffaf2; font-size: 34px; font-weight: 400; line-height: 1.12; margin: 14px 0 0;">${escapeHTML(title)}</h1>
+                <td style="background: ${brandColor}; padding: 24px 32px;">
+                  <div style="color: rgba(255,255,255,0.82); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">${escapeHTML(eyebrow)}</div>
+                  <h1 style="color: #ffffff; font-size: 28px; font-weight: 600; line-height: 1.2; margin: 10px 0 0;">${escapeHTML(title)}</h1>
                 </td>
               </tr>
               <tr>
                 <td style="padding: 30px 32px 34px;">
-                  <p style="color: ${ink}; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; margin: 0 0 24px;">${escapeHTML(intro)}</p>
+                  <p style="color: ${ink}; font-size: 15px; line-height: 1.6; margin: 0 0 24px;">${escapeHTML(intro)}</p>
                   ${children}
                   ${
                     action
-                      ? `<div style="margin-top: 28px;"><a href="${escapeHTML(action.href)}" style="background: ${brandColor}; border-radius: 999px; color: #fffaf2; display: inline-block; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; padding: 13px 20px; text-decoration: none;">${escapeHTML(action.label)}</a></div>`
+                      ? `<div style="margin-top: 28px;"><a href="${escapeHTML(action.href)}" style="background: ${brandColor}; border-radius: 4px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 700; padding: 13px 20px; text-decoration: none;">${escapeHTML(action.label)}</a></div>`
                       : ''
                   }
-                  <p style="border-top: 1px solid #e5dccc; color: ${muted}; font-family: Arial, sans-serif; font-size: 12px; line-height: 1.6; margin: 30px 0 0; padding-top: 18px;">
+                  <p style="border-top: 1px solid ${line}; color: ${muted}; font-size: 12px; line-height: 1.6; margin: 30px 0 0; padding-top: 18px;">
                     ${escapeHTML(brandName)} изпраща това служебно съобщение автоматично.
                   </p>
                 </td>
@@ -206,7 +207,7 @@ const renderLayout = ({
 `
 
 const renderSummaryCard = (rows: EmailRow[]) => `
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: #fff; border: 1px solid #e5dccc; border-radius: 16px; margin: 0 0 24px; padding: 8px 18px;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: #ffffff; border: 1px solid ${line}; border-radius: 6px; margin: 0 0 24px; padding: 8px 18px;">
     ${renderRows(rows)}
   </table>
 `
@@ -421,7 +422,7 @@ export const buildContactInquiryEmail = ({
           { label: 'Телефон', value: inquiry.phone },
           { label: 'Създадено', value: formatDate(inquiry.createdAt) },
         ])}
-        <div style="background: #fff; border: 1px solid #e5dccc; border-radius: 16px; color: ${ink}; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7; padding: 18px;">
+        <div style="background: #ffffff; border: 1px solid ${line}; border-radius: 6px; color: ${ink}; font-size: 14px; line-height: 1.7; padding: 18px;">
           ${escapeHTML(inquiry.message).replace(/\n/g, '<br />')}
         </div>
       `,
