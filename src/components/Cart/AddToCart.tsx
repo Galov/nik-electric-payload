@@ -70,6 +70,10 @@ export function AddToCart({ product }: Props) {
     setIsQuantityOpen(true)
   }, [])
 
+  const openCart = useCallback(() => {
+    window.dispatchEvent(new CustomEvent('nik-electric:open-cart'))
+  }, [])
+
   const normalizeQuantityInput = useCallback(() => {
     setQuantityInput((currentQuantity) => String(clampQuantity(currentQuantity, maxSelectableQty)))
   }, [maxSelectableQty])
@@ -204,6 +208,16 @@ export function AddToCart({ product }: Props) {
       >
         Добави в количката
       </Button>
+      {existingQuantity > 0 ? (
+        <Button
+          className="h-12 w-full rounded-md border-[rgb(0,126,229)] px-9 text-sm font-normal text-[rgb(0,126,229)] hover:bg-[rgb(0,126,229)]/6 hover:text-[rgb(0,113,206)] sm:w-auto"
+          onClick={openCart}
+          type="button"
+          variant="outline"
+        >
+          Към количката
+        </Button>
+      ) : null}
     </div>
   )
 }

@@ -1,5 +1,10 @@
 import { Grid } from '@/components/Grid'
 import { ProductGridItem } from '@/components/ProductGridItem'
+import {
+  MobileCatalogControls,
+  MobileCatalogStickyFooter,
+} from '@/components/catalog/MobileCatalogControls'
+import { Categories } from '@/components/layout/search/Categories'
 import { CatalogPagination } from '@/components/layout/search/CatalogPagination'
 import { Search } from '@/components/Search'
 import { PromotionTicker } from '@/components/shop/PromotionTicker.client'
@@ -43,8 +48,14 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
 export default async function ShopPage({ searchParams }: Props) {
   const resolvedSearchParams = await searchParams
-  const { brand, category, limit: rawLimit, page: rawPage, q: rawSearchValue, sort } =
-    resolvedSearchParams
+  const {
+    brand,
+    category,
+    limit: rawLimit,
+    page: rawPage,
+    q: rawSearchValue,
+    sort,
+  } = resolvedSearchParams
   const searchValue = String(rawSearchValue || '').trim()
   const searchTerms = tokenizeSearchTerms(searchValue)
   const pageSize = normalizePageSize(rawLimit)
@@ -57,45 +68,46 @@ export default async function ShopPage({ searchParams }: Props) {
   const selectedBrandID = brand ? await getBrandIDForFilter(payload, String(brand)) : null
   const categoryIDs = category ? await getCategoryIDsForFilter(payload, String(category)) : null
   const searchClauses = searchTerms.length > 0 ? await getSearchClauses(payload, searchTerms) : []
-  const promotionalProducts = !searchValue && !category && !brand
-    ? await payload.find({
-        collection: 'products',
-        depth: 1,
-        draft: false,
-        limit: 12,
-        overrideAccess: false,
-        pagination: false,
-        select: {
-          id: true,
-          images: true,
-          priceGroup1: true,
-          priceWholesale: true,
-          published: true,
-          slug: true,
-          title: true,
-        },
-        sort: '-updatedAt',
-        where: {
-          and: [
-            {
-              isOnPromotion: {
-                equals: true,
+  const promotionalProducts =
+    !searchValue && !category && !brand
+      ? await payload.find({
+          collection: 'products',
+          depth: 1,
+          draft: false,
+          limit: 12,
+          overrideAccess: false,
+          pagination: false,
+          select: {
+            id: true,
+            images: true,
+            priceGroup1: true,
+            priceWholesale: true,
+            published: true,
+            slug: true,
+            title: true,
+          },
+          sort: '-updatedAt',
+          where: {
+            and: [
+              {
+                isOnPromotion: {
+                  equals: true,
+                },
               },
-            },
-            {
-              published: {
-                equals: true,
+              {
+                published: {
+                  equals: true,
+                },
               },
-            },
-            {
-              stockQty: {
-                greater_than: 0,
+              {
+                stockQty: {
+                  greater_than: 0,
+                },
               },
-            },
-          ],
-        },
-      })
-    : { docs: [] }
+            ],
+          },
+        })
+      : { docs: [] }
 
   const products = await payload.find({
     collection: 'products',
@@ -190,7 +202,7 @@ export default async function ShopPage({ searchParams }: Props) {
 
   return (
     <div id="catalog">
-      <section className="mb-6 rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 md:px-5 md:py-6">
+      <section className="mb-6 hidden rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 md:block md:px-5 md:py-6">
         <Search
           availableBrands={availableBrands}
           showBrandFilter={Boolean(searchValue || category) && products.docs.length > 0}
@@ -222,8 +234,25 @@ export default async function ShopPage({ searchParams }: Props) {
           </div>
         ) : null}
 
-        {products?.docs.length > 0 ? <SortToolbar pageSize={pageSize} /> : null}
+        {products?.docs.length > 0 ? (
+          <div>
+            <SortToolbar pageSize={pageSize} />
+          </div>
+        ) : null}
       </section>
+
+      <MobileCatalogControls>
+        <div className="max-h-[55dvh] overflow-y-auto pr-1">
+          <Categories />
+        </div>
+        <MobileCatalogStickyFooter>
+          <Search
+            availableBrands={availableBrands}
+            showBrandFilter={Boolean(searchValue || category) && products.docs.length > 0}
+          />
+        </MobileCatalogStickyFooter>
+        {products?.docs.length > 0 ? <SortToolbar pageSize={pageSize} /> : null}
+      </MobileCatalogControls>
 
       {products?.docs.length > 0 ? (
         <>

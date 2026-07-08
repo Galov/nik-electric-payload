@@ -1,5 +1,6 @@
 'use client'
 
+import { useMobileCatalogControls } from '@/components/catalog/MobileCatalogControls'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/cn'
 import { createUrl } from '@/utilities/createUrl'
@@ -35,6 +36,7 @@ export const Search: React.FC<Props> = ({
   className,
   showBrandFilter = false,
 }) => {
+  const mobileCatalogControls = useMobileCatalogControls()
   const router = useRouter()
   const searchParams = useSearchParams()
   const searchQuery = searchParams?.get('q') || ''
@@ -53,6 +55,7 @@ export const Search: React.FC<Props> = ({
   const selectedBrandSlug = searchParams?.get('brand')
   const brandFilterRef = useRef<HTMLDivElement | null>(null)
   const refinementRef = useRef<HTMLDivElement | null>(null)
+  const searchInputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
     let isMounted = true
@@ -153,9 +156,9 @@ export const Search: React.FC<Props> = ({
   const hasActiveFilters = useMemo(() => {
     return Boolean(
       searchParams?.get('q') ||
-        searchParams?.get('brand') ||
-        searchParams?.get('category') ||
-        searchParams?.get('sort'),
+      searchParams?.get('brand') ||
+      searchParams?.get('category') ||
+      searchParams?.get('sort'),
     )
   }, [searchParams])
 
@@ -190,6 +193,22 @@ export const Search: React.FC<Props> = ({
   }, [availableBrands, selectedBrandTitle])
 
   const showRefinementSection = showBrandFilter || activeFilters.length > 0
+
+  useEffect(() => {
+    if (!mobileCatalogControls) return
+
+    mobileCatalogControls.registerSearchFocusHandler(() => {
+      searchInputRef.current?.focus()
+      searchInputRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      })
+    })
+
+    return () => {
+      mobileCatalogControls.registerSearchFocusHandler(null)
+    }
+  }, [mobileCatalogControls])
 
   useEffect(() => {
     if (showRefinementSection) {
@@ -272,9 +291,15 @@ export const Search: React.FC<Props> = ({
     }
 
     router.push(createUrl('/shop', newParams))
+    mobileCatalogControls?.closeSheet()
   }
 
   function onResetFilters() {
+    setSelectedBrandTitle('')
+    setSelectedCategoryTitle(null)
+    setIsBrandDropdownOpen(false)
+    setSearchInputValue('')
+    mobileCatalogControls?.resetControls()
     router.push('/shop')
   }
 
@@ -338,12 +363,7 @@ export const Search: React.FC<Props> = ({
   }
 
   return (
-    <div
-      className={cn(
-        'px-0 py-0',
-        className,
-      )}
-    >
+    <div className={cn('px-0 py-0', className)}>
       <form
         className={cn(
           'grid w-full items-stretch gap-3 transition-[grid-template-columns] ease-in-out md:[grid-template-columns:minmax(0,1fr)_10.5rem_var(--reset-width)]',
@@ -359,17 +379,18 @@ export const Search: React.FC<Props> = ({
         <div className="relative">
           <input
             autoComplete="off"
-            className="h-12 w-full rounded-md border bg-white px-5 pr-12 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400"
+            className="h-12 w-full rounded-md border bg-white px-5 pr-12 text-[16px] text-black placeholder:text-neutral-500 md:text-sm dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400"
             defaultValue={searchQuery}
             key={searchQuery}
             name="searchQuery"
             onChange={(event) => setSearchInputValue(event.target.value)}
             placeholder=""
+            ref={searchInputRef}
             type="text"
           />
           <div
             className={cn(
-              'pointer-events-none absolute inset-y-0 left-5 right-12 flex items-center text-sm text-neutral-500 transition-opacity duration-1000 ease-in-out dark:text-neutral-400',
+              'pointer-events-none absolute inset-y-0 left-5 right-12 flex items-center text-[16px] text-neutral-500 transition-opacity duration-1000 ease-in-out md:text-sm dark:text-neutral-400',
               isPlaceholderVisible && !searchInputValue.trim() ? 'opacity-100' : 'opacity-0',
             )}
           >
@@ -397,7 +418,7 @@ export const Search: React.FC<Props> = ({
           }}
         >
           <Button
-            className="h-12 w-[13.5rem] rounded-md px-5 text-sm font-normal"
+            className="h-12 w-full rounded-md px-5 text-sm font-normal text-red-600 hover:text-red-700 md:w-[13.5rem]"
             onClick={onResetFilters}
             type="button"
             variant="outline"
@@ -408,10 +429,13 @@ export const Search: React.FC<Props> = ({
       </form>
 
       <div
-        className={cn('relative z-20 overflow-hidden transition-[max-height,margin-top] ease-in-out', {
-          'mt-4': showRefinementSection || shouldRenderRefinement,
-          'mt-0': !showRefinementSection && !shouldRenderRefinement,
-        })}
+        className={cn(
+          'relative z-20 overflow-hidden transition-[max-height,margin-top] ease-in-out',
+          {
+            'mt-4': showRefinementSection || shouldRenderRefinement,
+            'mt-0': !showRefinementSection && !shouldRenderRefinement,
+          },
+        )}
         style={{
           maxHeight: refinementMaxHeight,
           transitionDuration: showRefinementSection ? '500ms' : '900ms',
@@ -439,7 +463,7 @@ export const Search: React.FC<Props> = ({
               <div className="relative md:col-start-1">
                 <input
                   autoComplete="off"
-                  className="h-11 w-full rounded-md border bg-white px-4 pr-11 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400"
+                  className="h-11 w-full rounded-md border bg-white px-4 pr-11 text-[16px] text-black placeholder:text-neutral-500 md:text-sm dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400"
                   name="brandQuery"
                   onChange={onBrandFilterChange}
                   onFocus={() => setIsBrandDropdownOpen(true)}

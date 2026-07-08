@@ -56,7 +56,7 @@ export const CatalogPagination: React.FC<Props> = ({ currentPage, totalPages, se
 
   return (
     <Pagination className="mt-10 justify-center">
-      <PaginationContent>
+      <PaginationContent className="flex-wrap justify-center">
         <PaginationItem>
           <PaginationLink
             className={currentPage <= 1 ? 'pointer-events-none opacity-40' : undefined}
@@ -64,7 +64,7 @@ export const CatalogPagination: React.FC<Props> = ({ currentPage, totalPages, se
             size="default"
           >
             <ChevronLeft className="h-4 w-4" />
-            <span>Назад</span>
+            <span className="hidden sm:inline">Назад</span>
           </PaginationLink>
         </PaginationItem>
 
@@ -81,7 +81,10 @@ export const CatalogPagination: React.FC<Props> = ({ currentPage, totalPages, se
               ) : null}
 
               <PaginationItem>
-                <PaginationLink href={getPageHref(searchParams, page)} isActive={page === currentPage}>
+                <PaginationLink
+                  href={getPageHref(searchParams, page)}
+                  isActive={page === currentPage}
+                >
                   {page}
                 </PaginationLink>
               </PaginationItem>
@@ -95,7 +98,7 @@ export const CatalogPagination: React.FC<Props> = ({ currentPage, totalPages, se
             href={getPageHref(searchParams, currentPage + 1)}
             size="default"
           >
-            <span>Напред</span>
+            <span className="hidden sm:inline">Напред</span>
             <ChevronRight className="h-4 w-4" />
           </PaginationLink>
         </PaginationItem>

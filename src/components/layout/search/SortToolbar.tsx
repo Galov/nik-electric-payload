@@ -49,12 +49,14 @@ export const SortToolbar: React.FC<Props> = ({ pageSize }) => {
   }
 
   return (
-    <div className="flex flex-col gap-4 pt-5 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 pt-0 sm:flex-row sm:items-center sm:justify-between sm:pt-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <label className="flex items-center gap-3 text-[13px] text-primary/60">
-          <span>Покажи</span>
+        <label className="flex flex-col gap-2 text-[13px] text-primary/60 sm:flex-row sm:items-center sm:gap-3">
+          <span className="font-medium text-primary/70 sm:font-normal sm:text-primary/60">
+            Продукти на страница
+          </span>
           <select
-            className="h-10 min-w-[92px] rounded-xl border bg-white px-4 text-[13px] text-primary/80 outline-none transition focus:border-[rgb(0,126,229)]"
+            className="h-11 w-full rounded-md border bg-white px-4 text-[16px] text-primary/80 outline-none transition focus:border-[rgb(0,126,229)] sm:h-10 sm:w-auto sm:min-w-[92px] sm:rounded-xl sm:text-[13px]"
             onChange={onPageSizeChange}
             value={String(pageSize)}
           >
@@ -64,17 +66,16 @@ export const SortToolbar: React.FC<Props> = ({ pageSize }) => {
               </option>
             ))}
           </select>
-          <span>продукта на страница</span>
         </label>
       </div>
 
-      <label className="flex items-center gap-3 text-[13px] text-primary/60 sm:ml-auto">
-        <span className="inline-flex items-center gap-2">
+      <label className="flex flex-col gap-2 text-[13px] text-primary/60 sm:ml-auto sm:flex-row sm:items-center sm:gap-3">
+        <span className="inline-flex items-center gap-2 font-medium text-primary/70 sm:font-normal sm:text-primary/60">
           <ArrowUpDown className="h-4 w-4" />
           Сортиране
         </span>
         <select
-          className="h-10 min-w-[220px] rounded-xl border bg-white px-4 text-[13px] text-primary/80 outline-none transition focus:border-[rgb(0,126,229)]"
+          className="h-11 w-full rounded-md border bg-white px-4 text-[16px] text-primary/80 outline-none transition focus:border-[rgb(0,126,229)] sm:h-10 sm:w-auto sm:min-w-[220px] sm:rounded-xl sm:text-[13px]"
           onChange={onSortChange}
           value={currentSort}
         >

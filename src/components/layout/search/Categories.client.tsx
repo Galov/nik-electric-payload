@@ -1,4 +1,5 @@
 'use client'
+import { useMobileCatalogControls } from '@/components/catalog/MobileCatalogControls'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
@@ -91,6 +92,7 @@ export const CategoryItem: React.FC<ItemProps> = ({
   level = 0,
   onToggleCategory,
 }) => {
+  const mobileCatalogControls = useMobileCatalogControls()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -105,14 +107,21 @@ export const CategoryItem: React.FC<ItemProps> = ({
 
     if (isActive) {
       params.delete('category')
+      mobileCatalogControls?.closeCategoryStep()
     } else {
       params.set('category', String(category.id))
+      mobileCatalogControls?.openCategoryStep({
+        id: category.id,
+        title: category.title,
+      })
     }
+
+    params.delete('page')
 
     const newParams = params.toString()
 
     router.push(pathname + '?' + newParams)
-  }, [category.id, isActive, pathname, router, searchParams])
+  }, [category.id, category.title, isActive, mobileCatalogControls, pathname, router, searchParams])
 
   const handleCategoryClick = useCallback(() => {
     if (category.children.length > 0) {
@@ -124,10 +133,7 @@ export const CategoryItem: React.FC<ItemProps> = ({
 
   return (
     <li>
-      <div
-        className="flex items-start gap-2 py-1"
-        style={{ paddingLeft: `${level * 14}px` }}
-      >
+      <div className="flex items-start gap-2 py-1" style={{ paddingLeft: `${level * 14}px` }}>
         {category.children.length > 0 ? (
           <button
             type="button"
@@ -135,7 +141,11 @@ export const CategoryItem: React.FC<ItemProps> = ({
             className="-mt-px flex h-6 w-6 shrink-0 items-center justify-center text-[rgb(0,126,229)]/85 transition-colors hover:text-[rgb(0,113,206)]"
             onClick={() => onToggleCategory(category.id)}
           >
-            {isExpanded ? <ChevronDown className="h-[18px] w-[18px]" /> : <ChevronRight className="h-[18px] w-[18px]" />}
+            {isExpanded ? (
+              <ChevronDown className="h-[18px] w-[18px]" />
+            ) : (
+              <ChevronRight className="h-[18px] w-[18px]" />
+            )}
           </button>
         ) : (
           <span className="w-6 shrink-0" />
@@ -168,7 +178,11 @@ export const CategoryItem: React.FC<ItemProps> = ({
   )
 }
 
-export const CategoryTree: React.FC<TreeProps> = ({ categories, isFullTreeVisible, onFocusTree }) => {
+export const CategoryTree: React.FC<TreeProps> = ({
+  categories,
+  isFullTreeVisible,
+  onFocusTree,
+}) => {
   const searchParams = useSearchParams()
   const [expandedCategoryIDs, setExpandedCategoryIDs] = useState<Set<string>>(new Set())
 
@@ -282,6 +296,7 @@ export const CategoryTree: React.FC<TreeProps> = ({ categories, isFullTreeVisibl
 }
 
 export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
+  const mobileCatalogControls = useMobileCatalogControls()
   const contentRef = useRef<HTMLDivElement | null>(null)
   const [isOpen, setIsOpen] = useState(true)
   const [isFullTreeVisible, setIsFullTreeVisible] = useState(false)
@@ -302,6 +317,14 @@ export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
 
     return () => mediaQuery.removeEventListener('change', syncOpenState)
   }, [])
+
+  useEffect(() => {
+    mobileCatalogControls?.setCategoryListExpanded(isOpen)
+
+    return () => {
+      mobileCatalogControls?.setCategoryListExpanded(false)
+    }
+  }, [isOpen, mobileCatalogControls])
 
   useEffect(() => {
     if (!contentRef.current) return
@@ -351,9 +374,7 @@ export const CategoriesPanel: React.FC<PanelProps> = ({ categories }) => {
         </span>
 
         <div className="flex items-center">
-          <h3 className="text-sm font-normal tracking-[0.04em] text-[rgb(0,126,229)]">
-            Категории
-          </h3>
+          <h3 className="text-sm font-normal tracking-[0.04em] text-[rgb(0,126,229)]">Категории</h3>
         </div>
       </button>
 

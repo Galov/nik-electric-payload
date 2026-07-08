@@ -115,7 +115,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-8">
+      <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
         {user ? (
           <div className="flex gap-4">
             <Button
@@ -141,24 +141,32 @@ export default async function Order({ params, searchParams }: PageProps) {
       <div className="flex flex-col gap-10 bg-muted/20 px-5 py-6 md:px-7 md:py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
           <div>
-            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Дата</p>
+            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+              Дата
+            </p>
             <p className="text-lg text-primary/80">
-              <time dateTime={order.createdAt}>
-                {formatDateTime({ date: order.createdAt })}
-              </time>
+              <time dateTime={order.createdAt}>{formatDateTime({ date: order.createdAt })}</time>
             </p>
           </div>
 
           <div>
-            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Общо</p>
+            <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+              Общо
+            </p>
             {order.amount && (
-              <Price className="text-lg text-primary/80" amount={fromMinorUnits(order.amount)} currencyCode="EUR" />
+              <Price
+                className="text-lg text-primary/80"
+                amount={fromMinorUnits(order.amount)}
+                currencyCode="EUR"
+              />
             )}
           </div>
 
           {order.status && (
-            <div className="grow max-w-1/3">
-              <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Статус</p>
+            <div className="max-w-full grow lg:max-w-1/3">
+              <p className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+                Статус
+              </p>
               <OrderStatus className="text-sm" status={order.status} />
             </div>
           )}
@@ -166,7 +174,9 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.items && (
           <div>
-            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Артикули</h2>
+            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+              Артикули
+            </h2>
             <ul className="flex flex-col gap-6">
               {order.items?.map((item, index) => {
                 if (typeof item.product === 'string') {
@@ -189,7 +199,9 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.shippingAddress && (
           <div>
-            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">Адрес за доставка</h2>
+            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+              Адрес за доставка
+            </h2>
 
             {/* @ts-expect-error - some kind of type hell */}
             <AddressItem address={order.shippingAddress} hideActions />

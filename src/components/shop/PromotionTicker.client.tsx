@@ -28,7 +28,7 @@ export function PromotionTicker({ products }: Props) {
   const loopedProducts = products.length > 1 ? [...products, ...products] : products
 
   return (
-    <section className="mb-8 w-full max-w-full min-w-0 overflow-hidden rounded-[8px] border border-[rgb(0,126,229)]/10 bg-[linear-gradient(135deg,rgba(0,126,229,0.05),rgba(248,250,252,0.96))]">
+    <section className="mb-8 w-full max-w-full min-w-0 overflow-hidden rounded-[8px] border border-[rgb(0,126,229)]/10 bg-[linear-gradient(135deg,rgba(0,126,229,0.05),rgba(248,250,252,0.96))] [contain:layout_paint] [overflow-x:clip]">
       <div className="flex items-center justify-between gap-4 border-b border-[rgb(0,126,229)]/10 px-4 py-4 md:px-5">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgb(0,126,229)]/75">
@@ -40,7 +40,7 @@ export function PromotionTicker({ products }: Props) {
         </div>
       </div>
 
-      <div className="promotion-ticker group relative w-full max-w-full min-w-0 overflow-hidden px-3 py-3 md:px-4">
+      <div className="promotion-ticker group relative w-full max-w-full min-w-0 overflow-hidden px-3 py-3 [contain:layout_paint] [overflow-x:clip] md:px-4">
         <div className="h-[148px] w-full" aria-hidden="true" />
         <div
           className={clsx(
@@ -50,7 +50,8 @@ export function PromotionTicker({ products }: Props) {
         >
           {loopedProducts.map((product, index) => {
             const image = getProductPrimaryImage(product)
-            const priceTier = (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier
+            const priceTier = (user as typeof user & { priceTier?: 'general' | 'group1' | null })
+              ?.priceTier
             const resolvedPrice = resolvePriceForTier(priceTier, {
               priceGroup1: product.priceGroup1,
               priceWholesale: product.priceWholesale,
