@@ -37,11 +37,12 @@ import { plugins } from './plugins'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 const emailEnabled = process.env.EMAIL_ENABLED === 'true'
+const emailFromAddress = process.env.EMAIL_FROM_ADDRESS || process.env.EMAIL_FROM
 const emailAdapter =
   emailEnabled && process.env.RESEND_API_KEY
     ? resendAdapter({
         apiKey: process.env.RESEND_API_KEY,
-        defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'no-reply@nikelectric.com',
+        defaultFromAddress: emailFromAddress || 'no-reply@nikelectric.com',
         defaultFromName: process.env.EMAIL_FROM_NAME || 'Ник Електрик',
       })
     : undefined
@@ -127,7 +128,8 @@ export default buildConfig({
           ...ecommerceBg.translations,
           general: {
             ...payloadBg.translations.general,
-            noResults: 'Няма намерени {{label}}. {{label}} не съществуват или не отговарят на зададените филтри.',
+            noResults:
+              'Няма намерени {{label}}. {{label}} не съществуват или не отговарят на зададените филтри.',
           },
         },
       },

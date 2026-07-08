@@ -4,6 +4,7 @@ import { getServerSideURL } from '@/utilities/getURL'
 
 import {
   buildAdminOrderCreatedEmail,
+  buildContactInquiryEmail,
   buildCustomerApprovedEmail,
   buildCustomerOrderCreatedEmail,
   buildCustomerRegistrationEmail,
@@ -139,4 +140,19 @@ export const sendCustomerApprovedEmail = async ({
     payload,
     to: user.email,
   })
+}
+
+export const sendContactInquiryEmail = async ({
+  inquiry,
+  payload,
+}: {
+  inquiry: Parameters<typeof buildContactInquiryEmail>[0]['inquiry']
+  payload: Payload
+}) => {
+  const email = buildContactInquiryEmail({
+    adminURL: getAdminURL('contact-inquiries', inquiry.id),
+    inquiry,
+  })
+
+  await sendAdminEmail({ ...email, payload })
 }

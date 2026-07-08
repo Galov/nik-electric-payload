@@ -46,6 +46,15 @@ type UserLike = {
   phone?: null | string
 }
 
+type ContactInquiryLike = {
+  createdAt?: null | string
+  email?: null | string
+  id?: number | string
+  message?: null | string
+  name?: null | string
+  phone?: null | string
+}
+
 const brandName = 'Ник Електрик'
 const brandColor = '#0f4c3a'
 const ink = '#1f2933'
@@ -92,7 +101,9 @@ const getProductTitle = (item: OrderItem) => {
 
 const renderRows = (rows: EmailRow[]) =>
   rows
-    .filter((row) => row.value !== null && row.value !== undefined && String(row.value).trim() !== '')
+    .filter(
+      (row) => row.value !== null && row.value !== undefined && String(row.value).trim() !== '',
+    )
     .map(
       (row) => `
         <tr>
@@ -217,7 +228,8 @@ export const buildAdminOrderCreatedEmail = ({
     html: renderLayout({
       action: { href: adminURL, label: 'Отвори поръчката' },
       eyebrow: 'Нова поръчка',
-      intro: 'В сайта е изпратена нова поръчка. Прегледайте я в админа и следете статуса на Microinvest export-а.',
+      intro:
+        'В сайта е изпратена нова поръчка. Прегледайте я в админа и следете статуса на Microinvest export-а.',
       title: subject,
       children: `
         ${renderSummaryCard([
@@ -280,7 +292,8 @@ export const buildMicroinvestExportFailedEmail = ({
     html: renderLayout({
       action: { href: adminURL, label: 'Провери поръчката' },
       eyebrow: 'Нужна е проверка',
-      intro: 'Поръчката не беше изпратена към Microinvest. Трябва човек да я провери в админа и да реши как да я обработи.',
+      intro:
+        'Поръчката не беше изпратена към Microinvest. Трябва човек да я провери в админа и да реши как да я обработи.',
       title: subject,
       children: `
         ${renderSummaryCard([
@@ -311,7 +324,8 @@ export const buildCustomerRegistrationEmail = ({
     html: renderLayout({
       action: { href: adminURL, label: 'Прегледай клиента' },
       eyebrow: 'Нова регистрация',
-      intro: 'В сайта има нова регистрация. Клиентът трябва да бъде прегледан и одобрен от администратор.',
+      intro:
+        'В сайта има нова регистрация. Клиентът трябва да бъде прегледан и одобрен от администратор.',
       title: subject,
       children: renderSummaryCard([
         { label: 'Фирма', value: companyName },
@@ -370,12 +384,47 @@ export const buildCustomerApprovedEmail = ({
     html: renderLayout({
       action: { href: loginURL, label: 'Вход в профила' },
       eyebrow: 'Акаунтът е активен',
-      intro: 'Вашият акаунт беше прегледан, одобрен и активиран. Вече можете да влезете в сайта и да правите поръчки.',
+      intro:
+        'Вашият акаунт беше прегледан, одобрен и активиран. Вече можете да влезете в сайта и да правите поръчки.',
       title: subject,
       children: renderSummaryCard([
         { label: 'Фирма', value: companyName },
         { label: 'Имейл', value: user.email },
       ]),
+    }),
+  }
+}
+
+export const buildContactInquiryEmail = ({
+  adminURL,
+  inquiry,
+}: {
+  adminURL: string
+  inquiry: ContactInquiryLike
+}): EmailTemplate => {
+  const subject = `Ново запитване от ${inquiry.name || 'контактната форма'}`
+  const text = `Има ново запитване от ${inquiry.name || '-'}. Имейл: ${inquiry.email || '-'} Телефон: ${inquiry.phone || '-'} Съобщение: ${inquiry.message || '-'}`
+
+  return {
+    subject,
+    text,
+    html: renderLayout({
+      action: { href: adminURL, label: 'Отвори запитването' },
+      eyebrow: 'Ново запитване',
+      intro:
+        'В сайта е изпратено ново запитване през контактната форма. Прегледайте го в админа и се свържете с клиента.',
+      title: subject,
+      children: `
+        ${renderSummaryCard([
+          { label: 'Име', value: inquiry.name },
+          { label: 'Имейл', value: inquiry.email },
+          { label: 'Телефон', value: inquiry.phone },
+          { label: 'Създадено', value: formatDate(inquiry.createdAt) },
+        ])}
+        <div style="background: #fff; border: 1px solid #e5dccc; border-radius: 16px; color: ${ink}; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7; padding: 18px;">
+          ${escapeHTML(inquiry.message).replace(/\n/g, '<br />')}
+        </div>
+      `,
     }),
   }
 }

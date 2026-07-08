@@ -3,6 +3,8 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
+import { sendContactInquiryEmail } from '@/utilities/email/notifications'
+
 type SubmitContactInquiryArgs = {
   email: string
   message: string
@@ -26,7 +28,7 @@ export async function submitContactInquiry({
   const payload = await getPayload({ config: configPromise })
 
   try {
-    await payload.create({
+    const inquiry = await payload.create({
       collection: 'contact-inquiries' as never,
       data: {
         email,
@@ -36,6 +38,11 @@ export async function submitContactInquiry({
         privacyAccepted,
       } as never,
       overrideAccess: true,
+    })
+
+    await sendContactInquiryEmail({
+      inquiry,
+      payload,
     })
 
     return { success: true }
