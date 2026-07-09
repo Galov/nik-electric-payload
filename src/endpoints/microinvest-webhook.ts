@@ -4,6 +4,7 @@ import {
   syncCategoryProductCount,
 } from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { parseMicroinvestDescription } from '@/utilities/microinvest'
+import { normalizeProductTitleFromSku } from '@/utilities/product'
 
 type MicroinvestEvent = 'product.created' | 'product.updated' | 'product.deleted'
 
@@ -188,7 +189,10 @@ const buildUpdateData = ({
   }
 
   if (typeof data?.title === 'string' && data.title.trim()) {
-    nextData.title = data.title.trim()
+    nextData.title = normalizeProductTitleFromSku({
+      sku,
+      title: data.title,
+    })
   }
 
   if (typeof data?.priceRetail === 'number' && Number.isFinite(data.priceRetail)) {
@@ -293,11 +297,11 @@ const processWebhookItem = async ({
       }
     }
 
-  const nextData = buildUpdateData({
-    data,
-    miProductId,
-    sku: normalizedSku,
-  })
+    const nextData = buildUpdateData({
+      data,
+      miProductId,
+      sku: normalizedSku,
+    })
 
     if (!('priceRetail' in nextData)) nextData.priceRetail = 0
     if (!('priceWholesale' in nextData)) nextData.priceWholesale = 0

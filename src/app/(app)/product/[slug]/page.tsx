@@ -32,6 +32,24 @@ type Args = {
   }>
 }
 
+type ProductCategoryBreadcrumbItem = {
+  parent?: null | ProductCategoryBreadcrumbItem | string
+  slug?: null | string
+  title?: null | string
+}
+
+const buildProductCategoryBreadcrumb = (category?: null | ProductCategoryBreadcrumbItem) => {
+  const chain: ProductCategoryBreadcrumbItem[] = []
+  let current = category
+
+  while (current && typeof current !== 'string' && current.slug && current.title) {
+    chain.unshift(current)
+    current = current.parent && typeof current.parent !== 'string' ? current.parent : null
+  }
+
+  return chain
+}
+
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
   const { slug } = await params
   const product = await queryProductBySlug({ slug })
@@ -84,8 +102,7 @@ export default async function ProductPage({ params }: Args) {
       (category): category is Exclude<(typeof product.categories)[number], string> =>
         Boolean(category && typeof category !== 'string' && category.slug && category.title),
     ) || null
-  const parentCategory =
-    primaryCategory?.parent && typeof primaryCategory.parent !== 'string' ? primaryCategory.parent : null
+  const categoryBreadcrumb = buildProductCategoryBreadcrumb(primaryCategory)
 
   const relatedProducts = await queryRelatedProducts({
     categoryIDs:
@@ -136,28 +153,17 @@ export default async function ProductPage({ params }: Args) {
             <Link className="transition hover:text-primary/80" href="/shop">
               Каталог
             </Link>
-            {parentCategory?.slug && parentCategory?.title ? (
-              <>
+            {categoryBreadcrumb.map((category) => (
+              <React.Fragment key={category.slug}>
                 <span>/</span>
                 <Link
                   className="transition hover:text-primary/80"
-                  href={buildCategoryPath(parentCategory)}
+                  href={buildCategoryPath(category)}
                 >
-                  {parentCategory.title}
+                  {category.title}
                 </Link>
-              </>
-            ) : null}
-            {primaryCategory?.slug && primaryCategory?.title ? (
-              <>
-                <span>/</span>
-                <Link
-                  className="transition hover:text-primary/80"
-                  href={buildCategoryPath(primaryCategory)}
-                >
-                  {primaryCategory.title}
-                </Link>
-              </>
-            ) : null}
+              </React.Fragment>
+            ))}
             <span>/</span>
             <span className="text-primary/80">{formattedProductTitle}</span>
           </nav>
@@ -194,7 +200,8 @@ export default async function ProductPage({ params }: Args) {
             manufacturerCode: product.manufacturerCode,
             originalSku: product.originalSku,
             priceGroup1: (product as typeof product & { priceGroup1?: number | null }).priceGroup1,
-            priceWholesale: (product as typeof product & { priceWholesale?: number | null }).priceWholesale,
+            priceWholesale: (product as typeof product & { priceWholesale?: number | null })
+              .priceWholesale,
             published: product.published,
             slug: product.slug,
             sku: product.sku,
@@ -214,7 +221,7 @@ const queryProductBySlug = async ({ slug }: { slug: string }) => {
 
   const result = await payload.find({
     collection: 'products',
-    depth: 2,
+    depth: 10,
     draft: false,
     limit: 1,
     overrideAccess: false,

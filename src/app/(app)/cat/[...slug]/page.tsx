@@ -24,6 +24,23 @@ type CategoryPageData = {
   title: string
 }
 
+const parsePublicSegmentsToSlugs = (segments: string[]) =>
+  segments.reduce<string[]>((acc, segment) => {
+    if (acc.length === 0) {
+      acc.push(segment)
+      return acc
+    }
+
+    const previousPublicSegment = segments[acc.length - 1]
+    const slug =
+      previousPublicSegment && segment.startsWith(`${previousPublicSegment}-`)
+        ? segment.slice(previousPublicSegment.length + 1)
+        : segment
+
+    acc.push(slug)
+    return acc
+  }, [])
+
 export default async function CategoryPage({ params }: Args) {
   const { slug } = await params
   const category = await queryCategoryBySegments({ segments: slug })
@@ -59,12 +76,22 @@ const queryCategoryBySegments = async ({ segments }: { segments: string[] }) => 
     },
   })
 
+  const candidates = result.docs as CategoryPageData[]
+  const requestedPath = requestedSegments.join('/')
+  const requestedSlugs = parsePublicSegmentsToSlugs(requestedSegments)
   const category =
-    (result.docs as CategoryPageData[]).find((doc) => {
-      const actualSegments = buildCategoryPublicSegments(doc)
+    candidates.find((doc) => buildCategoryPublicSegments(doc).join('/') === requestedPath) ||
+    candidates.find((doc) => {
+      const actualSlugs = buildCategoryPublicSegments(doc)
+        .map((_, index, actualSegments) =>
+          parsePublicSegmentsToSlugs(actualSegments.slice(0, index + 1)).at(-1),
+        )
+        .filter((segment): segment is string => Boolean(segment))
+      const actualSuffix = actualSlugs.slice(-requestedSlugs.length)
 
-      return actualSegments.join('/') === requestedSegments.join('/')
-    }) || null
+      return actualSuffix.join('/') === requestedSlugs.join('/')
+    }) ||
+    null
 
   return category
 }

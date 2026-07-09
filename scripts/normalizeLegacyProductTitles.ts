@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { normalizeProductTitleFromSku } from '../src/utilities/product'
 
 const batchSize = 250
 const shouldWrite = process.argv.includes('--write')
@@ -9,21 +10,11 @@ const shouldTrimTail = process.argv.includes('--trim-tail')
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const normalizeTitle = ({
-  sku,
-  title,
-}: {
-  sku?: null | string
-  title: string
-}) => {
+const normalizeTitle = ({ sku, title }: { sku?: null | string; title: string }) => {
   let nextTitle = title.trim()
   const normalizedSKU = sku?.trim()
 
-  if (normalizedSKU) {
-    const escapedSKU = normalizedSKU.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    const leadingMarkerPattern = new RegExp(`^${escapedSKU}\\s*[-–—]\\s*`, 'i')
-    nextTitle = nextTitle.replace(leadingMarkerPattern, '').trim()
-  }
+  nextTitle = normalizeProductTitleFromSku({ sku: normalizedSKU, title: nextTitle })
 
   if (!shouldTrimTail) {
     return nextTitle

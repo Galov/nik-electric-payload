@@ -32,9 +32,7 @@ export const getProductImageAlt = ({
   }
 
   if (productTitle?.trim()) {
-    return index > 0
-      ? `${productTitle.trim()} - изображение ${index + 1}`
-      : productTitle.trim()
+    return index > 0 ? `${productTitle.trim()} - изображение ${index + 1}` : productTitle.trim()
   }
 
   return ''
@@ -151,6 +149,26 @@ export const formatProductTitle = (value?: null | string) => {
   return `${firstCharacter.toLocaleUpperCase('bg-BG')}${rest.join('')}`
 }
 
+export const normalizeProductTitleFromSku = ({
+  sku,
+  title,
+}: {
+  sku?: null | string
+  title?: null | string
+}) => {
+  const normalizedTitle = title?.trim() || ''
+  const normalizedSku = sku?.trim()
+
+  if (!normalizedTitle || !normalizedSku) {
+    return normalizedTitle
+  }
+
+  const escapedSku = normalizedSku.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const leadingSkuPattern = new RegExp(`^${escapedSku}\\s*[-–—]\\s*`, 'i')
+
+  return normalizedTitle.replace(leadingSkuPattern, '').trim()
+}
+
 type BrandLike =
   | null
   | string
@@ -167,7 +185,12 @@ const normalizeBrandEntry = (brand: BrandLike) => {
   }
 
   return {
-    id: typeof brand.id === 'string' ? brand.id : typeof brand.id === 'number' ? String(brand.id) : undefined,
+    id:
+      typeof brand.id === 'string'
+        ? brand.id
+        : typeof brand.id === 'number'
+          ? String(brand.id)
+          : undefined,
     logo: brand.logo && typeof brand.logo === 'object' ? brand.logo : null,
     slug: brand.slug || undefined,
     title: brand.title,
@@ -180,7 +203,9 @@ export const getProductBrands = (product?: Partial<Product> | null) => {
   if (Array.isArray(source)) {
     return source
       .map((brand) => normalizeBrandEntry(brand as BrandLike))
-      .filter((brand): brand is NonNullable<ReturnType<typeof normalizeBrandEntry>> => Boolean(brand))
+      .filter((brand): brand is NonNullable<ReturnType<typeof normalizeBrandEntry>> =>
+        Boolean(brand),
+      )
   }
 
   const singleBrand = normalizeBrandEntry(source as BrandLike)
