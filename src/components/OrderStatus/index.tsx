@@ -14,6 +14,7 @@ export const OrderStatus: React.FC<Props> = ({ status, className }) => {
   const labelByStatus: Record<string, string> = {
     cancelled: 'Отказана',
     completed: 'Завършена',
+    held: 'Задържана',
     processing: 'Обработва се',
   }
 
@@ -24,6 +25,7 @@ export const OrderStatus: React.FC<Props> = ({ status, className }) => {
         className,
         {
           'bg-amber-100 text-amber-800': status === 'processing',
+          'bg-sky-100 text-sky-800': status === 'held',
           'bg-emerald-100 text-emerald-800': status === 'completed',
           'bg-red-100 text-red-800': status === 'cancelled',
         },

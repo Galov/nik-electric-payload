@@ -38,6 +38,10 @@
     color: var(--theme-error-500);
   }
 
+  &__value--warning {
+    color: var(--theme-warning-500);
+  }
+
   &__description {
     margin: 0 0 base(0.75);
   }

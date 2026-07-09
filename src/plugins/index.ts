@@ -46,6 +46,41 @@ const normalizeMoneyAdminFields = (fields: any[]): any[] => {
   })
 }
 
+const addHeldOrderStatusOption = (fields: any[]): any[] => {
+  return fields.map((field) => {
+    const nextField = { ...field }
+
+    if (Array.isArray(nextField.fields)) {
+      nextField.fields = addHeldOrderStatusOption(nextField.fields)
+    }
+
+    if (Array.isArray(nextField.tabs)) {
+      nextField.tabs = nextField.tabs.map((tab: any) => ({
+        ...tab,
+        fields: Array.isArray(tab.fields) ? addHeldOrderStatusOption(tab.fields) : tab.fields,
+      }))
+    }
+
+    if (nextField.name === 'status' && Array.isArray(nextField.options)) {
+      const hasHeldStatus = nextField.options.some((option: any) =>
+        typeof option === 'string' ? option === 'held' : option?.value === 'held',
+      )
+
+      if (!hasHeldStatus) {
+        nextField.options = [
+          ...nextField.options,
+          {
+            label: 'Задържана',
+            value: 'held',
+          },
+        ]
+      }
+    }
+
+    return nextField
+  })
+}
+
 const addOrderItemSnapshotFields = (fields: any[]): any[] => {
   return fields.map((field) => {
     const nextField = { ...field }
@@ -214,7 +249,9 @@ export const plugins: Plugin[] = [
         },
         fields: [
           ...applyReadOnlyOrderItemsField(
-            addOrderItemSnapshotFields(normalizeMoneyAdminFields(defaultCollection.fields)),
+            addOrderItemSnapshotFields(
+              addHeldOrderStatusOption(normalizeMoneyAdminFields(defaultCollection.fields)),
+            ),
           ),
           {
             name: 'partnerCode',

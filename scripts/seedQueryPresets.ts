@@ -71,6 +71,15 @@ const presets: QueryPresetSeed[] = [
     },
   },
   {
+    title: 'Задържани поръчки',
+    relatedCollection: 'orders',
+    where: {
+      status: {
+        equals: 'held',
+      },
+    },
+  },
+  {
     title: 'Неприключени поръчки',
     relatedCollection: 'orders',
     where: {
