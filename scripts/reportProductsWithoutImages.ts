@@ -26,7 +26,8 @@ const csvEscape = (value: unknown) => {
   return `"${stringValue.replace(/"/g, '""')}"`
 }
 
-const getPublicURL = (slug?: null | string) => (slug ? `https://nikelectric.eu/product/${slug}` : '')
+const getPublicURL = (slug?: null | string) =>
+  slug ? `https://nikelectric.com/product/${slug}` : ''
 
 const main = async () => {
   const payload = await getPayload({ config: configPromise })

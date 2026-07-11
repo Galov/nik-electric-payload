@@ -1,9 +1,8 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, Payload } from 'payload'
 
-type SyncEvent =
-  | 'product.created'
-  | 'product.price_stock_updated'
-  | 'product.deleted'
+import { resolveProductImageURL } from '@/utilities/product'
+
+type SyncEvent = 'product.created' | 'product.price_stock_updated' | 'product.deleted'
 
 type NormalizedImage = {
   alt?: string
@@ -132,22 +131,18 @@ const serializeImages = (value: unknown) => {
         typeof (image as { media?: unknown } | null)?.media === 'string'
           ? (image as { media?: string }).media
           : typeof (image as { media?: unknown } | null)?.media === 'object'
-            ? getMediaID((image as { media?: unknown }).media) || getMediaURL((image as { media?: unknown }).media)
+            ? getMediaID((image as { media?: unknown }).media) ||
+              getMediaURL((image as { media?: unknown }).media)
             : null,
       storageKey: getString((image as { storageKey?: unknown } | null)?.storageKey),
     })),
   )
 }
 
-const areImagesEqual = (left: unknown, right: unknown) => serializeImages(left) === serializeImages(right)
+const areImagesEqual = (left: unknown, right: unknown) =>
+  serializeImages(left) === serializeImages(right)
 
-const resolveMediaImageMap = async ({
-  payload,
-  value,
-}: {
-  payload: Payload
-  value: unknown
-}) => {
+const resolveMediaImageMap = async ({ payload, value }: { payload: Payload; value: unknown }) => {
   if (!Array.isArray(value)) {
     return new Map<string, { alt?: string; url: string }>()
   }
@@ -228,6 +223,7 @@ const normalizeImages = async ({
   return value
     .map((image) => {
       const legacyUrl = getString((image as { legacyUrl?: unknown } | null)?.legacyUrl)
+      const storageKey = getString((image as { storageKey?: unknown } | null)?.storageKey)
       const alt = getString((image as { alt?: unknown } | null)?.alt)
       const media = (image as { media?: unknown } | null)?.media
       const mediaID =
@@ -240,7 +236,15 @@ const normalizeImages = async ({
       const inlineMediaUrl = media && typeof media === 'object' ? getMediaURL(media) : null
       const inlineMediaAlt =
         media && typeof media === 'object' ? getString((media as { alt?: unknown }).alt) : null
-      const resolvedUrl = mediaImage?.url || inlineMediaUrl || legacyUrl || null
+      const publicStorageUrl = storageKey ? resolveProductImageURL({ storageKey }) : null
+
+      if (storageKey && !publicStorageUrl) {
+        payload.logger.warn(
+          `Ibis image sync could not build a public R2 URL for storage key "${storageKey}" because NEXT_PUBLIC_R2_PUBLIC_BASE_URL is missing. Falling back to media or legacy URL.`,
+        )
+      }
+
+      const resolvedUrl = publicStorageUrl || mediaImage?.url || inlineMediaUrl || legacyUrl || null
 
       if (!resolvedUrl) {
         return null
@@ -270,9 +274,7 @@ const getSourceId = (doc: Record<string, unknown>) => {
   }
 
   const docId =
-    typeof doc.id === 'string' && /^\d+$/.test(doc.id)
-      ? Number(doc.id)
-      : getPositiveNumber(doc.id)
+    typeof doc.id === 'string' && /^\d+$/.test(doc.id) ? Number(doc.id) : getPositiveNumber(doc.id)
 
   return docId
 }
@@ -303,13 +305,7 @@ const normalizeRelationIds = (value: unknown): string[] => {
     .filter((item): item is string => Boolean(item))
 }
 
-const resolveBrandPayload = async ({
-  payload,
-  value,
-}: {
-  payload: Payload
-  value: unknown
-}) => {
+const resolveBrandPayload = async ({ payload, value }: { payload: Payload; value: unknown }) => {
   const relationIds = normalizeRelationIds(value)
 
   if (!relationIds.length) {
@@ -469,18 +465,16 @@ const buildPriceStockItem = async ({
             }),
           }
         : {}),
-      ...(includePublished && typeof doc.published === 'boolean' ? { published: doc.published } : {}),
+      ...(includePublished && typeof doc.published === 'boolean'
+        ? { published: doc.published }
+        : {}),
       ...(stockQty !== null ? { stockQty } : {}),
       sourcePrice,
     },
   } satisfies SyncItem
 }
 
-const buildIdentifierItem = ({
-  doc,
-}: {
-  doc: Record<string, unknown>
-}) => {
+const buildIdentifierItem = ({ doc }: { doc: Record<string, unknown> }) => {
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
 
@@ -494,13 +488,7 @@ const buildIdentifierItem = ({
   } satisfies SyncItem
 }
 
-const sendWebhook = async ({
-  event,
-  items,
-}: {
-  event: SyncEvent
-  items: SyncItem[]
-}) => {
+const sendWebhook = async ({ event, items }: { event: SyncEvent; items: SyncItem[] }) => {
   const config = getWebhookConfig()
 
   if (!config || !items.length) {
@@ -568,7 +556,8 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
     }
 
     const normalizedPreviousDoc = previousDoc as Record<string, unknown>
-    const becameSyncable = hasRequiredCreateFields(normalizedDoc) && !hasRequiredCreateFields(normalizedPreviousDoc)
+    const becameSyncable =
+      hasRequiredCreateFields(normalizedDoc) && !hasRequiredCreateFields(normalizedPreviousDoc)
 
     if (becameSyncable) {
       const item = await buildCreatedItem({

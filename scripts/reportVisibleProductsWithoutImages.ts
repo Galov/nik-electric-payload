@@ -27,9 +27,11 @@ const csvEscape = (value: unknown) => {
   return `"${stringValue.replace(/"/g, '""')}"`
 }
 
-const getNewSiteURL = (slug?: null | string) => (slug ? `https://nikelectric.eu/product/${slug}` : '')
+const getNewSiteURL = (slug?: null | string) =>
+  slug ? `https://nikelectric.com/product/${slug}` : ''
 
-const isQueryProductURL = (value: string) => value.includes('post_type=product') || value.includes('?p=')
+const isQueryProductURL = (value: string) =>
+  value.includes('post_type=product') || value.includes('?p=')
 
 const getOldSiteURL = (product: ProductDoc) => {
   if (product.legacyProductUrl && !isQueryProductURL(product.legacyProductUrl)) {

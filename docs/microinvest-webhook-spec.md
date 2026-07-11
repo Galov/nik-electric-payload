@@ -8,7 +8,7 @@
 
 Текущ тестов адрес:
 
-`https://nikelectric.eu/api/integrations/microinvest/webhook`
+`https://nikelectric.com/api/integrations/microinvest/webhook`
 
 ## Достъп
 

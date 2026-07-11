@@ -26,7 +26,7 @@ docker compose --env-file .env.staging -f docker-compose.staging.yml up -d
 - Ubuntu на Hetzner
 - Docker и Docker Compose plugin
 - публичен DNS запис към сървъра:
-  - препоръчително `staging.nikelectric.eu`
+  - препоръчително `staging.nikelectric.com`
 
 ## 2. Allowlist в MongoDB Atlas
 
@@ -156,7 +156,7 @@ cd /opt/nic-electrik-payload
 
 Endpoint:
 
-`POST https://staging.nikelectric.eu/api/integrations/microinvest/webhook`
+`POST https://staging.nikelectric.com/api/integrations/microinvest/webhook`
 
 Headers:
 
