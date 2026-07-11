@@ -25,6 +25,7 @@ import { HiddenProductDraftStatus as HiddenProductDraftStatus_b1bc3ea913e88844f5
 import { PriceCell as PriceCell_e27bf7b8cc50640dcdd584767b8eac3c } from '@payloadcms/plugin-ecommerce/client'
 import { MoneyReadOnlyField as MoneyReadOnlyField_611bc254f8b85bfd78de34cc0a5cc5cd } from '@/components/admin/MoneyReadOnlyField'
 import { OrderItemsReadOnlyField as OrderItemsReadOnlyField_a5fb466e8411c12c06676e5255209cbf } from '@/components/admin/OrderItemsReadOnlyField'
+import { OrderStatusCell as OrderStatusCell_a62e47b57797e0bb7a9458ad5341f335 } from '@/components/admin/OrderStatusCell'
 import { QueryPresetsAccessCell as QueryPresetsAccessCell_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { QueryPresetsWhereCell as QueryPresetsWhereCell_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { QueryPresetsWhereField as QueryPresetsWhereField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
@@ -78,6 +79,7 @@ export const importMap = {
   "@payloadcms/plugin-ecommerce/client#PriceCell": PriceCell_e27bf7b8cc50640dcdd584767b8eac3c,
   "@/components/admin/MoneyReadOnlyField#MoneyReadOnlyField": MoneyReadOnlyField_611bc254f8b85bfd78de34cc0a5cc5cd,
   "@/components/admin/OrderItemsReadOnlyField#OrderItemsReadOnlyField": OrderItemsReadOnlyField_a5fb466e8411c12c06676e5255209cbf,
+  "@/components/admin/OrderStatusCell#OrderStatusCell": OrderStatusCell_a62e47b57797e0bb7a9458ad5341f335,
   "@payloadcms/next/client#QueryPresetsAccessCell": QueryPresetsAccessCell_2b8867833a34864a02ddf429b0728a40,
   "@payloadcms/next/client#QueryPresetsWhereCell": QueryPresetsWhereCell_2b8867833a34864a02ddf429b0728a40,
   "@payloadcms/next/client#QueryPresetsWhereField": QueryPresetsWhereField_2b8867833a34864a02ddf429b0728a40,

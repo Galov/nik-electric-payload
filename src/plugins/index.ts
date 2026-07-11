@@ -75,6 +75,14 @@ const addHeldOrderStatusOption = (fields: any[]): any[] => {
           },
         ]
       }
+
+      nextField.admin = {
+        ...nextField.admin,
+        components: {
+          ...nextField.admin?.components,
+          Cell: '@/components/admin/OrderStatusCell#OrderStatusCell',
+        },
+      }
     }
 
     return nextField
@@ -234,6 +242,50 @@ export const plugins: Plugin[] = [
     orders: {
       ordersCollectionOverride: ({ defaultCollection }) => ({
         ...defaultCollection,
+        endpoints: [
+          ...(defaultCollection.endpoints || []),
+          {
+            path: '/:id/status',
+            method: 'patch',
+            handler: async (req) => {
+              const user = req.user
+
+              if (!user || !('roles' in user) || !user.roles?.includes('admin')) {
+                return Response.json(
+                  { message: 'Нямате право да променяте поръчки.' },
+                  { status: 403 },
+                )
+              }
+
+              const body = (await req.json?.()) as { status?: unknown } | undefined
+              const allowedStatuses = ['processing', 'held', 'completed', 'cancelled', 'refunded']
+
+              if (typeof body?.status !== 'string' || !allowedStatuses.includes(body.status)) {
+                return Response.json({ message: 'Невалиден статус на поръчката.' }, { status: 400 })
+              }
+
+              const order = await req.payload.update({
+                collection: 'orders',
+                id: String(req.routeParams?.id || ''),
+                data: {
+                  status: body.status as
+                    | 'processing'
+                    | 'held'
+                    | 'completed'
+                    | 'cancelled'
+                    | 'refunded',
+                },
+                context: {
+                  skipMicroinvestOrderExport: true,
+                },
+                overrideAccess: true,
+                req,
+              })
+
+              return Response.json({ id: order.id, status: order.status })
+            },
+          },
+        ],
         enableQueryPresets: true,
         admin: {
           ...defaultCollection.admin,

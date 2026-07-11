@@ -132,7 +132,7 @@ export default async function ShopPage({ searchParams }: Props) {
       brand: true,
       sku: true,
     },
-    ...(sort ? { sort } : { sort: '-updatedAt' }),
+    ...(sort ? { sort } : { sort: '-createdAt' }),
     where: {
       and: [
         {
