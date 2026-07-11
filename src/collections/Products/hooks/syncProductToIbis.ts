@@ -2,7 +2,11 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, Payload } fr
 
 import { resolveProductImageURL } from '@/utilities/product'
 
-type SyncEvent = 'product.created' | 'product.price_stock_updated' | 'product.deleted'
+type SyncEvent =
+  | 'product.created'
+  | 'product.price_stock_updated'
+  | 'product.deactivated'
+  | 'product.deleted'
 
 type NormalizedImage = {
   alt?: string
@@ -11,7 +15,7 @@ type NormalizedImage = {
 
 type SyncItem = {
   sourceId?: number
-  sku: string
+  sku?: string
   data?: {
     title?: string
     description?: string
@@ -46,8 +50,8 @@ const getWebhookConfig = () => {
 const getPositiveNumber = (value: unknown) =>
   typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : null
 
-const getNonNegativeNumber = (value: unknown) =>
-  typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null
+const getNormalizedStockQty = (value: unknown) =>
+  typeof value === 'number' && Number.isFinite(value) ? Math.max(0, value) : null
 
 const getString = (value: unknown) => {
   if (typeof value !== 'string') return null
@@ -261,29 +265,14 @@ const normalizeImages = async ({
 }
 
 const getSourceId = (doc: Record<string, unknown>) => {
-  const sourceId = getPositiveNumber(doc.sourceId)
-
-  if (sourceId !== null) {
-    return sourceId
-  }
-
-  const miProductId = getPositiveNumber(doc.miProductId)
-
-  if (miProductId !== null) {
-    return miProductId
-  }
-
-  const docId =
-    typeof doc.id === 'string' && /^\d+$/.test(doc.id) ? Number(doc.id) : getPositiveNumber(doc.id)
-
-  return docId
+  return getPositiveNumber(doc.sourceId)
 }
 
 const hasRequiredCreateFields = (doc: Record<string, unknown>) => {
   const sku = getString(doc.sku)
   const title = getString(doc.title)
-  const sourcePrice = getNonNegativeNumber(doc.priceRetail)
-  const stockQty = getNonNegativeNumber(doc.stockQty)
+  const sourcePrice = getPositiveNumber(doc.priceRetail)
+  const stockQty = getNormalizedStockQty(doc.stockQty)
 
   return Boolean(sku && title && sourcePrice !== null && stockQty !== null)
 }
@@ -391,8 +380,8 @@ const buildCreatedItem = async ({
   const sku = getString(doc.sku) as string
   const sourceId = getSourceId(doc)
   const title = getString(doc.title) as string
-  const sourcePrice = getNonNegativeNumber(doc.priceRetail) as number
-  const stockQty = getNonNegativeNumber(doc.stockQty) as number
+  const sourcePrice = getPositiveNumber(doc.priceRetail) as number
+  const stockQty = getNormalizedStockQty(doc.stockQty) as number
 
   const brand = await resolveBrandPayload({
     payload,
@@ -446,8 +435,8 @@ const buildPriceStockItem = async ({
 }) => {
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
-  const sourcePrice = getNonNegativeNumber(doc.priceRetail)
-  const stockQty = getNonNegativeNumber(doc.stockQty)
+  const sourcePrice = getPositiveNumber(doc.priceRetail)
+  const stockQty = getNormalizedStockQty(doc.stockQty)
 
   if (!sku || sourcePrice === null) {
     return null
@@ -478,13 +467,13 @@ const buildIdentifierItem = ({ doc }: { doc: Record<string, unknown> }) => {
   const sku = getString(doc.sku)
   const sourceId = getSourceId(doc)
 
-  if (!sku) {
+  if (!sku && sourceId === null) {
     return null
   }
 
   return {
     ...(sourceId !== null ? { sourceId } : {}),
-    sku,
+    ...(sku ? { sku } : {}),
   } satisfies SyncItem
 }
 
@@ -531,6 +520,13 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
     const normalizedDoc = doc as Record<string, unknown>
 
     if (operation === 'create') {
+      if (getPositiveNumber(normalizedDoc.priceRetail) === null) {
+        req.payload.logger.warn(
+          `Skipped Ibis product.created sync for product ${String(doc.id)} because sourcePrice must be greater than 0.`,
+        )
+        return doc
+      }
+
       const item = await buildCreatedItem({
         doc: normalizedDoc,
         payload: req.payload,
@@ -556,6 +552,29 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
     }
 
     const normalizedPreviousDoc = previousDoc as Record<string, unknown>
+    const publishedChanged = normalizedDoc.published !== normalizedPreviousDoc.published
+    const becameDeactivated = publishedChanged && normalizedDoc.published === false
+
+    if (becameDeactivated) {
+      const item = buildIdentifierItem({
+        doc: normalizedDoc,
+      })
+
+      if (!item) {
+        req.payload.logger.warn(
+          `Skipped Ibis product.deactivated sync for product ${String(doc.id)} because sourceId and sku are missing.`,
+        )
+        return doc
+      }
+
+      await sendWebhook({
+        event: 'product.deactivated',
+        items: [item],
+      })
+
+      return doc
+    }
+
     const becameSyncable =
       hasRequiredCreateFields(normalizedDoc) && !hasRequiredCreateFields(normalizedPreviousDoc)
 
@@ -578,9 +597,15 @@ export const syncProductToIbisHook: CollectionAfterChangeHook = async ({
     const priceChanged = normalizedDoc.priceRetail !== normalizedPreviousDoc.priceRetail
     const stockChanged = normalizedDoc.stockQty !== normalizedPreviousDoc.stockQty
     const imagesChanged = !areImagesEqual(normalizedDoc.images, normalizedPreviousDoc.images)
-    const publishedChanged = normalizedDoc.published !== normalizedPreviousDoc.published
 
     if (!priceChanged && !stockChanged && !imagesChanged && !publishedChanged) {
+      return doc
+    }
+
+    if (getPositiveNumber(normalizedDoc.priceRetail) === null) {
+      req.payload.logger.warn(
+        `Skipped Ibis product.price_stock_updated sync for product ${String(doc.id)} because sourcePrice must be greater than 0.`,
+      )
       return doc
     }
 
