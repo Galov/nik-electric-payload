@@ -3,7 +3,6 @@ import type { Media, Product } from '@/payload-types'
 import { formatLegacyProductDescription } from '@/utilities/formatLegacyProductDescription'
 import type { ProductTypeValue } from '@/utilities/microinvest'
 
-const publicStorageBase = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL || ''
 export const PRODUCT_IMAGE_PLACEHOLDER_URL = '/product-placeholder.png'
 
 const clampText = (value: string, maxLength: number) => {
@@ -76,12 +75,18 @@ export const resolveProductImageURL = (image?: {
     | null
   storageKey?: null | string
 }) => {
+  const publicStorageBase = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL || ''
+
   if (image?.storageKey && publicStorageBase) {
     return `${publicStorageBase.replace(/\/$/, '')}/${image.storageKey.replace(/^\//, '')}`
   }
 
   if (image?.media && typeof image.media === 'object' && image.media.url) {
     return image.media.url
+  }
+
+  if (image?.storageKey) {
+    return ''
   }
 
   return image?.legacyUrl || ''

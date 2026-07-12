@@ -9,7 +9,7 @@
 
 Endpoint:
 
-`POST https://new.ibis-electronics.com/api/integrations/nik/products/price-sync`
+`POST https://ibis-electronics.com/api/integrations/nik/products/price-sync`
 
 Header:
 
