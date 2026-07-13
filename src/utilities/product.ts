@@ -174,6 +174,27 @@ export const normalizeProductTitleFromSku = ({
   return normalizedTitle.replace(leadingSkuPattern, '').trim()
 }
 
+export const normalizeProductSlugPart = (value?: null | string) =>
+  (value || '')
+    .toLocaleLowerCase('bg-BG')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zа-я0-9]+/gi, '-')
+    .replace(/^-+|-+$/g, '')
+
+export const buildProductSlugFromTitleAndSku = ({
+  sku,
+  title,
+}: {
+  sku?: null | string
+  title?: null | string
+}) => {
+  const titlePart = normalizeProductSlugPart(title) || 'product'
+  const skuPart = normalizeProductSlugPart(sku)
+
+  return skuPart ? `${titlePart}-${skuPart}` : titlePart
+}
+
 type BrandLike =
   | null
   | string

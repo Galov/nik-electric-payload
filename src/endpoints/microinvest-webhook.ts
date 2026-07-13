@@ -4,7 +4,7 @@ import {
   syncCategoryProductCount,
 } from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { parseMicroinvestDescription } from '@/utilities/microinvest'
-import { normalizeProductTitleFromSku } from '@/utilities/product'
+import { buildProductSlugFromTitleAndSku, normalizeProductTitleFromSku } from '@/utilities/product'
 
 type MicroinvestEvent = 'product.created' | 'product.updated' | 'product.deleted'
 
@@ -312,6 +312,10 @@ const processWebhookItem = async ({
 
     nextData.sku = normalizedSku
     nextData.title = title
+    nextData.slug = buildProductSlugFromTitleAndSku({
+      sku: normalizedSku,
+      title,
+    })
 
     const createdProduct = await req.payload.create({
       collection: 'products',
