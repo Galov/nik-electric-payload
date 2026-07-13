@@ -467,6 +467,15 @@ export const microinvestWebhook: PayloadHandler = async (req) => {
     )
   }
 
+  req.payload.logger.info(
+    {
+      event: payload.event,
+      itemCount: payload.items.length,
+      items: payload.items,
+    },
+    'Microinvest webhook raw payload received.',
+  )
+
   const results: MicroinvestWebhookItemResult[] = []
   req.context = {
     ...(req.context || {}),
