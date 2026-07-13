@@ -53,7 +53,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const organizationJsonLd = buildOrganizationSchema(contactPage as never)
 
   return (
-    <html className={[GeistSans.variable].filter(Boolean).join(' ')} lang="bg" suppressHydrationWarning>
+    <html
+      className={[GeistSans.variable].filter(Boolean).join(' ')}
+      lang="bg"
+      style={{ colorScheme: 'light' }}
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/logo-sign.png" rel="icon" sizes="32x32" type="image/png" />
@@ -65,7 +70,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           type="application/ld+json"
         />
       </head>
-      <body className="min-h-screen">
+      <body className="min-h-screen bg-white text-primary">
         <Providers initialUser={user ?? null}>
           <div className="flex min-h-screen flex-col">
             <AdminBar />

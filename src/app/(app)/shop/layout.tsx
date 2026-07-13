@@ -17,8 +17,8 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
       <div className="container flex flex-col gap-8 my-16 pb-4 ">
         <ShopBannerCarousel slides={topBannerSlides} />
 
-        <div className="flex flex-col md:flex-row items-start justify-between gap-10 md:gap-4">
-          <div className="hidden w-full flex-none flex-col gap-4 basis-1/5 md:flex">
+        <div className="flex flex-col items-start justify-between gap-10 lg:flex-row lg:gap-4">
+          <div className="hidden w-full flex-none basis-1/5 flex-col gap-4 lg:flex">
             <Categories />
           </div>
           <div className="min-h-screen w-full">{children}</div>

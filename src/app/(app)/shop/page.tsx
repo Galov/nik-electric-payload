@@ -202,7 +202,7 @@ export default async function ShopPage({ searchParams }: Props) {
 
   return (
     <div id="catalog">
-      <section className="mb-6 hidden rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 md:block md:px-5 md:py-6">
+      <section className="mb-6 hidden rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 lg:block lg:px-5 lg:py-6">
         <Search
           availableBrands={availableBrands}
           showBrandFilter={Boolean(searchValue || category) && products.docs.length > 0}

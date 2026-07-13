@@ -140,7 +140,7 @@ export function MobileCatalogControls({ children }: Props) {
   )
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <MobileCatalogControlsContext.Provider value={contextValue}>
         <Sheet onOpenChange={handleSheetOpenChange} open={isOpen}>
           <SheetTrigger asChild>
