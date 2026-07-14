@@ -39,7 +39,7 @@ export const Users: CollectionConfig = {
     afterChange: [sendCustomerRegistrationEmailHook, sendCustomerApprovedEmailHook],
     beforeChange: [
       blockSpamRegistration,
-      ({ data }) => {
+      ({ data, operation }) => {
         if (!data) {
           return data
         }
@@ -50,7 +50,7 @@ export const Users: CollectionConfig = {
           data.approved = false
         } else if (typeof data.approved === 'boolean') {
           data.registrationStatus = data.approved ? 'approved' : 'pending'
-        } else {
+        } else if (operation === 'create') {
           data.registrationStatus = 'pending'
         }
 
