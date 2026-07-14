@@ -9,21 +9,28 @@ import './index.scss'
 
 const baseClass = 'before-dashboard'
 const ordersAdminPath = '/admin/collections/orders'
+const usersAdminPath = '/admin/collections/users'
 
 const buildOrdersLabel = (count: number, singular: string, plural: string) =>
   count === 1 ? singular : plural
+const buildUsersLabel = (count: number) => (count === 1 ? 'чакаща регистрация' : 'чакащи регистрации')
 
 const processingOrdersURL = `${ordersAdminPath}?where[status][equals]=processing`
 const heldOrdersURL = `${ordersAdminPath}?where[status][equals]=held`
 const failedOrdersURL = `${ordersAdminPath}?where[miOrderExportStatus][equals]=failed`
+const pendingUsersURL = `${usersAdminPath}?where[or][0][registrationStatus][equals]=pending&where[or][1][and][0][approved][equals]=false&where[or][1][and][1][registrationStatus][exists]=false`
 
 export const BeforeDashboard = async () => {
   noStore()
 
   const payload = await getPayload({ config: configPromise })
 
-  const [{ totalDocs: failedOrders }, { totalDocs: heldOrders }, { totalDocs: processingOrders }] =
-    await Promise.all([
+  const [
+    { totalDocs: failedOrders },
+    { totalDocs: heldOrders },
+    { totalDocs: processingOrders },
+    { totalDocs: pendingUsers },
+  ] = await Promise.all([
       payload.count({
         collection: 'orders',
         overrideAccess: true,
@@ -49,6 +56,33 @@ export const BeforeDashboard = async () => {
           status: {
             equals: 'processing',
           },
+        },
+      }),
+      payload.count({
+        collection: 'users',
+        overrideAccess: true,
+        where: {
+          or: [
+            {
+              registrationStatus: {
+                equals: 'pending',
+              },
+            },
+            {
+              and: [
+                {
+                  approved: {
+                    equals: false,
+                  },
+                },
+                {
+                  registrationStatus: {
+                    exists: false,
+                  },
+                },
+              ],
+            },
+          ],
         },
       }),
     ])
@@ -104,6 +138,21 @@ export const BeforeDashboard = async () => {
           </p>
           <Link className={`${baseClass}__link`} href={failedOrdersURL}>
             Отвори грешните
+          </Link>
+        </div>
+
+        <div className={`${baseClass}__card`}>
+          <p className={`${baseClass}__eyebrow`}>Чакащи регистрации</p>
+          <p
+            className={`${baseClass}__value ${pendingUsers > 0 ? `${baseClass}__value--warning` : ''}`}
+          >
+            {pendingUsers}
+          </p>
+          <p className={`${baseClass}__description`}>
+            Имате {pendingUsers} {buildUsersLabel(pendingUsers)} за преглед и одобрение.
+          </p>
+          <Link className={`${baseClass}__link`} href={pendingUsersURL}>
+            Отвори чакащите регистрации
           </Link>
         </div>
       </div>

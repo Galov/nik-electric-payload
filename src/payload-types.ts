@@ -143,6 +143,7 @@ export interface User {
   firstName: string;
   lastName: string;
   roles?: ('customer' | 'admin')[] | null;
+  registrationStatus?: ('pending' | 'approved' | 'rejected') | null;
   approved?: boolean | null;
   partnerCode?: string | null;
   priceTier?: ('general' | 'group1') | null;
@@ -718,6 +719,7 @@ export interface UsersSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   roles?: T;
+  registrationStatus?: T;
   approved?: T;
   partnerCode?: T;
   priceTier?: T;

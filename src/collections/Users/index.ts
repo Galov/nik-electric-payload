@@ -25,7 +25,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     group: 'Потребители',
-    defaultColumns: ['name', 'email', 'priceTier', 'approved', 'roles'],
+    defaultColumns: ['name', 'email', 'priceTier', 'registrationStatus', 'roles'],
     useAsTitle: 'name',
   },
   labels: {
@@ -44,6 +44,16 @@ export const Users: CollectionConfig = {
           return data
         }
 
+        if (data.registrationStatus === 'approved') {
+          data.approved = true
+        } else if (data.registrationStatus === 'pending' || data.registrationStatus === 'rejected') {
+          data.approved = false
+        } else if (typeof data.approved === 'boolean') {
+          data.registrationStatus = data.approved ? 'approved' : 'pending'
+        } else {
+          data.registrationStatus = 'pending'
+        }
+
         const personalName = [data.firstName, data.lastName]
           .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
           .join(' ')
@@ -58,6 +68,12 @@ export const Users: CollectionConfig = {
       ({ user }) => {
         if (checkRole(['admin'], user)) {
           return user
+        }
+
+        const registrationStatus = (user as { registrationStatus?: string })?.registrationStatus
+
+        if (registrationStatus === 'rejected') {
+          throw new APIError('Регистрацията ви е отказана от администратор.', 403)
         }
 
         if (user?.approved === false) {
@@ -191,11 +207,37 @@ export const Users: CollectionConfig = {
       ],
     },
     {
+      name: 'registrationStatus',
+      label: 'Статус на регистрацията',
+      type: 'select',
+      defaultValue: 'pending',
+      access: {
+        create: adminOnlyFieldAccess,
+        read: adminOnlyFieldAccess,
+        update: adminOnlyFieldAccess,
+      },
+      options: [
+        {
+          label: 'Чака одобрение',
+          value: 'pending',
+        },
+        {
+          label: 'Одобрен',
+          value: 'approved',
+        },
+        {
+          label: 'Отказан',
+          value: 'rejected',
+        },
+      ],
+    },
+    {
       name: 'approved',
       label: 'Одобрен',
       type: 'checkbox',
       defaultValue: false,
       admin: {
+        hidden: true,
         components: {
           Cell: '@/components/admin/ApprovedStatusCell#ApprovedStatusCell',
         },
