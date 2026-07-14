@@ -17,6 +17,8 @@ type FormData = {
   name: string
   phone: string
   privacyAccepted: boolean
+  submittedAt: number
+  website: string
 }
 
 export const ContactForm: React.FC = () => {
@@ -35,6 +37,8 @@ export const ContactForm: React.FC = () => {
       name: '',
       phone: '',
       privacyAccepted: false,
+      submittedAt: Date.now(),
+      website: '',
     },
   })
 
@@ -44,7 +48,15 @@ export const ContactForm: React.FC = () => {
     if (result.success) {
       setError('')
       setSuccess('Запитването е изпратено успешно. Ще се свържем с вас възможно най-скоро.')
-      reset()
+      reset({
+        email: '',
+        message: '',
+        name: '',
+        phone: '',
+        privacyAccepted: false,
+        submittedAt: Date.now(),
+        website: '',
+      })
       return
     }
 
@@ -55,6 +67,15 @@ export const ContactForm: React.FC = () => {
   return (
     <form className="max-w-2xl" onSubmit={handleSubmit(onSubmit)}>
       <Message className="mb-6" error={error} success={success} />
+
+      <input
+        autoComplete="off"
+        className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
+        tabIndex={-1}
+        type="text"
+        {...register('website')}
+      />
+      <input type="hidden" {...register('submittedAt', { valueAsNumber: true })} />
 
       <div className="mb-6 grid gap-6 md:grid-cols-2">
         <FormItem>

@@ -8,6 +8,7 @@ import { publicAccess } from '@/access/publicAccess'
 import { checkRole } from '@/access/utilities'
 import { APIError } from 'payload'
 
+import { blockSpamRegistration } from './hooks/blockSpamRegistration'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { sendCustomerApprovedEmailHook } from './hooks/sendCustomerApprovedEmail'
 import { sendCustomerRegistrationEmailHook } from './hooks/sendCustomerRegistrationEmail'
@@ -37,6 +38,7 @@ export const Users: CollectionConfig = {
   hooks: {
     afterChange: [sendCustomerRegistrationEmailHook, sendCustomerApprovedEmailHook],
     beforeChange: [
+      blockSpamRegistration,
       ({ data }) => {
         if (!data) {
           return data

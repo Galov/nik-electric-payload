@@ -24,6 +24,8 @@ type FormData = {
   password: string
   passwordConfirm: string
   phone: string
+  submittedAt: number
+  website: string
 }
 
 export const CreateAccountForm: React.FC = () => {
@@ -38,7 +40,12 @@ export const CreateAccountForm: React.FC = () => {
     handleSubmit,
     register,
     watch,
-  } = useForm<FormData>()
+  } = useForm<FormData>({
+    defaultValues: {
+      submittedAt: Date.now(),
+      website: '',
+    },
+  })
 
   const password = useRef({})
   password.current = watch('password', '')
@@ -101,6 +108,15 @@ export const CreateAccountForm: React.FC = () => {
   return (
     <form className="max-w-lg" onSubmit={handleSubmit(onSubmit)}>
       <Message error={error} />
+      <input
+        autoComplete="off"
+        className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
+        tabIndex={-1}
+        type="text"
+        {...register('website')}
+      />
+      <input type="hidden" {...register('submittedAt', { valueAsNumber: true })} />
+
       <div className="mb-8 rounded-md bg-[rgb(0,126,229)]/10 px-4 py-3 text-sm leading-6 text-[rgb(0,126,229)]">
         Регистрацията е предназначена за фирми и сервизни партньори. След изпращане профилът ще бъде
         активиран след проверка от администратор.
