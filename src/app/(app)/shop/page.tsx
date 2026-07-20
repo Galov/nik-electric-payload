@@ -11,7 +11,6 @@ import { PromotionTicker } from '@/components/shop/PromotionTicker.client'
 import { SortToolbar } from '@/components/layout/search/SortToolbar'
 import { ShopBanner } from '@/components/shop/ShopBanner'
 import { generateMeta } from '@/utilities/generateMeta'
-import { getProductBrands } from '@/utilities/product'
 import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload, type Where } from 'payload'
@@ -109,64 +108,76 @@ export default async function ShopPage({ searchParams }: Props) {
         })
       : { docs: [] }
 
-  const products = await payload.find({
-    collection: 'products',
-    draft: false,
-    limit: pageSize,
-    overrideAccess: false,
-    page: currentPage,
-    pagination: true,
-    select: {
-      inventory: true,
-      manufacturerCode: true,
-      originalSku: true,
-      published: true,
-      priceGroup1: true,
-      priceWholesale: true,
-      stockQty: true,
-      images: true,
-      price: true,
-      title: true,
-      slug: true,
-      categories: true,
-      brand: true,
-      sku: true,
+  const baseProductClauses: Where[] = [
+    {
+      published: {
+        equals: true,
+      },
     },
-    ...(sort ? { sort } : { sort: '-createdAt' }),
-    where: {
-      and: [
-        {
-          published: {
-            equals: true,
-          },
-        },
-        {
-          stockQty: {
-            greater_than: 0,
-          },
-        },
-        ...searchClauses,
-        ...(category
-          ? [
-              {
-                categories: {
-                  in: categoryIDs || [String(category)],
-                },
-              },
-            ]
-          : []),
-        ...(brand
-          ? [
-              {
-                brand: {
-                  in: [selectedBrandID || String(brand)],
-                },
-              },
-            ]
-          : []),
-      ],
+    {
+      stockQty: {
+        greater_than: 0,
+      },
     },
-  })
+    ...searchClauses,
+    ...(category
+      ? [
+          {
+            categories: {
+              in: categoryIDs || [String(category)],
+            },
+          },
+        ]
+      : []),
+  ]
+  const productWhere: Where = {
+    and: [
+      ...baseProductClauses,
+      ...(brand
+        ? [
+            {
+              brand: {
+                in: [selectedBrandID || String(brand)],
+              },
+            },
+          ]
+        : []),
+    ],
+  }
+
+  const [products, availableBrands] = await Promise.all([
+    payload.find({
+      collection: 'products',
+      draft: false,
+      limit: pageSize,
+      overrideAccess: false,
+      page: currentPage,
+      pagination: true,
+      select: {
+        inventory: true,
+        manufacturerCode: true,
+        originalSku: true,
+        published: true,
+        priceGroup1: true,
+        priceWholesale: true,
+        stockQty: true,
+        images: true,
+        price: true,
+        title: true,
+        slug: true,
+        categories: true,
+        brand: true,
+        sku: true,
+      },
+      ...(sort ? { sort } : { sort: '-createdAt' }),
+      where: productWhere,
+    }),
+    searchValue || category
+      ? getAvailableBrandsForFilters(payload, {
+          and: baseProductClauses,
+        })
+      : Promise.resolve([]),
+  ])
 
   const resultsText = products.totalDocs > 1 ? 'резултата' : 'резултат'
   const hasActiveFilters = Boolean(searchValue || category || brand)
@@ -186,26 +197,12 @@ export default async function ShopPage({ searchParams }: Props) {
     paginationSearchParams.set(key, value)
   }
 
-  const availableBrands = Array.from(
-    new Map(
-      products.docs
-        .flatMap((product) => {
-          return getProductBrands(product).map((brand) => ({
-            id: brand.id || brand.slug || brand.title,
-            slug: brand.slug || brand.id || brand.title,
-            title: brand.title,
-          }))
-        })
-        .map((availableBrand) => [availableBrand.slug, availableBrand]),
-    ).values(),
-  )
-
   return (
     <div id="catalog">
       <section className="mb-6 hidden rounded-[6px] bg-[rgb(250,251,253)] px-4 py-5 lg:block lg:px-5 lg:py-6">
         <Search
           availableBrands={availableBrands}
-          showBrandFilter={Boolean(searchValue || category) && products.docs.length > 0}
+          showBrandFilter={Boolean(searchValue || category) && availableBrands.length > 0}
         />
 
         {searchValue ? (
@@ -248,7 +245,7 @@ export default async function ShopPage({ searchParams }: Props) {
         <MobileCatalogStickyFooter>
           <Search
             availableBrands={availableBrands}
-            showBrandFilter={Boolean(searchValue || category) && products.docs.length > 0}
+            showBrandFilter={Boolean(searchValue || category) && availableBrands.length > 0}
           />
         </MobileCatalogStickyFooter>
         {products?.docs.length > 0 ? <SortToolbar pageSize={pageSize} /> : null}
@@ -395,6 +392,61 @@ const getBrandIDForFilter = async (
   })
 
   return brands.docs[0]?.id || null
+}
+
+const getAvailableBrandsForFilters = async (
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  where: Where,
+) => {
+  const matchingProducts = await payload.find({
+    collection: 'products',
+    depth: 0,
+    draft: false,
+    limit: 20000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      brand: true,
+    },
+    where,
+  })
+  const brandIDs = Array.from(
+    new Set(
+      matchingProducts.docs.flatMap((product) => {
+        const productBrands = Array.isArray(product.brand) ? product.brand : [product.brand]
+
+        return productBrands.filter((brandID): brandID is string => typeof brandID === 'string')
+      }),
+    ),
+  )
+
+  if (brandIDs.length === 0) {
+    return []
+  }
+
+  const brands = await payload.find({
+    collection: 'brands',
+    depth: 0,
+    limit: brandIDs.length,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+      title: true,
+    },
+    sort: 'title',
+    where: {
+      id: {
+        in: brandIDs,
+      },
+    },
+  })
+
+  return brands.docs.map((brand) => ({
+    id: brand.id,
+    slug: brand.slug || brand.id,
+    title: brand.title,
+  }))
 }
 
 const getMatchingCategoryIDs = async (

@@ -7,6 +7,7 @@ import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
 import { exportOrderToMicroinvestHook } from '@/collections/Orders/hooks/exportOrderToMicroinvest'
 import { sendOrderCreatedEmailsHook } from '@/collections/Orders/hooks/sendOrderCreatedEmails'
+import { sendOrderCompletedEmailHook } from '@/collections/Orders/hooks/sendOrderCompletedEmail'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
 import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
@@ -296,6 +297,7 @@ export const plugins: Plugin[] = [
           afterChange: [
             ...(defaultCollection.hooks?.afterChange || []),
             sendOrderCreatedEmailsHook,
+            sendOrderCompletedEmailHook,
             exportOrderToMicroinvestHook,
           ],
         },

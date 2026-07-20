@@ -276,6 +276,38 @@ export const buildCustomerOrderCreatedEmail = ({
   }
 }
 
+export const buildCustomerOrderCompletedEmail = ({
+  order,
+  orderURL,
+}: {
+  order: OrderLike
+  orderURL: string
+}): EmailTemplate => {
+  const orderLabel = getOrderLabel(order)
+  const subject = `Поръчка ${orderLabel} е приключена`
+  const text = `Поръчка ${orderLabel} е обработена и приключена. Можете да я прегледате тук: ${orderURL}`
+
+  return {
+    subject,
+    text,
+    html: renderLayout({
+      action: { href: orderURL, label: 'Преглед на поръчката' },
+      eyebrow: 'Поръчката е приключена',
+      intro:
+        'Вашата поръчка е обработена и отбелязана като приключена. Благодарим Ви, че избрахте Ник Електрик.',
+      title: subject,
+      children: `
+        ${renderSummaryCard([
+          { label: 'Номер', value: orderLabel },
+          { label: 'Сума', value: formatMoney(order.amount) },
+          { label: 'Създадена', value: formatDate(order.createdAt) },
+        ])}
+        ${renderItems(order.items)}
+      `,
+    }),
+  }
+}
+
 export const buildMicroinvestExportFailedEmail = ({
   adminURL,
   order,

@@ -7,6 +7,7 @@ import {
   buildContactInquiryEmail,
   buildCustomerApprovedEmail,
   buildCustomerOrderCreatedEmail,
+  buildCustomerOrderCompletedEmail,
   buildCustomerRegistrationEmail,
   buildMicroinvestExportFailedEmail,
 } from './templates'
@@ -77,6 +78,29 @@ export const sendOrderCreatedEmails = async ({
   }
 
   const customerEmail = buildCustomerOrderCreatedEmail({
+    order,
+    orderURL: getOrderURL(order),
+  })
+
+  await sendTransactionalEmail({
+    ...customerEmail,
+    payload,
+    to: order.customerEmail,
+  })
+}
+
+export const sendOrderCompletedEmail = async ({
+  order,
+  payload,
+}: {
+  order: OrderLike
+  payload: Payload
+}) => {
+  if (!order.customerEmail) {
+    return
+  }
+
+  const customerEmail = buildCustomerOrderCompletedEmail({
     order,
     orderURL: getOrderURL(order),
   })
