@@ -32,6 +32,7 @@ type OrderLike = {
   id?: number | string
   items?: null | OrderItem[]
   miOrderExportLastError?: null | string
+  note?: null | string
   partnerCode?: null | string
 }
 
@@ -212,6 +213,19 @@ const renderSummaryCard = (rows: EmailRow[]) => `
   </table>
 `
 
+const renderOrderNote = (note?: null | string) => {
+  const normalizedNote = note?.trim()
+
+  if (!normalizedNote) return ''
+
+  return `
+    <div style="background: ${surface}; border: 1px solid ${line}; border-radius: 6px; margin: 24px 0; padding: 18px;">
+      <div style="color: ${muted}; font-size: 12px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Бележка към поръчката</div>
+      <div style="color: ${ink}; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${escapeHTML(normalizedNote)}</div>
+    </div>
+  `
+}
+
 export const buildAdminOrderCreatedEmail = ({
   adminURL,
   order,
@@ -221,7 +235,7 @@ export const buildAdminOrderCreatedEmail = ({
 }): EmailTemplate => {
   const orderLabel = getOrderLabel(order)
   const subject = `Нова поръчка ${orderLabel}`
-  const text = `Има нова поръчка ${orderLabel}. Клиент: ${order.customerEmail || '-'}`
+  const text = `Има нова поръчка ${orderLabel}. Клиент: ${order.customerEmail || '-'}${order.note?.trim() ? `\nБележка: ${order.note.trim()}` : ''}`
 
   return {
     subject,
@@ -239,6 +253,7 @@ export const buildAdminOrderCreatedEmail = ({
           { label: 'Сума', value: formatMoney(order.amount) },
           { label: 'Създадена', value: formatDate(order.createdAt) },
         ])}
+        ${renderOrderNote(order.note)}
         ${renderItems(order.items)}
       `,
     }),
@@ -254,7 +269,7 @@ export const buildCustomerOrderCreatedEmail = ({
 }): EmailTemplate => {
   const orderLabel = getOrderLabel(order)
   const subject = `Получихме поръчка ${orderLabel}`
-  const text = `Получихме поръчка ${orderLabel}. Можете да я прегледате тук: ${orderURL}`
+  const text = `Получихме поръчка ${orderLabel}.${order.note?.trim() ? `\nБележка: ${order.note.trim()}` : ''}\nМожете да я прегледате тук: ${orderURL}`
 
   return {
     subject,
@@ -270,6 +285,7 @@ export const buildCustomerOrderCreatedEmail = ({
           { label: 'Сума', value: formatMoney(order.amount) },
           { label: 'Създадена', value: formatDate(order.createdAt) },
         ])}
+        ${renderOrderNote(order.note)}
         ${renderItems(order.items)}
       `,
     }),
@@ -285,7 +301,7 @@ export const buildCustomerOrderCompletedEmail = ({
 }): EmailTemplate => {
   const orderLabel = getOrderLabel(order)
   const subject = `Поръчка ${orderLabel} е приключена`
-  const text = `Поръчка ${orderLabel} е обработена и приключена. Можете да я прегледате тук: ${orderURL}`
+  const text = `Поръчка ${orderLabel} е обработена и приключена.${order.note?.trim() ? `\nБележка: ${order.note.trim()}` : ''}\nМожете да я прегледате тук: ${orderURL}`
 
   return {
     subject,
@@ -302,6 +318,7 @@ export const buildCustomerOrderCompletedEmail = ({
           { label: 'Сума', value: formatMoney(order.amount) },
           { label: 'Създадена', value: formatDate(order.createdAt) },
         ])}
+        ${renderOrderNote(order.note)}
         ${renderItems(order.items)}
       `,
     }),

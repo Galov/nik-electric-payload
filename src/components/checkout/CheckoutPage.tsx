@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { useAuth } from '@/providers/Auth'
 import { formatProductTitle, getProductPrimaryImage } from '@/utilities/product'
 import { resolvePriceForTier, resolveSubtotalForTier } from '@/utilities/pricing'
@@ -31,6 +32,7 @@ export const CheckoutPage: React.FC = () => {
   const [shippingAddress, setShippingAddress] = useState<Partial<Address>>()
   const [billingAddress, setBillingAddress] = useState<Partial<Address>>()
   const [billingAddressSameAsShipping, setBillingAddressSameAsShipping] = useState(true)
+  const [orderNote, setOrderNote] = useState('')
   const [isProcessingPayment, setProcessingPayment] = useState(false)
   const activeSubtotal = resolveSubtotalForTier(
     (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
@@ -56,6 +58,7 @@ export const CheckoutPage: React.FC = () => {
       setBillingAddressSameAsShipping(true)
       setEmail('')
       setEmailEditable(true)
+      setOrderNote('')
     }
   }, [])
 
@@ -222,6 +225,20 @@ export const CheckoutPage: React.FC = () => {
             />
           ))}
 
+        <FormItem>
+          <Label htmlFor="orderNote">Бележка към поръчката (по желание)</Label>
+          <Textarea
+            id="orderNote"
+            maxLength={1000}
+            name="orderNote"
+            onChange={(event) => setOrderNote(event.target.value)}
+            placeholder="Например: допълнителни инструкции за поръчката или доставката"
+            rows={4}
+            value={orderNote}
+          />
+          <p className="text-xs text-primary/50">До 1000 знака.</p>
+        </FormItem>
+
         <div className="bg-muted/20 px-5 py-4 text-sm text-primary/60">
           Цената не включва доставка. Тя се определя според тарифата на куриерската компания.
           <br />
@@ -233,6 +250,7 @@ export const CheckoutPage: React.FC = () => {
           <CheckoutForm
             billingAddress={billingAddress}
             customerEmail={email}
+            orderNote={orderNote}
             setProcessingPayment={setProcessingPayment}
             shippingAddress={billingAddressSameAsShipping ? billingAddress : shippingAddress}
           />

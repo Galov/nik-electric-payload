@@ -317,6 +317,15 @@ export const plugins: Plugin[] = [
             },
           },
           {
+            name: 'note',
+            type: 'textarea',
+            label: 'Бележка от клиента',
+            maxLength: 1000,
+            admin: {
+              description: 'Свободен текст, въведен от клиента при изпращане на поръчката.',
+            },
+          },
+          {
             name: 'miOrderExportStatus',
             type: 'select',
             label: 'Microinvest export',

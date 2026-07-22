@@ -78,6 +78,7 @@ export default async function Order({ params, searchParams }: PageProps) {
         amount: true,
         currency: true,
         items: true,
+        note: true,
         customerEmail: true,
         customer: true,
         status: true,
@@ -205,6 +206,15 @@ export default async function Order({ params, searchParams }: PageProps) {
 
             {/* @ts-expect-error - some kind of type hell */}
             <AddressItem address={order.shippingAddress} hideActions />
+          </div>
+        )}
+
+        {order.note && (
+          <div>
+            <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.12em] text-primary/45">
+              Бележка към поръчката
+            </h2>
+            <p className="whitespace-pre-wrap text-sm leading-6 text-primary/75">{order.note}</p>
           </div>
         )}
       </div>

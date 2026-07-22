@@ -1,13 +1,11 @@
-import type {
-  PaymentAdapter,
-  PaymentAdapterClient,
-} from '@payloadcms/plugin-ecommerce/types'
+import type { PaymentAdapter, PaymentAdapterClient } from '@payloadcms/plugin-ecommerce/types'
 import { resolveLineTotalForTier, resolvePriceForTier, roundCurrency } from '@/utilities/pricing'
 import { toMinorUnits } from '@/utilities/money'
 
 type ManualOrderData = {
   billingAddress?: Record<string, unknown>
   customerEmail?: string
+  note?: string
   shippingAddress?: Record<string, unknown>
 }
 
@@ -45,13 +43,10 @@ export const manualAdapter = (): PaymentAdapter => ({
       message: 'Прегледът на поръчката започна.',
     }
   },
-  confirmOrder: async ({
-    data,
-    req,
-  }) => {
+  confirmOrder: async ({ data, req }) => {
     const payload = req.payload
     const user = req.user
-    const { billingAddress, customerEmail, shippingAddress } = (data || {}) as ManualOrderData
+    const { billingAddress, customerEmail, note, shippingAddress } = (data || {}) as ManualOrderData
     const cartsSlug = 'carts'
     const ordersSlug = 'orders'
     const transactionsSlug = 'transactions'
@@ -92,14 +87,14 @@ export const manualAdapter = (): PaymentAdapter => ({
     }
 
     const resolvedEmail = user?.email || customerEmail
+    const normalizedNote = typeof note === 'string' ? note.trim().slice(0, 1000) : ''
 
     if (!resolvedEmail) {
       throw new Error('За изпращане на поръчка е необходим имейл на клиента.')
     }
 
     const normalizedItems = cart.items.map((item) => {
-      const product =
-        item.product && typeof item.product === 'object' ? item.product : null
+      const product = item.product && typeof item.product === 'object' ? item.product : null
       const productUnitPrice = product
         ? resolvePriceForTier(
             (user as typeof user & { priceTier?: 'general' | 'group1' | null })?.priceTier,
@@ -124,9 +119,8 @@ export const manualAdapter = (): PaymentAdapter => ({
 
     for (const item of cart.items) {
       const productID = getProductID(item.product)
-      const quantity = typeof item.quantity === 'number' && Number.isFinite(item.quantity)
-        ? item.quantity
-        : 0
+      const quantity =
+        typeof item.quantity === 'number' && Number.isFinite(item.quantity) ? item.quantity : 0
 
       if (!productID || quantity <= 0) continue
 
@@ -176,6 +170,7 @@ export const manualAdapter = (): PaymentAdapter => ({
         customer: user?.id || undefined,
         customerEmail: resolvedEmail,
         items: normalizedItems,
+        note: normalizedNote || undefined,
         partnerCode:
           typeof (user as typeof user & { partnerCode?: string | null })?.partnerCode === 'string'
             ? (user as typeof user & { partnerCode?: string | null }).partnerCode

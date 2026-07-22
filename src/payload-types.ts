@@ -221,6 +221,10 @@ export interface Order {
   amount?: number | null;
   currency?: 'EUR' | null;
   partnerCode?: string | null;
+  /**
+   * Свободен текст, въведен от клиента при изпращане на поръчката.
+   */
+  note?: string | null;
   miOrderExportStatus?: ('pending' | 'sent' | 'failed') | null;
   miOrderExportFileName?: string | null;
   miOrderExportLastAttemptAt?: string | null;
@@ -973,6 +977,7 @@ export interface OrdersSelect<T extends boolean = true> {
   amount?: T;
   currency?: T;
   partnerCode?: T;
+  note?: T;
   miOrderExportStatus?: T;
   miOrderExportFileName?: T;
   miOrderExportLastAttemptAt?: T;

@@ -12,6 +12,7 @@ type Props = {
   customerEmail?: string
   billingAddress?: Partial<Address>
   shippingAddress?: Partial<Address>
+  orderNote?: string
   setProcessingPayment: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -19,6 +20,7 @@ export const CheckoutForm: React.FC<Props> = ({
   customerEmail,
   billingAddress,
   shippingAddress,
+  orderNote,
   setProcessingPayment,
 }) => {
   const [error, setError] = React.useState<null | string>(null)
@@ -38,6 +40,7 @@ export const CheckoutForm: React.FC<Props> = ({
           additionalData: {
             billingAddress,
             ...(customerEmail ? { customerEmail } : {}),
+            ...(orderNote?.trim() ? { note: orderNote.trim() } : {}),
             shippingAddress,
           },
         })
@@ -48,7 +51,8 @@ export const CheckoutForm: React.FC<Props> = ({
           'orderID' in confirmResult &&
           confirmResult.orderID
         ) {
-          let accessToken = 'accessToken' in confirmResult ? (confirmResult.accessToken as string) : ''
+          let accessToken =
+            'accessToken' in confirmResult ? (confirmResult.accessToken as string) : ''
           const queryParams = new URLSearchParams()
 
           if (customerEmail) {
@@ -86,6 +90,7 @@ export const CheckoutForm: React.FC<Props> = ({
       clearCart,
       confirmOrder,
       customerEmail,
+      orderNote,
       router,
       setProcessingPayment,
       shippingAddress,
