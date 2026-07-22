@@ -43,7 +43,9 @@ export function ProductDescription({ product }: { product: Product }) {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
         <div className="flex flex-col gap-4">
           <div className="flex min-h-7 flex-wrap gap-2">
-            {manufacturerCode ? <ManufacturerBadge className="self-start" value={manufacturerCode} /> : null}
+            {manufacturerCode ? (
+              <ManufacturerBadge className="self-start" value={manufacturerCode} />
+            ) : null}
             {productType ? <ProductTypeBadge className="self-start" value={productType} /> : null}
           </div>
           <h1 className="text-xl font-normal leading-tight text-[rgb(0,126,229)] lg:text-2xl">
@@ -54,7 +56,9 @@ export function ProductDescription({ product }: { product: Product }) {
           <Price
             amount={0}
             priceGroup1={(product as Product & { priceGroup1?: number | null }).priceGroup1}
-            priceWholesale={(product as Product & { priceWholesale?: number | null }).priceWholesale}
+            priceWholesale={
+              (product as Product & { priceWholesale?: number | null }).priceWholesale
+            }
           />
         </div>
       </div>
@@ -114,7 +118,7 @@ export function ProductDescription({ product }: { product: Product }) {
         ) : null}
         <p>
           <span className="text-muted-foreground/70">Наличност:</span>{' '}
-          <span className="font-normal text-primary/80">
+          <span className="font-bold text-primary/80">
             {stockQuantity > 0 ? stockQuantity : 'Изчерпана наличност'}
           </span>
         </p>
