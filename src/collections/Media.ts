@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Endpoint } from 'payload'
 
 import {
   FixedToolbarFeature,
@@ -12,6 +12,36 @@ import { adminOnly } from '@/access/adminOnly'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const mediaThumbnailEndpoint: Endpoint = {
+  path: '/:id/thumbnail',
+  method: 'get',
+  handler: async (req) => {
+    const id = String(req.routeParams?.id || '')
+
+    if (!id) {
+      return Response.json({ message: 'Media ID is required.' }, { status: 400 })
+    }
+
+    try {
+      const media = await req.payload.findByID({
+        id,
+        collection: 'media',
+        depth: 0,
+        overrideAccess: false,
+        req,
+      })
+
+      if (!media.url) {
+        return Response.json({ message: 'Media file was not found.' }, { status: 404 })
+      }
+
+      return Response.redirect(new URL(media.url, req.url), 307)
+    } catch {
+      return Response.json({ message: 'Media file was not found.' }, { status: 404 })
+    }
+  },
+}
 
 export const Media: CollectionConfig = {
   admin: {
@@ -46,6 +76,7 @@ export const Media: CollectionConfig = {
       }),
     },
   ],
+  endpoints: [mediaThumbnailEndpoint],
   upload: {
     staticDir: path.resolve(dirname, '../../public/media'),
   },

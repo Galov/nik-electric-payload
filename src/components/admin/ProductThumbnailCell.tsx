@@ -4,15 +4,25 @@ import type { DefaultCellComponentProps } from 'payload'
 
 import { useEffect, useState } from 'react'
 
+type MediaValue =
+  | {
+      _id?: null | string
+      id?: null | string
+      url?: null | string
+      value?:
+        | {
+            id?: null | string
+          }
+        | null
+        | string
+    }
+  | null
+  | string
+
 type ProductImage = {
   alt?: null | string
   legacyUrl?: null | string
-  media?:
-    | {
-        url?: null | string
-      }
-    | null
-    | string
+  media?: MediaValue
   storageKey?: null | string
 }
 
@@ -32,71 +42,32 @@ const getThumbnailURL = (image?: ProductImage) => {
   return image.legacyUrl || ''
 }
 
+const getMediaID = (media?: MediaValue) => {
+  if (typeof media === 'string') return media
+  if (!media || typeof media !== 'object') return ''
+  if (typeof media.id === 'string') return media.id
+  if (typeof media._id === 'string') return media._id
+  if (typeof media.value === 'string') return media.value
+  if (media.value && typeof media.value === 'object' && typeof media.value.id === 'string') {
+    return media.value.id
+  }
+
+  return ''
+}
+
 export function ProductThumbnailCell({ cellData, rowData }: DefaultCellComponentProps) {
   const [failed, setFailed] = useState(false)
-  const [mediaURL, setMediaURL] = useState('')
-  const [isResolvingMedia, setIsResolvingMedia] = useState(false)
   const images = Array.isArray(cellData) ? (cellData as ProductImage[]) : []
   const firstImage = images[0]
   const directURL = getThumbnailURL(firstImage)
-  const mediaID = typeof firstImage?.media === 'string' ? firstImage.media : ''
-  const imageURL = directURL || mediaURL
+  const mediaID = getMediaID(firstImage?.media)
+  const imageURL =
+    directURL || (mediaID ? `/api/media/${encodeURIComponent(mediaID)}/thumbnail` : '')
   const editURL = `/admin/collections/products/${encodeURIComponent(String(rowData.id))}`
 
   useEffect(() => {
     setFailed(false)
   }, [imageURL])
-
-  useEffect(() => {
-    if (directURL || !mediaID) {
-      setMediaURL('')
-      setIsResolvingMedia(false)
-      return
-    }
-
-    let isCancelled = false
-
-    const resolveMediaURL = async () => {
-      setMediaURL('')
-      setIsResolvingMedia(true)
-
-      try {
-        const response = await fetch(
-          `/api/media/${encodeURIComponent(mediaID)}?depth=0&select[url]=true`,
-          {
-            credentials: 'same-origin',
-          },
-        )
-
-        if (!response.ok) {
-          throw new Error('Media URL could not be loaded.')
-        }
-
-        const media = (await response.json()) as {
-          url?: null | string
-        }
-
-        if (!isCancelled) {
-          setMediaURL(media.url || '')
-        }
-      } catch {
-        if (!isCancelled) {
-          setMediaURL('')
-          setFailed(true)
-        }
-      } finally {
-        if (!isCancelled) {
-          setIsResolvingMedia(false)
-        }
-      }
-    }
-
-    void resolveMediaURL()
-
-    return () => {
-      isCancelled = true
-    }
-  }, [directURL, mediaID])
 
   if (!imageURL || failed) {
     return (
@@ -125,15 +96,9 @@ export function ProductThumbnailCell({ cellData, rowData }: DefaultCellComponent
             width: '48px',
           }}
         >
-          {isResolvingMedia ? (
-            '…'
-          ) : (
-            <>
-              Няма
-              <br />
-              снимка
-            </>
-          )}
+          Няма
+          <br />
+          снимка
         </div>
       </a>
     )
