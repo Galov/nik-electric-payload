@@ -228,7 +228,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         },
       },
     },
-    defaultColumns: ['images', 'title', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
+    defaultColumns: ['title', 'images', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
     group: 'Каталог',
     listSearchableFields: ['sku', 'miProductId'],
     useAsTitle: 'title',
