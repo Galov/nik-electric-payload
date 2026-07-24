@@ -4,11 +4,11 @@ import { MongoClient, type Document } from 'mongodb'
 
 const APPLY = process.argv.includes('--apply')
 
-const hasImagesExpression: Document = {
+const buildHasImagesExpression = (imagesPath: string): Document => ({
   $anyElementTrue: {
     $map: {
       input: {
-        $ifNull: ['$images', []],
+        $ifNull: [imagesPath, []],
       },
       as: 'image',
       in: {
@@ -45,7 +45,10 @@ const hasImagesExpression: Document = {
       },
     },
   },
-}
+})
+
+const productHasImagesExpression = buildHasImagesExpression('$images')
+const versionHasImagesExpression = buildHasImagesExpression('$version.images')
 
 const main = async () => {
   const databaseURL = process.env.DATABASE_URL
@@ -59,6 +62,7 @@ const main = async () => {
 
   try {
     const products = client.db().collection('products')
+    const versions = client.db().collection('_products_versions')
     const summary = await products
       .aggregate<{
         _id: boolean
@@ -66,7 +70,7 @@ const main = async () => {
       }>([
         {
           $project: {
-            hasImages: hasImagesExpression,
+            hasImages: productHasImagesExpression,
           },
         },
         {
@@ -85,28 +89,41 @@ const main = async () => {
       ])
       .toArray()
 
-    let matched = 0
-    let modified = 0
+    let matchedProducts = 0
+    let matchedVersions = 0
+    let modifiedProducts = 0
+    let modifiedVersions = 0
 
     if (APPLY) {
-      const result = await products.updateMany({}, [
+      const productResult = await products.updateMany({}, [
         {
           $set: {
-            hasImages: hasImagesExpression,
+            hasImages: productHasImagesExpression,
+          },
+        },
+      ])
+      const versionResult = await versions.updateMany({}, [
+        {
+          $set: {
+            'version.hasImages': versionHasImagesExpression,
           },
         },
       ])
 
-      matched = result.matchedCount
-      modified = result.modifiedCount
+      matchedProducts = productResult.matchedCount
+      matchedVersions = versionResult.matchedCount
+      modifiedProducts = productResult.modifiedCount
+      modifiedVersions = versionResult.modifiedCount
     }
 
     console.log(
       JSON.stringify(
         {
           apply: APPLY,
-          matched,
-          modified,
+          matchedProducts,
+          matchedVersions,
+          modifiedProducts,
+          modifiedVersions,
           summary: Object.fromEntries(
             summary.map((row) => [row._id ? 'withImages' : 'withoutImages', row.count]),
           ),

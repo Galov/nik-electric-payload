@@ -2,7 +2,7 @@
 
 import type { DefaultCellComponentProps } from 'payload'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type ProductImage = {
   alt?: null | string
@@ -34,9 +34,68 @@ const getThumbnailURL = (image?: ProductImage) => {
 
 export function ProductThumbnailCell({ cellData }: DefaultCellComponentProps) {
   const [failed, setFailed] = useState(false)
+  const [mediaURL, setMediaURL] = useState('')
+  const [isResolvingMedia, setIsResolvingMedia] = useState(false)
   const images = Array.isArray(cellData) ? (cellData as ProductImage[]) : []
   const firstImage = images[0]
-  const imageURL = getThumbnailURL(firstImage)
+  const directURL = getThumbnailURL(firstImage)
+  const mediaID = typeof firstImage?.media === 'string' ? firstImage.media : ''
+  const imageURL = directURL || mediaURL
+
+  useEffect(() => {
+    setFailed(false)
+  }, [imageURL])
+
+  useEffect(() => {
+    if (directURL || !mediaID) {
+      setMediaURL('')
+      setIsResolvingMedia(false)
+      return
+    }
+
+    let isCancelled = false
+
+    const resolveMediaURL = async () => {
+      setMediaURL('')
+      setIsResolvingMedia(true)
+
+      try {
+        const response = await fetch(
+          `/api/media/${encodeURIComponent(mediaID)}?depth=0&select[url]=true`,
+          {
+            credentials: 'same-origin',
+          },
+        )
+
+        if (!response.ok) {
+          throw new Error('Media URL could not be loaded.')
+        }
+
+        const media = (await response.json()) as {
+          url?: null | string
+        }
+
+        if (!isCancelled) {
+          setMediaURL(media.url || '')
+        }
+      } catch {
+        if (!isCancelled) {
+          setMediaURL('')
+          setFailed(true)
+        }
+      } finally {
+        if (!isCancelled) {
+          setIsResolvingMedia(false)
+        }
+      }
+    }
+
+    void resolveMediaURL()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [directURL, mediaID])
 
   if (!imageURL || failed) {
     return (
@@ -57,9 +116,15 @@ export function ProductThumbnailCell({ cellData }: DefaultCellComponentProps) {
           width: '48px',
         }}
       >
-        Няма
-        <br />
-        снимка
+        {isResolvingMedia ? (
+          '…'
+        ) : (
+          <>
+            Няма
+            <br />
+            снимка
+          </>
+        )}
       </div>
     )
   }
