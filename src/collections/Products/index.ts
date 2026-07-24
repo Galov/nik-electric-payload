@@ -45,11 +45,7 @@ const normalizeCatalogCompatibilityFields = ({
   return data
 }
 
-const ensureCatalogCompatibilityFields = ({
-  doc,
-}: {
-  doc?: Record<string, unknown> | null
-}) => {
+const ensureCatalogCompatibilityFields = ({ doc }: { doc?: Record<string, unknown> | null }) => {
   if (!doc) {
     return doc
   }
@@ -80,12 +76,28 @@ const ensureCatalogCompatibilityFields = ({
   return doc
 }
 
-const syncCatalogFields = ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: number | null }) => {
+const syncCatalogFields = ({
+  data,
+  siblingData,
+  value,
+}: {
+  data?: Record<string, unknown>
+  siblingData?: Record<string, unknown>
+  value?: number | null
+}) => {
   const price = value ?? siblingData?.priceWholesale ?? data?.priceWholesale
   return typeof price === 'number' ? price : 0
 }
 
-const syncInventoryFields = ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: number | null }) => {
+const syncInventoryFields = ({
+  data,
+  siblingData,
+  value,
+}: {
+  data?: Record<string, unknown>
+  siblingData?: Record<string, unknown>
+  value?: number | null
+}) => {
   const qty = value ?? siblingData?.stockQty ?? data?.stockQty
   return typeof qty === 'number' ? qty : 0
 }
@@ -111,6 +123,7 @@ const getProductVersionsConfig = (
 
   return {
     ...baseVersions,
+    maxPerDoc: 3,
     drafts: {
       ...baseDrafts,
       autosave: false,
@@ -193,7 +206,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         },
       },
     },
-    defaultColumns: ['title', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
+    defaultColumns: ['images', 'title', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
     group: 'Каталог',
     listSearchableFields: ['sku', 'miProductId'],
     useAsTitle: 'title',
@@ -278,6 +291,14 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               name: 'images',
               label: 'Снимки',
               type: 'array',
+              admin: {
+                components: {
+                  Cell: {
+                    path: '@/components/admin/ProductThumbnailCell',
+                    exportName: 'ProductThumbnailCell',
+                  },
+                },
+              },
               labels: {
                 plural: 'Снимки',
                 singular: 'Снимка',
@@ -461,7 +482,15 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               defaultValue: false,
               hooks: {
                 beforeChange: [
-                  ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: boolean | null }) => {
+                  ({
+                    data,
+                    siblingData,
+                    value,
+                  }: {
+                    data?: Record<string, unknown>
+                    siblingData?: Record<string, unknown>
+                    value?: boolean | null
+                  }) => {
                     const price =
                       siblingData?.priceInEUR ??
                       data?.priceInEUR ??
@@ -495,7 +524,15 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               defaultValue: false,
               hooks: {
                 beforeChange: [
-                  ({ data, siblingData, value }: { data?: Record<string, unknown>; siblingData?: Record<string, unknown>; value?: boolean | null }) => {
+                  ({
+                    data,
+                    siblingData,
+                    value,
+                  }: {
+                    data?: Record<string, unknown>
+                    siblingData?: Record<string, unknown>
+                    value?: boolean | null
+                  }) => {
                     const price =
                       siblingData?.priceInUSD ??
                       data?.priceInUSD ??

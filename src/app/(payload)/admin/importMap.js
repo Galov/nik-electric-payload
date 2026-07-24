@@ -20,6 +20,7 @@ import { LinkFeatureClient as LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864
 import { IndentFeatureClient as IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { TableFeatureClient as TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ProductImagePreviewField as ProductImagePreviewField_9a8078d3df8622020d3e7c9e5d490db5 } from '@/components/admin/ProductImagePreviewField'
+import { ProductThumbnailCell as ProductThumbnailCell_8b8feb00cb8811c6843ca51352a84483 } from '@/components/admin/ProductThumbnailCell'
 import { PublishedStatusCell as PublishedStatusCell_6db1db0c63cc983697617b016190944e } from '@/components/admin/PublishedStatusCell'
 import { HiddenProductDraftStatus as HiddenProductDraftStatus_b1bc3ea913e88844f52b93629811dbf3 } from '@/components/admin/HiddenProductDraftStatus'
 import { PriceCell as PriceCell_e27bf7b8cc50640dcdd584767b8eac3c } from '@payloadcms/plugin-ecommerce/client'
@@ -74,6 +75,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#IndentFeatureClient": IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#TableFeatureClient": TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/admin/ProductImagePreviewField#ProductImagePreviewField": ProductImagePreviewField_9a8078d3df8622020d3e7c9e5d490db5,
+  "@/components/admin/ProductThumbnailCell#ProductThumbnailCell": ProductThumbnailCell_8b8feb00cb8811c6843ca51352a84483,
   "@/components/admin/PublishedStatusCell#PublishedStatusCell": PublishedStatusCell_6db1db0c63cc983697617b016190944e,
   "@/components/admin/HiddenProductDraftStatus#HiddenProductDraftStatus": HiddenProductDraftStatus_b1bc3ea913e88844f52b93629811dbf3,
   "@payloadcms/plugin-ecommerce/client#PriceCell": PriceCell_e27bf7b8cc50640dcdd584767b8eac3c,
