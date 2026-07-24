@@ -36,7 +36,14 @@ const mediaThumbnailEndpoint: Endpoint = {
         return Response.json({ message: 'Media file was not found.' }, { status: 404 })
       }
 
-      return Response.redirect(new URL(media.url, req.url), 307)
+      const requestURL = new URL(req.url || 'http://localhost')
+      const forwardedHost = req.headers.get('x-forwarded-host')?.split(',')[0]?.trim()
+      const forwardedProtocol = req.headers.get('x-forwarded-proto')?.split(',')[0]?.trim()
+      const publicOrigin = forwardedHost
+        ? `${forwardedProtocol || requestURL.protocol.replace(':', '')}://${forwardedHost}`
+        : requestURL.origin
+
+      return Response.redirect(new URL(media.url, publicOrigin), 307)
     } catch {
       return Response.json({ message: 'Media file was not found.' }, { status: 404 })
     }
