@@ -298,6 +298,10 @@ export interface Product {
     | null;
   legacyProductUrl?: string | null;
   legacyModifiedAt?: string | null;
+  /**
+   * Служебно поле за надеждно филтриране на продуктите по наличие на снимка.
+   */
+  hasImages?: boolean | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -914,6 +918,7 @@ export interface ProductsSelect<T extends boolean = true> {
   legacyAttachmentIDs?: T;
   legacyProductUrl?: T;
   legacyModifiedAt?: T;
+  hasImages?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;

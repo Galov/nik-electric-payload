@@ -42,6 +42,28 @@ const normalizeCatalogCompatibilityFields = ({
   data.priceInEUREnabled = price > 0
   data.inventory = stockQty
 
+  const images = Array.isArray(data.images)
+    ? data.images
+    : Array.isArray(originalDoc?.images)
+      ? originalDoc.images
+      : []
+
+  data.hasImages = images.some((image) => {
+    if (!image || typeof image !== 'object') return false
+
+    const row = image as {
+      legacyUrl?: unknown
+      media?: unknown
+      storageKey?: unknown
+    }
+
+    return Boolean(
+      row.media ||
+      (typeof row.storageKey === 'string' && row.storageKey.trim()) ||
+      (typeof row.legacyUrl === 'string' && row.legacyUrl.trim()),
+    )
+  })
+
   return data
 }
 
@@ -640,6 +662,18 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           ],
         },
       ],
+    },
+    {
+      name: 'hasImages',
+      type: 'checkbox',
+      label: 'Има снимка',
+      defaultValue: false,
+      index: true,
+      admin: {
+        description: 'Служебно поле за надеждно филтриране на продуктите по наличие на снимка.',
+        position: 'sidebar',
+        readOnly: true,
+      },
     },
   ],
 })
