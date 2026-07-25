@@ -5,6 +5,7 @@ import {
   PaginationItem,
   PaginationLink,
 } from '@/components/ui/pagination'
+import { Button } from '@/components/ui/button'
 import { createUrl } from '@/utilities/createUrl'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import React from 'react'
@@ -53,56 +54,89 @@ export const CatalogPagination: React.FC<Props> = ({ currentPage, totalPages, se
   if (totalPages <= 1) return null
 
   const pages = buildPageNumbers(currentPage, totalPages)
+  const preservedSearchParams = [...searchParams.entries()].filter(([key]) => key !== 'page')
 
   return (
-    <Pagination className="mt-10 justify-center">
-      <PaginationContent className="flex-wrap justify-center">
-        <PaginationItem>
-          <PaginationLink
-            className={currentPage <= 1 ? 'pointer-events-none opacity-40' : undefined}
-            href={getPageHref(searchParams, currentPage - 1)}
-            size="default"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="hidden sm:inline">Назад</span>
-          </PaginationLink>
-        </PaginationItem>
+    <div className="mt-10 flex flex-col items-center gap-4">
+      <Pagination>
+        <PaginationContent className="flex-wrap justify-center">
+          <PaginationItem>
+            <PaginationLink
+              className={currentPage <= 1 ? 'pointer-events-none opacity-40' : undefined}
+              href={getPageHref(searchParams, currentPage - 1)}
+              size="default"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              <span className="hidden sm:inline">Назад</span>
+            </PaginationLink>
+          </PaginationItem>
 
-        {pages.map((page, index) => {
-          const previousPage = pages[index - 1]
-          const showEllipsis = previousPage && page - previousPage > 1
+          {pages.map((page, index) => {
+            const previousPage = pages[index - 1]
+            const showEllipsis = previousPage && page - previousPage > 1
 
-          return (
-            <React.Fragment key={page}>
-              {showEllipsis ? (
+            return (
+              <React.Fragment key={page}>
+                {showEllipsis ? (
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                ) : null}
+
                 <PaginationItem>
-                  <PaginationEllipsis />
+                  <PaginationLink
+                    href={getPageHref(searchParams, page)}
+                    isActive={page === currentPage}
+                  >
+                    {page}
+                  </PaginationLink>
                 </PaginationItem>
-              ) : null}
+              </React.Fragment>
+            )
+          })}
 
-              <PaginationItem>
-                <PaginationLink
-                  href={getPageHref(searchParams, page)}
-                  isActive={page === currentPage}
-                >
-                  {page}
-                </PaginationLink>
-              </PaginationItem>
-            </React.Fragment>
-          )
-        })}
+          <PaginationItem>
+            <PaginationLink
+              className={currentPage >= totalPages ? 'pointer-events-none opacity-40' : undefined}
+              href={getPageHref(searchParams, currentPage + 1)}
+              size="default"
+            >
+              <span className="hidden sm:inline">Напред</span>
+              <ChevronRight className="h-4 w-4" />
+            </PaginationLink>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
 
-        <PaginationItem>
-          <PaginationLink
-            className={currentPage >= totalPages ? 'pointer-events-none opacity-40' : undefined}
-            href={getPageHref(searchParams, currentPage + 1)}
-            size="default"
-          >
-            <span className="hidden sm:inline">Напред</span>
-            <ChevronRight className="h-4 w-4" />
-          </PaginationLink>
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+      <form
+        action="/shop"
+        className="flex flex-wrap items-center justify-center gap-2 text-xs uppercase tracking-widest text-primary/50"
+        method="get"
+      >
+        {preservedSearchParams.map(([key, value], index) => (
+          <input key={`${key}-${index}`} name={key} type="hidden" value={value} />
+        ))}
+
+        <label htmlFor="catalog-page">Отиди на страница</label>
+        <input
+          className="h-9 w-20 rounded-md border border-input bg-card px-3 text-center text-xs tracking-widest text-primary outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          defaultValue={currentPage}
+          id="catalog-page"
+          max={totalPages}
+          min={1}
+          name="page"
+          required
+          type="number"
+        />
+        <span>от {totalPages}</span>
+        <Button
+          className="bg-[rgb(0,126,229)] text-xs uppercase tracking-widest text-white hover:bg-[rgb(0,107,195)]"
+          size="sm"
+          type="submit"
+        >
+          Отиди
+        </Button>
+      </form>
+    </div>
   )
 }
