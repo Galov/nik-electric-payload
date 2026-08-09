@@ -5,8 +5,6 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import React from 'react'
 
-const EUR_TO_BGN_RATE = 1.95583
-
 type BaseProps = {
   className?: string
   currencyCodeClassName?: string
@@ -54,13 +52,6 @@ export const Price = ({
       style: 'currency',
     }).format(value)
 
-  const formatDualCurrency = (value: number) => {
-    const eurValue = currencyCode === 'EUR' ? value : value / EUR_TO_BGN_RATE
-    const bgnValue = eurValue * EUR_TO_BGN_RATE
-
-    return `${formatCurrency(eurValue, 'EUR')} / ${formatCurrency(bgnValue, 'BGN')}`
-  }
-
   if (!user) {
     const currentURL = createUrl(pathname, new URLSearchParams(searchParams.toString()))
     const loginURL = createUrl('/login', new URLSearchParams({ redirect: currentURL }))
@@ -86,7 +77,7 @@ export const Price = ({
   if (typeof resolvedAmount === 'number') {
     return (
       <Element className={className} suppressHydrationWarning>
-        {currencyCode === 'EUR' ? formatDualCurrency(resolvedAmount) : formatCurrency(resolvedAmount)}
+        {formatCurrency(resolvedAmount)}
       </Element>
     )
   }
@@ -94,9 +85,7 @@ export const Price = ({
   if (highestAmount && highestAmount !== lowestAmount) {
     return (
       <Element className={className} suppressHydrationWarning>
-        {currencyCode === 'EUR'
-          ? `${formatDualCurrency(lowestAmount)} - ${formatDualCurrency(highestAmount)}`
-          : `${formatCurrency(lowestAmount)} - ${formatCurrency(highestAmount)}`}
+        {`${formatCurrency(lowestAmount)} - ${formatCurrency(highestAmount)}`}
       </Element>
     )
   }
@@ -104,7 +93,7 @@ export const Price = ({
   if (lowestAmount) {
     return (
       <Element className={className} suppressHydrationWarning>
-        {currencyCode === 'EUR' ? formatDualCurrency(lowestAmount) : `${formatCurrency(lowestAmount)}`}
+        {formatCurrency(lowestAmount)}
       </Element>
     )
   }

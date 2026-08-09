@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS deps
+FROM node:20.20.2-bookworm-slim AS deps
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -6,7 +6,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY package.json package-lock.json ./
 RUN npm install
 
-FROM node:20-bookworm-slim AS builder
+FROM node:20.20.2-bookworm-slim AS builder
 WORKDIR /app
 
 ARG NEXT_PUBLIC_SERVER_URL
@@ -23,7 +23,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:20-bookworm-slim AS runner
+FROM node:20.20.2-bookworm-slim AS runner
 WORKDIR /app
 
 ARG NEXT_PUBLIC_SERVER_URL
