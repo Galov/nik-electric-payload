@@ -29,6 +29,8 @@ type ContactPageData = {
   }
 }
 
+const isContactFormEnabled = false
+
 export async function generateMetadata() {
   const payload = await getPayload({ config: configPromise })
   const contactPage = (await payload.findGlobal({
@@ -80,17 +82,19 @@ export default async function ContactPage() {
       <div className="space-y-12">
         <ContactLocations locations={[locations[0], locations[1]]} />
 
-        <section className="rounded-[10px] bg-muted/20 px-5 py-6 md:px-7 md:py-8">
-          <div className="mb-8 max-w-3xl">
-            <h2 className="text-3xl font-normal text-primary/85">Изпрати запитване</h2>
-            <p className="mt-3 text-sm leading-7 text-primary/62">
-              Ако не намирате търсената част или имате конкретен въпрос, изпратете ни съобщение и
-              ще се свържем с вас възможно най-скоро.
-            </p>
-          </div>
+        {isContactFormEnabled && (
+          <section className="rounded-[10px] bg-muted/20 px-5 py-6 md:px-7 md:py-8">
+            <div className="mb-8 max-w-3xl">
+              <h2 className="text-3xl font-normal text-primary/85">Изпрати запитване</h2>
+              <p className="mt-3 text-sm leading-7 text-primary/62">
+                Ако не намирате търсената част или имате конкретен въпрос, изпратете ни съобщение и
+                ще се свържем с вас възможно най-скоро.
+              </p>
+            </div>
 
-          <ContactForm />
-        </section>
+            <ContactForm />
+          </section>
+        )}
       </div>
     </div>
   )
