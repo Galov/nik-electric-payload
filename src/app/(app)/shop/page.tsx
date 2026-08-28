@@ -506,6 +506,11 @@ const getSearchClauses = async (
             like: term,
           },
         },
+        {
+          competitorProductCodes: {
+            like: term,
+          },
+        },
       ]
 
       if (brandIDs.length > 0) {

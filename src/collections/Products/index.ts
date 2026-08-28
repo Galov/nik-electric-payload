@@ -230,7 +230,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     },
     defaultColumns: ['title', 'images', 'sku', 'brand', 'priceWholesale', 'stockQty', 'published'],
     group: 'Каталог',
-    listSearchableFields: ['sku', 'miProductId'],
+    listSearchableFields: ['sku', 'miProductId', 'competitorProductCodes'],
     useAsTitle: 'title',
   },
   labels: {
@@ -281,6 +281,15 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               label: 'Нов продукт',
               type: 'checkbox',
               defaultValue: false,
+            },
+            {
+              name: 'competitorProductCodes',
+              label: 'Продуктови кодове на конкуренти',
+              type: 'textarea',
+              admin: {
+                description:
+                  'Въведете кодовете по един на ред или ги разделете със запетаи. Те участват в търсенето, но не се показват на клиентите.',
+              },
             },
             {
               name: 'description',

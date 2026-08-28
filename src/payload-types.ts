@@ -243,6 +243,10 @@ export interface Product {
   isOnPromotion?: boolean | null;
   isNewProduct?: boolean | null;
   /**
+   * Въведете кодовете по един на ред или ги разделете със запетаи. Те участват в търсенето, но не се показват на клиентите.
+   */
+  competitorProductCodes?: string | null;
+  /**
    * Основното описание, което се вижда на продуктовата страница.
    */
   description?: string | null;
@@ -879,6 +883,7 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   isOnPromotion?: T;
   isNewProduct?: T;
+  competitorProductCodes?: T;
   description?: T;
   brand?: T;
   categories?: T;
