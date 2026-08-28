@@ -243,6 +243,10 @@ export interface Product {
   isOnPromotion?: boolean | null;
   isNewProduct?: boolean | null;
   /**
+   * След тази дата продуктът автоматично спира да се показва като нов. Ако полето е празно, продуктът остава нов, докато отметката не бъде премахната.
+   */
+  newProductUntil?: string | null;
+  /**
    * Въведете кодовете по един на ред или ги разделете със запетаи. Те участват в търсенето, но не се показват на клиентите.
    */
   competitorProductCodes?: string | null;
@@ -883,6 +887,7 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   isOnPromotion?: T;
   isNewProduct?: T;
+  newProductUntil?: T;
   competitorProductCodes?: T;
   description?: T;
   brand?: T;

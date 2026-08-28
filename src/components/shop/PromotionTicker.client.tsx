@@ -11,7 +11,16 @@ import Link from 'next/link'
 
 type PromotionProduct = Pick<
   Product,
-  'id' | 'images' | 'priceGroup1' | 'priceWholesale' | 'published' | 'slug' | 'title'
+  | 'id'
+  | 'images'
+  | 'isNewProduct'
+  | 'isOnPromotion'
+  | 'newProductUntil'
+  | 'priceGroup1'
+  | 'priceWholesale'
+  | 'published'
+  | 'slug'
+  | 'title'
 >
 
 type Props = {
@@ -30,14 +39,9 @@ export function PromotionTicker({ products }: Props) {
   return (
     <section className="mb-8 w-full max-w-full min-w-0 overflow-hidden rounded-[8px] border border-[rgb(0,126,229)]/10 bg-[linear-gradient(135deg,rgba(0,126,229,0.05),rgba(248,250,252,0.96))] [contain:layout_paint] [overflow-x:clip]">
       <div className="flex items-center justify-between gap-4 border-b border-[rgb(0,126,229)]/10 px-4 py-4 md:px-5">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgb(0,126,229)]/75">
-            Промоции
-          </p>
-          <h2 className="mt-1 text-lg font-medium tracking-[-0.02em] text-primary/85">
-            Актуални предложения
-          </h2>
-        </div>
+        <h2 className="text-lg font-medium tracking-[-0.02em] text-primary/85">
+          Актуални предложения
+        </h2>
       </div>
 
       <div className="promotion-ticker group relative w-full max-w-full min-w-0 overflow-hidden px-3 py-3 [contain:layout_paint] [overflow-x:clip] md:px-4">
@@ -50,6 +54,9 @@ export function PromotionTicker({ products }: Props) {
         >
           {loopedProducts.map((product, index) => {
             const image = getProductPrimaryImage(product)
+            const isNew =
+              Boolean(product.isNewProduct) &&
+              (!product.newProductUntil || new Date(product.newProductUntil) >= new Date())
             const priceTier = (user as typeof user & { priceTier?: 'general' | 'group1' | null })
               ?.priceTier
             const resolvedPrice = resolvePriceForTier(priceTier, {
@@ -78,6 +85,18 @@ export function PromotionTicker({ products }: Props) {
                 </div>
 
                 <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-wrap gap-1.5">
+                    {product.isOnPromotion ? (
+                      <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-red-600">
+                        Промо
+                      </span>
+                    ) : null}
+                    {isNew ? (
+                      <span className="rounded-full bg-[rgb(0,126,229)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-[rgb(0,126,229)]">
+                        Ново
+                      </span>
+                    ) : null}
+                  </div>
                   <p className="line-clamp-2 text-[15px] font-medium leading-5 text-primary/85">
                     {formatProductTitle(product.title)}
                   </p>

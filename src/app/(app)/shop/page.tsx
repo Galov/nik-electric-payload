@@ -67,7 +67,7 @@ export default async function ShopPage({ searchParams }: Props) {
   const selectedBrandID = brand ? await getBrandIDForFilter(payload, String(brand)) : null
   const categoryIDs = category ? await getCategoryIDsForFilter(payload, String(category)) : null
   const searchClauses = searchTerms.length > 0 ? await getSearchClauses(payload, searchTerms) : []
-  const promotionalProducts =
+  const featuredProducts =
     !searchValue && !category && !brand
       ? await payload.find({
           collection: 'products',
@@ -79,6 +79,9 @@ export default async function ShopPage({ searchParams }: Props) {
           select: {
             id: true,
             images: true,
+            isNewProduct: true,
+            isOnPromotion: true,
+            newProductUntil: true,
             priceGroup1: true,
             priceWholesale: true,
             published: true,
@@ -89,9 +92,36 @@ export default async function ShopPage({ searchParams }: Props) {
           where: {
             and: [
               {
-                isOnPromotion: {
-                  equals: true,
-                },
+                or: [
+                  {
+                    isOnPromotion: {
+                      equals: true,
+                    },
+                  },
+                  {
+                    and: [
+                      {
+                        isNewProduct: {
+                          equals: true,
+                        },
+                      },
+                      {
+                        or: [
+                          {
+                            newProductUntil: {
+                              exists: false,
+                            },
+                          },
+                          {
+                            newProductUntil: {
+                              greater_than_equal: new Date().toISOString(),
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
               },
               {
                 published: {
@@ -253,8 +283,8 @@ export default async function ShopPage({ searchParams }: Props) {
 
       {products?.docs.length > 0 ? (
         <>
-          {promotionalProducts.docs.length > 0 ? (
-            <PromotionTicker products={promotionalProducts.docs} />
+          {featuredProducts.docs.length > 0 ? (
+            <PromotionTicker products={featuredProducts.docs} />
           ) : null}
           <Grid className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.docs.map((product) => {

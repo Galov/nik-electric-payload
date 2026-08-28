@@ -241,6 +241,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     ...defaultCollection.defaultPopulate,
     title: true,
     isNewProduct: true,
+    newProductUntil: true,
     isOnPromotion: true,
     slug: true,
     sku: true,
@@ -281,6 +282,19 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               label: 'Нов продукт',
               type: 'checkbox',
               defaultValue: false,
+            },
+            {
+              name: 'newProductUntil',
+              label: 'Нов продукт до',
+              type: 'date',
+              admin: {
+                condition: (_, siblingData) => Boolean(siblingData?.isNewProduct),
+                date: {
+                  pickerAppearance: 'dayAndTime',
+                },
+                description:
+                  'След тази дата продуктът автоматично спира да се показва като нов. Ако полето е празно, продуктът остава нов, докато отметката не бъде премахната.',
+              },
             },
             {
               name: 'competitorProductCodes',
