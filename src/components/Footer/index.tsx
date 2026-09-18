@@ -89,6 +89,13 @@ export async function Footer() {
 
             <nav>
               <ul className="space-y-3">
+                {!footer.navItems?.some((item) => item.link.url === '/kategorii') && (
+                  <li>
+                    <Link className="text-white/82 transition hover:text-white" href="/kategorii">
+                      Категории
+                    </Link>
+                  </li>
+                )}
                 {(footer.navItems?.length
                   ? footer.navItems
                   : [

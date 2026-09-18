@@ -20,6 +20,11 @@ const navItems = [
     label: 'Каталог',
   },
   {
+    href: '/kategorii',
+    isActive: (pathname: string) => pathname === '/kategorii',
+    label: 'Категории',
+  },
+  {
     href: '/partners',
     isActive: (pathname: string) => pathname.startsWith('/partners'),
     label: 'Партньори',
@@ -197,7 +202,7 @@ export function Header() {
             <SiteLogo className="h-auto w-64" priority />
           </Link>
 
-          <div className="headerNav relative flex items-center gap-8 text-sm" ref={navRef}>
+          <div className="headerNav relative flex items-center gap-2 text-sm lg:gap-8" ref={navRef}>
             <span
               className="headerNavIndicator"
               style={{
