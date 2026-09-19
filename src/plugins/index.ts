@@ -13,6 +13,7 @@ import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
 import { ProductsCollection } from '@/collections/Products'
 import { manualAdapter } from '@/ecommerce/manualAdapter'
+import { manualCheckoutPlugin } from '@/ecommerce/manualCheckout'
 
 const normalizeMoneyAdminFields = (fields: any[]): any[] => {
   return fields.map((field) => {
@@ -418,6 +419,7 @@ export const plugins: Plugin[] = [
       }),
     },
   }),
+  manualCheckoutPlugin,
   ...(process.env.R2_BUCKET &&
   process.env.R2_ACCESS_KEY_ID &&
   process.env.R2_SECRET_ACCESS_KEY &&
