@@ -1,9 +1,9 @@
 import { createLocalReq, type PayloadRequest, type RequiredDataFromCollectionSlug } from 'payload'
 import { exportOrderToMicroinvest } from '@/collections/Orders/hooks/exportOrderToMicroinvest'
-import { syncCommittedOrderStockToIbis } from '@/collections/Products/hooks/syncProductToIbis'
+import { syncOrderStock } from './syncOrderStock'
 import { syncCategoryProductCount } from '@/collections/Categories/hooks/syncCategoryProductCount'
 import { sendOrderCreatedEmails } from '@/utilities/email/notifications'
-import { OrderAcceptanceError } from './ibis/contract'
+import { inOrderTransaction } from './orderTransaction'
 
 export type AcceptedOrder = {
   orderID: string
@@ -78,28 +78,7 @@ export async function dispatchAcceptedOrder(result: AcceptedOrder, originalReq: 
   )
   // Each channel remains recoverable independently. Never turn a committed order into an HTTP error.
   try {
-    const claimed = await req.payload.db.updateOne({
-      collection: 'orders',
-      where: {
-        and: [{ id: { equals: result.orderID } }, { ibisStockSyncStatus: { equals: 'pending' } }],
-      },
-      data: { ibisStockSyncStatus: 'sending', ibisStockSyncAttemptAt: new Date().toISOString() },
-    })
-    if (claimed) {
-      let error = ''
-      try {
-        await syncCommittedOrderStockToIbis(req.payload, result.productIDs)
-      } catch {
-        error = 'IBIS_STOCK_SYNC_FAILED'
-      }
-      await req.payload.update({
-        collection: 'orders',
-        id: result.orderID,
-        req,
-        overrideAccess: true,
-        data: { ibisStockSyncStatus: error ? 'failed' : 'sent', ibisStockSyncError: error },
-      })
-    }
+    await syncOrderStock(result.orderID, req)
   } catch {
     req.payload.logger.error('Committed order stock dispatch requires review.')
   }
@@ -131,44 +110,7 @@ export async function completeOrder(
   req: PayloadRequest,
   prepare: (transactionReq: PayloadRequest) => Promise<AcceptedOrder>,
 ): Promise<AcceptedOrder> {
-  if (req.transactionID) throw new OrderAcceptanceError(503, 'TRANSACTION_ALREADY_ACTIVE')
-  // A fresh Payload request gives relationship loading its own DataLoader bound to
-  // this transaction, rather than reusing a loader closed over the HTTP request.
-  const transactionReq = await createLocalReq(
-    {
-      req: {
-        headers: req.headers,
-        user: req.user,
-        query: { ...req.query },
-        locale: req.locale,
-        fallbackLocale: req.fallbackLocale,
-      },
-      context: {
-        ...req.context,
-        skipIbisProductSync: true,
-        skipMicroinvestOrderExport: true,
-        skipOrderEmailNotifications: true,
-        skipCategoryProductCountSync: true,
-      },
-    },
-    req.payload,
-  )
-  const id = await req.payload.db.beginTransaction()
-  if (!id || !req.payload.db.sessions?.[String(id)]?.inTransaction()) {
-    if (id) await req.payload.db.rollbackTransaction(id)
-    throw new OrderAcceptanceError(503, 'TRANSACTIONS_UNAVAILABLE')
-  }
-  transactionReq.transactionID = id
-  let result: AcceptedOrder
-  try {
-    result = await prepare(transactionReq)
-    await req.payload.db.commitTransaction(id)
-  } catch (error) {
-    await req.payload.db.rollbackTransaction(id).catch(() => undefined)
-    throw error
-  } finally {
-    delete transactionReq.transactionID
-  }
+  const result = await inOrderTransaction(req, prepare)
   if (!result.replayed) {
     try {
       await dispatchAcceptedOrder(result, req)

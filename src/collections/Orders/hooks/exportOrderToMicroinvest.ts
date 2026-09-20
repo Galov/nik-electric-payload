@@ -1,3 +1,5 @@
+import { claimDelivery, attemptWhere, type Recovery } from '@/ecommerce/deliveryState'
+import { sendMicroinvestExportFailedEmail } from '@/utilities/email/notifications'
 import type { CollectionAfterChangeHook, PayloadRequest } from 'payload'
 
 type OrderItem = {
@@ -194,20 +196,20 @@ const buildPayload = async ({
 
 // A durable atomic claim permits one sender only. Neither replay nor ordinary order
 // updates retry exports. A lost acknowledgement must be reconciled with Microinvest.
-export const exportOrderToMicroinvest = async (orderID: string, req: PayloadRequest) => {
-  const claimed = await req.payload.db.updateOne({
-    collection: 'orders',
-    where: { and: [{ id: { equals: orderID } }, { miOrderExportStatus: { equals: 'pending' } }] },
-    data: { miOrderExportStatus: 'sending', miOrderExportLastAttemptAt: new Date().toISOString() },
-  })
-  if (!claimed) return
+export const exportOrderToMicroinvest = async (
+  orderID: string,
+  req: PayloadRequest,
+  recovery?: Recovery,
+) => {
+  const claim = await claimDelivery(orderID, req, 'mi', recovery)
+  if (!claim || claim.reconcile) return
   let status: 'failed' | 'sent' | 'unknown' = 'failed'
   let safeError = 'MICROINVEST_CONFIGURATION_OR_ORDER_INVALID'
   let started = false
   try {
     const config = getWebhookConfig()
     if (!config) throw new Error('Missing configuration')
-    const { payload } = await buildPayload({ order: claimed as OrderLike, req })
+    const { payload } = await buildPayload({ order: claim.order as OrderLike, req })
     started = true
     const response = await fetch(config.url, {
       method: 'POST',
@@ -215,7 +217,6 @@ export const exportOrderToMicroinvest = async (orderID: string, req: PayloadRequ
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(15000),
     })
-    // The existing receiver contract proves HTTP acknowledgement only.
     status = response.ok ? 'sent' : 'unknown'
     safeError = response.ok ? '' : 'MICROINVEST_RESULT_UNCONFIRMED'
   } catch {
@@ -224,21 +225,36 @@ export const exportOrderToMicroinvest = async (orderID: string, req: PayloadRequ
       safeError = 'MICROINVEST_RESULT_UNCONFIRMED'
     }
   }
-  // If this write fails, durable 'sending' still signals an unresolved attempt.
-  await req.payload.update({
+  const saved = await req.payload.db.updateOne({
     collection: 'orders',
-    id: orderID,
-    overrideAccess: true,
-    req,
-    context: {
-      ...req.context,
-      skipMicroinvestOrderExport: true,
-      skipOrderEmailNotifications: true,
-    },
+    where: attemptWhere(orderID, 'mi', claim.attemptId),
     data: {
       miOrderExportStatus: status,
       miOrderExportLastError: safeError,
+      miOrderExportFailurePhase: status === 'sent' ? null : started ? 'after-send' : 'before-send',
       miOrderExportFileName: `order.create:${orderID}`,
+      miOrderExportNotificationStatus: status === 'sent' ? null : 'pending',
+    },
+  })
+  if (!saved || status === 'sent') return
+  // Only the winning attempt notifies. Ordinary edits never enter this sender.
+  let notificationStatus = 'sent'
+  try {
+    await sendMicroinvestExportFailedEmail({
+      order: saved as unknown as Parameters<typeof sendMicroinvestExportFailedEmail>[0]['order'],
+      payload: req.payload,
+    })
+  } catch {
+    notificationStatus = 'failed'
+  }
+  await req.payload.db.updateOne({
+    collection: 'orders',
+    where: {
+      and: [{ id: { equals: orderID } }, { miOrderExportAttemptId: { equals: claim.attemptId } }],
+    },
+    data: {
+      miOrderExportNotificationStatus: notificationStatus,
+      miOrderExportNotificationError: notificationStatus === 'failed' ? 'ADMIN_EMAIL_FAILED' : '',
     },
   })
 }

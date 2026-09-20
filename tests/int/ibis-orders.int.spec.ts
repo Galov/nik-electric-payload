@@ -1,3 +1,6 @@
+import { OrderDeliveryActions } from '@/collections/OrderDeliveryActions'
+import { orderDeliveryAction } from '@/endpoints/order-delivery-action'
+import * as notifications from '@/utilities/email/notifications'
 // @vitest-environment node
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { buildConfig, createLocalReq, getPayload, type Payload } from 'payload'
@@ -47,7 +50,7 @@ describe.skipIf(!enabled)('Ibis acceptance with real MongoDB transactions', () =
     const config = buildConfig({
       secret: process.env.PAYLOAD_SECRET,
       db: mongooseAdapter({ url: process.env.DATABASE_URL }),
-      collections: [Users, Brands, Categories, Media, IbisOrderKeys],
+      collections: [Users, Brands, Categories, Media, IbisOrderKeys, OrderDeliveryActions],
       plugins,
       editor: lexicalEditor(),
     })
@@ -64,12 +67,12 @@ describe.skipIf(!enabled)('Ibis acceptance with real MongoDB transactions', () =
     // Deletes only collections of the hard-coded local fixture database above.
     for (const model of Object.values(payload.db.collections)) await model.deleteMany({})
     for (const model of Object.values(payload.db.versions)) await model.deleteMany({})
-    fetchMock = vi.fn(async () => {
+    fetchMock = vi.fn(async (_url: string, options: RequestInit) => {
       expect(Object.values(payload.db.sessions).some((session) => session.inTransaction())).toBe(
         false,
       )
       expect(await payload.count({ collection: 'orders' })).toMatchObject({ totalDocs: 1 })
-      return new Response('{}', { status: 200 })
+      return successResponse(options)
     })
     vi.stubGlobal('fetch', fetchMock)
     partner = await payload.create({
@@ -91,6 +94,33 @@ describe.skipIf(!enabled)('Ibis acceptance with real MongoDB transactions', () =
     })
   })
 
+  function successResponse(options: RequestInit) {
+    const body = JSON.parse(String(options.body))
+    return Response.json({
+      event: body.event,
+      items: body.items.map((item: { sku?: string; sourceId?: number }) => ({
+        sku: item.sku,
+        sourceId: item.sourceId ?? null,
+        status: 'updated',
+      })),
+    })
+  }
+  async function action(id: string, action: string, extra: Record<string, unknown> = {}) {
+    const order = await payload.findByID({ collection: 'orders', id, depth: 0 })
+    const req = await createLocalReq(
+      { user: { ...partner, roles: ['admin'], collection: 'users' }, req: { routeParams: { id } } },
+      payload,
+    )
+    req.json = async () => ({
+      action,
+      reason: 'Checked in MI by administrator',
+      expectedAttemptId:
+        (action === 'retry-bg' ? order.ibisStockSyncAttemptId : order.miOrderExportAttemptId) ||
+        null,
+      ...extra,
+    })
+    return orderDeliveryAction(req)
+  }
   async function product(sku = '167MI07', stock = 10, price = 4, id = 123) {
     return payload.create({
       collection: 'products',
@@ -409,6 +439,276 @@ describe.skipIf(!enabled)('Ibis acceptance with real MongoDB transactions', () =
     }
     await noWrites()
   })
+
+  it('exports administrative REST creation after commit and notifies once on failure', async () => {
+    const p = await product()
+    const observedTransactions: boolean[] = []
+    const observedCounts: number[] = []
+    const notify = vi
+      .spyOn(notifications, 'sendMicroinvestExportFailedEmail')
+      .mockImplementation(async () => {
+        observedTransactions.push(
+          Object.values(payload.db.sessions).some((session) => session.inTransaction()),
+        )
+      })
+    fetchMock.mockImplementation(async () => {
+      observedTransactions.push(
+        Object.values(payload.db.sessions).some((session) => session.inTransaction()),
+      )
+      observedCounts.push((await payload.count({ collection: 'orders' })).totalDocs)
+      expect(Object.values(payload.db.sessions).some((session) => session.inTransaction())).toBe(
+        false,
+      )
+      expect((await payload.count({ collection: 'orders' })).totalDocs).toBe(1)
+      throw new Error('timeout')
+    })
+    const req = await createLocalReq(
+      {
+        user: { ...partner, roles: ['admin'], collection: 'users' },
+        req: {
+          routeParams: { collection: 'orders' },
+          data: {
+            customer: partner.id,
+            partnerCode: '412',
+            status: 'processing',
+            items: [{ product: p.id, productMIId: 123, productUnitPrice: 4, quantity: 1 }],
+          },
+        },
+      },
+      payload,
+    )
+    const endpoint =
+      payload.collections.orders.config.endpoints &&
+      payload.collections.orders.config.endpoints.find((e) => e.path === '/' && e.method === 'post')
+    if (!endpoint) throw new Error('Missing admin create handler')
+    const response = await endpoint.handler(req)
+    expect(response.status).toBe(201)
+    const { doc } = await response.json()
+    expect((await payload.findByID({ collection: 'orders', id: doc.id })).miOrderExportStatus).toBe(
+      'unknown',
+    )
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(notify).toHaveBeenCalledTimes(1)
+    await payload.update({ collection: 'orders', id: doc.id, data: { note: 'Ordinary edit' } })
+    expect(notify).toHaveBeenCalledTimes(1)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(observedTransactions.every((active) => !active)).toBe(true)
+    expect(observedCounts).toEqual([1])
+    await stock(p.id, 10)
+  })
+
+  it('rolls back administrative creation without HTTP or notifications when commit fails', async () => {
+    const notify = vi
+      .spyOn(notifications, 'sendMicroinvestExportFailedEmail')
+      .mockResolvedValue(undefined)
+    vi.spyOn(payload.db, 'commitTransaction').mockRejectedValueOnce(
+      new Error('Injected commit failure'),
+    )
+    const req = await createLocalReq(
+      {
+        user: { ...partner, roles: ['admin'], collection: 'users' },
+        req: {
+          routeParams: { collection: 'orders' },
+          data: { status: 'processing' },
+        },
+      },
+      payload,
+    )
+    const endpoint =
+      payload.collections.orders.config.endpoints &&
+      payload.collections.orders.config.endpoints.find((e) => e.path === '/' && e.method === 'post')
+    if (!endpoint) throw new Error('Missing admin handler')
+    await expect(endpoint.handler(req)).rejects.toThrow('Injected commit failure')
+    await noWrites()
+    expect(notify).not.toHaveBeenCalled()
+  })
+
+  it('protects recovery authorization and service-owned fields from generic updates', async () => {
+    await product()
+    const { orderId } = await (await request()).json()
+    const req = await createLocalReq({ req: { routeParams: { id: orderId } } }, payload)
+    req.json = async () => ({ action: 'send-mi', reason: 'Unauthorized', expectedAttemptId: null })
+    expect((await orderDeliveryAction(req)).status).toBe(403)
+    await payload.update({
+      collection: 'orders',
+      id: orderId,
+      overrideAccess: false,
+      user: { ...partner, roles: ['admin'] },
+      data: { miOrderExportStatus: 'pending', note: 'Allowed edit' },
+    })
+    expect(
+      (await payload.findByID({ collection: 'orders', id: orderId })).miOrderExportStatus,
+    ).toBe('sent')
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('recovers a pending order and records a failed administrative email without repeating it on edits', async () => {
+    const p = await product()
+    const order = await payload.create({
+      collection: 'orders',
+      context,
+      data: {
+        status: 'processing',
+        items: [{ product: p.id, productMIId: 123, productUnitPrice: 4, quantity: 1 }],
+      },
+    })
+    const notify = vi
+      .spyOn(notifications, 'sendMicroinvestExportFailedEmail')
+      .mockRejectedValue(new Error('Mail failure'))
+    expect((await action(order.id, 'send-mi')).status).toBe(200)
+    expect(await payload.findByID({ collection: 'orders', id: order.id })).toMatchObject({
+      miOrderExportStatus: 'failed',
+      miOrderExportFailurePhase: 'before-send',
+      miOrderExportNotificationStatus: 'failed',
+    })
+    await payload.update({
+      collection: 'orders',
+      id: order.id,
+      data: { note: 'Review email failure' },
+    })
+    expect(notify).toHaveBeenCalledTimes(1)
+    expect(fetchMock).not.toHaveBeenCalled()
+    await stock(p.id, 10)
+  })
+
+  it('recovers pre-HTTP failure once with audit, without another order or stock deduction', async () => {
+    const p = await product()
+    const notify = vi
+      .spyOn(notifications, 'sendMicroinvestExportFailedEmail')
+      .mockResolvedValue(undefined)
+    delete process.env.MICROINVEST_ORDERS_WEBHOOK_SECRET
+    let body
+    try {
+      body = await (await request()).json()
+    } finally {
+      process.env.MICROINVEST_ORDERS_WEBHOOK_SECRET = 'test-only'
+    }
+    const order = await payload.findByID({ collection: 'orders', id: body.orderId })
+    expect(order).toMatchObject({
+      miOrderExportStatus: 'failed',
+      miOrderExportFailurePhase: 'before-send',
+    })
+    expect(notify).toHaveBeenCalledTimes(1)
+    const results = await Promise.all([action(order.id, 'send-mi'), action(order.id, 'send-mi')])
+    expect(results.map((r) => r.status).sort()).toEqual([200, 409])
+    expect(fetchMock.mock.calls.filter(([url]) => url.includes('mi.invalid'))).toHaveLength(1)
+    const audits = await payload.find({ collection: 'order-delivery-actions', depth: 0 })
+    expect(audits.docs).toHaveLength(1)
+    expect(audits.docs[0]).toMatchObject({ actor: partner.id, order: order.id, action: 'send-mi' })
+    expect(audits.docs[0].createdAt).toBeTruthy()
+    await stock(p.id, 9)
+    expect((await payload.count({ collection: 'orders' })).totalDocs).toBe(1)
+  })
+
+  it('blocks blind unknown retries and requires recorded reconciliation before authorizing resend', async () => {
+    const p = await product()
+    fetchMock.mockImplementation(async (url: string, options: RequestInit) => {
+      if (url.includes('mi.invalid')) throw new Error('timeout')
+      return successResponse(options)
+    })
+    const { orderId } = await (await request()).json()
+    const original = await payload.findByID({ collection: 'orders', id: orderId })
+    expect((await action(orderId, 'send-mi')).status).toBe(409)
+    expect((await action(orderId, 'authorize-mi-retry')).status).toBe(409)
+    expect((await action(orderId, 'authorize-mi-retry', { reconciled: true })).status).toBe(200)
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(
+      (await action(orderId, 'send-mi', { expectedAttemptId: original.miOrderExportAttemptId }))
+        .status,
+    ).toBe(409)
+    fetchMock.mockImplementation(async (_url: string, options: RequestInit) =>
+      successResponse(options),
+    )
+    expect((await action(orderId, 'send-mi')).status).toBe(200)
+    expect((await payload.find({ collection: 'order-delivery-actions' })).totalDocs).toBe(2)
+    await stock(p.id, 9)
+  })
+
+  it('reconciles interrupted sending as accepted and rejects active sending', async () => {
+    await product()
+    const { orderId } = await (await request()).json()
+    await payload.db.updateOne({
+      collection: 'orders',
+      id: orderId,
+      data: {
+        miOrderExportStatus: 'sending',
+        miOrderExportLastAttemptAt: new Date().toISOString(),
+      },
+    })
+    expect((await action(orderId, 'send-mi')).status).toBe(409)
+    expect((await action(orderId, 'confirm-mi-accepted', { reconciled: true })).status).toBe(409)
+    await payload.db.updateOne({
+      collection: 'orders',
+      id: orderId,
+      data: { miOrderExportLastAttemptAt: new Date(Date.now() - 120000).toISOString() },
+    })
+    expect((await action(orderId, 'confirm-mi-accepted', { reconciled: true })).status).toBe(200)
+    expect(
+      (await payload.findByID({ collection: 'orders', id: orderId })).miOrderExportStatus,
+    ).toBe('sent')
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('sends valid products despite one invalid retail price and retries current absolute stock including zero', async () => {
+    const a = await product()
+    const b = await product('SECOND', 10, 4, 124)
+    await payload.update({ collection: 'products', id: a.id, context, data: { priceRetail: 0 } })
+    const { orderId } = await (
+      await request([
+        { sku: '167MI07', quantity: 1 },
+        { sku: 'SECOND', quantity: 1 },
+      ])
+    ).json()
+    expect(await payload.findByID({ collection: 'orders', id: orderId })).toMatchObject({
+      ibisStockSyncStatus: 'failed',
+      ibisStockSyncResults: [
+        { productId: a.id, status: 'failed' },
+        { productId: b.id, status: 'sent' },
+      ],
+    })
+    await payload.update({
+      collection: 'products',
+      id: a.id,
+      context,
+      data: { priceRetail: 8, stockQty: 0, inventory: 0 },
+    })
+    expect((await action(orderId, 'retry-bg')).status).toBe(200)
+    const sent = JSON.parse(
+      fetchMock.mock.calls.filter(([url]) => url.includes('ibis.invalid')).at(-1)![1].body,
+    )
+    expect(sent.items.find((item: { sku: string }) => item.sku === '167MI07').data.stockQty).toBe(0)
+    expect(
+      (await payload.findByID({ collection: 'orders', id: orderId })).ibisStockSyncStatus,
+    ).toBe('sent')
+    await stock(a.id, 0)
+    await stock(b.id, 9)
+  })
+
+  it.each(['not_found', 'invalid', 'missing', 'malformed', 'duplicate'])(
+    'does not accept BG HTTP 200 with %s item results',
+    async (failure) => {
+      await product()
+      fetchMock.mockImplementation(async (url: string, options: RequestInit) => {
+        if (url.includes('mi.invalid')) return Response.json({})
+        if (failure === 'malformed') return new Response('not JSON', { status: 200 })
+        const item = JSON.parse(String(options.body)).items[0]
+        const entry = {
+          sku: item.sku,
+          sourceId: item.sourceId,
+          status: failure === 'duplicate' ? 'updated' : failure,
+        }
+        return Response.json({
+          event: 'product.price_stock_updated',
+          items: failure === 'missing' ? [] : failure === 'duplicate' ? [entry, entry] : [entry],
+        })
+      })
+      const { orderId } = await (await request()).json()
+      expect(await payload.findByID({ collection: 'orders', id: orderId })).toMatchObject({
+        ibisStockSyncStatus: 'failed',
+        ibisStockSyncResults: [{ status: 'failed' }],
+      })
+    },
+  )
 
   it('rejects unknown fields, duplicate SKUs and fractional quantities', () => {
     expect(() =>

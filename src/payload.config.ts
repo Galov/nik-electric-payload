@@ -24,6 +24,7 @@ import { ContactInquiries } from '@/collections/ContactInquiries'
 import { Media } from '@/collections/Media'
 import { Partners } from '@/collections/Partners'
 import { Users } from '@/collections/Users'
+import { OrderDeliveryActions } from '@/collections/OrderDeliveryActions'
 import { IbisOrderKeys } from '@/collections/IbisOrderKeys'
 import { ibisOrders } from '@/endpoints/ibis-orders'
 import { legacyLogin } from '@/endpoints/legacy-login'
@@ -81,7 +82,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Brands, Categories, Partners, ContactInquiries, Media, IbisOrderKeys],
+  collections: [Users, Brands, Categories, Partners, ContactInquiries, Media, IbisOrderKeys, OrderDeliveryActions],
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),

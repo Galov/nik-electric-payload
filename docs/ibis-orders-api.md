@@ -79,8 +79,7 @@ BG stock sync status: `pending | sending | sent | failed`.
 Either can be `unavailable` in the response if reading delivery status fails after
 acceptance. This is a response-only fallback, not a stored state.
 
-`sent` means HTTP 2xx acknowledgement under the existing integration contract.
-The receiver's response does not prove that a stock movement has completed.
+`sent` for Microinvest means HTTP 2xx acknowledgement under the existing contract; it does not prove a completed stock movement. For BG, every submitted item must have exactly one matching `updated` result. HTTP 200 alone is insufficient.
 
 ## Retries and conflicts
 
@@ -170,40 +169,55 @@ Microinvest order payload is sent. Each has an independent durable pending/sendi
 result state and a 15-second HTTP timeout. Category counts and order emails run
 only after commit. There is no worker, cron or new service.
 
-The existing BG protocol still requires positive retail price and SKU. If retail
-price is missing/zero while group1 is valid, the order is accepted and BG delivery
-is marked `failed`; no new stock-only protocol is introduced. BG→RO remains BG's
-responsibility. The known risk of concurrent sales and stale absolute Microinvest
-updates is unchanged; no reservations or distributed stock locks are introduced.
+The existing BG protocol still requires positive retail price and SKU. Missing
+retail price never rejects a valid group1 order. Each failed item is recorded in
+`ibisStockSyncResults` with product ID, SKU and safe error code; valid items continue.
+BG results must match SKU and supplied sourceId exactly once and report `updated`.
+`not_found`, `invalid`, missing/duplicate results and invalid response bodies fail.
+The aggregate status is `sent` only when all order products succeed.
 
-Microinvest sending uses an atomic DB claim from `pending` to `sending`. Only the
-claim winner sends. A network exception, timeout or non-2xx is conservatively
-`unknown`. A pre-send configuration/payload failure is `failed`. A crash during
-sending or a failure to persist the result leaves `sending` for reconciliation.
-The old automatic export-on-order-update hook is removed: changing a note/status
-must not resend an uncertain external order. This also means admin-created orders
-outside the shared acceptance flow are not automatically exported.
+The proposed price-independent contract is documented in
+[ibis-stock-only-proposal.md](ibis-stock-only-proposal.md). It is not implemented or
+activated. BG→RO remains BG's responsibility. Concurrent absolute-stock updates
+and stale Microinvest snapshots remain an existing limitation.
 
-## Recovery, without automated retries
+Administrative creation and duplication retain automatic Microinvest export and
+order notifications. Their original Payload REST handlers run inside a real
+transaction; dispatch happens only after commit. Administrative creation does not
+reduce inventory. Checkout and Ibis retain their single transactional reduction.
+Ordinary order edits do not trigger exports or duplicate failure notifications.
 
-The order's admin fields show delivery status, safe error code and attempt time.
-Filter orders by `miOrderExportStatus` or `ibisStockSyncStatus` to discover pending,
-failed or interrupted work. No arbitrary edit or incoming order replay performs
-recovery automatically.
+## Protected administrative recovery
 
-- `pending`: commit succeeded but sending may not have started. The atomic sender
-  can process a pending record once through a separately reviewed operator action.
-- Microinvest `unknown`/interrupted `sending`: reconcile with Microinvest by NIK
-  order ID first. Do not reset to pending or blindly resend. A future automatic
-  retry requires receiver-side deduplication or a reliable external lookup contract.
-- BG `failed`/interrupted `sending`: inspect configuration and product retail/SKU
-  data. A separately reviewed retry must read current stock from the order's product
-  references, never replay stale absolute quantities from an old attempt.
-- Delivery errors never roll back stock or hide acceptance. A crash after commit
-  leaves durable work discoverable but requires manual intervention in this version.
+`POST /api/orders/:id/delivery-action` requires a logged-in administrator. The order
+form exposes the same actions. A non-empty `reason` (up to 2000 characters) and
+`expectedAttemptId` (the currently displayed channel attempt UUID, or null for a
+never-attempted order) are required. Stale/concurrent actions fail with 409.
 
-No recovery UI action/endpoint that could accidentally resend orders is added here.
-No existing production guard or secret is changed.
+- `send-mi`: allowed for `pending` or a proven `failed` / `before-send` result only.
+- `confirm-mi-accepted`: after reconciliation, marks MI acceptance without sending.
+- `authorize-mi-retry`: after reconciliation, changes MI to pending; a separate
+  `send-mi` action is required to actually send.
+- Both reconciliation actions require `reconciled: true` and an explanation. They
+  apply to `unknown`, interrupted `sending` (older than 60 seconds), or legacy
+  `failed` records without proof that HTTP had not started. They are never automatic.
+- `retry-bg`: allowed for pending/failed or sending older than 60 seconds. It reads
+  current absolute quantities from the order's product references, including zero.
+
+Claims and immutable `order-delivery-actions` audit records commit together before
+HTTP. Records identify the order, administrator, action, reason, attempt UUID and
+creation time. Concurrent database write conflicts do not automatically retry.
+Final writes match the sending attempt UUID, preventing a late response from
+replacing a reconciled result. Generic REST updates cannot edit delivery fields.
+Recovery creates neither orders nor stock movements.
+
+MI timeout, network exception or non-2xx is `unknown`; configuration/payload errors
+before fetch are `failed` with `before-send`. The winning failed attempt invokes
+the existing administrative error email once, after its status is persisted.
+Notification outcome is recorded separately. Normal edits never send it again.
+A crash can leave `pending` notification or `sending` delivery for manual review;
+there is no worker, cron, automatic email retry or promise of exactly-once email.
+Delivery errors do not roll back acceptance. No production guard or secret changes.
 
 ## Isolated verification
 
@@ -224,12 +238,14 @@ order tests remain outside this PR's authorization.
 
 ## Verification results (2026-09-20)
 
-- 29 targeted tests passed: 21 with a real isolated MongoDB replica set and 8
-  checkout regression tests with mocked persistence.
+- 42 targeted tests passed: 34 with a real isolated MongoDB replica set and 8
+  checkout regression tests with mocked persistence. They cover acceptance, admin
+  export, failure notification, recovery, concurrent claims, reconciliation,
+  per-item BG results and current-stock retries.
 - Concurrent identical requests and concurrent conflicting requests touching
   different products were tested, exercising both transaction conflicts and the
   unique-key constraint.
-- Type generation and import-map generation completed; the import map is unchanged.
+- Type generation and import-map generation include the recovery fields and component.
 - TypeScript (`tsc --noEmit --incremental false`) and targeted ESLint passed.
 - Production Next.js build passed. Existing repository lint warnings remain.
 - Docker build is validated locally; no image is pushed and no deployment is run.

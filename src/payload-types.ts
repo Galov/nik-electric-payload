@@ -32,6 +32,7 @@ export interface Config {
     'contact-inquiries': ContactInquiry;
     media: Media;
     'ibis-order-keys': IbisOrderKey;
+    'order-delivery-actions': OrderDeliveryAction;
     addresses: Address;
     products: Product;
     carts: Cart;
@@ -58,6 +59,7 @@ export interface Config {
     'contact-inquiries': ContactInquiriesSelect<false> | ContactInquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'ibis-order-keys': IbisOrderKeysSelect<false> | IbisOrderKeysSelect<true>;
+    'order-delivery-actions': OrderDeliveryActionsSelect<false> | OrderDeliveryActionsSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     carts: CartsSelect<false> | CartsSelect<true>;
@@ -193,6 +195,20 @@ export interface User {
  */
 export interface Order {
   id: string;
+  miOrderExportAttemptId?: string | null;
+  miOrderExportFailurePhase?: ('before-send' | 'after-send') | null;
+  miOrderExportNotificationStatus?: ('pending' | 'sent' | 'failed') | null;
+  miOrderExportNotificationError?: string | null;
+  ibisStockSyncAttemptId?: string | null;
+  ibisStockSyncResults?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   externalOrderId?: string | null;
   ibisStockSyncStatus?: ('pending' | 'sending' | 'sent' | 'failed') | null;
   ibisStockSyncError?: string | null;
@@ -582,6 +598,21 @@ export interface IbisOrderKey {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order-delivery-actions".
+ */
+export interface OrderDeliveryAction {
+  id: string;
+  order: string | Order;
+  actor: string | User;
+  action: 'send-mi' | 'confirm-mi-accepted' | 'authorize-mi-retry' | 'retry-bg';
+  attemptId?: string | null;
+  reason: string;
+  previousStatus?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -631,6 +662,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'ibis-order-keys';
         value: string | IbisOrderKey;
+      } | null)
+    | ({
+        relationTo: 'order-delivery-actions';
+        value: string | OrderDeliveryAction;
       } | null)
     | ({
         relationTo: 'addresses';
@@ -894,6 +929,20 @@ export interface IbisOrderKeysSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order-delivery-actions_select".
+ */
+export interface OrderDeliveryActionsSelect<T extends boolean = true> {
+  order?: T;
+  actor?: T;
+  action?: T;
+  attemptId?: T;
+  reason?: T;
+  previousStatus?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "addresses_select".
  */
 export interface AddressesSelect<T extends boolean = true> {
@@ -993,6 +1042,12 @@ export interface CartsSelect<T extends boolean = true> {
  * via the `definition` "orders_select".
  */
 export interface OrdersSelect<T extends boolean = true> {
+  miOrderExportAttemptId?: T;
+  miOrderExportFailurePhase?: T;
+  miOrderExportNotificationStatus?: T;
+  miOrderExportNotificationError?: T;
+  ibisStockSyncAttemptId?: T;
+  ibisStockSyncResults?: T;
   externalOrderId?: T;
   ibisStockSyncStatus?: T;
   ibisStockSyncError?: T;
