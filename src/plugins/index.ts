@@ -5,7 +5,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
-import { exportOrderToMicroinvestHook } from '@/collections/Orders/hooks/exportOrderToMicroinvest'
+import { integrationOrderFields } from '@/ecommerce/orderFields'
 import { sendOrderCreatedEmailsHook } from '@/collections/Orders/hooks/sendOrderCreatedEmails'
 import { sendOrderCompletedEmailHook } from '@/collections/Orders/hooks/sendOrderCompletedEmail'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
@@ -299,10 +299,10 @@ export const plugins: Plugin[] = [
             ...(defaultCollection.hooks?.afterChange || []),
             sendOrderCreatedEmailsHook,
             sendOrderCompletedEmailHook,
-            exportOrderToMicroinvestHook,
           ],
         },
         fields: [
+          ...integrationOrderFields,
           ...applyReadOnlyOrderItemsField(
             addOrderItemSnapshotFields(
               addHeldOrderStatusOption(normalizeMoneyAdminFields(defaultCollection.fields)),
@@ -336,6 +336,8 @@ export const plugins: Plugin[] = [
             },
             defaultValue: 'pending',
             options: [
+              { label: 'Sending', value: 'sending' },
+              { label: 'Unknown — reconcile before retry', value: 'unknown' },
               {
                 label: 'Pending',
                 value: 'pending',

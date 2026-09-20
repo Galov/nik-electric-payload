@@ -1,6 +1,4 @@
-import type { CollectionAfterChangeHook } from 'payload'
-
-import { sendMicroinvestExportFailedEmail } from '@/utilities/email/notifications'
+import type { CollectionAfterChangeHook, PayloadRequest } from 'payload'
 
 type OrderItem = {
   productMIId?: number | null
@@ -156,7 +154,11 @@ const buildPayload = async ({
       throw new Error(`Item ${index + 1} is missing Microinvest product ID.`)
     }
 
-    if (typeof item.quantity !== 'number' || !Number.isFinite(item.quantity) || item.quantity <= 0) {
+    if (
+      typeof item.quantity !== 'number' ||
+      !Number.isFinite(item.quantity) ||
+      item.quantity <= 0
+    ) {
       throw new Error(`Item ${index + 1} has invalid quantity.`)
     }
 
@@ -190,116 +192,53 @@ const buildPayload = async ({
   }
 }
 
-const sendOrderWebhook = async ({ payload }: { payload: MicroinvestOrderPayload }) => {
-  const config = getWebhookConfig()
-
-  if (!config) {
-    throw new Error('Microinvest webhook config is missing.')
-  }
-
-  const response = await fetch(config.url, {
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Nik-Secret': config.secret,
-    },
-    method: 'POST',
+// A durable atomic claim permits one sender only. Neither replay nor ordinary order
+// updates retry exports. A lost acknowledgement must be reconciled with Microinvest.
+export const exportOrderToMicroinvest = async (orderID: string, req: PayloadRequest) => {
+  const claimed = await req.payload.db.updateOne({
+    collection: 'orders',
+    where: { and: [{ id: { equals: orderID } }, { miOrderExportStatus: { equals: 'pending' } }] },
+    data: { miOrderExportStatus: 'sending', miOrderExportLastAttemptAt: new Date().toISOString() },
   })
-
-  if (response.ok) {
-    return
-  }
-
-  const responseText = await response.text().catch(() => '')
-  throw new Error(
-    `Microinvest webhook failed with status ${response.status}${responseText ? `: ${responseText}` : '.'}`,
-  )
-}
-
-export const exportOrderToMicroinvestHook: CollectionAfterChangeHook = async ({
-  doc,
-  operation,
-  req,
-}) => {
-  if (req.context?.skipMicroinvestOrderExport) {
-    return doc
-  }
-
-  if (operation !== 'create' && operation !== 'update') {
-    return doc
-  }
-
-  if (operation === 'update' && (doc as OrderLike).miOrderExportStatus === 'sent') {
-    return doc
-  }
-
-  const exportReference = `order.create:${String(doc.id)}`
-
+  if (!claimed) return
+  let status: 'failed' | 'sent' | 'unknown' = 'failed'
+  let safeError = 'MICROINVEST_CONFIGURATION_OR_ORDER_INVALID'
+  let started = false
   try {
-    const { partnerCode, payload } = await buildPayload({
-      order: doc as OrderLike,
-      req,
+    const config = getWebhookConfig()
+    if (!config) throw new Error('Missing configuration')
+    const { payload } = await buildPayload({ order: claimed as OrderLike, req })
+    started = true
+    const response = await fetch(config.url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'X-Nik-Secret': config.secret },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(15000),
     })
-
-    await sendOrderWebhook({ payload })
-
-    await req.payload.update({
-      id: doc.id,
-      collection: 'orders',
-      context: {
-        ...req.context,
-        skipMicroinvestOrderExport: true,
-      },
-      data: {
-        miOrderExportFileName: exportReference,
-        miOrderExportLastAttemptAt: new Date().toISOString(),
-        miOrderExportLastError: '',
-        miOrderExportStatus: 'sent',
-        partnerCode,
-      },
-      overrideAccess: true,
-      req,
-    })
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown export error.'
-
-    req.payload.logger.error({
-      err: error,
-      msg: `Microinvest order export failed for order ${String(doc.id)}`,
-    })
-
-    await req.payload.update({
-      id: doc.id,
-      collection: 'orders',
-      context: {
-        ...req.context,
-        skipMicroinvestOrderExport: true,
-      },
-      data: {
-        miOrderExportFileName: exportReference,
-        miOrderExportLastAttemptAt: new Date().toISOString(),
-        miOrderExportLastError: message,
-        miOrderExportStatus: 'failed',
-      },
-      overrideAccess: true,
-      req,
-    })
-
-    try {
-      await sendMicroinvestExportFailedEmail({
-        order: {
-          ...(doc as OrderLike),
-          miOrderExportLastError: message,
-        },
-        payload: req.payload,
-      })
-    } catch (emailError) {
-      req.payload.logger.error({
-        err: emailError,
-        msg: `Failed to send Microinvest export failed email for order ${String(doc.id)}`,
-      })
+    // The existing receiver contract proves HTTP acknowledgement only.
+    status = response.ok ? 'sent' : 'unknown'
+    safeError = response.ok ? '' : 'MICROINVEST_RESULT_UNCONFIRMED'
+  } catch {
+    if (started) {
+      status = 'unknown'
+      safeError = 'MICROINVEST_RESULT_UNCONFIRMED'
     }
   }
-
-  return doc
+  // If this write fails, durable 'sending' still signals an unresolved attempt.
+  await req.payload.update({
+    collection: 'orders',
+    id: orderID,
+    overrideAccess: true,
+    req,
+    context: {
+      ...req.context,
+      skipMicroinvestOrderExport: true,
+      skipOrderEmailNotifications: true,
+    },
+    data: {
+      miOrderExportStatus: status,
+      miOrderExportLastError: safeError,
+      miOrderExportFileName: `order.create:${orderID}`,
+    },
+  })
 }

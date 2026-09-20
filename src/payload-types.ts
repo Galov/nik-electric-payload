@@ -31,6 +31,7 @@ export interface Config {
     partners: Partner;
     'contact-inquiries': ContactInquiry;
     media: Media;
+    'ibis-order-keys': IbisOrderKey;
     addresses: Address;
     products: Product;
     carts: Cart;
@@ -56,6 +57,7 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     'contact-inquiries': ContactInquiriesSelect<false> | ContactInquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'ibis-order-keys': IbisOrderKeysSelect<false> | IbisOrderKeysSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     carts: CartsSelect<false> | CartsSelect<true>;
@@ -191,6 +193,10 @@ export interface User {
  */
 export interface Order {
   id: string;
+  externalOrderId?: string | null;
+  ibisStockSyncStatus?: ('pending' | 'sending' | 'sent' | 'failed') | null;
+  ibisStockSyncError?: string | null;
+  ibisStockSyncAttemptAt?: string | null;
   items?:
     | {
         product?: (string | null) | Product;
@@ -225,7 +231,7 @@ export interface Order {
    * Свободен текст, въведен от клиента при изпращане на поръчката.
    */
   note?: string | null;
-  miOrderExportStatus?: ('pending' | 'sent' | 'failed') | null;
+  miOrderExportStatus?: ('sending' | 'unknown' | 'pending' | 'sent' | 'failed') | null;
   miOrderExportFileName?: string | null;
   miOrderExportLastAttemptAt?: string | null;
   miOrderExportLastError?: string | null;
@@ -564,6 +570,18 @@ export interface ContactInquiry {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ibis-order-keys".
+ */
+export interface IbisOrderKey {
+  id: string;
+  externalOrderId: string;
+  fingerprint: string;
+  order: string | Order;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -609,6 +627,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'ibis-order-keys';
+        value: string | IbisOrderKey;
       } | null)
     | ({
         relationTo: 'addresses';
@@ -861,6 +883,17 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ibis-order-keys_select".
+ */
+export interface IbisOrderKeysSelect<T extends boolean = true> {
+  externalOrderId?: T;
+  fingerprint?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "addresses_select".
  */
 export interface AddressesSelect<T extends boolean = true> {
@@ -960,6 +993,10 @@ export interface CartsSelect<T extends boolean = true> {
  * via the `definition` "orders_select".
  */
 export interface OrdersSelect<T extends boolean = true> {
+  externalOrderId?: T;
+  ibisStockSyncStatus?: T;
+  ibisStockSyncError?: T;
+  ibisStockSyncAttemptAt?: T;
   items?:
     | T
     | {

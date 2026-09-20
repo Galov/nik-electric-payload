@@ -1,0 +1,238 @@
+# Ibis → NIK orders (implementation for review; not activated)
+
+## Transport and authentication
+
+`POST /api/integrations/ibis/orders` over HTTPS, JSON body and
+`Authorization: Bearer <server-only key>`. Never embed the key in browser code.
+
+The handler is disabled unless `IBIS_ORDERS_ENABLED=true`. It uses
+`IBIS_ORDERS_BG_KEY` and `IBIS_ORDERS_RO_KEY` independently; configured keys must
+be different. These are proposed deployment variables, not configured secrets.
+No production configuration is changed by this branch. The existing deployment
+workflow runs on main, not this feature branch. Do not merge/activate before approval.
+
+A BG key accepts only `BG:` identifiers; an RO key accepts only `RO:` identifiers.
+Both resolve exactly one NIK user with `partnerCode = "412"` on each new acceptance.
+Missing or ambiguous matches fail closed. The user profile is not modified.
+
+Read-only verification on 2026-09-20 found one matching user,
+Ибис-Електроникс ЕООД, whose existing `priceTier` is `general`.
+Ibis incoming orders explicitly use `priceGroup1`; normal checkout retains its
+existing customer pricing rules.
+
+## Request
+
+```json
+{
+  "externalOrderId": "BG:123456",
+  "items": [
+    { "sku": "167MI07", "quantity": 1 }
+  ]
+}
+```
+
+RO uses the same URL and body structure with, for example, `RO:123456` and its own key.
+Original source order IDs must remain stable on retries; preserve the prefix even
+if the key is rotated. BG and RO send directly to NIK.
+
+Only the displayed fields are accepted. Unknown fields at either level are rejected,
+including prices, partner IDs, Microinvest IDs, addresses and customer personal data.
+
+- `externalOrderId`: case-sensitive string matching
+  `^(BG|RO):[A-Za-z0-9][A-Za-z0-9._:-]{0,124}$` (maximum 128 characters).
+- `items`: 1–500 rows.
+- `sku`: exact, case-sensitive string, 1–128 UTF-16 code units, no surrounding
+  whitespace or ASCII control characters. No implicit case normalization.
+- `quantity`: JSON number, safe positive integer, maximum 1,000,000 per row.
+- Repeated SKU rows are rejected, not summed.
+- All SKU matches must be unambiguous. Required product data: finite `stockQty`,
+  positive safe-integer `miProductId`, finite positive `priceGroup1`.
+- No wholesale/retail fallback for Ibis. Unit prices are snapshotted from group1.
+  Currency is EUR, matching existing NIK checkout. Existing currency rounding is
+  retained: line totals are rounded to two decimals, order amount is stored in cents,
+  and Microinvest unit prices are exported to two decimals. No new VAT conversion is introduced.
+- Insufficient stock on any valid row rejects the entire request. No partial order,
+  transaction, stock change, key reservation or external call is committed.
+- Publication and `backordersAllowed` do not override this stock check.
+
+## Accepted response
+
+New acceptance returns **201** only after the MongoDB transaction commits:
+
+```json
+{
+  "orderId": "<NIK order ID>",
+  "externalOrderId": "BG:123456",
+  "replayed": false,
+  "acceptanceStatus": "accepted",
+  "microinvestExport": { "status": "sent" },
+  "ibisStockSync": { "status": "sent" }
+}
+```
+
+`accepted` means persisted in NIK with all stock reductions committed. It does not
+mean customer payment, supplier fulfilment, or completed Microinvest stock movement.
+Settlement remains offline. No customer cancellation or refund is triggered by this API.
+
+Microinvest status: `pending | sending | sent | failed | unknown`.
+BG stock sync status: `pending | sending | sent | failed`.
+Either can be `unavailable` in the response if reading delivery status fails after
+acceptance. This is a response-only fallback, not a stored state.
+
+`sent` means HTTP 2xx acknowledgement under the existing integration contract.
+The receiver's response does not prove that a stock movement has completed.
+
+## Retries and conflicts
+
+An identical accepted request returns **200**, the same `orderId`, `replayed: true`
+and the current delivery statuses. It never reduces stock, reprices, sends email,
+or re-exports to Microinvest. Item ordering is ignored when comparing requests.
+
+```json
+{
+  "orderId": "<same NIK order ID>",
+  "externalOrderId": "BG:123456",
+  "replayed": true,
+  "acceptanceStatus": "accepted",
+  "microinvestExport": { "status": "unknown" },
+  "ibisStockSync": { "status": "sent" }
+}
+```
+
+A changed SKU set or quantity for an accepted ID returns **409**:
+
+```json
+{ "error": { "code": "IDEMPOTENCY_CONFLICT", "details": [] } }
+```
+
+Rejected pre-commit requests do not permanently occupy an ID. After manual review,
+the sender may correct the rows and reuse that ID. For network failures/503, repeat
+the same ID and body: acceptance may have committed before the response was lost.
+Do not generate a new ID merely to retry. Bounded transaction contention can return
+503; the sender should retry with backoff.
+
+## Errors
+
+All application error bodies have `{ "error": { "code": "...", "details": [] } }`.
+Details contain only input indexes/SKUs and, for shortages, quantities. They never
+contain upstream responses, credentials, customer data or database exceptions.
+
+| HTTP | Codes |
+| --- | --- |
+| 400 | `INVALID_JSON`, `INVALID_REQUEST`, `INVALID_EXTERNAL_ORDER_ID`, `INVALID_ITEMS`, `INVALID_ITEM` |
+| 401 | `UNAUTHORIZED` |
+| 422 | `INVALID_SKU`, `DUPLICATE_ITEM_SKU`, `INVALID_QUANTITY`, `SKU_NOT_FOUND`, `SKU_AMBIGUOUS`, `INVALID_GROUP1_PRICE`, `PRODUCT_DATA_INCOMPLETE`, `INVALID_ORDER_TOTAL` |
+| 409 | `INSUFFICIENT_STOCK`, `IDEMPOTENCY_CONFLICT` |
+| 503 | `INTEGRATION_DISABLED`, `INTEGRATION_NOT_READY`, `PARTNER_NOT_FOUND`, `PARTNER_AMBIGUOUS`, `PARTNER_DATA_INCOMPLETE`, `IDEMPOTENCY_INDEX_UNAVAILABLE`, `TRANSACTIONS_UNAVAILABLE`, `TRANSACTION_ALREADY_ACTIVE`, `TEMPORARILY_UNAVAILABLE` |
+
+Examples:
+
+```json
+{
+  "error": {
+    "code": "INSUFFICIENT_STOCK",
+    "details": [{ "sku": "167MI07", "requested": 2, "available": 1 }]
+  }
+}
+```
+
+```json
+{
+  "error": {
+    "code": "INVALID_GROUP1_PRICE",
+    "details": [{ "sku": "167MI07" }]
+  }
+}
+```
+
+A shortage keeps the customer order in BG/RO for manual agreement about partial
+fulfilment or cancellation. This NIK response never authorizes an automatic refund.
+
+## Persistence and delivery
+
+`completeOrder` is shared by manual checkout and Ibis acceptance. It starts a real
+MongoDB transaction and checks that the adapter has an active session. No
+non-transactional fallback is allowed. All order/transaction/product/cart/key writes
+use that session. `inventory` equals `stockQty`; `stockStatus` is not changed by sales.
+Commit 3f87fae's manual endpoint override remains in place, so the ecommerce plugin
+cannot perform a second inventory decrement.
+
+`ibis-order-keys` has a required unique `externalOrderId`, fingerprint and order
+relationship. The endpoint verifies the actual MongoDB unique index before use.
+The key is committed in the same transaction as the order and stock writes. Old
+orders without an external ID are unaffected. REST mutation of keys is denied;
+Local API writes are restricted to authenticated server logic.
+
+Inside the transaction, product HTTP hooks, order emails and category count
+recalculation are suppressed. After commit, the existing `product.price_stock_updated`
+payload is sent to BG with absolute committed quantities, then the existing
+Microinvest order payload is sent. Each has an independent durable pending/sending/
+result state and a 15-second HTTP timeout. Category counts and order emails run
+only after commit. There is no worker, cron or new service.
+
+The existing BG protocol still requires positive retail price and SKU. If retail
+price is missing/zero while group1 is valid, the order is accepted and BG delivery
+is marked `failed`; no new stock-only protocol is introduced. BG→RO remains BG's
+responsibility. The known risk of concurrent sales and stale absolute Microinvest
+updates is unchanged; no reservations or distributed stock locks are introduced.
+
+Microinvest sending uses an atomic DB claim from `pending` to `sending`. Only the
+claim winner sends. A network exception, timeout or non-2xx is conservatively
+`unknown`. A pre-send configuration/payload failure is `failed`. A crash during
+sending or a failure to persist the result leaves `sending` for reconciliation.
+The old automatic export-on-order-update hook is removed: changing a note/status
+must not resend an uncertain external order. This also means admin-created orders
+outside the shared acceptance flow are not automatically exported.
+
+## Recovery, without automated retries
+
+The order's admin fields show delivery status, safe error code and attempt time.
+Filter orders by `miOrderExportStatus` or `ibisStockSyncStatus` to discover pending,
+failed or interrupted work. No arbitrary edit or incoming order replay performs
+recovery automatically.
+
+- `pending`: commit succeeded but sending may not have started. The atomic sender
+  can process a pending record once through a separately reviewed operator action.
+- Microinvest `unknown`/interrupted `sending`: reconcile with Microinvest by NIK
+  order ID first. Do not reset to pending or blindly resend. A future automatic
+  retry requires receiver-side deduplication or a reliable external lookup contract.
+- BG `failed`/interrupted `sending`: inspect configuration and product retail/SKU
+  data. A separately reviewed retry must read current stock from the order's product
+  references, never replay stale absolute quantities from an old attempt.
+- Delivery errors never roll back stock or hide acceptance. A crash after commit
+  leaves durable work discoverable but requires manual intervention in this version.
+
+No recovery UI action/endpoint that could accidentally resend orders is added here.
+No existing production guard or secret is changed.
+
+## Isolated verification
+
+The replica-set tests explicitly require `IBIS_TEST_DATABASE=local` and hard-code
+`mongodb://127.0.0.1:27028/nik_ibis_orders_test?replicaSet=rs0`. They clear only this
+fixture database; HTTP is mocked and email delivery is disabled. They exercise the
+real Payload collection hooks, MongoDB commits, rollback and unique-index races.
+
+```sh
+docker run -d --name nik-ibis-orders-test-db -p 127.0.0.1:27028:27028 mongo:7 --replSet rs0 --port 27028 --bind_ip_all
+docker exec nik-ibis-orders-test-db mongosh --port 27028 --quiet --eval 'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27028"}]})'
+IBIS_TEST_DATABASE=local npm run test:int -- tests/int/ibis-orders.int.spec.ts tests/int/manual-checkout.int.spec.ts
+```
+
+Use a checkout without production `.env` files. Do not run the general API/e2e
+suite against production credentials. Production activation and real external
+order tests remain outside this PR's authorization.
+
+## Verification results (2026-09-20)
+
+- 29 targeted tests passed: 21 with a real isolated MongoDB replica set and 8
+  checkout regression tests with mocked persistence.
+- Concurrent identical requests and concurrent conflicting requests touching
+  different products were tested, exercising both transaction conflicts and the
+  unique-key constraint.
+- Type generation and import-map generation completed; the import map is unchanged.
+- TypeScript (`tsc --noEmit --incremental false`) and targeted ESLint passed.
+- Production Next.js build passed. Existing repository lint warnings remain.
+- Docker build is validated locally; no image is pushed and no deployment is run.
+
+Senders should allow at least 60 seconds for the synchronous first attempt. If the
+connection fails, retry the same ID and body; do not infer rejection from a timeout.

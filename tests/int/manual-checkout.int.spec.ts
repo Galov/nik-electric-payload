@@ -5,6 +5,18 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vite
 import { manualCheckoutPlugin } from '@/ecommerce/manualCheckout'
 import { plugins } from '@/plugins'
 
+// Persistence/transaction semantics are covered by ibis-orders.int.spec.ts against a replica set.
+vi.mock('@/ecommerce/completeOrder', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/ecommerce/completeOrder')>()
+  return {
+    ...actual,
+    completeOrder: async (
+      req: PayloadRequest,
+      prepare: (req: PayloadRequest) => Promise<unknown>,
+    ) => prepare(req),
+  }
+})
+
 describe('manual checkout inventory ownership (mocked persistence)', () => {
   let config: Config
   let handler: PayloadHandler
@@ -79,9 +91,9 @@ describe('manual checkout inventory ownership (mocked persistence)', () => {
               data = await hook({
                 data,
                 originalDoc: { ...product },
-              collection: collection as SanitizedCollectionConfig,
-              context: args.req.context,
-              operation: 'update',
+                collection: collection as SanitizedCollectionConfig,
+                context: args.req.context,
+                operation: 'update',
                 req: args.req,
               })
             }

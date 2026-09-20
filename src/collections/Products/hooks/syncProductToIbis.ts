@@ -485,6 +485,7 @@ const sendWebhook = async ({ event, items }: { event: SyncEvent; items: SyncItem
   }
 
   const response = await fetch(config.url, {
+    signal: AbortSignal.timeout(15000),
     body: JSON.stringify({
       event,
       items,
@@ -660,4 +661,28 @@ export const syncDeletedProductToIbisHook: CollectionAfterDeleteHook = async ({ 
   }
 
   return doc
+}
+
+// Called after the order transaction commits. Uses the existing price/stock contract.
+export const syncCommittedOrderStockToIbis = async (payload: Payload, productIDs: string[]) => {
+  if (!getWebhookConfig()) throw new Error('IBIS_CONFIGURATION_MISSING')
+  const items: SyncItem[] = []
+  for (const id of productIDs) {
+    const doc = await payload.findByID({
+      collection: 'products',
+      id,
+      depth: 0,
+      overrideAccess: true,
+    })
+    const item = await buildPriceStockItem({
+      doc: doc as unknown as Record<string, unknown>,
+      payload,
+      includeImages: false,
+      includePublished: false,
+    })
+    if (!item || typeof item.data?.stockQty !== 'number')
+      throw new Error('IBIS_PRODUCT_DATA_INCOMPLETE')
+    items.push(item)
+  }
+  await sendWebhook({ event: 'product.price_stock_updated', items })
 }
