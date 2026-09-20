@@ -24,6 +24,9 @@ import { ContactInquiries } from '@/collections/ContactInquiries'
 import { Media } from '@/collections/Media'
 import { Partners } from '@/collections/Partners'
 import { Users } from '@/collections/Users'
+import { OrderDeliveryActions } from '@/collections/OrderDeliveryActions'
+import { IbisOrderKeys } from '@/collections/IbisOrderKeys'
+import { ibisOrders } from '@/endpoints/ibis-orders'
 import { legacyLogin } from '@/endpoints/legacy-login'
 import { microinvestWebhook } from '@/endpoints/microinvest-webhook'
 import { ContactPage } from '@/globals/ContactPage'
@@ -79,7 +82,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Brands, Categories, Partners, ContactInquiries, Media],
+  collections: [Users, Brands, Categories, Partners, ContactInquiries, Media, IbisOrderKeys, OrderDeliveryActions],
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
@@ -137,6 +140,7 @@ export default buildConfig({
   },
   ...(emailAdapter ? { email: emailAdapter } : {}),
   endpoints: [
+    { path: '/integrations/ibis/orders', method: 'post', handler: ibisOrders },
     {
       handler: legacyLogin,
       method: 'post',

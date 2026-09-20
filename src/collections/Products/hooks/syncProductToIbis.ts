@@ -477,7 +477,15 @@ const buildIdentifierItem = ({ doc }: { doc: Record<string, unknown> }) => {
   } satisfies SyncItem
 }
 
-const sendWebhook = async ({ event, items }: { event: SyncEvent; items: SyncItem[] }) => {
+const sendWebhook = async ({
+  event,
+  items,
+  readResults = false,
+}: {
+  event: SyncEvent
+  items: SyncItem[]
+  readResults?: boolean
+}) => {
   const config = getWebhookConfig()
 
   if (!config || !items.length) {
@@ -485,6 +493,7 @@ const sendWebhook = async ({ event, items }: { event: SyncEvent; items: SyncItem
   }
 
   const response = await fetch(config.url, {
+    signal: AbortSignal.timeout(15000),
     body: JSON.stringify({
       event,
       items,
@@ -497,7 +506,7 @@ const sendWebhook = async ({ event, items }: { event: SyncEvent; items: SyncItem
   })
 
   if (response.ok) {
-    return
+    return readResults ? response.json() : undefined
   }
 
   const responseText = await response.text().catch(() => '')
@@ -660,4 +669,85 @@ export const syncDeletedProductToIbisHook: CollectionAfterDeleteHook = async ({ 
   }
 
   return doc
+}
+
+// Called after the order transaction commits. Uses the existing price/stock contract.
+export type StockSyncResult = {
+  productId: string
+  sku: string | null
+  status: 'sent' | 'failed'
+  code: string
+  stockQty?: number
+}
+export const syncCommittedOrderStockToIbis = async (
+  payload: Payload,
+  productIDs: string[],
+): Promise<StockSyncResult[]> => {
+  const results: StockSyncResult[] = []
+  const outgoing: { item: SyncItem; result: StockSyncResult }[] = []
+  for (const id of [...new Set(productIDs)]) {
+    const result: StockSyncResult = {
+      productId: id,
+      sku: null,
+      status: 'failed',
+      code: 'IBIS_PRODUCT_DATA_INCOMPLETE',
+    }
+    results.push(result)
+    try {
+      const doc = await payload.findByID({
+        collection: 'products',
+        id,
+        depth: 0,
+        overrideAccess: true,
+      })
+      result.sku = doc.sku || null
+      const item = await buildPriceStockItem({
+        doc: doc as unknown as Record<string, unknown>,
+        payload,
+        includeImages: false,
+        includePublished: false,
+      })
+      if (!item || typeof item.data?.stockQty !== 'number') continue
+      result.stockQty = item.data.stockQty
+      outgoing.push({ item, result })
+    } catch {
+      result.code = 'IBIS_PRODUCT_READ_FAILED'
+    }
+  }
+  if (!outgoing.length) return results
+  try {
+    if (!getWebhookConfig()) throw new Error('Configuration missing')
+    const body = await sendWebhook({
+      event: 'product.price_stock_updated',
+      items: outgoing.map(({ item }) => item),
+      readResults: true,
+    })
+    if (!body || body.event !== 'product.price_stock_updated' || !Array.isArray(body.items))
+      throw new Error('Invalid response')
+    for (const { item, result } of outgoing) {
+      const matches = body.items.filter(
+        (entry: Record<string, unknown> | null) =>
+          entry &&
+          entry.sku === item.sku &&
+          (item.sourceId == null || entry.sourceId === item.sourceId),
+      )
+      if (matches.length !== 1) {
+        result.code = 'IBIS_RESULT_MISSING_OR_DUPLICATE'
+        continue
+      }
+      if (matches[0].status === 'updated') {
+        result.status = 'sent'
+        result.code = ''
+      } else
+        result.code =
+          matches[0].status === 'not_found'
+            ? 'IBIS_NOT_FOUND'
+            : matches[0].status === 'invalid'
+              ? 'IBIS_INVALID'
+              : 'IBIS_RESULT_UNCONFIRMED'
+    }
+  } catch {
+    for (const { result } of outgoing) result.code = 'IBIS_RESPONSE_UNCONFIRMED'
+  }
+  return results
 }

@@ -5,7 +5,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
-import { exportOrderToMicroinvestHook } from '@/collections/Orders/hooks/exportOrderToMicroinvest'
+import { integrationOrderFields } from '@/ecommerce/orderFields'
 import { sendOrderCreatedEmailsHook } from '@/collections/Orders/hooks/sendOrderCreatedEmails'
 import { sendOrderCompletedEmailHook } from '@/collections/Orders/hooks/sendOrderCompletedEmail'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
@@ -13,6 +13,12 @@ import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
 import { ProductsCollection } from '@/collections/Products'
 import { manualAdapter } from '@/ecommerce/manualAdapter'
+import {
+  adminOrderCreationPlugin,
+  initializeOrderDelivery,
+  captureCreatedOrder,
+} from '@/ecommerce/adminOrderCreation'
+import { orderDeliveryAction } from '@/endpoints/order-delivery-action'
 import { manualCheckoutPlugin } from '@/ecommerce/manualCheckout'
 
 const normalizeMoneyAdminFields = (fields: any[]): any[] => {
@@ -246,6 +252,7 @@ export const plugins: Plugin[] = [
         ...defaultCollection,
         endpoints: [
           ...(defaultCollection.endpoints || []),
+          { path: '/:id/delivery-action', method: 'post', handler: orderDeliveryAction },
           {
             path: '/:id/status',
             method: 'patch',
@@ -295,14 +302,16 @@ export const plugins: Plugin[] = [
         },
         hooks: {
           ...defaultCollection.hooks,
+          beforeChange: [...(defaultCollection.hooks?.beforeChange || []), initializeOrderDelivery],
           afterChange: [
+            captureCreatedOrder,
             ...(defaultCollection.hooks?.afterChange || []),
             sendOrderCreatedEmailsHook,
             sendOrderCompletedEmailHook,
-            exportOrderToMicroinvestHook,
           ],
         },
         fields: [
+          ...integrationOrderFields,
           ...applyReadOnlyOrderItemsField(
             addOrderItemSnapshotFields(
               addHeldOrderStatusOption(normalizeMoneyAdminFields(defaultCollection.fields)),
@@ -328,6 +337,7 @@ export const plugins: Plugin[] = [
           },
           {
             name: 'miOrderExportStatus',
+            access: { update: () => false },
             type: 'select',
             label: 'Microinvest export',
             admin: {
@@ -336,6 +346,8 @@ export const plugins: Plugin[] = [
             },
             defaultValue: 'pending',
             options: [
+              { label: 'Sending', value: 'sending' },
+              { label: 'Unknown — reconcile before retry', value: 'unknown' },
               {
                 label: 'Pending',
                 value: 'pending',
@@ -352,6 +364,7 @@ export const plugins: Plugin[] = [
           },
           {
             name: 'miOrderExportFileName',
+            access: { update: () => false },
             type: 'text',
             label: 'Microinvest референция',
             admin: {
@@ -361,6 +374,7 @@ export const plugins: Plugin[] = [
           },
           {
             name: 'miOrderExportLastAttemptAt',
+            access: { update: () => false },
             type: 'date',
             label: 'Последен опит за export',
             admin: {
@@ -370,6 +384,7 @@ export const plugins: Plugin[] = [
           },
           {
             name: 'miOrderExportLastError',
+            access: { update: () => false },
             type: 'textarea',
             label: 'Microinvest export грешка',
             admin: {
@@ -420,6 +435,7 @@ export const plugins: Plugin[] = [
     },
   }),
   manualCheckoutPlugin,
+  adminOrderCreationPlugin,
   ...(process.env.R2_BUCKET &&
   process.env.R2_ACCESS_KEY_ID &&
   process.env.R2_SECRET_ACCESS_KEY &&
