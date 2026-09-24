@@ -46,26 +46,32 @@ export const adminOrderCreationPlugin: Plugin = (config) => {
       await previous?.(payload)
       const collection = payload.collections.orders.config
       if (!collection.endpoints) throw new Error('Order endpoints are unavailable')
-      for (const endpoint of collection.endpoints) {
-        if (endpoint.method !== 'post' || !['/', '/:id/duplicate'].includes(endpoint.path)) continue
+      // Payload shares default endpoint objects across collections. Clone the order
+      // endpoints before wrapping them so registration and other creates stay untouched.
+      collection.endpoints = collection.endpoints.map((endpoint) => {
+        if (endpoint.method !== 'post' || !['/', '/:id/duplicate'].includes(endpoint.path))
+          return endpoint
         const handler = endpoint.handler
-        endpoint.handler = async (req) => {
-          if (!req.user?.roles?.includes('admin'))
-            return Response.json({ error: 'Forbidden' }, { status: 403 })
-          await addDataAndFileToRequest(req)
-          req.context.adminOrderCreation = true
-          let response: Response | undefined
-          await completeOrder(req, async (transactionReq) => {
-            response = await handler(transactionReq)
-            const orderID = transactionReq.context.createdOrderID
-            if (!response.ok || typeof orderID !== 'string')
-              throw new Error('Order creation did not complete')
-            // Admin creation never reduces stock; preserve the existing administrative workflow.
-            return { orderID, transactionID: '', productIDs: [] }
-          })
-          return response!
+        return {
+          ...endpoint,
+          handler: async (req) => {
+            if (!req.user?.roles?.includes('admin'))
+              return Response.json({ error: 'Forbidden' }, { status: 403 })
+            await addDataAndFileToRequest(req)
+            req.context.adminOrderCreation = true
+            let response: Response | undefined
+            await completeOrder(req, async (transactionReq) => {
+              response = await handler(transactionReq)
+              const orderID = transactionReq.context.createdOrderID
+              if (!response.ok || typeof orderID !== 'string')
+                throw new Error('Order creation did not complete')
+              // Admin creation never reduces stock; preserve the existing administrative workflow.
+              return { orderID, transactionID: '', productIDs: [] }
+            })
+            return response!
+          },
         }
-      }
+      })
     },
   }
 }
