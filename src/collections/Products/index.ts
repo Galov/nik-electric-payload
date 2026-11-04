@@ -328,6 +328,12 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               relationTo: 'categories',
               hasMany: true,
               admin: {
+                components: {
+                  Field: {
+                    path: '@/components/admin/CategoryColumnsField',
+                    exportName: 'CategoryColumnsField',
+                  },
+                },
                 sortOptions: 'adminSort',
               },
             },
