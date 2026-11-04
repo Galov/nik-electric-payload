@@ -139,6 +139,17 @@ export const CategoryColumnsField = () => {
     [value],
   )
   const selectedSet = useMemo(() => new Set(selectedIDs), [selectedIDs])
+  const inheritedSet = useMemo(() => {
+    const inherited = new Set<string>()
+    for (const id of selectedIDs) {
+      getAncestors(id, byID).forEach((ancestorID) => inherited.add(ancestorID))
+    }
+    return inherited
+  }, [byID, selectedIDs])
+  const checkedSet = useMemo(
+    () => new Set([...selectedSet, ...inheritedSet]),
+    [inheritedSet, selectedSet],
+  )
   const columns = useMemo(() => {
     const result: Array<{ parentID: string | null; title: string; categories: Category[] }> = [
       { parentID: null, title: 'Главни категории', categories },
@@ -164,19 +175,18 @@ export const CategoryColumnsField = () => {
 
   const toggleCategory = useCallback(
     (categoryID: string) => {
+      if (inheritedSet.has(categoryID)) return
+
       const next = new Set(selectedSet)
       if (next.has(categoryID)) {
-        const category = byID.get(categoryID)
         next.delete(categoryID)
-        if (category) getDescendantIDs(category).forEach((id) => next.delete(id))
       } else {
         next.add(categoryID)
-        getAncestors(categoryID, byID).forEach((id) => next.add(id))
       }
 
       setValue([...next])
     },
-    [byID, selectedSet, setValue],
+    [inheritedSet, selectedSet, setValue],
   )
 
   const openCategory = useCallback((categoryID: string, columnIndex: number) => {
@@ -193,11 +203,12 @@ export const CategoryColumnsField = () => {
 
   const removeCategory = useCallback(
     (categoryID: string) => {
+      if (inheritedSet.has(categoryID)) return
       const category = byID.get(categoryID)
-      const remove = new Set([categoryID, ...(category ? getDescendantIDs(category) : [])])
-      setValue(selectedIDs.filter((id) => !remove.has(id)))
+      if (category && getDescendantIDs(category).some((id) => selectedSet.has(id))) return
+      setValue(selectedIDs.filter((id) => id !== categoryID))
     },
-    [byID, selectedIDs, setValue],
+    [byID, inheritedSet, selectedIDs, selectedSet, setValue],
   )
 
   const selectedCategories = selectedIDs.map((id) => byID.get(id)).filter((category) => category)
@@ -229,7 +240,8 @@ export const CategoryColumnsField = () => {
               {!disabled && (
                 <button
                   type="button"
-                  aria-label={`Премахни категория ${category!.title} и нейните подкатегории`}
+                  aria-label={`Премахни категория ${category!.title}`}
+                  disabled={getDescendantIDs(category!).some((id) => selectedSet.has(id))}
                   onClick={() => removeCategory(category!.id)}
                 >
                   <X aria-hidden="true" size={13} />
@@ -255,7 +267,7 @@ export const CategoryColumnsField = () => {
                 className="category-columns-field__search-result"
                 key={category.id}
                 onClick={() => {
-                  toggleCategory(category.id)
+                  if (!inheritedSet.has(category.id)) toggleCategory(category.id)
                   revealCategory(category.id)
                 }}
               >
@@ -266,7 +278,11 @@ export const CategoryColumnsField = () => {
                     .filter(Boolean)
                     .join(' / ')}
                 </small>
-                {selectedSet.has(category.id) ? <Check size={16} /> : <span>Добави</span>}
+                {checkedSet.has(category.id) ? (
+                  inheritedSet.has(category.id) ? <span>Родител</span> : <Check size={16} />
+                ) : (
+                  <span>Добави</span>
+                )}
               </button>
             ))
           ) : (
@@ -282,18 +298,30 @@ export const CategoryColumnsField = () => {
                 {column.categories.map((category) => {
                   const hasChildren = category.children.length > 0
                   const isOpen = openPath[columnIndex] === category.id
-                  const isSelected = selectedSet.has(category.id)
+                  const isSelected = checkedSet.has(category.id)
+                  const isInherited = inheritedSet.has(category.id)
+                  const hasSelectedDescendant = getDescendantIDs(category).some((id) =>
+                    selectedSet.has(id),
+                  )
 
                   return (
                     <li className={isOpen ? 'is-open' : ''} key={category.id}>
-                      <label className="category-columns-field__row">
+                      <label
+                        className={`category-columns-field__row${isInherited ? ' is-inherited' : ''}`}
+                        title={
+                          isInherited
+                            ? 'Отметнато автоматично заради избрана подкатегория.'
+                            : undefined
+                        }
+                      >
                         <input
                           type="checkbox"
                           checked={isSelected}
-                          disabled={disabled}
+                          disabled={disabled || isInherited || (isSelected && hasSelectedDescendant)}
                           onChange={() => toggleCategory(category.id)}
                         />
                         <span>{category.title}</span>
+                        {isInherited && <small>родител</small>}
                       </label>
                       {hasChildren && (
                         <button
@@ -319,7 +347,7 @@ export const CategoryColumnsField = () => {
 
       <p className="category-columns-field__hint">
         Отметнете категорията, за да я добавите. Отворете стрелката, за да видите подкатегориите.
-        При избор на подкатегория родителите се добавят автоматично.
+        Избраните подкатегории отбелязват родителите автоматично; родителите не се записват отделно.
       </p>
     </div>
   )

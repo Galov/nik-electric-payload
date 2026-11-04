@@ -12,7 +12,7 @@
 }
 
 .category-columns-field__label {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -53,7 +53,7 @@
   padding: 0.2rem 0.35rem 0.2rem 0.6rem;
   border-radius: 999px;
   background: var(--theme-elevation-100);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
 }
 
 .category-columns-field__chip button,
@@ -105,7 +105,7 @@
   padding: 0.55rem 0.7rem;
   border-bottom: 1px solid var(--theme-elevation-200);
   background: var(--theme-elevation-50);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
 }
 
@@ -135,7 +135,18 @@
   min-width: 0;
   padding: 0.35rem 0.45rem;
   cursor: pointer;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
+}
+
+.category-columns-field__row.is-inherited {
+  color: var(--theme-elevation-700);
+}
+
+.category-columns-field__row small {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--theme-elevation-700);
+  font-size: 0.6875rem;
 }
 
 .category-columns-field__row span {
@@ -159,7 +170,7 @@
 .category-columns-field__hint {
   margin: 0.5rem 0;
   color: var(--theme-elevation-700);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
 }
 
 .category-columns-field__message--error {
