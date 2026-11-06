@@ -107,7 +107,9 @@ export function ProductDescription({ product }: { product: Product }) {
         {product.originalSku ? (
           <p>
             <span className="text-muted-foreground/70">Оригинален код:</span>{' '}
-            <span className="font-normal text-primary/80">{product.originalSku}</span>
+            <span className="font-normal whitespace-normal text-primary/80 wrap-anywhere">
+              {product.originalSku.replace(/,\s*/g, ', ')}
+            </span>
           </p>
         ) : null}
         {manufacturerCode ? (
