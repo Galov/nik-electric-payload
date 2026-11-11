@@ -83,7 +83,8 @@
   display: flex;
   min-height: 14rem;
   max-height: 22rem;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   border: 1px solid var(--theme-elevation-200);
   border-radius: 4px;
 }
@@ -91,6 +92,7 @@
 .category-columns-field__column {
   flex: 0 0 15rem;
   min-width: 12rem;
+  overflow-y: auto;
   border-right: 1px solid var(--theme-elevation-200);
 }
 

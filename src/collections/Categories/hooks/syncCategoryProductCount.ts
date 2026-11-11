@@ -2,6 +2,7 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   Payload,
+  PayloadRequest,
 } from 'payload'
 
 type CategoryNode = {
@@ -27,13 +28,14 @@ const normalizeRelationshipID = (value: unknown) => {
   return null
 }
 
-const loadCategories = async (payload: Payload): Promise<CategoryNode[]> => {
+const loadCategories = async (payload: Payload, req?: PayloadRequest): Promise<CategoryNode[]> => {
   const result = await payload.find({
     collection: 'categories',
     depth: 0,
     limit: 1000,
     overrideAccess: true,
     pagination: false,
+    req: req && { ...req },
     select: {
       parent: true,
       productCount: true,
@@ -47,7 +49,7 @@ const loadCategories = async (payload: Payload): Promise<CategoryNode[]> => {
   }))
 }
 
-const loadPublishedProducts = async (payload: Payload): Promise<ProductNode[]> => {
+const loadPublishedProducts = async (payload: Payload, req?: PayloadRequest): Promise<ProductNode[]> => {
   const result = await payload.find({
     collection: 'products',
     depth: 0,
@@ -55,6 +57,7 @@ const loadPublishedProducts = async (payload: Payload): Promise<ProductNode[]> =
     limit: 20000,
     overrideAccess: true,
     pagination: false,
+    req: req && { ...req },
     select: {
       categories: true,
     },
@@ -80,9 +83,9 @@ const loadPublishedProducts = async (payload: Payload): Promise<ProductNode[]> =
   }))
 }
 
-export const syncCategoryProductCount = async (payload: Payload) => {
-  const categories = await loadCategories(payload)
-  const products = await loadPublishedProducts(payload)
+export const syncCategoryProductCount = async (payload: Payload, req?: PayloadRequest) => {
+  const categories = await loadCategories(payload, req)
+  const products = await loadPublishedProducts(payload, req)
   const categoryByID = new Map(categories.map((category) => [category.id, category]))
   const productIDsByCategoryID = new Map<string, Set<string>>()
 
@@ -139,6 +142,8 @@ export const syncCategoryProductCount = async (payload: Payload) => {
       },
       depth: 0,
       overrideAccess: true,
+      // Share the transaction while keeping the skip flags local to this update.
+      req: req && { ...req },
       context: {
         skipCategoryAdminMetaSync: true,
         [SKIP_CATEGORY_PRODUCT_COUNT_SYNC]: true,
@@ -155,7 +160,7 @@ export const syncCategoryProductCountAfterCategoryChange: CollectionAfterChangeH
     return doc
   }
 
-  await syncCategoryProductCount(req.payload)
+  await syncCategoryProductCount(req.payload, req)
 
   return doc
 }
@@ -168,7 +173,7 @@ export const syncCategoryProductCountAfterCategoryDelete: CollectionAfterDeleteH
     return doc
   }
 
-  await syncCategoryProductCount(req.payload)
+  await syncCategoryProductCount(req.payload, req)
 
   return doc
 }
@@ -199,7 +204,7 @@ export const syncCategoryProductCountAfterProductChange: CollectionAfterChangeHo
   const stockChanged = doc.stockQty !== previousDoc?.stockQty
 
   if (operation === 'create' || categoriesChanged || publishedChanged || stockChanged) {
-    await syncCategoryProductCount(req.payload)
+    await syncCategoryProductCount(req.payload, req)
   }
 
   return doc
@@ -213,7 +218,7 @@ export const syncCategoryProductCountAfterProductDelete: CollectionAfterDeleteHo
     return doc
   }
 
-  await syncCategoryProductCount(req.payload)
+  await syncCategoryProductCount(req.payload, req)
 
   return doc
 }

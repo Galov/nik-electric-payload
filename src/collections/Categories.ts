@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '@/access/adminOnly'
+import { preventDeletingCategoryWithProducts } from '@/collections/Categories/hooks/preventDeletingCategoryWithProducts'
 import {
   syncCategoryAdminMetaAfterChange,
   syncCategoryAdminMetaAfterDelete,
@@ -31,6 +32,7 @@ export const Categories: CollectionConfig = {
     singular: 'Категория',
   },
   hooks: {
+    beforeDelete: [preventDeletingCategoryWithProducts],
     afterChange: [syncCategoryAdminMetaAfterChange, syncCategoryProductCountAfterCategoryChange],
     afterDelete: [syncCategoryAdminMetaAfterDelete, syncCategoryProductCountAfterCategoryDelete],
   },
